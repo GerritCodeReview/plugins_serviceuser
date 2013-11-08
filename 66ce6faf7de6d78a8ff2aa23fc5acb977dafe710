@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bef77598_cb9af585",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T14:21:46Z",
+      "side": 1,
+      "message": "May be worth noting here that the groups currently hard coded into Gerrit configuration file and cannot be dynamically changed for different service users, i. e.:\n\n* JenkinsVoter: group Jenkins CI\n* BambooVoter: group Bamboo CI\n\nIt could be extended to provide group(s) as input during creation of service user.",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_8ab90b02",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T14:21:46Z",
+      "side": 1,
+      "message": "4.11",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_eac6c77f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T14:21:46Z",
+      "side": 1,
+      "message": "May be prefix the ID with plugin name, like capabilities. So that menu entries from different plugins don\u0027t collide.",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_8ba0edb9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T14:21:46Z",
+      "side": 1,
+      "message": "pluginName not used.",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_eb9d3180",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T14:21:46Z",
+      "side": 1,
+      "message": "untabify",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_aabccff1",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T14:21:46Z",
+      "side": 1,
+      "message": "creating a service user.",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
