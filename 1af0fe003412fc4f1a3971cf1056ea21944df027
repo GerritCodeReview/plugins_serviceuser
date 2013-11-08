@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e2631f7_2a173f2e",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-11-08T15:24:25Z",
+      "side": 1,
+      "message": "why not buck?",
+      "revId": "1af0fe003412fc4f1a3971cf1056ea21944df027",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_4b3d65a5",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-11-08T15:24:25Z",
+      "side": 1,
+      "message": "Another possible terminology would be \"role user\". The \"role user\" name was already used in our discussion group.",
+      "revId": "1af0fe003412fc4f1a3971cf1056ea21944df027",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_0b435d2e",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-11-08T15:24:25Z",
+      "side": 1,
+      "message": "optional: s/to create/creation of/",
+      "revId": "1af0fe003412fc4f1a3971cf1056ea21944df027",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_6b3821b7",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-11-08T15:24:25Z",
+      "side": 1,
+      "message": "s/be able to//",
+      "revId": "1af0fe003412fc4f1a3971cf1056ea21944df027",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
