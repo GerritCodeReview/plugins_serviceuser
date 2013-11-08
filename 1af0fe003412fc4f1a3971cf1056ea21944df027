@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bef77598_8b4e2d51",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T15:27:26Z",
+      "side": 1,
+      "message": "As already stated some where else, currently we don\u0027t support building plugins with Buck outside of the Gerrit tree.\n\nSo either it is preservers for the core plugins, or you have to duplicate some file from Gerrit Buck tool chain, as i did in reviewers plugin[1]\n\n [1] https://gerrit-review.googlesource.com/#/c/51225",
+      "parentUuid": "9e2631f7_2a173f2e",
+      "revId": "1af0fe003412fc4f1a3971cf1056ea21944df027",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef77598_4b3d65a5",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 2
