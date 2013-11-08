@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bef77598_4b2605a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-08T15:07:56Z",
+      "side": 1,
+      "message": "Actually it\u0027s already written \u0027configured groups\u0027, but I changed the sentence a bit to make it more clear.\n\nThe main idea here is to enforce adding each new service user to this group and to not leave this choice to the service user creator. E.g. as administrator I want to BLOCK a certain access right on this group for all service users. If the service user creator can choose that his user should not be member of this group, then the BLOCK gets useless.\n\nI agree that in addition you might want to be able to immediately assign the new service user to groups of your choice (maybe from a predefined list). This is indeed an extension that can be done later. Maybe it should even be configurable whether this field should be shown, as we would like to keep the dialog as simple as possible for our users :-)",
+      "parentUuid": "bef77598_cb9af585",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e2631f7_8ab90b02",
         "filename": "pom.xml",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-08T14:21:46Z",
       "side": 1,
       "message": "4.11",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_ab2a0961",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-08T15:07:56Z",
+      "side": 1,
+      "message": "Actually at the moment this dependency is not needed at all. I\u0027ll remove it for now.",
+      "parentUuid": "9e2631f7_8ab90b02",
       "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_aaa32fc5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-08T15:07:56Z",
+      "side": 1,
+      "message": "Done\n\nNote that \u0027~\u0027 cannot be used since such an ID does not work in the css file.",
+      "parentUuid": "9e2631f7_eac6c77f",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef77598_8ba0edb9",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2013-11-08T14:21:46Z",
       "side": 1,
       "message": "pluginName not used.",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_8b274d99",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-08T15:07:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bef77598_8ba0edb9",
       "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "bef77598_eb3411c8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-08T15:07:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bef77598_eb9d3180",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e2631f7_aabccff1",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2013-11-08T14:21:46Z",
       "side": 1,
       "message": "creating a service user.",
+      "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_8aa0ebb9",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-08T15:07:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e2631f7_aabccff1",
       "revId": "66ce6faf7de6d78a8ff2aa23fc5acb977dafe710",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
