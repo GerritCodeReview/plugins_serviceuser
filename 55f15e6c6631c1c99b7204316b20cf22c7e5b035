@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e2631f7_4a3d53a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T20:36:56Z",
+      "side": 1,
+      "message": "SSH command `create-account` accepts --group parameters. As discussed in previous ps, we could add the possibility to specify groups in dialog filtered or not filtered (depend upon plugin configuration). Should it be mentioned here or in documentation?",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_4bf445b1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T20:36:56Z",
+      "side": 1,
+      "message": "Error checking is missing here. We don\u0027t disable the button, and allow the user click on it even if no sshKey was provided, and nothing happen. We should find a way to inform the user that sshKey field is mandatory and must be provided. May be place a info/status line on the bottom of dialog and forward the error message there?",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_6a3817b7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T20:36:56Z",
+      "side": 1,
+      "message": "The same as above: no feedback to user that something is missing.",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_0a435b2e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T20:36:56Z",
+      "side": 1,
+      "message": "There is a lot of room for improvement here. For user \u0027foo\u0027 the following request is issued:\n\nPOST /config/server/serviceuser~serviceusers/foo\n\nQuestions:\n\n* Wouldn\u0027t accounts path be more natural then config?\n* may be name the endpoint \"create\": \"serviceuser~create\"?\n* We should try to eliminate plugin name from here. It only works for you in this plugin because you are using the new feature: plugin can provie its own name. But conceptually it should also work, if you wouldn\u0027t do that and copy your jar plugin from foo.jar to bar.jar and all works as expected. To achieve that, as minimum you should pass here the plugin name and not use the constant. Even better would be to find a way to do in on the fraework side.",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_abd84941",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-08T20:36:56Z",
+      "side": 1,
+      "message": "May be add somewhere a build HOWTO? Basically\n\n mvn package\n\nin plugin, with \n\n buck build api_install\n\nin Gerrit tree, before official plugin-api was published.",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
