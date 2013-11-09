@@ -263,6 +263,24 @@
       "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_2bd619e1",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-09T10:07:57Z",
+      "side": 1,
+      "message": "May be add it some where else, may be add build.md top level documentation? I am really concerned, that an average Gerrit developer should be able to build it and not {Maven|Buck|...} build expert. Check this thread to see how easy to get stucked in this area [1].\n\n[1] https://groups.google.com/forum/#!topic/repo-discuss/v6QGDOBZsIQ",
+      "parentUuid": "bef77598_cb52f5c4",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
