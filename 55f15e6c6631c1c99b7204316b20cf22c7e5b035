@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_8a58ebe8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-09T10:03:12Z",
+      "side": 1,
+      "message": "In second thought we can already do it here, because the HostPageData request is issued every time the user is identified.\n\n  @Inject\n  public CreateServiceUserMenu(final Provider\u003cCurrentUser\u003e userProvider) {\n    this.userProvider \u003d userProvider;\n    [...]\n    if (userProvider.isIdentifiedUser() \u0026\u0026 [pseudo code: {user was granted CreateServiceUserCapability.ID}]) {\n       menuEntries \u003d new MenuItem(\"Create Service User\", \"\", \"\", MENU_ID));\n    } else {\n      menuEntries \u003d [Only plugin documentation]\n   }\n   [...]\n  }",
+      "parentUuid": "bef77598_eb5531af",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef77598_4bf445b1",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
         "patchSetId": 4
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Ah, you caught me. I know that I was lazy here to handle this properly :D\n\nHaving a info/status line with the error message would be nice, but for now I\u0027m not doing this since I think it\u0027s important to have a consistent error handling for all kind of errors. If the REST call fails on the server side (e.g. username contains invalid characters), then the returned error is displayed in the standard Gerrit ErrorDialog. At the moment the plugin can\u0027t receive any onFailure event to handle errors on its own. This is because the wrap method in ActionContext is using a GerritCallback and is not forwarding onFailure events to the plugin.\n\nFor now I will simply not do any check on client side for the ssh key and just let it fail on server side so that the error is displayed the same way as other errors (in the Gerrit error dialog).\n\nThe \u0027Create\u0027 button will now only be enabled if at least a username is set.\n\nI guess this can be improved further but this can be done in follow-up changes.",
       "parentUuid": "bef77598_4bf445b1",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_cbc95541",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-09T10:03:12Z",
+      "side": 1,
+      "message": "That\u0027s just fine for the start, as the user would get visual feedback if something goes wrong.",
+      "parentUuid": "9e2631f7_aa74cf60",
       "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -171,6 +207,24 @@
       "side": 1,
       "message": "\u003e Wouldn\u0027t accounts path be more natural then config?\n This is what I initially wanted to do, but \"/accounts/\" is a collection,\n which means I cannot have \"/accounts/serviceuser~serviceusers\" as\n \"serviceuser~serviceusers\" would be interpreted as account-id,\n \"/accounts/\u003csome-account-id\u003e/serviceuser~serviceusers/foo\" would\n work, but what should be \"\u003csome-account-id\u003e\" then?\n This is why I placed it under \"/config/\".\n Another possibilty would be to add a new root collection, e.g. \n \"/serviceuser~accounts/\" and then have \"/serviceuser~accounts/foo\".\n Actually this looks better to me, what do you think?\n\n \u003e may be name the endpoint \"create\": \"serviceuser~create\"\n This is not good, since  \"/config/server/serviceuser~serviceusers\" is\n a collection, maybe later we want to add the possibility the list all\n service users by GET on  \"/config/server/serviceuser~serviceusers\".\n Then naming this endpoint \"serviceuser~create\" would make no sense.\n\n  \u003e We should try to eliminate plugin name from here. \n  We cannot avoid having the plugin name in the REST endpoint, since\n  the server automatically prefixes the views added by plugins with\n  the plugin name.\n\n  \u003e as minimum you should pass here the plugin name \n  How could I pass the plugin name? I\u0027m on client side here and it\u0027s not\n  possible to get the plugin name injected.",
       "parentUuid": "9e2631f7_0a435b2e",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_ebcc1153",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-09T10:03:12Z",
+      "side": 1,
+      "message": "\"How could I pass the plugin name?\"\n\nThat what we have to figure out. I know that JS API makes that magic, and does it in background, when UiAction REST endpoint are invoked (it prefixes the plugin name).\n\nBut as you pointed out we would still need to mark a REST API call as plugin owned or core REST API call, so that even if framework would \"know\" the plugin name it would only prefixes it for plugin specific calls.",
+      "parentUuid": "9e2631f7_ca7b034d",
       "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
