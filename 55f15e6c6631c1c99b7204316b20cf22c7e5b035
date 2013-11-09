@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bef77598_8b58ede8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-09T09:29:15Z",
+      "side": 1,
+      "message": "I\u0027ve added a sentence about this here. I don\u0027t think that it needs to be especially highlighted in the documentation. Since the SSH command documentation and the REST API documentation do not describe this parameter it should be clear that it is not supported.",
+      "parentUuid": "9e2631f7_4a3d53a5",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef77598_0b6d1d8e",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-09T07:20:38Z",
       "side": 1,
       "message": "We should find a way to marry top menu items with [plugin owned] capabilities. Otherwise the menu entry is also vsisble and even can be activated for user that wasn\u0027t granted the required capabilities. First if REST endpoint is activated, then the required capability is checked. That\u0027s too late.",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_eb5531af",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-09T09:29:15Z",
+      "side": 1,
+      "message": "Yes, you have read my thoughts. Somehow it should be possible to control when a menu item should be visible. Doing this check based on a capability would be good, but also maybe depending on whether the user is signed in or not.",
+      "parentUuid": "bef77598_0b6d1d8e",
       "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_aa74cf60",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-09T09:29:15Z",
+      "side": 1,
+      "message": "Ah, you caught me. I know that I was lazy here to handle this properly :D\n\nHaving a info/status line with the error message would be nice, but for now I\u0027m not doing this since I think it\u0027s important to have a consistent error handling for all kind of errors. If the REST call fails on the server side (e.g. username contains invalid characters), then the returned error is displayed in the standard Gerrit ErrorDialog. At the moment the plugin can\u0027t receive any onFailure event to handle errors on its own. This is because the wrap method in ActionContext is using a GerritCallback and is not forwarding onFailure events to the plugin.\n\nFor now I will simply not do any check on client side for the ssh key and just let it fail on server side so that the error is displayed the same way as other errors (in the Gerrit error dialog).\n\nThe \u0027Create\u0027 button will now only be enabled if at least a username is set.\n\nI guess this can be improved further but this can be done in follow-up changes.",
+      "parentUuid": "bef77598_4bf445b1",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e2631f7_6a3817b7",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2013-11-08T20:36:56Z",
       "side": 1,
       "message": "The same as above: no feedback to user that something is missing.",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_8a710b71",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-09T09:29:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e2631f7_6a3817b7",
       "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_ca7b034d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-09T09:29:15Z",
+      "side": 1,
+      "message": "\u003e Wouldn\u0027t accounts path be more natural then config?\n This is what I initially wanted to do, but \"/accounts/\" is a collection,\n which means I cannot have \"/accounts/serviceuser~serviceusers\" as\n \"serviceuser~serviceusers\" would be interpreted as account-id,\n \"/accounts/\u003csome-account-id\u003e/serviceuser~serviceusers/foo\" would\n work, but what should be \"\u003csome-account-id\u003e\" then?\n This is why I placed it under \"/config/\".\n Another possibilty would be to add a new root collection, e.g. \n \"/serviceuser~accounts/\" and then have \"/serviceuser~accounts/foo\".\n Actually this looks better to me, what do you think?\n\n \u003e may be name the endpoint \"create\": \"serviceuser~create\"\n This is not good, since  \"/config/server/serviceuser~serviceusers\" is\n a collection, maybe later we want to add the possibility the list all\n service users by GET on  \"/config/server/serviceuser~serviceusers\".\n Then naming this endpoint \"serviceuser~create\" would make no sense.\n\n  \u003e We should try to eliminate plugin name from here. \n  We cannot avoid having the plugin name in the REST endpoint, since\n  the server automatically prefixes the views added by plugins with\n  the plugin name.\n\n  \u003e as minimum you should pass here the plugin name \n  How could I pass the plugin name? I\u0027m on client side here and it\u0027s not\n  possible to get the plugin name injected.",
+      "parentUuid": "9e2631f7_0a435b2e",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef77598_abd84941",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 4
@@ -98,6 +188,24 @@
       "writtenOn": "2013-11-08T20:36:56Z",
       "side": 1,
       "message": "May be add somewhere a build HOWTO? Basically\n\n mvn package\n\nin plugin, with \n\n buck build api_install\n\nin Gerrit tree, before official plugin-api was published.",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_cb52f5c4",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-09T09:29:15Z",
+      "side": 1,
+      "message": "I don\u0027t want to add this here. It\u0027s exactly the same as for all other plugins and other plugins do also not have this howto in the documentation.",
+      "parentUuid": "bef77598_abd84941",
       "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
