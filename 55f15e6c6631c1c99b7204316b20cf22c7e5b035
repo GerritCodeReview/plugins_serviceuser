@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "bef77598_0b6d1d8e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-09T07:20:38Z",
+      "side": 1,
+      "message": "We should find a way to marry top menu items with [plugin owned] capabilities. Otherwise the menu entry is also vsisble and even can be activated for user that wasn\u0027t granted the required capabilities. First if REST endpoint is activated, then the required capability is checked. That\u0027s too late.",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef77598_4bf445b1",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
         "patchSetId": 4
