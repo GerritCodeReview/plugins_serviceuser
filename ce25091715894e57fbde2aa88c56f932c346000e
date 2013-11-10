@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bef77598_0b507d99",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-10T10:45:15Z",
+      "side": 1,
+      "message": "Thanks for adding this.",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
