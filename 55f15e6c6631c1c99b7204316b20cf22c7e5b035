@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_ca0e63b8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-10T10:08:59Z",
+      "side": 1,
+      "message": "Cool, thanks for the hint :-)\n\nDone",
+      "parentUuid": "9e2631f7_8a58ebe8",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef77598_4bf445b1",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
         "patchSetId": 4
@@ -231,6 +249,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_2a4bbff0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-10T10:08:59Z",
+      "side": 1,
+      "message": "I checked how the plugin name is detected in the JS API. This is done by parsing the plugin name from the URL path of the JS file that is provided by the plugin. Like this it is not working for GWT plugins since there is no static JS file. We should think further about this.",
+      "parentUuid": "bef77598_ebcc1153",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef77598_abd84941",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 4
@@ -278,6 +314,24 @@
       "side": 1,
       "message": "May be add it some where else, may be add build.md top level documentation? I am really concerned, that an average Gerrit developer should be able to build it and not {Maven|Buck|...} build expert. Check this thread to see how easy to get stucked in this area [1].\n\n[1] https://groups.google.com/forum/#!topic/repo-discuss/v6QGDOBZsIQ",
       "parentUuid": "bef77598_cb52f5c4",
+      "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_0a507b99",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-10T10:08:59Z",
+      "side": 1,
+      "message": "Done.\n\nI think the main problem with building plugins is that we are not publishing the Gerrit Plugin API to a Maven repository from where it can easily be consumed. I actually started to create a project for Gerrit on Maven Central so that we can upload the artifacts there. The problem is that it\u0027s required that the uploaded artifacts contain JavaDoc. For our Gerrit API artifacts we do not have JavaDoc yet and I don\u0027t know how to teach Buck to generate the JavaDoc.",
+      "parentUuid": "bef77598_2bd619e1",
       "revId": "55f15e6c6631c1c99b7204316b20cf22c7e5b035",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
