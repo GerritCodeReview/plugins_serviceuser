@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "7e2b3dc3_a9f05d7c",
+        "filename": ".settings/org.eclipse.core.resources.prefs",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-11-11T07:35:33Z",
+      "side": 1,
+      "message": "Do we need these files under version control?  In other projects the .settings folder is excluded in the .gitignore file.",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e2b3dc3_89ed99a4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/OnEditEnabler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-11-11T07:35:33Z",
+      "side": 1,
+      "message": "This seems to be copy-pasted from core Gerrit.  Can\u0027t we use Gerrit\u0027s version?",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e2b3dc3_e9fa555a",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-11-11T07:35:33Z",
+      "side": 1,
+      "message": "s/and/or",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e2b3dc3_c9f79170",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-11-11T07:35:33Z",
+      "side": 1,
+      "message": "I would reword the first sentence bit.\n\n\"The plugin can be [configured to automatically add new service users to groups](config.html#groups).",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef77598_0b507d99",
         "filename": "src/main/resources/Documentation/build.md",
         "patchSetId": 6
@@ -13,6 +81,23 @@
       "writtenOn": "2013-11-10T10:45:15Z",
       "side": 1,
       "message": "Thanks for adding this.",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9efd5175_1229cc19",
+        "filename": "src/main/resources/Documentation/rest-api-config.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-11-11T07:35:33Z",
+      "side": 1,
+      "message": "add \" plugin\" after \"@PLUGIN@\"",
       "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
