@@ -16,6 +16,24 @@
       "revId": "84254c353fc8d643917178d80e9e457b98bc64b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_4b7f25f7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-11T08:28:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e2b3dc3_4923a137",
+      "revId": "84254c353fc8d643917178d80e9e457b98bc64b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
