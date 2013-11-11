@@ -121,7 +121,7 @@ public class CreateServiceUserForm extends Plugin {
     HorizontalPanel buttons = new HorizontalPanel();
     p.add(buttons);
 
-    Button createButton = new Button("Create");
+    final Button createButton = new Button("Create");
     createButton.addStyleName("createButton");
     createButton.addClickHandler(new ClickHandler() {
       @Override
@@ -151,6 +151,7 @@ public class CreateServiceUserForm extends Plugin {
           dialogBox.center();
           dialogBox.show();
           usernameTxt.setFocus(true);
+          createButton.setEnabled(false);
         }
     }, ClickEvent.getType());
   }
