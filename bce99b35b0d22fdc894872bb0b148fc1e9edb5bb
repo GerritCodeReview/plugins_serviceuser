@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bef77598_0b851da9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-11T08:24:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9efd5175_92149ccc",
+      "revId": "bce99b35b0d22fdc894872bb0b148fc1e9edb5bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e2b3dc3_29246d41",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-11T08:15:34Z",
       "side": 1,
       "message": "Should `\u0026` be changed to `\u0026amp;`?",
+      "revId": "bce99b35b0d22fdc894872bb0b148fc1e9edb5bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_0aecfb78",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-11T08:24:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e2b3dc3_29246d41",
       "revId": "bce99b35b0d22fdc894872bb0b148fc1e9edb5bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
