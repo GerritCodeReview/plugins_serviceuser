@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_aa732f2f",
+        "filename": ".settings/org.eclipse.core.resources.prefs",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-11T07:49:29Z",
+      "side": 1,
+      "message": "They are needed to ensure the same code formatting for everyone working on this project.\n\nActually other plugins also have these files, e.g. the replication plugin [1].\n\nOnly the Maven setting files are ignored [2], which is the same as I did for this project.\n\n [1] https://gerrit.googlesource.com/plugins/replication/+/master/.settings/\n [2] https://gerrit.googlesource.com/plugins/replication/+/master/.gitignore",
+      "parentUuid": "7e2b3dc3_a9f05d7c",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e2b3dc3_89ed99a4",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/OnEditEnabler.java",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-11T07:35:33Z",
       "side": 1,
       "message": "This seems to be copy-pasted from core Gerrit.  Can\u0027t we use Gerrit\u0027s version?",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_4a7f13f7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/OnEditEnabler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-11T07:49:29Z",
+      "side": 1,
+      "message": "Yes, it\u0027s just copied from Gerrit core. Unfortunately the classes from Gerrit core UI are not visible for GWT plugins. Maybe in the long run we could put such classes which are interesting to GWT plugins in an own component which can be used by Gerrit core UI and be included into gerrit-plugin-gwtui. For the first version I would just stay with the copied file.",
+      "parentUuid": "7e2b3dc3_89ed99a4",
       "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bef77598_8b890dcc",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-11T07:49:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e2b3dc3_e9fa555a",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e2b3dc3_c9f79170",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 6
@@ -64,6 +118,24 @@
       "writtenOn": "2013-11-11T07:35:33Z",
       "side": 1,
       "message": "I would reword the first sentence bit.\n\n\"The plugin can be [configured to automatically add new service users to groups](config.html#groups).",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_eb96d1e9",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-11T07:49:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e2b3dc3_c9f79170",
       "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -98,6 +170,24 @@
       "writtenOn": "2013-11-11T07:35:33Z",
       "side": 1,
       "message": "add \" plugin\" after \"@PLUGIN@\"",
+      "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_8a70eb23",
+        "filename": "src/main/resources/Documentation/rest-api-config.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-11T07:49:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9efd5175_1229cc19",
       "revId": "ce25091715894e57fbde2aa88c56f932c346000e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
