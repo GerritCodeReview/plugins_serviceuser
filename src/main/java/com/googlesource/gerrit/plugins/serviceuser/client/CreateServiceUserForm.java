@@ -180,7 +180,6 @@ public class CreateServiceUserForm extends Plugin {
         p.setStyleName("panel");
         p.add(new Label("The service user '" + username + "' was created."));
         Button okButton = new Button("OK");
-        okButton.addStyleName("okButton");
         okButton.addClickHandler(new ClickHandler() {
           public void onClick(ClickEvent event) {
             successDialog.hide();
