@@ -26,5 +26,5 @@
   <!-- added in order to make this plugin as simple as possible   -->
   <!-- Specify the app entry point class.                         -->
   <entry-point class="com.googlesource.gerrit.plugins.serviceuser.client.CreateServiceUserForm"/>
-  <stylesheet src="plugin.css"/>
+  <stylesheet src="serviceuser.css"/>
 </module>
