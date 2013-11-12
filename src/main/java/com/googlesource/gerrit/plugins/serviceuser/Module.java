@@ -38,6 +38,7 @@ public class Module extends AbstractModule {
         bind(ServiceUserCollection.class);
         child(CONFIG_KIND, "serviceusers").to(ServiceUserCollection.class);
         install(new FactoryModuleBuilder().build(CreateServiceUser.Factory.class));
+        get(CONFIG_KIND, "messages").to(GetMessages.class);
       }
     });
   }
