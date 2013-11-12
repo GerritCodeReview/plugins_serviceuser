@@ -14,7 +14,9 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.common.base.Function;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.restapi.BadRequestException;
@@ -24,12 +26,16 @@ import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.server.account.CreateAccount;
 import com.google.gerrit.server.config.ConfigResource;
+import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 
 import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.Input;
+
+import java.util.Arrays;
+import java.util.List;
 
 @RequiresCapability(CreateServiceUserCapability.ID)
 public class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
@@ -42,15 +48,15 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
     CreateServiceUser create(String username);
   }
 
-  private final PluginConfigFactory cfg;
+  private final PluginConfigFactory cfgFactory;
   private final String pluginName;
   private final CreateAccount.Factory createAccountFactory;
   private final String username;
 
   @Inject
-  CreateServiceUser(PluginConfigFactory cfg, @PluginName String pluginName,
+  CreateServiceUser(PluginConfigFactory cfgFactory, @PluginName String pluginName,
       CreateAccount.Factory createAccountFactory, @Assisted String username) {
-    this.cfg = cfg;
+    this.cfgFactory = cfgFactory;
     this.pluginName = pluginName;
     this.createAccountFactory = createAccountFactory;
     this.username = username;
@@ -70,9 +76,26 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
       throw new BadRequestException("sshKey not set");
     }
 
+    PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
+
+    if (isUsernameBlocked(cfg, username)) {
+      throw new BadRequestException("The username '" + username
+          + "' is not allowed as name for service users.");
+    }
+
     CreateAccount.Input in =
-        new ServiceUserInput(username, input.sshKey,
-            cfg.getFromGerritConfig(pluginName));
+        new ServiceUserInput(username, input.sshKey, cfg);
     return createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
+  }
+
+  private boolean isUsernameBlocked(PluginConfig cfg, String username) {
+    List<String> blockedNames = Arrays.asList(cfg.getStringList("block"));
+    blockedNames = Lists.transform(blockedNames, new Function<String, String>() {
+      @Override
+      public String apply(String blockedName) {
+        return blockedName.toLowerCase();
+      }
+    });
+    return blockedNames.contains(username.toLowerCase());
   }
 }
