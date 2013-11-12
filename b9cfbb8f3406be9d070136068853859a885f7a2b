@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e2631f7_2d2d99af",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetMessages.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-12T14:23:50Z",
+      "side": 1,
+      "message": "May be add here a query parameter, as which message, success, Warning, error, tip of the day should be returned?",
+      "revId": "b9cfbb8f3406be9d070136068853859a885f7a2b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_0d32550f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-12T14:23:50Z",
+      "side": 1,
+      "message": "May be return only message that really needed? i. e. add a query type\u003dsuccess?",
+      "revId": "b9cfbb8f3406be9d070136068853859a885f7a2b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_6d3791ff",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-12T14:23:50Z",
+      "side": 1,
+      "message": "MessagesInfo could be a string then",
+      "revId": "b9cfbb8f3406be9d070136068853859a885f7a2b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
