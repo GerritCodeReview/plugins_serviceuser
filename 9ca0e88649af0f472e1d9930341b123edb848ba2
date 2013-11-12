@@ -16,6 +16,24 @@
       "revId": "9ca0e88649af0f472e1d9930341b123edb848ba2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_cb4b1597",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-12T09:04:23Z",
+      "side": 1,
+      "message": "Can you please fix that? Thanks.",
+      "parentUuid": "9efd5175_92893ccc",
+      "revId": "9ca0e88649af0f472e1d9930341b123edb848ba2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
