@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9efd5175_b28c40dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-11-12T08:07:32Z",
+      "side": 1,
+      "message": "s/pluigin/plugin\n\nI already fixed it once earlier today ;)",
+      "revId": "81adb1c4a7fb8208cb8a0f0cf65dbabb0143b2b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
