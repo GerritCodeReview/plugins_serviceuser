@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_8d1da57a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetMessages.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-12T15:24:40Z",
+      "side": 1,
+      "message": "OK.",
+      "parentUuid": "bef77598_2e062737",
+      "revId": "b9cfbb8f3406be9d070136068853859a885f7a2b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e2631f7_0d32550f",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
         "patchSetId": 1
