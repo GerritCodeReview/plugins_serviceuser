@@ -51,7 +51,7 @@ public class CreateServiceUserForm extends Plugin {
     dialogBox.setText("Create Service User");
     dialogBox.setAnimationEnabled(true);
 
-    Panel p = new VerticalPanel();
+    final VerticalPanel p = new VerticalPanel();
     p.setStyleName("panel");
 
     Panel usernamePanel = new VerticalPanel();
@@ -161,6 +161,11 @@ public class CreateServiceUserForm extends Plugin {
           @Override
           public void onSuccess(MessagesInfo info) {
             onSuccessMessage = info.getOnSuccessMessage();
+
+            String infoMessage = info.getInfoMessage();
+            if (infoMessage != null && !"".equals(infoMessage)) {
+              p.insert(new HTML(onSuccessMessage), 0);
+            }
           }
 
           @Override
@@ -225,6 +230,7 @@ public class CreateServiceUserForm extends Plugin {
 
   private static class MessagesInfo extends JavaScriptObject {
     public final native String getOnSuccessMessage() /*-{ return this.on_success }-*/;
+    public final native String getInfoMessage() /*-{ return this.info }-*/;
 
     protected MessagesInfo() {
     }

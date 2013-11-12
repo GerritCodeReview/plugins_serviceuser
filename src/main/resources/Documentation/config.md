@@ -22,6 +22,11 @@ file.
     automatically added. Multiple groups can be specified by having
     multiple `plugin.@PLUGIN@.group` entries.
 
+<a id="infoMessage">
+`plugin.@PLUGIN@.infoMessage`
+:	HTML formatted message that should be displayed in the service user
+	creation dialog.
+
 <a id="onSuccessMessage">
 `plugin.@PLUGIN@.onSuccessMessage`
 :	HTML formatted message that should be displayed after a service

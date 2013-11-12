@@ -35,11 +35,13 @@ public class GetMessages implements RestReadView<ConfigResource> {
   @Override
   public MessagesInfo apply(ConfigResource rsrc) {
     MessagesInfo info = new MessagesInfo();
+    info.info = Strings.emptyToNull(cfg.getString("infoMessage"));
     info.onSuccess = Strings.emptyToNull(cfg.getString("onSuccessMessage"));
     return info;
   }
 
   public class MessagesInfo {
+    String info;
     String onSuccess;
   }
 }
