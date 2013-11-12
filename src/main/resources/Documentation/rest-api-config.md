@@ -31,7 +31,6 @@ capability.
   {
     "ssh_key": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA0T...YImydZAw=="
   }
-----
 ```
 
 As response a detailed [AccountInfo](../../../Documentation/rest-api-accounts.html#account-info)
