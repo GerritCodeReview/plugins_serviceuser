@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.common.collect.Lists;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.TopMenu;
 import com.google.gerrit.server.CurrentUser;
@@ -21,7 +22,6 @@ import com.google.gerrit.server.account.CapabilityControl;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class CreateServiceUserMenu implements TopMenu {
       Provider<CurrentUser> userProvider) {
     this.pluginName = pluginName;
     this.userProvider = userProvider;
-    menuEntries = new ArrayList<TopMenu.MenuEntry>();
+    menuEntries = Lists.newArrayList();
     if (canCreateServiceUser()) {
       menuEntries.add(new MenuEntry("People", Collections
           .singletonList(new MenuItem("Create Service User", "", "", MENU_ID))));
