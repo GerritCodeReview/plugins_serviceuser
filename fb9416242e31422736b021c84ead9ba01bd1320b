@@ -16,6 +16,24 @@
       "revId": "fb9416242e31422736b021c84ead9ba01bd1320b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_8d164562",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-12T12:27:21Z",
+      "side": 1,
+      "message": "Good idea.\n\nDone",
+      "parentUuid": "9e2631f7_6d003118",
+      "revId": "fb9416242e31422736b021c84ead9ba01bd1320b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
