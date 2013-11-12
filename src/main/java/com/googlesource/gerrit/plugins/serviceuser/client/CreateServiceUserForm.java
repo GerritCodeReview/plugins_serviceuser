@@ -43,6 +43,7 @@ public class CreateServiceUserForm extends Plugin {
   private DialogBox dialogBox;
   private TextBox usernameTxt;
   private TextArea sshKeyTxt;
+  private String onSuccessMessage;
 
   @Override
   public void onModuleLoad() {
@@ -154,6 +155,19 @@ public class CreateServiceUserForm extends Plugin {
           createButton.setEnabled(false);
         }
     }, ClickEvent.getType());
+
+    new RestApi("config").id("server").view("serviceuser", "messages")
+        .get(new AsyncCallback<MessagesInfo>() {
+          @Override
+          public void onSuccess(MessagesInfo info) {
+            onSuccessMessage = info.getOnSuccessMessage();
+          }
+
+          @Override
+          public void onFailure(Throwable caught) {
+            // never invoked
+          }
+    });
   }
 
   private void doCreate() {
@@ -185,6 +199,11 @@ public class CreateServiceUserForm extends Plugin {
             successDialog.hide();
           }
         });
+
+        if (onSuccessMessage != null && !"".equals(onSuccessMessage)) {
+          p.add(new HTML(onSuccessMessage));
+        }
+
         p.add(okButton);
         successDialog.add(p);
 
@@ -202,6 +221,13 @@ public class CreateServiceUserForm extends Plugin {
     dialogBox.hide();
     usernameTxt.setValue("");
     sshKeyTxt.setValue("");
+  }
+
+  private static class MessagesInfo extends JavaScriptObject {
+    public final native String getOnSuccessMessage() /*-{ return this.on_success }-*/;
+
+    protected MessagesInfo() {
+    }
   }
 
   private static class ServiceUserInput extends JavaScriptObject {
