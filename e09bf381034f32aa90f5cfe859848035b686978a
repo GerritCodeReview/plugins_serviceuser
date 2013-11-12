@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_2a38df07",
+        "filename": "BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-12T05:55:40Z",
+      "side": 1,
+      "message": "Thanks for the hint.\n\nIn second thought, that whole content should be doable to move to the default.defs and take care in the Gerrit core. The only thing that gwt-plugin should pass is the entry point:\n\n gerrit_plugin(\n   name \u003d \u0027serviceuser\u0027,\n   srcs \u003d glob([\u0027src/main/java/**/*.java\u0027]),\n   [...],\n   gwt_entry_point \u003d MODULE\n )\n\nWe can do that move later.",
+      "parentUuid": "7e2b3dc3_8942b9c3",
+      "revId": "e09bf381034f32aa90f5cfe859848035b686978a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9efd5175_d23c6448",
         "filename": "BUCK",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-12T04:22:36Z",
       "side": 1,
       "message": "now add a prebuilt_jar rule:\n\n  prebuilt_jar(\n    name \u003d \u0027static-jar\u0027,\n    binary_jar \u003d genfile(\u0027serviceuser-static.zip\u0027),\n    deps \u003d [\u0027:serviceuser-static\u0027],\n  )\n\nand then add \u0027:static-jar\u0027 as a dep in gerrit_plugin(). It will union into the output JAR.",
+      "revId": "e09bf381034f32aa90f5cfe859848035b686978a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_6b64a138",
+        "filename": "BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-12T05:55:40Z",
+      "side": 1,
+      "message": "Thanks, of course, because then transitive dependencies take effect again. Sometimes you need them and sometimes you hate them ;-)",
+      "parentUuid": "9efd5175_d23c6448",
       "revId": "e09bf381034f32aa90f5cfe859848035b686978a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
