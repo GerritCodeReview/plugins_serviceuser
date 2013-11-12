@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e2631f7_6d003118",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-12T12:09:30Z",
+      "side": 1,
+      "message": "Move this initialization and transformation on next line to constructor, so that it done only once and not in every request.",
+      "revId": "fb9416242e31422736b021c84ead9ba01bd1320b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
