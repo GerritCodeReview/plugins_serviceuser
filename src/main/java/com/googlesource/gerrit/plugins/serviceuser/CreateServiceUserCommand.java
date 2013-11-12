@@ -14,12 +14,9 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.restapi.RestApiException;
-import com.google.gerrit.extensions.restapi.TopLevelResource;
-import com.google.gerrit.server.account.CreateAccount;
-import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
@@ -44,21 +41,15 @@ public class CreateServiceUserCommand extends SshCommand {
   private String sshKey;
 
   @Inject
-  private CreateAccount.Factory createAccountFactory;
-
-  @Inject
-  private PluginConfigFactory cfg;
-
-  @Inject
-  private @PluginName String pluginName;
+  private CreateServiceUser.Factory createServiceUser;
 
   @Override
   protected void run() throws OrmException, IOException, UnloggedFailure {
-    CreateAccount.Input input =
-        new ServiceUserInput(username, readSshKey(),
-            cfg.getFromGerritConfig(pluginName));
+    CreateServiceUser.Input input = new CreateServiceUser.Input();
+    input.sshKey = readSshKey();
+
     try {
-      createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, input);
+      createServiceUser.create(username).apply(new ConfigResource(), input);
     } catch (RestApiException e) {
       throw die(e.getMessage());
     }
