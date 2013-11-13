@@ -16,6 +16,24 @@
       "revId": "c0bf07b9e1068d03615261f0f11628206170caef",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef77598_2e546717",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-13T05:53:58Z",
+      "side": 1,
+      "message": "We can\u0027t use Guava on client side :-(",
+      "parentUuid": "9e99d185_52e97427",
+      "revId": "c0bf07b9e1068d03615261f0f11628206170caef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
