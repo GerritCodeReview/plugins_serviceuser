@@ -51,6 +51,24 @@
       "revId": "29fe89c5984d9ab5df07bee874cd42b85477e8d4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2631f7_8d8be551",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-13T05:56:49Z",
+      "side": 1,
+      "message": "Done in\n  https://gerrit-review.googlesource.com/51631",
+      "parentUuid": "9e99d185_32e4f050",
+      "revId": "29fe89c5984d9ab5df07bee874cd42b85477e8d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
