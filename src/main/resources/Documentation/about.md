@@ -17,8 +17,36 @@ The plugin can be [configured to automatically add new service users to
 groups](config.html#group). This allows to automatically assign or
 block certain access rights for the service users.
 
+For each created service user the plugin stores some
+[properties](#properties).
+
 <a id="webui"></a>
 Create Service User in WebUI
 ----------------------------
 In the `People` top menu there is a menu item `Create Service User`
 that opens a dialog for creating a service user.
+
+<a id="properties"></a>
+Service User Properties
+-----------------------
+The service user properties are stored in the `refs/meta/config` branch
+of the `All-Projects` project in the file `@PLUGIN@.db`, which is a
+Git config file:
+
+```
+  [user "build-bot"]
+    createdBy = jdoe
+    createdAt = Wed, 13 Nov 2013 14:31:11 +0100
+  [user "voter"]
+    createdBy = jroe
+    createdAt = Wed, 13 Nov 2013 14:45:00 +0100
+```
+
+<a id="createdBy">
+`user.<service-user-name>.createdBy`
+: The username of the user who created the service user.
+
+<a id="createdAt">
+`user.<service-user-name>.createdAt`
+: The date when the service user was created.
+

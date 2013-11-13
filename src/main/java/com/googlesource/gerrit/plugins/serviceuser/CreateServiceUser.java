@@ -24,21 +24,41 @@ import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
+import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.account.CreateAccount;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.git.MetaDataUpdate;
+import com.google.gerrit.server.git.ProjectLevelConfig;
+import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 
 import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.Input;
 
+import org.eclipse.jgit.lib.Config;
+import org.eclipse.jgit.lib.PersonIdent;
+
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @RequiresCapability(CreateServiceUserCapability.ID)
 public class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
+  private static final String USER = "user";
+  private static final String KEY_CREATED_BY = "createdBy";
+  private static final String KEY_CREATED_AT = "createdAt";
+
   static class Input {
     String username;
     String sshKey;
@@ -52,10 +72,21 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   private final CreateAccount.Factory createAccountFactory;
   private final String username;
   private final List<String> blockedNames;
+  private final Provider<CurrentUser> userProvider;
+  private final MetaDataUpdate.User metaDataUpdateFactory;
+  private final Project.NameKey allProjects;
+  private final ProjectLevelConfig storage;
+  private final DateFormat rfc2822DateFormatter;
 
   @Inject
-  CreateServiceUser(PluginConfigFactory cfgFactory, @PluginName String pluginName,
-      CreateAccount.Factory createAccountFactory, @Assisted String username) {
+  CreateServiceUser(PluginConfigFactory cfgFactory,
+      @PluginName String pluginName,
+      CreateAccount.Factory createAccountFactory,
+      Provider<CurrentUser> userProvider,
+      @GerritPersonIdent PersonIdent gerritIdent,
+      MetaDataUpdate.User metaDataUpdateFactory,
+      ProjectCache projectCache,
+      @Assisted String username) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
     this.createAccountFactory = createAccountFactory;
     this.username = username;
@@ -67,12 +98,20 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
                 return blockedName.toLowerCase();
               }
             });
+    this.userProvider = userProvider;
+    this.metaDataUpdateFactory = metaDataUpdateFactory;
+    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
+    this.rfc2822DateFormatter =
+        new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+    this.rfc2822DateFormatter.setCalendar(Calendar.getInstance(
+        gerritIdent.getTimeZone(), Locale.US));
   }
 
   @Override
   public Object apply(ConfigResource resource, Input input)
       throws BadRequestException, ResourceConflictException,
-      UnprocessableEntityException, OrmException {
+      UnprocessableEntityException, OrmException, IOException {
     if (input == null) {
       input = new Input();
     }
@@ -90,6 +129,19 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
 
     CreateAccount.Input in =
         new ServiceUserInput(username, input.sshKey, cfg);
-    return createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
+    Object response = createAccountFactory.create(username)
+            .apply(TopLevelResource.INSTANCE, in);
+
+    Config db = storage.get();
+    db.setString(USER, username, KEY_CREATED_BY,
+        userProvider.get().getUserName());
+    db.setString(USER, username, KEY_CREATED_AT,
+        rfc2822DateFormatter.format(new Date()));
+
+    MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
+    md.setMessage("Create Service User '" + username + "'\n");
+    storage.commit(md);
+
+    return response;
   }
 }
