@@ -88,6 +88,8 @@ contains the messages.
 The `MessagesInfo` entity contains help messages that should be
 displayed for the service user creation in the Web UI.
 
+* _info_: HTML formatted message that should be displayed in the
+  service user creation dialog.
 * _on\_success_: HTML formatted message that should be displayed after
   a service user was successfully created.
 
