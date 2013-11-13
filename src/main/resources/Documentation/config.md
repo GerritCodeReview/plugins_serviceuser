@@ -21,3 +21,8 @@ file.
 :	A group to which newly created service users should be
     automatically added. Multiple groups can be specified by having
     multiple `plugin.@PLUGIN@.group` entries.
+
+<a id="onSuccessMessage">
+`plugin.@PLUGIN@.onSuccessMessage`
+:	HTML formatted message that should be displayed after a service
+	user was successfully created.

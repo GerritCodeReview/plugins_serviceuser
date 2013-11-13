@@ -51,9 +51,45 @@ entity is returned that describes the created account.
   }
 ```
 
+### <a id="get-messages"> Get Messages
+_GET /config/server/@PLUGIN@~messages_
+
+Gets help messages to be displayed for the service user creation in the
+Web UI.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~messages HTTP/1.0
+```
+
+As response a [MessagesInfo](#messages-info) entity is returned that
+contains the messages.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  {
+    "on_success": "Don't forget to assign \u003ca href\u003d\"Documentation/access-control.html\"\u003eaccess rights\u003c/a\u003e to the service user."
+  }
+```
+
 
 <a id="json-entities">JSON Entities
 -----------------------------------
+
+### <a id="messages-info"></a>MessagesInfo
+
+The `MessagesInfo` entity contains help messages that should be
+displayed for the service user creation in the Web UI.
+
+* _on\_success_: HTML formatted message that should be displayed after
+  a service user was successfully created.
 
 ### <a id="service-user-input"></a>ServiceUserInput
 
