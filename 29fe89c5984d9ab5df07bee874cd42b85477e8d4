@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bebe95c4_53e96427",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-11-13T05:04:24Z",
+      "side": 1,
+      "message": "Change this to:\n\n  if (!Strings.isNullOrEmpty(onSuccessMessage)) {\n\n?",
+      "revId": "29fe89c5984d9ab5df07bee874cd42b85477e8d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e99d185_32e4f050",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-11-13T05:04:24Z",
+      "side": 1,
+      "message": "Looks like there are some missing tabs here.",
+      "revId": "29fe89c5984d9ab5df07bee874cd42b85477e8d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
