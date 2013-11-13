@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e2631f7_2d7bd9a6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-13T05:31:37Z",
+      "side": 1,
+      "message": "There is no guava library on GWT client side.",
+      "parentUuid": "bebe95c4_53e96427",
+      "revId": "29fe89c5984d9ab5df07bee874cd42b85477e8d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e99d185_32e4f050",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 2
