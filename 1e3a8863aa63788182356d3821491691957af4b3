@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fed00d3d_55f08c0a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-14T07:40:29Z",
+      "side": 1,
+      "message": "Don\u0027t need to be public?",
+      "revId": "1e3a8863aa63788182356d3821491691957af4b3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "decd09a8_d4e37c48",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-14T07:40:29Z",
+      "side": 1,
+      "message": "CREATED_BY_KEY is only used once and can be inlined",
+      "revId": "1e3a8863aa63788182356d3821491691957af4b3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "decd09a8_b4e80026",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-14T07:40:29Z",
+      "side": 1,
+      "message": "the same",
+      "revId": "1e3a8863aa63788182356d3821491691957af4b3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fed00d3d_35fd10e3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-14T07:40:29Z",
+      "side": 1,
+      "message": "s/Object/AccountInfo",
+      "revId": "1e3a8863aa63788182356d3821491691957af4b3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fed00d3d_75f38819",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-14T07:40:29Z",
+      "side": 1,
+      "message": "nit: you don\u0027t need the check input.username !\u003d null",
+      "revId": "1e3a8863aa63788182356d3821491691957af4b3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fed00d3d_95ed0436",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-11-14T07:40:29Z",
+      "side": 1,
+      "message": "nit: remove this new line",
+      "revId": "1e3a8863aa63788182356d3821491691957af4b3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
