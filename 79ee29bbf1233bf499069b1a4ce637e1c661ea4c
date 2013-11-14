@@ -16,6 +16,24 @@
       "revId": "79ee29bbf1233bf499069b1a4ce637e1c661ea4c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fed00d3d_b5e80026",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-14T07:11:16Z",
+      "side": 1,
+      "message": "Replication is a good point. I wanted to keep it simple for now, but I think it\u0027s not much effort to store the config file in the \u0027refs/meta/config\u0027 branch of the \u0027All-Projects\u0027 project. This way it is replicated and we have the version history. Still the coding is quite simple :-)\n\nDone",
+      "parentUuid": "9e82b117_6aee7732",
+      "revId": "79ee29bbf1233bf499069b1a4ce637e1c661ea4c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
