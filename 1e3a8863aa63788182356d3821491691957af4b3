@@ -159,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "decd09a8_34fd10e3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-11-14T07:55:39Z",
+      "side": 1,
+      "message": "Done by\n  https://gerrit-review.googlesource.com/51710",
+      "parentUuid": "fed00d3d_f505582a",
+      "revId": "1e3a8863aa63788182356d3821491691957af4b3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fed00d3d_95ed0436",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
         "patchSetId": 3
