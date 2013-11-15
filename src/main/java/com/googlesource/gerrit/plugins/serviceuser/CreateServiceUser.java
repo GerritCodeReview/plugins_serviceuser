@@ -21,12 +21,14 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.GerritPersonIdent;
+import com.google.gerrit.server.account.AccountInfo;
 import com.google.gerrit.server.account.CreateAccount;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
@@ -109,7 +111,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   }
 
   @Override
-  public Object apply(ConfigResource resource, Input input)
+  public Response<AccountInfo> apply(ConfigResource resource, Input input)
       throws BadRequestException, ResourceConflictException,
       UnprocessableEntityException, OrmException, IOException {
     if (input == null) {
@@ -129,8 +131,8 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
 
     CreateAccount.Input in =
         new ServiceUserInput(username, input.sshKey, cfg);
-    Object response = createAccountFactory.create(username)
-            .apply(TopLevelResource.INSTANCE, in);
+    Response<AccountInfo> response =
+        createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
 
     Config db = storage.get();
     db.setString(USER, username, KEY_CREATED_BY,
