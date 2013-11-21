@@ -164,7 +164,7 @@ public class CreateServiceUserForm extends Plugin {
 
             String infoMessage = info.getInfoMessage();
             if (infoMessage != null && !"".equals(infoMessage)) {
-              p.insert(new HTML(onSuccessMessage), 0);
+              p.insert(new HTML(infoMessage), 0);
             }
           }
 
