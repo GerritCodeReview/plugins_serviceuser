@@ -117,7 +117,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
     if (input == null) {
       input = new Input();
     }
-    if (!username.equals(input.username)) {
+    if (input.username != null && !username.equals(input.username)) {
       throw new BadRequestException("username must match URL");
     }
     if (Strings.isNullOrEmpty(input.sshKey)) {
