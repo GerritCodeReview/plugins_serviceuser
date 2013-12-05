@@ -40,17 +40,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUserMenu;
 
 public class CreateServiceUserForm extends Plugin {
-  private DialogBox dialogBox;
   private TextBox usernameTxt;
   private TextArea sshKeyTxt;
   private String onSuccessMessage;
 
   @Override
   public void onModuleLoad() {
-    dialogBox = new DialogBox(false, false);
-    dialogBox.setText("Create Service User");
-    dialogBox.setAnimationEnabled(true);
-
     final VerticalPanel p = new VerticalPanel();
     p.setStyleName("panel");
 
@@ -134,23 +129,18 @@ public class CreateServiceUserForm extends Plugin {
     createButton.setEnabled(false);
     new OnEditEnabler(createButton, usernameTxt);
 
-    Button closeButton = new Button("Close");
-    closeButton.addClickHandler(new ClickHandler() {
-      public void onClick(ClickEvent event) {
-        hide();
-      }
-    });
-    buttons.add(closeButton);
-
-    dialogBox.setWidget(p);
+    RootPanel screenPanel = RootPanel.get(CreateServiceUserMenu.SCREEN_ID);
+    if (screenPanel != null) {
+      screenPanel.add(p);
+    }
 
     RootPanel rootPanel = RootPanel.get(CreateServiceUserMenu.MENU_ID);
-    rootPanel.getElement().removeAttribute("href");
     rootPanel.addDomHandler(new ClickHandler() {
         @Override
         public void onClick(ClickEvent event) {
-          dialogBox.center();
-          dialogBox.show();
+          Plugin.go("/x/" + CreateServiceUserMenu.SCREEN_ID);
+          RootPanel.get(CreateServiceUserMenu.SCREEN_ID).add(p);
+          clear();
           usernameTxt.setFocus(true);
           createButton.setEnabled(false);
         }
@@ -189,7 +179,7 @@ public class CreateServiceUserForm extends Plugin {
 
       @Override
       public void onSuccess(JavaScriptObject result) {
-        hide();
+        clear();
 
         final DialogBox successDialog = new DialogBox();
         successDialog.setText("Service User Created");
@@ -222,8 +212,7 @@ public class CreateServiceUserForm extends Plugin {
     });
   }
 
-  private void hide() {
-    dialogBox.hide();
+  private void clear() {
     usernameTxt.setValue("");
     sshKeyTxt.setValue("");
   }
