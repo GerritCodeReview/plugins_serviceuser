@@ -25,6 +25,6 @@
   <!-- resources to the plugin. No theme inherits lines were      -->
   <!-- added in order to make this plugin as simple as possible   -->
   <!-- Specify the app entry point class.                         -->
-  <entry-point class="com.googlesource.gerrit.plugins.serviceuser.client.CreateServiceUserForm"/>
+  <entry-point class="com.googlesource.gerrit.plugins.serviceuser.client.ServiceUserPlugin"/>
   <stylesheet src="serviceuser.css"/>
 </module>

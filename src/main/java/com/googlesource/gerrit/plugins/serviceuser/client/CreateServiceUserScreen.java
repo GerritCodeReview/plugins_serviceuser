@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser.client;
 
 import com.google.gerrit.plugin.client.Plugin;
 import com.google.gerrit.plugin.client.rpc.RestApi;
+import com.google.gerrit.plugin.client.screen.Screen;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -32,27 +33,25 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUserMenu;
+public class CreateServiceUserScreen extends VerticalPanel {
+  static class Factory implements Screen.EntryPoint {
+    @Override
+    public void onLoad(Screen screen) {
+      screen.setPageTitle("Create Service User");
+      screen.show(new CreateServiceUserScreen());
+    }
+  }
 
-public class CreateServiceUserForm extends Plugin {
-  private DialogBox dialogBox;
   private TextBox usernameTxt;
   private TextArea sshKeyTxt;
   private String onSuccessMessage;
 
-  @Override
-  public void onModuleLoad() {
-    dialogBox = new DialogBox(false, false);
-    dialogBox.setText("Create Service User");
-    dialogBox.setAnimationEnabled(true);
-
-    final VerticalPanel p = new VerticalPanel();
-    p.setStyleName("panel");
+  CreateServiceUserScreen() {
+    setStyleName("serviceuser-panel");
 
     Panel usernamePanel = new VerticalPanel();
     usernamePanel.add(new Label("Username:"));
@@ -81,7 +80,7 @@ public class CreateServiceUserForm extends Plugin {
     usernameTxt.sinkEvents(Event.ONPASTE);
     usernameTxt.setVisibleLength(40);
     usernamePanel.add(usernameTxt);
-    p.add(usernamePanel);
+    add(usernamePanel);
 
     Panel sshKeyPanel = new VerticalPanel();
     sshKeyPanel.add(new Label("Public SSH Key:"));
@@ -117,13 +116,13 @@ public class CreateServiceUserForm extends Plugin {
     sshKeyTxt.setCharacterWidth(80);
     sshKeyTxt.getElement().setPropertyBoolean("spellcheck", false);
     sshKeyPanel.add(sshKeyTxt);
-    p.add(sshKeyPanel);
+    add(sshKeyPanel);
 
     HorizontalPanel buttons = new HorizontalPanel();
-    p.add(buttons);
+    add(buttons);
 
     final Button createButton = new Button("Create");
-    createButton.addStyleName("createButton");
+    createButton.addStyleName("serviceuser-createButton");
     createButton.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(final ClickEvent event) {
@@ -134,29 +133,10 @@ public class CreateServiceUserForm extends Plugin {
     createButton.setEnabled(false);
     new OnEditEnabler(createButton, usernameTxt);
 
-    Button closeButton = new Button("Close");
-    closeButton.addClickHandler(new ClickHandler() {
-      public void onClick(ClickEvent event) {
-        hide();
-      }
-    });
-    buttons.add(closeButton);
+    usernameTxt.setFocus(true);
+    createButton.setEnabled(false);
 
-    dialogBox.setWidget(p);
-
-    RootPanel rootPanel = RootPanel.get(CreateServiceUserMenu.MENU_ID);
-    rootPanel.getElement().removeAttribute("href");
-    rootPanel.addDomHandler(new ClickHandler() {
-        @Override
-        public void onClick(ClickEvent event) {
-          dialogBox.center();
-          dialogBox.show();
-          usernameTxt.setFocus(true);
-          createButton.setEnabled(false);
-        }
-    }, ClickEvent.getType());
-
-    new RestApi("config").id("server").view("serviceuser", "messages")
+    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "messages")
         .get(new AsyncCallback<MessagesInfo>() {
           @Override
           public void onSuccess(MessagesInfo info) {
@@ -164,7 +144,7 @@ public class CreateServiceUserForm extends Plugin {
 
             String infoMessage = info.getInfoMessage();
             if (infoMessage != null && !"".equals(infoMessage)) {
-              p.insert(new HTML(infoMessage), 0);
+              insert(new HTML(infoMessage), 0);
             }
           }
 
@@ -189,14 +169,14 @@ public class CreateServiceUserForm extends Plugin {
 
       @Override
       public void onSuccess(JavaScriptObject result) {
-        hide();
+        clearForm();
 
         final DialogBox successDialog = new DialogBox();
         successDialog.setText("Service User Created");
         successDialog.setAnimationEnabled(true);
 
         Panel p = new VerticalPanel();
-        p.setStyleName("panel");
+        p.setStyleName("serviceuser-panel");
         p.add(new Label("The service user '" + username + "' was created."));
         Button okButton = new Button("OK");
         okButton.addClickHandler(new ClickHandler() {
@@ -222,8 +202,7 @@ public class CreateServiceUserForm extends Plugin {
     });
   }
 
-  private void hide() {
-    dialogBox.hide();
+  private void clearForm() {
     usernameTxt.setValue("");
     sshKeyTxt.setValue("");
   }
