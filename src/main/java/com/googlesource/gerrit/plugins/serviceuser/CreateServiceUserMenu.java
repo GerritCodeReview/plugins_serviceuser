@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class CreateServiceUserMenu implements TopMenu {
-  public final static String MENU_ID = "serviceuser_create-service-user";
   private final String pluginName;
   private final Provider<CurrentUser> userProvider;
   private final List<MenuEntry> menuEntries;
@@ -39,7 +38,7 @@ public class CreateServiceUserMenu implements TopMenu {
     menuEntries = Lists.newArrayList();
     if (canCreateServiceUser()) {
       menuEntries.add(new MenuEntry("People", Collections
-          .singletonList(new MenuItem("Create Service User", "", "", MENU_ID))));
+          .singletonList(new MenuItem("Create Service User", "#/x/" + pluginName + "/create-service-user", ""))));
     }
   }
 

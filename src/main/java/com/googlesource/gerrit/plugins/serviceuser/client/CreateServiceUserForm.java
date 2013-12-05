@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser.client;
 
 import com.google.gerrit.plugin.client.Plugin;
 import com.google.gerrit.plugin.client.rpc.RestApi;
+import com.google.gerrit.plugin.client.screen.Screen;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -32,146 +33,126 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUserMenu;
-
 public class CreateServiceUserForm extends Plugin {
-  private DialogBox dialogBox;
   private TextBox usernameTxt;
   private TextArea sshKeyTxt;
   private String onSuccessMessage;
 
   @Override
-  public void onModuleLoad() {
-    dialogBox = new DialogBox(false, false);
-    dialogBox.setText("Create Service User");
-    dialogBox.setAnimationEnabled(true);
-
-    final VerticalPanel p = new VerticalPanel();
-    p.setStyleName("panel");
-
-    Panel usernamePanel = new VerticalPanel();
-    usernamePanel.add(new Label("Username:"));
-    usernameTxt = new TextBox() {
+  public void onPluginLoad() {
+    Plugin.screen("create-service-user", new Screen.Callback() {
       @Override
-      public void onBrowserEvent(Event event) {
-        super.onBrowserEvent(event);
-        if (event.getTypeInt() == Event.ONPASTE) {
-          Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-            @Override
-            public void execute() {
-              if (getValue().trim().length() != 0) {
-                setEnabled(true);
+      public void onLoad(Screen screen) {
+        final VerticalPanel p = new VerticalPanel();
+        p.setStyleName("panel");
+
+        Panel usernamePanel = new VerticalPanel();
+        usernamePanel.add(new Label("Username:"));
+        usernameTxt = new TextBox() {
+          @Override
+          public void onBrowserEvent(Event event) {
+            super.onBrowserEvent(event);
+            if (event.getTypeInt() == Event.ONPASTE) {
+              Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+                @Override
+                public void execute() {
+                  if (getValue().trim().length() != 0) {
+                    setEnabled(true);
+                  }
+                }
+              });
+            }
+          }
+        };
+        usernameTxt.addKeyPressHandler(new KeyPressHandler() {
+          @Override
+          public void onKeyPress(final KeyPressEvent event) {
+            event.stopPropagation();
+          }
+        });
+        usernameTxt.sinkEvents(Event.ONPASTE);
+        usernameTxt.setVisibleLength(40);
+        usernamePanel.add(usernameTxt);
+        p.add(usernamePanel);
+
+        Panel sshKeyPanel = new VerticalPanel();
+        sshKeyPanel.add(new Label("Public SSH Key:"));
+        DisclosurePanel dp = new DisclosurePanel("How to generate an SSH Key");
+        StringBuilder b = new StringBuilder();
+        b.append("<ol>")
+            .append("<li>From the Terminal or Git Bash, run <em>ssh-keygen</em></li>")
+            .append("<li>")
+                .append("Enter a path for the key, e.g. <em>id_rsa</em>. If you are generating the key<br />")
+                .append("on your local system take care to not overwrite your own SSH key.")
+            .append("</li>")
+            .append("<li>")
+                .append("Enter a passphrase only if the service where you intend to use this<br />")
+                .append("service user is able to deal with passphrases, otherwise leave it blank.<br />")
+                .append("Remember this passphrase, as you will need it to unlock the key.")
+            .append("</li>")
+            .append("<li>")
+                .append("Open <em>id_rsa.pub</em> and copy &amp; paste the contents into the box below.<br />")
+                .append("Note that <em>id_rsa.pub</em> is your public key and can be shared,<br />")
+                .append("while <em>id_rsa</em> is your private key and should be kept secret.")
+            .append("</li>")
+         .append("</ol>");
+        dp.add(new HTML(b.toString()));
+        sshKeyPanel.add(dp);
+        sshKeyTxt = new TextArea();
+        sshKeyTxt.addKeyPressHandler(new KeyPressHandler() {
+          @Override
+          public void onKeyPress(final KeyPressEvent event) {
+            event.stopPropagation();
+          }
+        });
+        sshKeyTxt.setVisibleLines(12);
+        sshKeyTxt.setCharacterWidth(80);
+        sshKeyTxt.getElement().setPropertyBoolean("spellcheck", false);
+        sshKeyPanel.add(sshKeyTxt);
+        p.add(sshKeyPanel);
+
+        HorizontalPanel buttons = new HorizontalPanel();
+        p.add(buttons);
+
+        final Button createButton = new Button("Create");
+        createButton.addStyleName("createButton");
+        createButton.addClickHandler(new ClickHandler() {
+          @Override
+          public void onClick(final ClickEvent event) {
+            doCreate();
+          }
+        });
+        buttons.add(createButton);
+        createButton.setEnabled(false);
+        new OnEditEnabler(createButton, usernameTxt);
+
+        usernameTxt.setFocus(true);
+        createButton.setEnabled(false);
+
+        new RestApi("config").id("server").view("serviceuser", "messages")
+            .get(new AsyncCallback<MessagesInfo>() {
+              @Override
+              public void onSuccess(MessagesInfo info) {
+                onSuccessMessage = info.getOnSuccessMessage();
+
+                String infoMessage = info.getInfoMessage();
+                if (infoMessage != null && !"".equals(infoMessage)) {
+                  p.insert(new HTML(infoMessage), 0);
+                }
               }
-            }
-          });
-        }
+
+              @Override
+              public void onFailure(Throwable caught) {
+                // never invoked
+              }
+        });
+
+        screen.show();
       }
-    };
-    usernameTxt.addKeyPressHandler(new KeyPressHandler() {
-      @Override
-      public void onKeyPress(final KeyPressEvent event) {
-        event.stopPropagation();
-      }
-    });
-    usernameTxt.sinkEvents(Event.ONPASTE);
-    usernameTxt.setVisibleLength(40);
-    usernamePanel.add(usernameTxt);
-    p.add(usernamePanel);
-
-    Panel sshKeyPanel = new VerticalPanel();
-    sshKeyPanel.add(new Label("Public SSH Key:"));
-    DisclosurePanel dp = new DisclosurePanel("How to generate an SSH Key");
-    StringBuilder b = new StringBuilder();
-    b.append("<ol>")
-        .append("<li>From the Terminal or Git Bash, run <em>ssh-keygen</em></li>")
-        .append("<li>")
-            .append("Enter a path for the key, e.g. <em>id_rsa</em>. If you are generating the key<br />")
-            .append("on your local system take care to not overwrite your own SSH key.")
-        .append("</li>")
-        .append("<li>")
-            .append("Enter a passphrase only if the service where you intend to use this<br />")
-            .append("service user is able to deal with passphrases, otherwise leave it blank.<br />")
-            .append("Remember this passphrase, as you will need it to unlock the key.")
-        .append("</li>")
-        .append("<li>")
-            .append("Open <em>id_rsa.pub</em> and copy &amp; paste the contents into the box below.<br />")
-            .append("Note that <em>id_rsa.pub</em> is your public key and can be shared,<br />")
-            .append("while <em>id_rsa</em> is your private key and should be kept secret.")
-        .append("</li>")
-     .append("</ol>");
-    dp.add(new HTML(b.toString()));
-    sshKeyPanel.add(dp);
-    sshKeyTxt = new TextArea();
-    sshKeyTxt.addKeyPressHandler(new KeyPressHandler() {
-      @Override
-      public void onKeyPress(final KeyPressEvent event) {
-        event.stopPropagation();
-      }
-    });
-    sshKeyTxt.setVisibleLines(12);
-    sshKeyTxt.setCharacterWidth(80);
-    sshKeyTxt.getElement().setPropertyBoolean("spellcheck", false);
-    sshKeyPanel.add(sshKeyTxt);
-    p.add(sshKeyPanel);
-
-    HorizontalPanel buttons = new HorizontalPanel();
-    p.add(buttons);
-
-    final Button createButton = new Button("Create");
-    createButton.addStyleName("createButton");
-    createButton.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(final ClickEvent event) {
-        doCreate();
-      }
-    });
-    buttons.add(createButton);
-    createButton.setEnabled(false);
-    new OnEditEnabler(createButton, usernameTxt);
-
-    Button closeButton = new Button("Close");
-    closeButton.addClickHandler(new ClickHandler() {
-      public void onClick(ClickEvent event) {
-        hide();
-      }
-    });
-    buttons.add(closeButton);
-
-    dialogBox.setWidget(p);
-
-    RootPanel rootPanel = RootPanel.get(CreateServiceUserMenu.MENU_ID);
-    rootPanel.getElement().removeAttribute("href");
-    rootPanel.addDomHandler(new ClickHandler() {
-        @Override
-        public void onClick(ClickEvent event) {
-          dialogBox.center();
-          dialogBox.show();
-          usernameTxt.setFocus(true);
-          createButton.setEnabled(false);
-        }
-    }, ClickEvent.getType());
-
-    new RestApi("config").id("server").view("serviceuser", "messages")
-        .get(new AsyncCallback<MessagesInfo>() {
-          @Override
-          public void onSuccess(MessagesInfo info) {
-            onSuccessMessage = info.getOnSuccessMessage();
-
-            String infoMessage = info.getInfoMessage();
-            if (infoMessage != null && !"".equals(infoMessage)) {
-              p.insert(new HTML(infoMessage), 0);
-            }
-          }
-
-          @Override
-          public void onFailure(Throwable caught) {
-            // never invoked
-          }
     });
   }
 
@@ -189,7 +170,7 @@ public class CreateServiceUserForm extends Plugin {
 
       @Override
       public void onSuccess(JavaScriptObject result) {
-        hide();
+        clear();
 
         final DialogBox successDialog = new DialogBox();
         successDialog.setText("Service User Created");
@@ -222,8 +203,7 @@ public class CreateServiceUserForm extends Plugin {
     });
   }
 
-  private void hide() {
-    dialogBox.hide();
+  private void clear() {
     usernameTxt.setValue("");
     sshKeyTxt.setValue("");
   }
