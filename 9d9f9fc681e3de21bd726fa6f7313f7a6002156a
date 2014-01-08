@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdb1e10e_3b13b773",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserMenu.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-01-08T16:42:04Z",
+      "side": 1,
+      "message": "Consider just \"/create\"",
+      "range": {
+        "startLine": 41,
+        "startChar": 83,
+        "endLine": 41,
+        "endChar": 105
+      },
+      "revId": "9d9f9fc681e3de21bd726fa6f7313f7a6002156a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdb1e10e_5b168363",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ServiceUserPlugin.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-01-08T16:42:04Z",
+      "side": 1,
+      "message": "Given the plugin is called service-user, you might be OK just calling the screen create. Then the URL is \"/#/x/service-user/create\".",
+      "revId": "9d9f9fc681e3de21bd726fa6f7313f7a6002156a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
