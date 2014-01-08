@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d817116_27e11a44",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-01-08T07:50:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63d00689_a82bbb99",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "93982f0a1b218d49fe9cfccc39ce6551792f9ee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63d00689_88307709",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2013-12-09T11:36:53Z",
       "side": 1,
       "message": "screen is unused to add the elements?",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "93982f0a1b218d49fe9cfccc39ce6551792f9ee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d817116_47e60e5d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-01-08T07:50:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63d00689_88307709",
       "range": {
         "startLine": 49,
         "startChar": 32,
@@ -83,6 +131,30 @@
       "side": 1,
       "message": "As explained by Shawn in this comment we can reach getPluginName() method here: [1].\n\n[1] https://gerrit-review.googlesource.com/#/c/52757/3/gerrit-gwtui/src/main/java/com/google/gerrit/client/api/PluginInstance.java",
       "parentUuid": "c3a7f221_8bb50d02",
+      "range": {
+        "startLine": 168,
+        "startChar": 44,
+        "endLine": 168,
+        "endChar": 57
+      },
+      "revId": "93982f0a1b218d49fe9cfccc39ce6551792f9ee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d817116_67eb1222",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserForm.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-01-08T07:50:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3a7f221_4b4a053d",
       "range": {
         "startLine": 168,
         "startChar": 44,
