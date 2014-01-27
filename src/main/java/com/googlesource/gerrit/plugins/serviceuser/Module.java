@@ -31,7 +31,7 @@ public class Module extends AbstractModule {
     bind(CapabilityDefinition.class)
         .annotatedWith(Exports.named(CreateServiceUserCapability.ID))
         .to(CreateServiceUserCapability.class);
-    DynamicSet.bind(binder(), TopMenu.class).to(CreateServiceUserMenu.class);
+    DynamicSet.bind(binder(), TopMenu.class).to(ServiceUserMenu.class);
     install(new RestApiModule() {
       @Override
       protected void configure() {

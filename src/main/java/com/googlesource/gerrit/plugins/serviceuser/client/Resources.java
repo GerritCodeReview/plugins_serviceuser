@@ -14,16 +14,11 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
-import com.google.gerrit.plugin.client.Plugin;
-import com.google.gerrit.plugin.client.PluginEntryPoint;
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.ImageResource;
 
-public class ServiceUserPlugin extends PluginEntryPoint {
-  public static final Resources RESOURCES = GWT.create(Resources.class);
+public interface Resources extends ClientBundle {
 
-  @Override
-  public void onPluginLoad() {
-    Plugin.get().screen("create", new CreateServiceUserScreen.Factory());
-    Plugin.get().screen("admin", new ServiceUserAdminScreen.Factory());
-  }
+  @Source("info.png")
+  public ImageResource info();
 }
