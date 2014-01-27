@@ -14,16 +14,20 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
-import com.google.gerrit.plugin.client.Plugin;
-import com.google.gerrit.plugin.client.PluginEntryPoint;
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 
-public class ServiceUserPlugin extends PluginEntryPoint {
-  public static final Resources RESOURCES = GWT.create(Resources.class);
+public class MessagesInfo extends JavaScriptObject {
+  final native String getInfoMessage() /*-{ return this.info }-*/;
+  final native String getOnSuccessMessage() /*-{ return this.on_success }-*/;
 
-  @Override
-  public void onPluginLoad() {
-    Plugin.get().screen("create", new CreateServiceUserScreen.Factory());
-    Plugin.get().screen("admin", new ServiceUserAdminScreen.Factory());
+  final native void setInfoMessage(String s) /*-{ this.info = s; }-*/;
+  final native void setOnSuccessMessage(String s) /*-{ this.on_success = s; }-*/;
+
+  static MessagesInfo create() {
+    MessagesInfo g = (MessagesInfo) createObject();
+    return g;
+  }
+
+  protected MessagesInfo() {
   }
 }

@@ -2,7 +2,7 @@
   border-spacing: 0px 5px;
 }
 
-.serviceuser-createButton {
+.serviceuser-createButton, .serviceuser-saveButton {
   margin-left: 10px !important;
 }
 

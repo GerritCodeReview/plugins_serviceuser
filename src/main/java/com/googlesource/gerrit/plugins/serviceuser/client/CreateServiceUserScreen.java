@@ -207,14 +207,6 @@ public class CreateServiceUserScreen extends VerticalPanel {
     sshKeyTxt.setValue("");
   }
 
-  private static class MessagesInfo extends JavaScriptObject {
-    public final native String getOnSuccessMessage() /*-{ return this.on_success }-*/;
-    public final native String getInfoMessage() /*-{ return this.info }-*/;
-
-    protected MessagesInfo() {
-    }
-  }
-
   private static class ServiceUserInput extends JavaScriptObject {
     final native void ssh_key(String s) /*-{ this.ssh_key = s; }-*/;
 
