@@ -75,7 +75,28 @@ contains the messages.
 
   )]}'
   {
-    "on_success": "Don't forget to assign \u003ca href\u003d\"Documentation/access-control.html\"\u003eaccess rights\u003c/a\u003e to the service user."
+    "on_success": "Don\u0027t forget to assign \u003ca href\u003d\"Documentation/access-control.html\"\u003eaccess rights\u003c/a\u003e to the service user."
+  }
+```
+
+### <a id="put-messages"> Put Messages
+_PUT /config/server/@PLUGIN@~messages_
+
+Sets the help messages that are displayed for the service user creation
+in the Web UI.
+
+The new messages must be specified as a [MessagesInfo](#messages-info)
+entity in the request body. Not setting a message leaves the message
+unchanged.
+
+#### Request
+
+```
+  PUT /config/server/@PLUGIN@~messages HTTP/1.0
+  Content-Type: application/json;charset=UTF-8
+
+  {
+    "info": "Please find more information about service users in the <a href\"wiki.html\">wiki</a>."
   }
 ```
 
