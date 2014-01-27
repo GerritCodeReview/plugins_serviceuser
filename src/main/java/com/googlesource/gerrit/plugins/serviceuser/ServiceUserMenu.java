@@ -25,13 +25,13 @@ import com.google.inject.Provider;
 import java.util.Collections;
 import java.util.List;
 
-public class CreateServiceUserMenu implements TopMenu {
+public class ServiceUserMenu implements TopMenu {
   private final String pluginName;
   private final Provider<CurrentUser> userProvider;
   private final List<MenuEntry> menuEntries;
 
   @Inject
-  public CreateServiceUserMenu(@PluginName String pluginName,
+  public ServiceUserMenu(@PluginName String pluginName,
       Provider<CurrentUser> userProvider) {
     this.pluginName = pluginName;
     this.userProvider = userProvider;
@@ -39,6 +39,10 @@ public class CreateServiceUserMenu implements TopMenu {
     if (canCreateServiceUser()) {
       menuEntries.add(new MenuEntry("People", Collections
           .singletonList(new MenuItem("Create Service User", "#/x/" + pluginName + "/create", ""))));
+    }
+    if (userProvider.get().getCapabilities().canAdministrateServer()) {
+      menuEntries.add(new MenuEntry("Plugins", Collections
+          .singletonList(new MenuItem("Service User Admin", "#/x/" + pluginName + "/admin", ""))));
     }
   }
 
