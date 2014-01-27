@@ -79,6 +79,27 @@ contains the messages.
   }
 ```
 
+### <a id="put-messages"> Put Messages
+_PUT /config/server/@PLUGIN@~messages_
+
+Sets the help messages that are displayed for the service user creation
+in the Web UI.
+
+The new messages must be specified as [MessagesInfo](#messages-info)
+entity in the request body. Not setting a message leaves the message
+unchanged.
+
+#### Request
+
+```
+  PUT /config/server/@PLUGIN@~messages HTTP/1.0
+  Content-Type: application/json;charset=UTF-8
+
+  {
+    "info": "Please find more information about service users in the \u003ca href\u003d\"wiki.html\"\u003ewiki\u003c/a\u003e."
+  }
+```
+
 
 <a id="json-entities">JSON Entities
 -----------------------------------
