@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52b3d2f9_37077837",
+        "filename": "src/main/resources/Documentation/rest-api-config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-01-28T03:25:02Z",
+      "side": 1,
+      "message": "should this be escaped?",
+      "range": {
+        "startLine": 78,
+        "startChar": 22,
+        "endLine": 78,
+        "endChar": 23
+      },
+      "revId": "ea68be9c2385614455e4173a960057bee4a93bd7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72ae1695_38076937",
+        "filename": "src/main/resources/Documentation/rest-api-config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-01-28T03:25:02Z",
+      "side": 1,
+      "message": "as a",
+      "range": {
+        "startLine": 88,
+        "startChar": 35,
+        "endLine": 88,
+        "endChar": 38
+      },
+      "revId": "ea68be9c2385614455e4173a960057bee4a93bd7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52b3d2f9_17027426",
+        "filename": "src/main/resources/Documentation/rest-api-config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-01-28T03:25:02Z",
+      "side": 1,
+      "message": "Should the encoding/escaping of the message be mentioned here?",
+      "range": {
+        "startLine": 112,
+        "startChar": 10,
+        "endLine": 112,
+        "endChar": 32
+      },
+      "revId": "ea68be9c2385614455e4173a960057bee4a93bd7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
