@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52b3d2f9_57e5cc46",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ServiceUserAdminScreen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2014-01-28T03:00:45Z",
+      "side": 1,
+      "message": "Well, that is one optimistic way to look at it. If the user\u0027s network disappears (e.g. they walk far away from their WiFI point) this will be invoked.",
+      "revId": "2373aba3cdde46bf0c900316964c8a6f35686031",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
