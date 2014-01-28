@@ -16,6 +16,24 @@
       "revId": "2373aba3cdde46bf0c900316964c8a6f35686031",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c5da5c_55fcecde",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ServiceUserAdminScreen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-01-28T08:31:15Z",
+      "side": 1,
+      "message": "I believe even then this method is not invoked. This is because the RestApi class is using the JavaScript API from Gerrit to execute the REST request (because only in Gerrit core we have access to the authentication token). When executing the REST request in Gerrit core the callback is wrapped in ActionContext by a GerritCallback in the wrap(JavaScriptObject) method. For this wrapping we only forward invocations of the onSuccess method to the callback in the plugin. In case of a failure the onFailure method of the GerritCallback in Gerrit core is invoked (with standard Gerrit error handling) but this failure is not forwarded to the callback in the plugin, hence the onFailure method in the plugin is never invoked. \n\nI once tried to change this so that plugins can do a custom error handling for REST requests, but I didn\u0027t manage to make the JavaScript do this and I gave up on this.",
+      "parentUuid": "52b3d2f9_57e5cc46",
+      "revId": "2373aba3cdde46bf0c900316964c8a6f35686031",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
