@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f2c12653_544a2c76",
+        "filename": "src/main/resources/Documentation/rest-api-config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-01-28T10:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52b3d2f9_37077837",
+      "range": {
+        "startLine": 78,
+        "startChar": 22,
+        "endLine": 78,
+        "endChar": 23
+      },
+      "revId": "ea68be9c2385614455e4173a960057bee4a93bd7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72ae1695_38076937",
         "filename": "src/main/resources/Documentation/rest-api-config.md",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "12c5da5c_b519c091",
+        "filename": "src/main/resources/Documentation/rest-api-config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-01-28T10:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72ae1695_38076937",
+      "range": {
+        "startLine": 88,
+        "startChar": 35,
+        "endLine": 88,
+        "endChar": 38
+      },
+      "revId": "ea68be9c2385614455e4173a960057bee4a93bd7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52b3d2f9_17027426",
         "filename": "src/main/resources/Documentation/rest-api-config.md",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2014-01-28T03:25:02Z",
       "side": 1,
       "message": "Should the encoding/escaping of the message be mentioned here?",
+      "range": {
+        "startLine": 112,
+        "startChar": 10,
+        "endLine": 112,
+        "endChar": 32
+      },
+      "revId": "ea68be9c2385614455e4173a960057bee4a93bd7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12c5da5c_d5263cc8",
+        "filename": "src/main/resources/Documentation/rest-api-config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-01-28T10:32:47Z",
+      "side": 1,
+      "message": "Actually for the sending it doesn\u0027t need to be encoded. Will fix the example above. Well quotes have to be escaped but this is true for any value in json, so that it doesn\u0027t need to be explicitly mentioned here.\n\nDone",
+      "parentUuid": "52b3d2f9_17027426",
       "range": {
         "startLine": 112,
         "startChar": 10,
