@@ -51,6 +51,51 @@ entity is returned that describes the created account.
   }
 ```
 
+### <a id="list-service-users"> List Service Users
+GET /config/server/@PLUGIN@~serviceusers/_
+
+Lists service users.
+
+In order to see a service user the caller must have created that service
+user or be a member of a group that is granted the 'Administrate Server'
+capability.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/ HTTP/1.0
+```
+
+As response a map is returned that maps the username to a
+[ServiceUserInfo](#service-user-info) entity. The username in
+ServiceUserInfo is not set since it is already available as map key.
+
+#### Response
+
+```
+  HTTP/1.1 201 Created
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  {
+    "GlobalVerifier": {
+      "created_by": "jdoe",
+      "created_at": "Mon, 27 Jan 2014 21:00:12 +0100",
+      "_account_id": 1000107,
+      "name": "GlobalVerifier",
+      "avatars": []
+    },
+    "JenkinsVoter": {
+      "created_by": "jdoe",
+      "created_at": "Thu, 21 Nov 2013 15:00:55 +0100",
+      "_account_id": 1000195,
+      "name": "JenkinsVoter",
+      "avatars": []
+    }
+  }
+```
+
 ### <a id="get-config"> Get Config
 _GET /config/server/@PLUGIN@~config_
 
@@ -112,6 +157,18 @@ The `ConfigInfo` entity contains configuration of the @PLUGIN@ plugin.
   a service user was successfully created.
 * _allow\_email_: Whether it is allowed to provide an email address for
   a service user (not set if `false`).
+
+### <a id="service-user-info"></a>ServiceUserInfo
+
+The `ServiceUserInfo` entity contains information about a service user.
+It has the same fields as a detailed
+[AccountInfo](../../../Documentation/rest-api-accounts.html#account-info)
+and in addition the following fields:
+
+* _created\_by_: The username of the user that created this service
+  user.
+* _created\_at_: The date when the service user was created in the
+  format 'EEE, dd MMM yyyy HH:mm:ss Z'.
 
 ### <a id="service-user-input"></a>ServiceUserInput
 
