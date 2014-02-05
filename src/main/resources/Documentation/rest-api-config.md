@@ -51,6 +51,49 @@ entity is returned that describes the created account.
   }
 ```
 
+### <a id="list-service-users"> List Service Users
+GET /config/server/@PLUGIN@~serviceusers/_
+
+Lists service users.
+
+In order to see a service user the caller must have created that service
+user or be a member of a group that is granted the 'Administrate Server'
+capability.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/ HTTP/1.0
+```
+
+As response a map is returned that maps the username to an
+[AccountInfo](../../../Documentation/rest-api-accounts.html#account-info)
+entity.
+
+#### Response
+
+```
+  HTTP/1.1 201 Created
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  {
+    "GlobalVerifier": {
+      "_account_id": 1000107,
+      "name": "GlobalVerifier",
+      "username": "GlobalVerifier",
+      "avatars": []
+    },
+    "JenkinsVoter": {
+      "_account_id": 1000195,
+      "name": "JenkinsVoter",
+      "username": "JenkinsVoter",
+      "avatars": []
+    }
+  }
+```
+
 ### <a id="get-config"> Get Config
 _GET /config/server/@PLUGIN@~config_
 

@@ -57,9 +57,9 @@ import java.util.Locale;
 
 @RequiresCapability(CreateServiceUserCapability.ID)
 public class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
-  private static final String USER = "user";
-  private static final String KEY_CREATED_BY = "createdBy";
-  private static final String KEY_CREATED_AT = "createdAt";
+  public static final String USER = "user";
+  public static final String KEY_CREATED_BY = "createdBy";
+  public static final String KEY_CREATED_AT = "createdAt";
 
   static class Input {
     String username;

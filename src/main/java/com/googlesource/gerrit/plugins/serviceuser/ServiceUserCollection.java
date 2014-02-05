@@ -23,6 +23,7 @@ import com.google.gerrit.extensions.restapi.RestView;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class ServiceUserCollection implements
     ChildCollection<ConfigResource, AccountResource>,
@@ -30,12 +31,15 @@ public class ServiceUserCollection implements
 
   private final DynamicMap<RestView<AccountResource>> views;
   private final CreateServiceUser.Factory createServiceUserFactory;
+  private final Provider<ListServiceUsers> list;
 
   @Inject
   ServiceUserCollection(DynamicMap<RestView<AccountResource>> views,
-      CreateServiceUser.Factory createServiceUserFactory) {
+      CreateServiceUser.Factory createServiceUserFactory,
+      Provider<ListServiceUsers> list) {
     this.views = views;
     this.createServiceUserFactory = createServiceUserFactory;
+    this.list = list;
   }
 
   @Override
@@ -45,8 +49,8 @@ public class ServiceUserCollection implements
   }
 
   @Override
-  public RestView<ConfigResource> list() throws ResourceNotFoundException {
-    throw new ResourceNotFoundException();
+  public RestView<ConfigResource> list() {
+    return list.get();
   }
 
   @Override
