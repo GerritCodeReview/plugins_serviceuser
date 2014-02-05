@@ -64,6 +64,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   static class Input {
     String username;
     String sshKey;
+    String email;
   }
 
   public static interface Factory {
@@ -79,6 +80,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   private final Project.NameKey allProjects;
   private final ProjectLevelConfig storage;
   private final DateFormat rfc2822DateFormatter;
+  private final Provider<GetConfig> getConfig;
 
   @Inject
   CreateServiceUser(PluginConfigFactory cfgFactory,
@@ -88,7 +90,8 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
       @GerritPersonIdent PersonIdent gerritIdent,
       MetaDataUpdate.User metaDataUpdateFactory,
       ProjectCache projectCache,
-      @Assisted String username) {
+      @Assisted String username,
+      Provider<GetConfig> getConfig) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
     this.createAccountFactory = createAccountFactory;
     this.username = username;
@@ -108,6 +111,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
         new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
     this.rfc2822DateFormatter.setCalendar(Calendar.getInstance(
         gerritIdent.getTimeZone(), Locale.US));
+    this.getConfig = getConfig;
   }
 
   @Override
@@ -129,8 +133,16 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
           + "' is not allowed as name for service users.");
     }
 
+    input.email = Strings.emptyToNull(input.email);
+    if (input.email != null) {
+      Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
+      if (emailAllowed == null || !emailAllowed) {
+        throw new ResourceConflictException("email not allowed");
+      }
+    }
+
     CreateAccount.Input in =
-        new ServiceUserInput(username, input.sshKey, cfg);
+        new ServiceUserInput(username, input.email, input.sshKey, cfg);
     Response<AccountInfo> response =
         createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
 

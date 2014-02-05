@@ -25,7 +25,7 @@ import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
 
-import com.googlesource.gerrit.plugins.serviceuser.PutMessages.Input;
+import com.googlesource.gerrit.plugins.serviceuser.PutConfig.Input;
 
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
@@ -34,10 +34,11 @@ import org.eclipse.jgit.util.FS;
 import java.io.IOException;
 
 @RequiresCapability(GlobalCapability.ADMINISTRATE_SERVER)
-public class PutMessages implements RestModifyView<ConfigResource, Input>{
+public class PutConfig implements RestModifyView<ConfigResource, Input>{
   public static class Input {
     public String info;
     public String onSuccess;
+    public Boolean allowEmail;
   }
 
   private final PluginConfigFactory cfgFactory;
@@ -45,7 +46,7 @@ public class PutMessages implements RestModifyView<ConfigResource, Input>{
   private final String pluginName;
 
   @Inject
-  PutMessages(PluginConfigFactory cfgFactory, SitePaths sitePaths,
+  PutConfig(PluginConfigFactory cfgFactory, SitePaths sitePaths,
       @PluginName String pluginName) throws IOException, ConfigInvalidException {
     this.cfgFactory = cfgFactory;
     this.sitePaths = sitePaths;
@@ -65,6 +66,13 @@ public class PutMessages implements RestModifyView<ConfigResource, Input>{
     if (input.onSuccess != null) {
       cfg.setString("plugin", pluginName, "onSuccessMessage",
           Strings.emptyToNull(input.onSuccess));
+    }
+    if (input.allowEmail != null) {
+      if (input.allowEmail) {
+        cfg.setBoolean("plugin", pluginName, "allowEmail", true);
+      } else {
+        cfg.unset("plugin", pluginName, "allowEmail");
+      }
     }
     cfg.save();
     cfgFactory.getFromGerritConfig(pluginName, true);

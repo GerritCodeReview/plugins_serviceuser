@@ -31,3 +31,8 @@ file.
 `plugin.@PLUGIN@.onSuccessMessage`
 :	HTML formatted message that should be displayed after a service
 	user was successfully created.
+
+<a id="allowEmail">
+`plugin.@PLUGIN@.allowEmail`
+:	Whether it is allowed to provide an email address for
+	a service user. By default false.

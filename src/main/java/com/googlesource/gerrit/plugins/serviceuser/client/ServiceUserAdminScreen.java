@@ -24,6 +24,7 @@ import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -42,15 +43,16 @@ public class ServiceUserAdminScreen extends VerticalPanel {
 
   private TextArea infoMsgTxt;
   private TextArea onSuccessMsgTxt;
+  private CheckBox allowEmailCheckBox;
   private Button saveButton;
 
   ServiceUserAdminScreen() {
     setStyleName("serviceuser-panel");
 
-    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "messages")
-        .get(new AsyncCallback<MessagesInfo>() {
+    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
+        .get(new AsyncCallback<ConfigInfo>() {
           @Override
-          public void onSuccess(MessagesInfo info) {
+          public void onSuccess(ConfigInfo info) {
             display(info);
           }
 
@@ -61,7 +63,7 @@ public class ServiceUserAdminScreen extends VerticalPanel {
         });
   }
 
-  private void display(MessagesInfo info) {
+  private void display(ConfigInfo info) {
     Panel infoMsgPanel = new VerticalPanel();
     Panel infoMsgTitelPanel = new HorizontalPanel();
     infoMsgTitelPanel.add(new Label("Info Message"));
@@ -108,6 +110,17 @@ public class ServiceUserAdminScreen extends VerticalPanel {
     onSuccessMsgPanel.add(onSuccessMsgTxt);
     add(onSuccessMsgPanel);
 
+    Panel allowEmailPanel = new HorizontalPanel();
+    allowEmailCheckBox = new CheckBox("Allow Email Address");
+    allowEmailCheckBox.setValue(info.getAllowEmail());
+    allowEmailPanel.add(allowEmailCheckBox);
+    Image allowEmailInfo = new Image(ServiceUserPlugin.RESOURCES.info());
+    allowEmailInfo.setTitle("Whether it is allowed to provide an email address "
+        + "for a service user. E.g. having an email address allows a service user "
+        + "to push commits and tags.");
+    allowEmailPanel.add(allowEmailInfo);
+    add(allowEmailPanel);
+
     HorizontalPanel buttons = new HorizontalPanel();
     add(buttons);
 
@@ -123,16 +136,18 @@ public class ServiceUserAdminScreen extends VerticalPanel {
     saveButton.setEnabled(false);
     OnEditEnabler onEditEnabler = new OnEditEnabler(saveButton, infoMsgTxt);
     onEditEnabler.listenTo(onSuccessMsgTxt);
+    onEditEnabler.listenTo(allowEmailCheckBox);
 
     infoMsgTxt.setFocus(true);
     saveButton.setEnabled(false);
   }
 
   private void doSave() {
-    MessagesInfo in = MessagesInfo.create();
+    ConfigInfo in = ConfigInfo.create();
     in.setInfoMessage(infoMsgTxt.getValue());
     in.setOnSuccessMessage(onSuccessMsgTxt.getValue());
-    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "messages")
+    in.setAllowEmail(allowEmailCheckBox.getValue());
+    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
         .put(in, new AsyncCallback<JavaScriptObject>() {
 
           @Override

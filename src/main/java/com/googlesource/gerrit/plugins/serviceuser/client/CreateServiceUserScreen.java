@@ -47,6 +47,7 @@ public class CreateServiceUserScreen extends VerticalPanel {
   }
 
   private TextBox usernameTxt;
+  private TextBox emailTxt;
   private TextArea sshKeyTxt;
   private String onSuccessMessage;
 
@@ -136,15 +137,46 @@ public class CreateServiceUserScreen extends VerticalPanel {
     usernameTxt.setFocus(true);
     createButton.setEnabled(false);
 
-    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "messages")
-        .get(new AsyncCallback<MessagesInfo>() {
+    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
+        .get(new AsyncCallback<ConfigInfo>() {
           @Override
-          public void onSuccess(MessagesInfo info) {
+          public void onSuccess(ConfigInfo info) {
             onSuccessMessage = info.getOnSuccessMessage();
 
             String infoMessage = info.getInfoMessage();
             if (infoMessage != null && !"".equals(infoMessage)) {
               insert(new HTML(infoMessage), 0);
+            }
+
+            if (info.getAllowEmail()) {
+              Panel emailPanel = new VerticalPanel();
+              emailPanel.add(new Label("Email:"));
+              emailTxt = new TextBox() {
+                @Override
+                public void onBrowserEvent(Event event) {
+                  super.onBrowserEvent(event);
+                  if (event.getTypeInt() == Event.ONPASTE) {
+                    Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+                      @Override
+                      public void execute() {
+                        if (getValue().trim().length() != 0) {
+                          setEnabled(true);
+                        }
+                      }
+                    });
+                  }
+                }
+              };
+              emailTxt.addKeyPressHandler(new KeyPressHandler() {
+                @Override
+                public void onKeyPress(final KeyPressEvent event) {
+                  event.stopPropagation();
+                }
+              });
+              emailTxt.sinkEvents(Event.ONPASTE);
+              emailTxt.setVisibleLength(40);
+              emailPanel.add(emailTxt);
+              insert(emailPanel, 2);
             }
           }
 
@@ -164,6 +196,9 @@ public class CreateServiceUserScreen extends VerticalPanel {
 
     ServiceUserInput in = ServiceUserInput.create();
     in.ssh_key(sshKey);
+    if (emailTxt != null) {
+      in.email(emailTxt.getValue().trim());
+    }
     new RestApi("config").id("server").view("serviceuser", "serviceusers")
         .id(username).post(in, new AsyncCallback<JavaScriptObject>() {
 
@@ -204,11 +239,15 @@ public class CreateServiceUserScreen extends VerticalPanel {
 
   private void clearForm() {
     usernameTxt.setValue("");
+    if (emailTxt != null) {
+      emailTxt.setValue("");
+    }
     sshKeyTxt.setValue("");
   }
 
   private static class ServiceUserInput extends JavaScriptObject {
     final native void ssh_key(String s) /*-{ this.ssh_key = s; }-*/;
+    final native void email(String e) /*-{ this.email = e; }-*/;
 
     static ServiceUserInput create() {
       ServiceUserInput g = (ServiceUserInput) createObject();

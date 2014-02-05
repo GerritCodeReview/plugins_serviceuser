@@ -51,20 +51,19 @@ entity is returned that describes the created account.
   }
 ```
 
-### <a id="get-messages"> Get Messages
-_GET /config/server/@PLUGIN@~messages_
+### <a id="get-config"> Get Config
+_GET /config/server/@PLUGIN@~config_
 
-Gets help messages to be displayed for the service user creation in the
-Web UI.
+Gets the configuration of the @PLUGIN@ plugin.
 
 #### Request
 
 ```
-  GET /config/server/@PLUGIN@~messages HTTP/1.0
+  GET /config/server/@PLUGIN@~config HTTP/1.0
 ```
 
-As response a [MessagesInfo](#messages-info) entity is returned that
-contains the messages.
+As response a [ConfigInfo](#config-info) entity is returned that
+contains the configuration.
 
 #### Response
 
@@ -79,20 +78,19 @@ contains the messages.
   }
 ```
 
-### <a id="put-messages"> Put Messages
-_PUT /config/server/@PLUGIN@~messages_
+### <a id="put-config"> Put Config
+_PUT /config/server/@PLUGIN@~config_
 
-Sets the help messages that are displayed for the service user creation
-in the Web UI.
+Sets the configuration of the @PLUGIN@ plugin.
 
-The new messages must be specified as a [MessagesInfo](#messages-info)
-entity in the request body. Not setting a message leaves the message
+The new configuration must be specified as a [ConfigInfo](#config-info)
+entity in the request body. Not setting a parameter leaves the parameter
 unchanged.
 
 #### Request
 
 ```
-  PUT /config/server/@PLUGIN@~messages HTTP/1.0
+  PUT /config/server/@PLUGIN@~config HTTP/1.0
   Content-Type: application/json;charset=UTF-8
 
   {
@@ -104,15 +102,16 @@ unchanged.
 <a id="json-entities">JSON Entities
 -----------------------------------
 
-### <a id="messages-info"></a>MessagesInfo
+### <a id="config-info"></a>ConfigInfo
 
-The `MessagesInfo` entity contains help messages that should be
-displayed for the service user creation in the Web UI.
+The `ConfigInfo` entity contains configuration of the @PLUGIN@ plugin.
 
 * _info_: HTML formatted message that should be displayed in the
   service user creation dialog.
 * _on\_success_: HTML formatted message that should be displayed after
   a service user was successfully created.
+* _allow\_email_: Whether it is allowed to provide an email address for
+  a service user (not set if `false`).
 
 ### <a id="service-user-input"></a>ServiceUserInput
 

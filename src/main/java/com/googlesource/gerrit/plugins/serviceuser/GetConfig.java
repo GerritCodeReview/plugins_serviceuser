@@ -22,26 +22,31 @@ import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.Inject;
 
-public class GetMessages implements RestReadView<ConfigResource> {
+public class GetConfig implements RestReadView<ConfigResource> {
 
   private final PluginConfig cfg;
 
   @Inject
-  public GetMessages(PluginConfigFactory cfgFactory,
+  public GetConfig(PluginConfigFactory cfgFactory,
       @PluginName String pluginName) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
   }
 
   @Override
-  public MessagesInfo apply(ConfigResource rsrc) {
-    MessagesInfo info = new MessagesInfo();
+  public ConfigInfo apply(ConfigResource rsrc) {
+    ConfigInfo info = new ConfigInfo();
     info.info = Strings.emptyToNull(cfg.getString("infoMessage"));
     info.onSuccess = Strings.emptyToNull(cfg.getString("onSuccessMessage"));
+    info.allowEmail = cfg.getBoolean("allowEmail", false);
+    if (!info.allowEmail) {
+      info.allowEmail = null;
+    }
     return info;
   }
 
-  public class MessagesInfo {
+  public class ConfigInfo {
     String info;
     String onSuccess;
+    Boolean allowEmail;
   }
 }

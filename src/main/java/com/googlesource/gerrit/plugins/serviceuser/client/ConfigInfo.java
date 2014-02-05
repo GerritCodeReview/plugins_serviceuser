@@ -16,18 +16,20 @@ package com.googlesource.gerrit.plugins.serviceuser.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class MessagesInfo extends JavaScriptObject {
+public class ConfigInfo extends JavaScriptObject {
   final native String getInfoMessage() /*-{ return this.info }-*/;
   final native String getOnSuccessMessage() /*-{ return this.on_success }-*/;
+  final native boolean getAllowEmail() /*-{ return this.allow_email ? true : false; }-*/;
 
   final native void setInfoMessage(String s) /*-{ this.info = s; }-*/;
   final native void setOnSuccessMessage(String s) /*-{ this.on_success = s; }-*/;
+  final native void setAllowEmail(boolean s) /*-{ this.allow_email = s; }-*/;
 
-  static MessagesInfo create() {
-    MessagesInfo g = (MessagesInfo) createObject();
+  static ConfigInfo create() {
+    ConfigInfo g = (ConfigInfo) createObject();
     return g;
   }
 
-  protected MessagesInfo() {
+  protected ConfigInfo() {
   }
 }
