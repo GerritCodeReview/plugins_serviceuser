@@ -14,7 +14,6 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.sshd.CommandMetaData;
@@ -30,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
-@RequiresCapability(CreateServiceUserCapability.ID)
 @CommandMetaData(name = "create", description = "Create Service User")
 public class CreateServiceUserCommand extends SshCommand {
 

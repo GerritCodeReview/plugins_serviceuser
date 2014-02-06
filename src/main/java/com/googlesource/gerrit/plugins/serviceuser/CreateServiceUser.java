@@ -18,7 +18,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.gerrit.extensions.annotations.PluginName;
-import com.google.gerrit.extensions.annotations.RequiresCapability;
+import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.Response;
@@ -29,6 +29,7 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.account.AccountInfo;
+import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.account.CreateAccount;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
@@ -55,7 +56,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-@RequiresCapability(CreateServiceUserCapability.ID)
 public class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   public static final String USER = "user";
   public static final String KEY_CREATED_BY = "createdBy";
@@ -72,6 +72,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   }
 
   private final PluginConfig cfg;
+  private final String pluginName;
   private final CreateAccount.Factory createAccountFactory;
   private final String username;
   private final List<String> blockedNames;
@@ -93,6 +94,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
       @Assisted String username,
       Provider<GetConfig> getConfig) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
+    this.pluginName = pluginName;
     this.createAccountFactory = createAccountFactory;
     this.username = username;
     this.blockedNames =
@@ -117,7 +119,10 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   @Override
   public Response<AccountInfo> apply(ConfigResource resource, Input input)
       throws BadRequestException, ResourceConflictException,
-      UnprocessableEntityException, OrmException, IOException {
+      UnprocessableEntityException, OrmException, IOException, AuthException {
+    if (!canCreateServiceUser()) {
+      throw new AuthException("not allowed to create service user");
+    }
     if (input == null) {
       input = new Input();
     }
@@ -157,5 +162,15 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
     storage.commit(md);
 
     return response;
+  }
+
+  private boolean canCreateServiceUser() {
+    if (userProvider.get().isIdentifiedUser()) {
+      CapabilityControl ctl = userProvider.get().getCapabilities();
+      return ctl.canPerform(pluginName + "-" + CreateServiceUserCapability.ID)
+          || ctl.canAdministrateServer();
+    } else {
+      return false;
+    }
   }
 }
