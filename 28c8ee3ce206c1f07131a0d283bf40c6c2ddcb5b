@@ -70,6 +70,30 @@
       "revId": "28c8ee3ce206c1f07131a0d283bf40c6c2ddcb5b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9269caa4_79f6c702",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-02-06T07:02:25Z",
+      "side": 1,
+      "message": "Yes, this is probably better.",
+      "parentUuid": "328f3eaf_7e0dd14e",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 83
+      },
+      "revId": "28c8ee3ce206c1f07131a0d283bf40c6c2ddcb5b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
