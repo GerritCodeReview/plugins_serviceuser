@@ -19,6 +19,8 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.webui.TopMenu;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.CapabilityControl;
+import com.google.gerrit.server.config.ConfigResource;
+import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -29,17 +31,28 @@ public class ServiceUserMenu implements TopMenu {
   private final String pluginName;
   private final Provider<CurrentUser> userProvider;
   private final List<MenuEntry> menuEntries;
+  private final Provider<ListServiceUsers> listServiceUsers;
 
   @Inject
   public ServiceUserMenu(@PluginName String pluginName,
-      Provider<CurrentUser> userProvider) {
+      Provider<CurrentUser> userProvider,
+      Provider<ListServiceUsers> listServiceUsers) {
     this.pluginName = pluginName;
     this.userProvider = userProvider;
+    this.listServiceUsers = listServiceUsers;
     menuEntries = Lists.newArrayList();
+
+    List<MenuItem> peopleItems = Lists.newArrayListWithExpectedSize(2);
     if (canCreateServiceUser()) {
-      menuEntries.add(new MenuEntry("People", Collections
-          .singletonList(new MenuItem("Create Service User", "#/x/" + pluginName + "/create", ""))));
+      peopleItems.add(new MenuItem("Create Service User", "#/x/" + pluginName + "/create", ""));
     }
+    if (canCreateServiceUser() || hasServiceUser()) {
+      peopleItems.add(new MenuItem("List Service Users", "#/x/" + pluginName + "/list", ""));
+    }
+    if (!peopleItems.isEmpty()) {
+      menuEntries.add(new MenuEntry("People", peopleItems));
+    }
+
     if (userProvider.get().getCapabilities().canAdministrateServer()) {
       menuEntries.add(new MenuEntry("Plugins", Collections
           .singletonList(new MenuItem("Service User Admin", "#/x/" + pluginName + "/admin", ""))));
@@ -52,6 +65,14 @@ public class ServiceUserMenu implements TopMenu {
       return ctl.canPerform(pluginName + "-" + CreateServiceUserCapability.ID)
           || ctl.canAdministrateServer();
     } else {
+      return false;
+    }
+  }
+
+  private boolean hasServiceUser() {
+    try {
+      return !listServiceUsers.get().apply(new ConfigResource()).isEmpty();
+    } catch (OrmException e) {
       return false;
     }
   }

@@ -1,4 +1,4 @@
-// Copyright (C) 2014 The Android Open Source Project
+// Copyright (C) 2012 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,17 +14,25 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
-import com.google.gerrit.plugin.client.Plugin;
-import com.google.gerrit.plugin.client.PluginEntryPoint;
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class ServiceUserPlugin extends PluginEntryPoint {
-  public static final Resources RESOURCES = GWT.create(Resources.class);
+/** Transforms a value and passes it on to another callback. */
+public abstract class TransformCallback<I, O> implements AsyncCallback<I>{
+  private final AsyncCallback<O> callback;
+
+  protected TransformCallback(AsyncCallback<O> callback) {
+    this.callback = callback;
+  }
 
   @Override
-  public void onPluginLoad() {
-    Plugin.get().screen("create", new CreateServiceUserScreen.Factory());
-    Plugin.get().screen("admin", new ServiceUserAdminScreen.Factory());
-    Plugin.get().screen("list", new ServiceUserListScreen.Factory());
+  public void onSuccess(I result) {
+    callback.onSuccess(transform(result));
   }
+
+  @Override
+  public void onFailure(Throwable caught) {
+    callback.onFailure(caught);
+  }
+
+  protected abstract O transform(I result);
 }
