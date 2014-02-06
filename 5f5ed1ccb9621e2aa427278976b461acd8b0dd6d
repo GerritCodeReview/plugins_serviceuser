@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "725e16ff_b82db9ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-06T15:15:27Z",
+      "side": 1,
+      "message": "How that? The \n\n  CapabilityUtils.checkRequiresCapability(Provider\u003cCurrentUser\u003e userProvider,\n      String pluginName, Class\u003c?\u003e clazz);\n\nhandles it seamlessly for SSH commands and REST endpoints, so that\n\n  @RequiresCapability(CreateServiceUserCapability.ID)\n\nmust do the job unless we have a bug that we should fix in the first place.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "5f5ed1ccb9621e2aa427278976b461acd8b0dd6d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
