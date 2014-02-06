@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "128cfab8_7d0dd74e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ListServiceUsers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-02-06T08:42:09Z",
+      "side": 1,
+      "message": "Call this once before the loop and store in a variable?",
+      "range": {
+        "startLine": 67,
+        "startChar": 10,
+        "endLine": 67,
+        "endChar": 70
+      },
+      "revId": "14fdab91aec22377b9babb7c7f5fc6ff8dbf8791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "328f3eaf_fe3721f7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ListServiceUsers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-02-06T08:42:09Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 68,
+        "startChar": 13,
+        "endLine": 68,
+        "endChar": 45
+      },
+      "revId": "14fdab91aec22377b9babb7c7f5fc6ff8dbf8791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
