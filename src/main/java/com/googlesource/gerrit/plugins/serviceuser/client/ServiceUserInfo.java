@@ -14,17 +14,15 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
-import com.google.gerrit.plugin.client.Plugin;
-import com.google.gerrit.plugin.client.PluginEntryPoint;
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 
-public class ServiceUserPlugin extends PluginEntryPoint {
-  public static final Resources RESOURCES = GWT.create(Resources.class);
+public class ServiceUserInfo extends JavaScriptObject {
+  public final native int _account_id() /*-{ return this._account_id || 0; }-*/;
+  public final native String name() /*-{ return this.name; }-*/;
+  public final native String email() /*-{ return this.email; }-*/;
+  public final native String created_by() /*-{ return this.created_by; }-*/;
+  public final native String created_at() /*-{ return this.created_at; }-*/;
 
-  @Override
-  public void onPluginLoad() {
-    Plugin.get().screen("create", new CreateServiceUserScreen.Factory());
-    Plugin.get().screen("admin", new ServiceUserAdminScreen.Factory());
-    Plugin.get().screen("list", new ServiceUserListScreen.Factory());
+  protected ServiceUserInfo() {
   }
 }
