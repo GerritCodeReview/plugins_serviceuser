@@ -6,3 +6,34 @@
   margin-left: 10px !important;
 }
 
+.serviceuser-serviceUserTable {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.serviceuser-serviceUserTable .leftMostCell {
+  border-left: 1px solid #EEE;
+}
+
+.serviceuser-serviceUserTable .topMostCell {
+  border-top: 1px solid #EEE;
+}
+
+.serviceuser-serviceUserTable .dataHeader {
+  border: 1px solid #FFF;
+  padding: 2px 6px 1px;
+  background-color: #EEE;
+  font-style: italic;
+  white-space: nowrap;
+  color: textColor;
+}
+
+.serviceuser-serviceUserTable .dataCell {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-right: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+  vertical-align: middle;
+  height: 20px;
+}
+
