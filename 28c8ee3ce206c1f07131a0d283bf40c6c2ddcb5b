@@ -46,6 +46,30 @@
       "revId": "28c8ee3ce206c1f07131a0d283bf40c6c2ddcb5b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "328f3eaf_7e0dd14e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-02-06T07:01:07Z",
+      "side": 1,
+      "message": "I\u0027d say it\u0027s better to do the validity check in core Gerrit.",
+      "parentUuid": "9269caa4_59f903f2",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 83
+      },
+      "revId": "28c8ee3ce206c1f07131a0d283bf40c6c2ddcb5b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
