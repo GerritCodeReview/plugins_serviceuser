@@ -22,6 +22,30 @@
       "revId": "5f5ed1ccb9621e2aa427278976b461acd8b0dd6d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32265e9d_06165a68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-02-07T08:35:57Z",
+      "side": 1,
+      "message": "Yes, I believe this was working earlier. Will debug and see if I can find a problem in Gerrit core.",
+      "parentUuid": "725e16ff_b82db9ab",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "5f5ed1ccb9621e2aa427278976b461acd8b0dd6d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
