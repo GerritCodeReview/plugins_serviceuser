@@ -46,6 +46,30 @@
       "revId": "5f5ed1ccb9621e2aa427278976b461acd8b0dd6d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d21c2254_c332760a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-02-07T09:51:47Z",
+      "side": 1,
+      "message": "This is indeed a bug in Gerrit core which is only hit under certain circumstances, but which we always hit with the CreateServiceUser REST view.\n\nFixed in\n  https://gerrit-review.googlesource.com/54401",
+      "parentUuid": "32265e9d_06165a68",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "5f5ed1ccb9621e2aa427278976b461acd8b0dd6d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
