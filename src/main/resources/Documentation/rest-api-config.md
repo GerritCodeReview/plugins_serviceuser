@@ -51,6 +51,42 @@ entity is returned that describes the created account.
   }
 ```
 
+### <a id="get-service-user"> Get Service User
+_GET /config/server/@PLUGIN@~serviceusers/\{username\}_
+
+Gets a service user.
+
+In order to be able to see a service user the caller must have created
+that service user or be a member of a group that is granted the
+'Administrate Server' capability.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/JenkinsVoter HTTP/1.0
+```
+
+As response a [ServiceUserInfo](#service-user-info) entity is returned
+that describes the service user.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  {
+    "created_by": "jdoe",
+    "created_at": "Thu, 21 Nov 2013 15:00:55 +0100",
+    "_account_id": 1000195,
+    "name": "JenkinsVoter",
+    "username": "JenkinsVoter",
+    "avatars": []
+  }
+```
+
 ### <a id="list-service-users"> List Service Users
 GET /config/server/@PLUGIN@~serviceusers/_
 
