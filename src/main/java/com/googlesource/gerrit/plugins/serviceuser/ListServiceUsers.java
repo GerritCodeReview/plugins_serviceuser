@@ -20,7 +20,9 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER
 
 import com.google.common.collect.Maps;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.RestReadView;
+import com.google.gerrit.server.AnonymousUser;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
@@ -59,11 +61,17 @@ public class ListServiceUsers implements RestReadView<ConfigResource> {
   }
 
   @Override
-  public Map<String, ServiceUserInfo> apply(ConfigResource rscr) throws OrmException {
+  public Map<String, ServiceUserInfo> apply(ConfigResource rscr)
+      throws OrmException, AuthException {
+    CurrentUser user = userProvider.get();
+    if (user instanceof AnonymousUser) {
+      throw new AuthException("Authentication required");
+    }
+
     Map<String, ServiceUserInfo> accounts = Maps.newTreeMap();
     Config db = storage.get();
-    boolean isAdmin = userProvider.get().getCapabilities().canAdministrateServer();
-    String currentUser = userProvider.get().getUserName();
+    boolean isAdmin = user.getCapabilities().canAdministrateServer();
+    String currentUser = user.getUserName();
     for (String username : db.getSubsections(USER)) {
       String createdBy = db.getString(USER, username, KEY_CREATED_BY);
       if (isAdmin || currentUser.equals(createdBy)) {
