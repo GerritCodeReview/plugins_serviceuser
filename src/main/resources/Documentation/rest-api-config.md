@@ -186,14 +186,16 @@ entity is returned.
   Content-Type: application/json;charset=UTF-8
 
   )]}'
-  {
-    "seq": 1,
-    "ssh_public_key": "ssh-rsa AAAAB3NzaC1...",
-    "encoded_key": "AAAAB3NzaC1...",
-    "algorithm": "ssh-rsa",
-    "comment": "jenkins.voter@gerrit.com",
-    "valid": true
-  }
+  [
+    {
+      "seq": 1,
+      "ssh_public_key": "ssh-rsa AAAAB3NzaC1...",
+      "encoded_key": "AAAAB3NzaC1...",
+      "algorithm": "ssh-rsa",
+      "comment": "jenkins.voter@gerrit.com",
+      "valid": true
+    }
+  ]
 ```
 
 ### <a id="get-config"> Get Config
