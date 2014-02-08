@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.config.ConfigResource.CONFIG_KIND;
 import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SERVICE_USER_KIND;
+import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SSH_KEY_KIND;
 
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
@@ -38,12 +39,14 @@ public class Module extends AbstractModule {
       @Override
       protected void configure() {
         DynamicMap.mapOf(binder(), SERVICE_USER_KIND);
+        DynamicMap.mapOf(binder(), SSH_KEY_KIND);
         bind(ServiceUserCollection.class);
         child(CONFIG_KIND, "serviceusers").to(ServiceUserCollection.class);
         get(SERVICE_USER_KIND).to(GetServiceUser.class);
         install(new FactoryModuleBuilder().build(CreateServiceUser.Factory.class));
         get(CONFIG_KIND, "config").to(GetConfig.class);
         put(CONFIG_KIND, "config").to(PutConfig.class);
+        child(SERVICE_USER_KIND, "sshkeys").to(SshKeys.class);
       }
     });
   }
