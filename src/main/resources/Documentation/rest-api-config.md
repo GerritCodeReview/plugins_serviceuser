@@ -166,6 +166,38 @@ entities is returned.
   ]
 ```
 
+### <a id="get-ssh-key"> Get SSH key
+GET /config/server/@PLUGIN@~serviceusers/\{username\}/sshkeys/[\{ssh-key-id\}](../../../Documentation/rest-api-accounts.html#ssh-key-id)_
+
+Gets an SSH key of a service user.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/JenkinsVoter/sshkeys/1 HTTP/1.0
+```
+
+As response an [SshKeyInfo](../../../Documentation/rest-api-accounts.html#ssh-key-info)
+entity is returned.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  {
+    "seq": 1,
+    "ssh_public_key": "ssh-rsa AAAAB3NzaC1...",
+    "encoded_key": "AAAAB3NzaC1...",
+    "algorithm": "ssh-rsa",
+    "comment": "jenkins.voter@gerrit.com",
+    "valid": true
+  }
+```
+
 ### <a id="get-config"> Get Config
 _GET /config/server/@PLUGIN@~config_
 
