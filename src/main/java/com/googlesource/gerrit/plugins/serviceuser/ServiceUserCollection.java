@@ -14,38 +14,70 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
+import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
+
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.restapi.AcceptsCreate;
+import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ChildCollection;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestView;
-import com.google.gerrit.server.account.AccountResource;
+import com.google.gerrit.extensions.restapi.TopLevelResource;
+import com.google.gerrit.server.AnonymousUser;
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.account.AccountsCollection;
 import com.google.gerrit.server.config.ConfigResource;
+import com.google.gerrit.server.git.ProjectLevelConfig;
+import com.google.gerrit.server.project.ProjectCache;
+import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class ServiceUserCollection implements
-    ChildCollection<ConfigResource, AccountResource>,
+    ChildCollection<ConfigResource, ServiceUserResource>,
     AcceptsCreate<ConfigResource> {
 
-  private final DynamicMap<RestView<AccountResource>> views;
+  private final DynamicMap<RestView<ServiceUserResource>> views;
   private final CreateServiceUser.Factory createServiceUserFactory;
   private final Provider<ListServiceUsers> list;
+  private final Provider<AccountsCollection> accounts;
+  private final ProjectLevelConfig storage;
+  private final Provider<CurrentUser> userProvider;
 
   @Inject
-  ServiceUserCollection(DynamicMap<RestView<AccountResource>> views,
+  ServiceUserCollection(DynamicMap<RestView<ServiceUserResource>> views,
       CreateServiceUser.Factory createServiceUserFactory,
-      Provider<ListServiceUsers> list) {
+      Provider<ListServiceUsers> list, Provider<AccountsCollection> accounts,
+      @PluginName String pluginName, ProjectCache projectCache,
+      Provider<CurrentUser> userProvider) {
     this.views = views;
     this.createServiceUserFactory = createServiceUserFactory;
     this.list = list;
+    this.accounts = accounts;
+    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.userProvider = userProvider;
   }
 
   @Override
-  public AccountResource parse(ConfigResource parent, IdString id)
-      throws ResourceNotFoundException {
-    throw new ResourceNotFoundException(id);
+  public ServiceUserResource parse(ConfigResource parent, IdString id)
+      throws ResourceNotFoundException, AuthException, OrmException {
+    if (!storage.get().getSubsections(USER).contains(id.get())) {
+      throw new ResourceNotFoundException(id);
+    }
+    CurrentUser user = userProvider.get();
+    if (user instanceof AnonymousUser) {
+      throw new AuthException("Authentication required");
+    }
+    if (!user.getUserName().equals(
+        storage.get().getString(USER, id.get(), KEY_CREATED_BY))
+        && !user.getCapabilities().canAdministrateServer()) {
+      throw new ResourceNotFoundException(id);
+    }
+    return new ServiceUserResource(
+        accounts.get().parse(TopLevelResource.INSTANCE, id).getUser());
   }
 
   @Override
@@ -54,7 +86,7 @@ public class ServiceUserCollection implements
   }
 
   @Override
-  public DynamicMap<RestView<AccountResource>> views() {
+  public DynamicMap<RestView<ServiceUserResource>> views() {
     return views;
   }
 

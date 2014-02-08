@@ -15,9 +15,11 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.config.ConfigResource.CONFIG_KIND;
+import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SERVICE_USER_KIND;
 
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
+import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.extensions.webui.TopMenu;
@@ -35,8 +37,10 @@ public class Module extends AbstractModule {
     install(new RestApiModule() {
       @Override
       protected void configure() {
+        DynamicMap.mapOf(binder(), SERVICE_USER_KIND);
         bind(ServiceUserCollection.class);
         child(CONFIG_KIND, "serviceusers").to(ServiceUserCollection.class);
+        get(SERVICE_USER_KIND).to(GetServiceUser.class);
         install(new FactoryModuleBuilder().build(CreateServiceUser.Factory.class));
         get(CONFIG_KIND, "config").to(GetConfig.class);
         put(CONFIG_KIND, "config").to(PutConfig.class);
