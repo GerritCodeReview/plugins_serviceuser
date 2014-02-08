@@ -132,6 +132,38 @@ ServiceUserInfo is not set since it is already available as map key.
   }
 ```
 
+### <a id="list-ssh-keys"> List SSH keys
+GET /config/server/@PLUGIN@~serviceusers/\{username\}/sshkeys/_
+
+Lists the SSH keys of a service user.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/JenkinsVoter/sshkeys/ HTTP/1.0
+```
+
+As response a list of [SshKeyInfo](../../../Documentation/rest-api-accounts.html#ssh-key-info)
+entities is returned.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  {
+    "seq": 1,
+    "ssh_public_key": "ssh-rsa AAAAB3NzaC1...",
+    "encoded_key": "AAAAB3NzaC1...",
+    "algorithm": "ssh-rsa",
+    "comment": "jenkins.voter@gerrit.com",
+    "valid": true
+  }
+```
+
 ### <a id="get-config"> Get Config
 _GET /config/server/@PLUGIN@~config_
 
