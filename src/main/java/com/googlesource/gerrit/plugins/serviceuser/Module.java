@@ -47,6 +47,7 @@ public class Module extends AbstractModule {
         get(CONFIG_KIND, "config").to(GetConfig.class);
         put(CONFIG_KIND, "config").to(PutConfig.class);
         child(SERVICE_USER_KIND, "sshkeys").to(SshKeys.class);
+        get(SSH_KEY_KIND).to(GetSshKey.class);
       }
     });
   }

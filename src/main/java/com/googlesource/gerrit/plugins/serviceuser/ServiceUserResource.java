@@ -39,6 +39,11 @@ public class ServiceUserResource extends AccountResource {
       this.sshKey = sshKey;
     }
 
+    public SshKey(AccountResource.SshKey sshKey) {
+      super(sshKey.getUser());
+      this.sshKey = sshKey.getSshKey();
+    }
+
     public AccountSshKey getSshKey() {
       return sshKey;
     }
