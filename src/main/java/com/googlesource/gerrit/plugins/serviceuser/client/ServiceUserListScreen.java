@@ -21,6 +21,7 @@ import com.google.gerrit.plugin.client.screen.Screen;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
+import com.google.gwt.user.client.ui.InlineHyperlink;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ServiceUserListScreen extends VerticalPanel {
@@ -76,7 +77,8 @@ public class ServiceUserListScreen extends VerticalPanel {
         fmt.addStyleName(row, 0, "leftMostCell");
       }
 
-      t.setText(row, 0, username);
+      t.setWidget(row, 0, new InlineHyperlink(
+          username, "/x/" + Plugin.get().getName() + "/user/" + username));
       t.setText(row, 1, a.name());
       t.setText(row, 2, a.email());
       t.setText(row, 3, a.created_by());
