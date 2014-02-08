@@ -19,6 +19,7 @@ import com.google.gerrit.extensions.restapi.ChildCollection;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestView;
+import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -26,12 +27,15 @@ public class SshKeys implements
     ChildCollection<ServiceUserResource, ServiceUserResource.SshKey> {
   private final DynamicMap<RestView<ServiceUserResource.SshKey>> views;
   private final Provider<GetSshKeys> list;
+  private final Provider<com.google.gerrit.server.account.SshKeys> sshKeys;
 
   @Inject
   SshKeys(DynamicMap<RestView<ServiceUserResource.SshKey>> views,
-      Provider<GetSshKeys> list) {
+      Provider<GetSshKeys> list,
+      Provider<com.google.gerrit.server.account.SshKeys> sshKeys) {
     this.views = views;
     this.list = list;
+    this.sshKeys = sshKeys;
   }
 
   @Override
@@ -41,8 +45,8 @@ public class SshKeys implements
 
   @Override
   public ServiceUserResource.SshKey parse(ServiceUserResource parent, IdString id)
-      throws ResourceNotFoundException {
-    throw new ResourceNotFoundException(id);
+      throws ResourceNotFoundException, OrmException {
+    return new ServiceUserResource.SshKey(sshKeys.get().parse(parent.getUser(), id));
   }
 
   @Override
