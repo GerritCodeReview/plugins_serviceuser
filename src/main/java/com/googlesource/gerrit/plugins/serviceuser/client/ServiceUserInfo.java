@@ -19,6 +19,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 public class ServiceUserInfo extends JavaScriptObject {
   public final native int _account_id() /*-{ return this._account_id || 0; }-*/;
   public final native String name() /*-{ return this.name; }-*/;
+  public final native String username() /*-{ return this.username; }-*/;
   public final native String email() /*-{ return this.email; }-*/;
   public final native String created_by() /*-{ return this.created_by; }-*/;
   public final native String created_at() /*-{ return this.created_at; }-*/;
