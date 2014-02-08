@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.gerrit.extensions.restapi.RestView;
+import com.google.gerrit.reviewdb.client.AccountSshKey;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.inject.TypeLiteral;
@@ -23,8 +24,23 @@ public class ServiceUserResource extends AccountResource {
   public static final TypeLiteral<RestView<ServiceUserResource>> SERVICE_USER_KIND =
       new TypeLiteral<RestView<ServiceUserResource>>() {};
 
+  public static final TypeLiteral<RestView<SshKey>> SSH_KEY_KIND =
+      new TypeLiteral<RestView<SshKey>>() {};
 
   public ServiceUserResource(IdentifiedUser user) {
     super(user);
+  }
+
+  public static class SshKey extends ServiceUserResource {
+    private final AccountSshKey sshKey;
+
+    public SshKey(IdentifiedUser user, AccountSshKey sshKey) {
+      super(user);
+      this.sshKey = sshKey;
+    }
+
+    public AccountSshKey getSshKey() {
+      return sshKey;
+    }
   }
 }
