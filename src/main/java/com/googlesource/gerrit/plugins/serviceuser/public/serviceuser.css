@@ -6,20 +6,24 @@
   margin-left: 10px !important;
 }
 
-.serviceuser-serviceUserTable {
+.serviceuser-serviceUserTable,
+.serviceuser-sshKeyTable {
   border-collapse: separate;
   border-spacing: 0;
 }
 
-.serviceuser-serviceUserTable .leftMostCell {
+.serviceuser-serviceUserTable .leftMostCell,
+.serviceuser-sshKeyTable .leftMostCell {
   border-left: 1px solid #EEE;
 }
 
-.serviceuser-serviceUserTable .topMostCell {
+.serviceuser-serviceUserTable .topMostCell,
+.serviceuser-sshKeyTable .topMostCell {
   border-top: 1px solid #EEE;
 }
 
-.serviceuser-serviceUserTable .dataHeader {
+.serviceuser-serviceUserTable .dataHeader,
+.serviceuser-sshKeyTable .dataHeader {
   border: 1px solid #FFF;
   padding: 2px 6px 1px;
   background-color: #EEE;
@@ -28,7 +32,14 @@
   color: textColor;
 }
 
-.serviceuser-serviceUserTable .dataCell {
+.serviceuser-sshKeyTable .iconHeader {
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid #FFF;
+  background-color: #EEE;
+}
+
+.serviceuser-serviceUserTable .dataCell,
+.serviceuser-sshKeyTable .dataCell {
   padding-left: 5px;
   padding-right: 5px;
   border-right: 1px solid #EEE;
@@ -37,3 +48,29 @@
   height: 20px;
 }
 
+.serviceuser-sshKeyTable .iconCell {
+  width: 1px;
+  padding: 0px;
+  vertical-align: middle;
+  border-bottom: 1px solid #EEE;
+}
+
+.serviceuser-sshKeyPanelEncodedKey {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: mono-font;
+  font-size: small;
+}
+
+.serviceuser-sshKeyPanelInvalid {
+  white-space: nowrap;
+  color: red;
+  font-weight: bold;
+}
+
+.serviceuser-addSshKeyPanel {
+  margin-top: 10px;
+  background-color: #EEE;
+  padding: 5px 5px 5px 5px;
+}
