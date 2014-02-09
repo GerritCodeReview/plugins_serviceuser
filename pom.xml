@@ -111,6 +111,19 @@ limitations under the License.
       <version>2.5.1</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>gwtexpui</groupId>
+      <artifactId>gwtexpui</artifactId>
+      <version>1.3.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>gwtexpui</groupId>
+      <artifactId>gwtexpui</artifactId>
+      <version>1.3.4</version>
+      <classifier>sources</classifier>
+    </dependency>
   </dependencies>
 
   <repositories>
