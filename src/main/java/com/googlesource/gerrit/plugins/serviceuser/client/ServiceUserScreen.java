@@ -56,6 +56,8 @@ public class ServiceUserScreen extends VerticalPanel {
     t.addRow("Created By", info.created_by());
     t.addRow("Created At", info.created_at());
     add(t);
+
+    add(new SshPanel(info.username()));
   }
 
   private static class MyTable extends FlexTable {
