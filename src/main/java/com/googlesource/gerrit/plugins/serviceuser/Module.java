@@ -48,6 +48,8 @@ public class Module extends AbstractModule {
         put(CONFIG_KIND, "config").to(PutConfig.class);
         child(SERVICE_USER_KIND, "sshkeys").to(SshKeys.class);
         get(SSH_KEY_KIND).to(GetSshKey.class);
+        post(SERVICE_USER_KIND, "sshkeys").to(AddSshKey.class);
+        delete(SSH_KEY_KIND).to(DeleteSshKey.class);
       }
     });
   }
