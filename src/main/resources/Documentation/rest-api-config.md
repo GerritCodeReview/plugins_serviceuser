@@ -198,6 +198,60 @@ entity is returned.
   ]
 ```
 
+### <a id="add-ssh-key"> Add SSH key
+POST /config/server/@PLUGIN@~serviceusers/\{username\}/sshkeys_
+
+Adds an SSH key for a service user.
+
+#### Request
+
+```
+  POST /config/server/@PLUGIN@~serviceusers/JenkinsVoter/sshkeys HTTP/1.0
+  Content-Type: plain/text
+
+  AAAAB3NzaC1yc2EAAAABIwAAAQEA0T...YImydZAw\u003d\u003d
+```
+
+As response an [SshKeyInfo](../../../Documentation/rest-api-accounts.html#ssh-key-info)
+entity is returned that describes the new SSH key.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  [
+    {
+      "seq": 2,
+      "ssh_public_key": "ssh-rsa AAAAB1NzaA2...",
+      "encoded_key": "AAAAB1NzaA2...",
+      "algorithm": "ssh-rsa",
+      "comment": "jenkins.voter@gerrit.com",
+      "valid": true
+    }
+  ]
+```
+
+### <a id="delete-ssh-key"> Delete SSH key
+DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/sshkeys/[\{ssh-key-id\}](../../../Documentation/rest-api-accounts.html#ssh-key-id)_
+
+Deletes an SSH key of a service user.
+
+#### Request
+
+```
+  DELETE /config/server/@PLUGIN@~serviceusers/JenkinsVoter/sshkeys/2 HTTP/1.0
+```
+
+#### Response
+
+```
+  HTTP/1.1 204 No Content
+```
+
 ### <a id="get-config"> Get Config
 _GET /config/server/@PLUGIN@~config_
 
