@@ -25,7 +25,6 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ServiceUserMenu implements TopMenu {
@@ -52,11 +51,6 @@ public class ServiceUserMenu implements TopMenu {
     }
     if (!peopleItems.isEmpty()) {
       menuEntries.add(new MenuEntry("People", peopleItems));
-    }
-
-    if (userProvider.get().getCapabilities().canAdministrateServer()) {
-      menuEntries.add(new MenuEntry("Plugins", Collections
-          .singletonList(new MenuItem("Service User Admin", "#/x/" + pluginName + "/admin", ""))));
     }
   }
 

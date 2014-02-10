@@ -24,7 +24,7 @@ public class ServiceUserPlugin extends PluginEntryPoint {
   @Override
   public void onPluginLoad() {
     Plugin.get().screen("create", new CreateServiceUserScreen.Factory());
-    Plugin.get().screen("admin", new ServiceUserAdminScreen.Factory());
+    Plugin.get().screen("settings", new ServiceUserSettingsScreen.Factory());
     Plugin.get().screen("list", new ServiceUserListScreen.Factory());
     Plugin.get().screenRegex("user/(.*)", new ServiceUserScreen.Factory());
   }

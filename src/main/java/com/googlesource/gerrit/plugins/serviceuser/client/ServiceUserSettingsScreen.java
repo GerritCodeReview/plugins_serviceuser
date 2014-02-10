@@ -32,12 +32,12 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ServiceUserAdminScreen extends VerticalPanel {
+public class ServiceUserSettingsScreen extends VerticalPanel {
   static class Factory implements Screen.EntryPoint {
     @Override
     public void onLoad(Screen screen) {
       screen.setPageTitle("Service User Administration");
-      screen.show(new ServiceUserAdminScreen());
+      screen.show(new ServiceUserSettingsScreen());
     }
   }
 
@@ -46,7 +46,7 @@ public class ServiceUserAdminScreen extends VerticalPanel {
   private CheckBox allowEmailCheckBox;
   private Button saveButton;
 
-  ServiceUserAdminScreen() {
+  ServiceUserSettingsScreen() {
     setStyleName("serviceuser-panel");
 
     new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
