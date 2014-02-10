@@ -184,6 +184,7 @@ public class CreateServiceUserScreen extends VerticalPanel {
       @Override
       public void onSuccess(JavaScriptObject result) {
         clearForm();
+        Plugin.get().go("/x/" + Plugin.get().getName() + "/user/" + username);
 
         final DialogBox successDialog = new DialogBox();
         successDialog.setText("Service User Created");
