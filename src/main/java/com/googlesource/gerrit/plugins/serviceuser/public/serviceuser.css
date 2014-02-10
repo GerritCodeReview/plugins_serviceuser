@@ -78,3 +78,8 @@
 .serviceuser-serviceUserInfoTable {
   margin-bottom: 10px;
 }
+
+.serviceuser-editNameButton {
+  float: right;
+  cursor: pointer;
+}
