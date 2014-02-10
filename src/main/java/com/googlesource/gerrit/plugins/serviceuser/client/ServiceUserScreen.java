@@ -50,6 +50,7 @@ public class ServiceUserScreen extends VerticalPanel {
 
   private void display(ServiceUserInfo info) {
     MyTable t = new MyTable();
+    t.setStyleName("serviceuser-serviceUserInfoTable");
     t.addRow("Username", info.username());
     t.addRow("Full Name", info.name());
     t.addRow("Email Address", info.email());
