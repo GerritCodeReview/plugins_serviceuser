@@ -53,6 +53,9 @@ public class Module extends AbstractModule {
         get(SERVICE_USER_KIND, "name").to(GetName.class);
         put(SERVICE_USER_KIND, "name").to(PutName.class);
         delete(SERVICE_USER_KIND, "name").to(PutName.class);
+        get(SERVICE_USER_KIND, "email").to(GetEmail.class);
+        put(SERVICE_USER_KIND, "email").to(PutEmail.class);
+        delete(SERVICE_USER_KIND, "email").to(PutEmail.class);
       }
     });
   }

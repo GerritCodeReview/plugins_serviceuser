@@ -338,6 +338,89 @@ As response the new full name is returned.
 Some realms may not allow to modify the full name. In this case the
 request is rejected with "`405 Method Not Allowed`".
 
+### <a id="get-email"> Get Email
+GET /config/server/@PLUGIN@~serviceusers/\{username\}/email_
+
+Retrieves the (preferred) email of a service user.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/JenkinsVoter/email HTTP/1.0
+```
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  "jenkins.voter@gerrit.com"
+```
+
+If the service user does not have an email address an empty string is returned.
+
+### <a id="set-email"> Set Email
+PUT /config/server/@PLUGIN@~serviceusers/\{username\}/email_
+
+Sets the (preferred) email of a service user.
+
+The new email must be provided in the request body inside a
+[EmailInput](#email-input) entity.
+
+#### Request
+
+```
+  PUT /config/server/@PLUGIN@~serviceusers/JenkinsVoter/email HTTP/1.0
+  Content-Type: application/json;charset=UTF-8
+
+  {
+    "email": "jenkins.voter@gerrit.com"
+  }
+```
+
+As response the new email is returned.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  "jenkins.voter@gerrit.com"
+```
+
+If the email was deleted the response is "`204 No Content`".
+
+Some realms may not allow to modify the email. In this case the
+request is rejected with "`405 Method Not Allowed`".
+
+### <a id="delete-email"> Delete Email
+DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/email_
+
+Deletes the email of a service user.
+
+#### Request
+
+```
+  DELETE /config/server/@PLUGIN@~serviceusers/JenkinsVoter/email HTTP/1.0
+```
+
+As response the new email is returned.
+
+#### Response
+
+```
+  HTTP/1.1 204 No Content
+```
+
+Some realms may not allow to modify the email. In this case the
+request is rejected with "`405 Method Not Allowed`".
+
 ### <a id="get-config"> Get Config
 _GET /config/server/@PLUGIN@~config_
 
@@ -399,6 +482,12 @@ The `ConfigInfo` entity contains configuration of the @PLUGIN@ plugin.
   a service user was successfully created.
 * _allow\_email_: Whether it is allowed to provide an email address for
   a service user (not set if `false`).
+
+### <a id="email-input"></a>EmailInput
+
+The `EmailInput` entity contains a new email address.
+
+* _email_: The new email address.
 
 ### <a id="service-user-info"></a>ServiceUserInfo
 
