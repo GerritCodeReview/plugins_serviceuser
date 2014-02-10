@@ -34,6 +34,6 @@ public class GetSshKeys implements RestReadView<ServiceUserResource> {
   @Override
   public List<SshKeyInfo> apply(ServiceUserResource rsrc) throws AuthException,
       OrmException {
-    return getSshKeys.get().apply(rsrc);
+    return getSshKeys.get().apply(rsrc.getUser());
   }
 }
