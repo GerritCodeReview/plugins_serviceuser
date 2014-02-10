@@ -18,18 +18,11 @@ import com.google.gerrit.plugin.client.Plugin;
 import com.google.gerrit.plugin.client.rpc.NativeString;
 import com.google.gerrit.plugin.client.rpc.RestApi;
 import com.google.gerrit.plugin.client.screen.Screen;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwtexpui.globalkey.client.NpTextBox;
 
 public class ServiceUserScreen extends VerticalPanel {
   static class Factory implements Screen.EntryPoint {
@@ -46,8 +39,20 @@ public class ServiceUserScreen extends VerticalPanel {
     new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
         .id(serviceUser).get(new AsyncCallback<ServiceUserInfo>() {
             @Override
-            public void onSuccess(ServiceUserInfo info) {
-              display(info);
+            public void onSuccess(final ServiceUserInfo serviceUserInfo) {
+              new RestApi("config").id("server")
+                  .view(Plugin.get().getPluginName(), "config")
+                  .get(new AsyncCallback<ConfigInfo>() {
+                    @Override
+                    public void onSuccess(ConfigInfo configInfo) {
+                      display(serviceUserInfo, configInfo.getAllowEmail());
+                    }
+
+                    @Override
+                    public void onFailure(Throwable caught) {
+                      // never invoked
+                    }
+                  });
             }
 
             @Override
@@ -57,95 +62,55 @@ public class ServiceUserScreen extends VerticalPanel {
           });
   }
 
-  private void display(ServiceUserInfo info) {
+  private void display(ServiceUserInfo info, boolean allowEmail) {
     MyTable t = new MyTable();
     t.setStyleName("serviceuser-serviceUserInfoTable");
     t.addRow("Username", info.username());
-    t.addRow("Full Name", getNameWidget(info.username(), info.name()));
-    t.addRow("Email Address", info.email());
+    t.addRow("Full Name", new EditableValue(info.username(), info.name()) {
+      @Override
+      protected void save(String serviceUser, final String newValue) {
+        new RestApi("config").id("server")
+            .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
+            .view("name").put(newValue, new AsyncCallback<NativeString>() {
+              @Override
+              public void onSuccess(NativeString result) {
+                updateValue(newValue);
+              }
+
+              @Override
+              public void onFailure(Throwable caught) {
+                // never invoked
+              }
+            });
+      }
+    });
+    if (allowEmail) {
+      t.addRow("Email Address", new EditableValue(info.username(), info.email()) {
+        @Override
+        protected void save(String serviceUser, final String newValue) {
+          new RestApi("config").id("server")
+              .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
+              .view("email").put(newValue, new AsyncCallback<NativeString>() {
+                @Override
+                public void onSuccess(NativeString result) {
+                  updateValue(newValue);
+                }
+
+                @Override
+                public void onFailure(Throwable caught) {
+                  // never invoked
+                }
+              });
+        }
+      });
+    } else {
+      t.addRow("Email Address", info.email());
+    }
     t.addRow("Created By", info.created_by());
     t.addRow("Created At", info.created_at());
     add(t);
 
     add(new SshPanel(info.username()));
-  }
-
-  private Widget getNameWidget(final String serviceUser, final String name) {
-    FlowPanel p = new FlowPanel();
-    final InlineLabel l = new InlineLabel(name);
-    final Image edit = new Image(ServiceUserPlugin.RESOURCES.edit());
-    edit.addStyleName("serviceuser-editNameButton");
-
-    final NpTextBox input = new NpTextBox();
-    input.setVisibleLength(25);
-    input.setValue(name);
-    input.setVisible(false);
-    final Button save = new Button();
-    save.setText("Save");
-    save.setVisible(false);
-    save.setEnabled(false);
-    final Button cancel = new Button();
-    cancel.setText("Cancel");
-    cancel.setVisible(false);
-
-    OnEditEnabler e = new OnEditEnabler(save);
-    e.listenTo(input);
-
-    edit.addClickHandler(new  ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        l.setVisible(false);
-        edit.setVisible(false);
-        input.setVisible(true);
-        save.setVisible(true);
-        cancel.setVisible(true);
-      }
-    });
-    save.addClickHandler(new  ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        save.setEnabled(false);
-        final String newName = input.getValue().trim();
-        new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
-            .view("name").put(newName, new AsyncCallback<NativeString>() {
-          @Override
-          public void onSuccess(NativeString result) {
-            l.setText(newName);
-            l.setVisible(true);
-            edit.setVisible(true);
-            input.setVisible(false);
-            input.setValue(newName);
-            save.setVisible(false);
-            save.setEnabled(false);
-            cancel.setVisible(false);
-          }
-
-          @Override
-          public void onFailure(Throwable caught) {
-            // never invoked
-          }
-        });
-      }
-    });
-    cancel.addClickHandler(new  ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        l.setVisible(true);
-        edit.setVisible(true);
-        input.setVisible(false);
-        input.setValue(l.getText());
-        save.setVisible(false);
-        save.setEnabled(false);
-        cancel.setVisible(false);
-      }
-    });
-
-    p.add(l);
-    p.add(edit);
-    p.add(input);
-    p.add(save);
-    p.add(cancel);
-    return p;
   }
 
   private static class MyTable extends FlexTable {
