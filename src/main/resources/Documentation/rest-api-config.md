@@ -421,6 +421,65 @@ As response the new email is returned.
 Some realms may not allow to modify the email. In this case the
 request is rejected with "`405 Method Not Allowed`".
 
+### <a id="get-active"> Get Active
+GET /config/server/@PLUGIN@~serviceusers/\{username\}/active_
+
+Checks if a service user is active.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/JenkinsVoter/active HTTP/1.0
+```
+
+If the service user is active the string `ok` is returned.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+
+  ok
+```
+
+If the service user is inactive the response is `204 No Content`.
+
+### <a id="set-active"> Set Active
+PUT /config/server/@PLUGIN@~serviceusers/\{username\}/active_
+
+Sets the service user state to active.
+
+#### Request
+
+```
+  PUT /config/server/@PLUGIN@~serviceusers/JenkinsVoter/active HTTP/1.0
+```
+
+#### Response
+
+```
+  HTTP/1.1 201 Created
+```
+
+If the service user was already active the response is `200 OK`.
+
+### <a id="delete-active"> Delete Active
+DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/active_
+
+Sets the service user state to inactive.
+
+#### Request
+
+```
+  DELETE /config/server/@PLUGIN@~serviceusers/JenkinsVoter/active HTTP/1.0
+```
+
+#### Response
+
+```
+  HTTP/1.1 204 No Content
+```
+
 ### <a id="get-config"> Get Config
 _GET /config/server/@PLUGIN@~config_
 
