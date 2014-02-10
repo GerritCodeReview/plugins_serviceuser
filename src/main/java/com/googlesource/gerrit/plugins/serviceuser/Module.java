@@ -50,6 +50,9 @@ public class Module extends AbstractModule {
         get(SSH_KEY_KIND).to(GetSshKey.class);
         post(SERVICE_USER_KIND, "sshkeys").to(AddSshKey.class);
         delete(SSH_KEY_KIND).to(DeleteSshKey.class);
+        get(SERVICE_USER_KIND, "name").to(GetName.class);
+        put(SERVICE_USER_KIND, "name").to(PutName.class);
+        delete(SERVICE_USER_KIND, "name").to(PutName.class);
       }
     });
   }

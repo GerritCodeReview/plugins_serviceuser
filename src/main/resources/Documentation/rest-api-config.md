@@ -254,6 +254,90 @@ Deletes an SSH key of a service user.
   HTTP/1.1 204 No Content
 ```
 
+### <a id="get-full-name"> Get Full Name
+GET /config/server/@PLUGIN@~serviceusers/\{username\}/name_
+
+Retrieves the full name of a service user.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/JenkinsVoter/name HTTP/1.0
+```
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  "Jenkins Voter"
+```
+
+If the service user does not have a name an empty string is returned.
+
+### <a id="set-full-name"> Set Full Name
+PUT /config/server/@PLUGIN@~serviceusers/\{username\}/name_
+
+Sets the full name of a service user.
+
+The new full name must be provided in the request body inside a
+[AccountNameInput](../../../Documentation/rest-api-accounts.html#account-name-input)
+entity.
+
+#### Request
+
+```
+  PUT /config/server/@PLUGIN@~serviceusers/JenkinsVoter/name HTTP/1.0
+  Content-Type: application/json;charset=UTF-8
+
+  {
+    "name": "Jenkins Voter"
+  }
+```
+
+As response the new full name is returned.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  "Jenkins Voter"
+```
+
+If the name was deleted the response is "`204 No Content`".
+
+Some realms may not allow to modify the full name. In this case the
+request is rejected with "`405 Method Not Allowed`".
+
+### <a id="delete-full-name"> Delete Full Name
+DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/name_
+
+Deletes the full name of a service user.
+
+#### Request
+
+```
+  DELETE /config/server/@PLUGIN@~serviceusers/JenkinsVoter/name HTTP/1.0
+```
+
+As response the new full name is returned.
+
+#### Response
+
+```
+  HTTP/1.1 204 No Content
+```
+
+Some realms may not allow to modify the full name. In this case the
+request is rejected with "`405 Method Not Allowed`".
+
 ### <a id="get-config"> Get Config
 _GET /config/server/@PLUGIN@~config_
 
