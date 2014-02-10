@@ -33,8 +33,8 @@ capability.
   }
 ```
 
-As response a detailed [AccountInfo](../../../Documentation/rest-api-accounts.html#account-info)
-entity is returned that describes the created account.
+As response a [ServiceUserInfo](#service-user-info) entity is returned
+that describes the created account.
 
 #### Response
 
@@ -45,6 +45,8 @@ entity is returned that describes the created account.
 
   )]}'
   {
+    "created_by": "jdoe",
+    "created_at": "Thu, 21 Nov 2013 15:00:55 +0100",
     "_account_id": 1000195,
     "name": "JenkinsVoter",
     "avatars": []

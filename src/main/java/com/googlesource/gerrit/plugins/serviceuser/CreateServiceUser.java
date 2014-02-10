@@ -42,6 +42,7 @@ import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 
 import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.Input;
+import com.googlesource.gerrit.plugins.serviceuser.ListServiceUsers.ServiceUserInfo;
 
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.PersonIdent;
@@ -115,7 +116,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   }
 
   @Override
-  public Response<AccountInfo> apply(ConfigResource resource, Input input)
+  public Response<ServiceUserInfo> apply(ConfigResource resource, Input input)
       throws BadRequestException, ResourceConflictException,
       UnprocessableEntityException, OrmException, IOException {
     if (input == null) {
@@ -146,16 +147,20 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
     Response<AccountInfo> response =
         createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
 
+    String creator = userProvider.get().getUserName();
+    String creationDate = rfc2822DateFormatter.format(new Date());
+
     Config db = storage.get();
-    db.setString(USER, username, KEY_CREATED_BY,
-        userProvider.get().getUserName());
-    db.setString(USER, username, KEY_CREATED_AT,
-        rfc2822DateFormatter.format(new Date()));
+    db.setString(USER, username, KEY_CREATED_BY, creator);
+    db.setString(USER, username, KEY_CREATED_AT, creationDate);
 
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
     md.setMessage("Create Service User '" + username + "'\n");
     storage.commit(md);
 
-    return response;
+    ServiceUserInfo info = new ServiceUserInfo(response.value());
+    info.createdBy = creator;
+    info.createdAt = creationDate;
+    return Response.created(info);
   }
 }
