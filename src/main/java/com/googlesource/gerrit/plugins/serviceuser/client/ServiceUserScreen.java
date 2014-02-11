@@ -16,11 +16,15 @@ package com.googlesource.gerrit.plugins.serviceuser.client;
 
 import com.google.gerrit.plugin.client.Plugin;
 import com.google.gerrit.plugin.client.rpc.NativeString;
+import com.google.gerrit.plugin.client.rpc.NoContent;
 import com.google.gerrit.plugin.client.rpc.RestApi;
 import com.google.gerrit.plugin.client.screen.Screen;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -65,6 +69,7 @@ public class ServiceUserScreen extends VerticalPanel {
   private void display(ServiceUserInfo info, boolean allowEmail) {
     MyTable t = new MyTable();
     t.setStyleName("serviceuser-serviceUserInfoTable");
+    t.addRow("Account State", createActiveToggle(info.username()));
     t.addRow("Username", info.username());
     t.addRow("Full Name", new EditableValue(info.username(), info.name()) {
       @Override
@@ -111,6 +116,68 @@ public class ServiceUserScreen extends VerticalPanel {
     add(t);
 
     add(new SshPanel(info.username()));
+  }
+
+  private ToggleButton createActiveToggle(final String serviceUser) {
+    final ToggleButton activeToggle = new ToggleButton();
+    activeToggle.setStyleName("serviceuser-toggleButton");
+    activeToggle.setVisible(false);
+    activeToggle.setValue(true);
+    activeToggle.setText("Active");
+    activeToggle.setValue(false);
+    activeToggle.setText("Inactive");
+
+    new RestApi("config").id("server")
+        .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
+        .view("active").get(NativeString.unwrap(new AsyncCallback<String>() {
+      @Override
+      public void onSuccess(String result) {
+        activeToggle.setValue(result != null && "ok".equals(result.trim()));
+        activeToggle.setVisible(true);
+      }
+
+      @Override
+      public void onFailure(Throwable caught) {
+        // never invoked
+      }
+    }));
+
+    activeToggle.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+      @Override
+      public void onValueChange(ValueChangeEvent<Boolean> event) {
+        if (event.getValue()) {
+          new RestApi("config").id("server")
+              .view(Plugin.get().getPluginName(), "serviceusers")
+              .id(serviceUser).view("active")
+              .put(new AsyncCallback<NoContent>() {
+                @Override
+                public void onSuccess(NoContent result) {
+                }
+
+                @Override
+                public void onFailure(Throwable caught) {
+                  // never invoked
+                }
+              });
+        } else {
+          new RestApi("config").id("server")
+              .view(Plugin.get().getPluginName(), "serviceusers")
+              .id(serviceUser).view("active")
+              .delete(new AsyncCallback<NoContent>() {
+                @Override
+                public void onSuccess(NoContent result) {
+                }
+
+                @Override
+                public void onFailure(Throwable caught) {
+                  // never invoked
+                }
+              });
+        }
+      }
+    });
+
+    return activeToggle;
   }
 
   private static class MyTable extends FlexTable {
