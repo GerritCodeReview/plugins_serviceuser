@@ -535,8 +535,8 @@ unchanged.
 
 The `ConfigInfo` entity contains configuration of the @PLUGIN@ plugin.
 
-* _info_: HTML formatted message that should be displayed in the
-  service user creation dialog.
+* _info_: HTML formatted message that should be displayed on the
+  service user creation screen.
 * _on\_success_: HTML formatted message that should be displayed after
   a service user was successfully created.
 * _allow\_email_: Whether it is allowed to provide an email address for
