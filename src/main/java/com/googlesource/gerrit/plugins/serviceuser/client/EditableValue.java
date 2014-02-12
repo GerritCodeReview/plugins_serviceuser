@@ -16,6 +16,9 @@ package com.googlesource.gerrit.plugins.serviceuser.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -66,16 +69,21 @@ public abstract class EditableValue extends FlowPanel {
         save(serviceUser, input.getValue().trim());
       }
     });
+    input.addKeyPressHandler(new KeyPressHandler() {
+      @Override
+      public void onKeyPress(KeyPressEvent event) {
+        if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+          save.setEnabled(false);
+          save(serviceUser, input.getValue().trim());
+        } else if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ESCAPE) {
+          cancel();
+        }
+      }
+    });
     cancel.addClickHandler(new  ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        label.setVisible(true);
-        edit.setVisible(true);
-        input.setVisible(false);
-        input.setValue(label.getText());
-        save.setVisible(false);
-        save.setEnabled(false);
-        cancel.setVisible(false);
+        cancel();
       }
     });
 
@@ -84,6 +92,16 @@ public abstract class EditableValue extends FlowPanel {
     add(input);
     add(save);
     add(cancel);
+  }
+
+  private void cancel() {
+    label.setVisible(true);
+    edit.setVisible(true);
+    input.setVisible(false);
+    input.setValue(label.getText());
+    save.setVisible(false);
+    save.setEnabled(false);
+    cancel.setVisible(false);
   }
 
   protected void updateValue(String newValue) {
