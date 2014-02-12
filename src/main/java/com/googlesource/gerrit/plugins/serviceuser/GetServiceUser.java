@@ -55,6 +55,7 @@ public class GetServiceUser implements RestReadView<ServiceUserResource> {
     ServiceUserInfo info = new ServiceUserInfo(getAccount.get().apply(rsrc));
     info.createdBy = db.getString(USER, username, KEY_CREATED_BY);
     info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
+    info.inactive = !rsrc.getUser().getAccount().isActive() ? true : null;
     return info;
   }
 }

@@ -82,6 +82,7 @@ public class ListServiceUsers implements RestReadView<ConfigResource> {
           info.username = null;
           info.createdBy = createdBy;
           info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
+          info.inactive = !account.getAccount().isActive() ? true : null;
           accounts.put(username, info);
         }
       }
@@ -92,6 +93,7 @@ public class ListServiceUsers implements RestReadView<ConfigResource> {
   public static class ServiceUserInfo extends AccountInfo {
     public String createdBy;
     public String createdAt;
+    public Boolean inactive;
 
     public ServiceUserInfo(AccountInfo info) {
       super(info._id);

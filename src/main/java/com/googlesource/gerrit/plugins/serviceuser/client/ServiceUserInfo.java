@@ -23,6 +23,7 @@ public class ServiceUserInfo extends JavaScriptObject {
   public final native String email() /*-{ return this.email; }-*/;
   public final native String created_by() /*-{ return this.created_by; }-*/;
   public final native String created_at() /*-{ return this.created_at; }-*/;
+  public final native boolean active() /*-{ return this.inactive ? false : true; }-*/;
 
   protected ServiceUserInfo() {
   }
