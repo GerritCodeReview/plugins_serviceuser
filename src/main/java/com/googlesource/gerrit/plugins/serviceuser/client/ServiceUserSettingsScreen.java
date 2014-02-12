@@ -69,7 +69,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     infoMsgTitelPanel.add(new Label("Info Message"));
     Image infoMsgInfo = new Image(ServiceUserPlugin.RESOURCES.info());
     infoMsgInfo.setTitle("HTML formatted message that should be"
-        + " displayed in the service user creation dialog.");
+        + " displayed on the service user creation screen.");
     infoMsgTitelPanel.add(infoMsgInfo);
     infoMsgTitelPanel.add(new Label(":"));
     infoMsgPanel.add(infoMsgTitelPanel);

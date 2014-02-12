@@ -24,8 +24,8 @@ file.
 
 <a id="infoMessage">
 `plugin.@PLUGIN@.infoMessage`
-:	HTML formatted message that should be displayed in the service user
-	creation dialog.
+:	HTML formatted message that should be displayed on the service user
+	creation screen.
 
 <a id="onSuccessMessage">
 `plugin.@PLUGIN@.onSuccessMessage`
