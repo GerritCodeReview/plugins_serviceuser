@@ -59,6 +59,9 @@ public class Module extends AbstractModule {
         get(SERVICE_USER_KIND, "active").to(GetActive.class);
         put(SERVICE_USER_KIND, "active").to(PutActive.class);
         delete(SERVICE_USER_KIND, "active").to(DeleteActive.class);
+        get(SERVICE_USER_KIND, "owner").to(GetOwner.class);
+        put(SERVICE_USER_KIND, "owner").to(PutOwner.class);
+        delete(SERVICE_USER_KIND, "owner").to(PutOwner.class);
       }
     });
   }

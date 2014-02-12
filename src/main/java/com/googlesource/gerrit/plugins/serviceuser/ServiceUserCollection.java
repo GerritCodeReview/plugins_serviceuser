@@ -15,8 +15,10 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
+import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
+import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.restapi.AcceptsCreate;
@@ -26,11 +28,13 @@ import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestView;
 import com.google.gerrit.extensions.restapi.TopLevelResource;
+import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.server.AnonymousUser;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.AccountsCollection;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.ProjectLevelConfig;
+import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -46,19 +50,21 @@ public class ServiceUserCollection implements
   private final Provider<AccountsCollection> accounts;
   private final ProjectLevelConfig storage;
   private final Provider<CurrentUser> userProvider;
+  private final GroupsCollection groups;
 
   @Inject
   ServiceUserCollection(DynamicMap<RestView<ServiceUserResource>> views,
       CreateServiceUser.Factory createServiceUserFactory,
       Provider<ListServiceUsers> list, Provider<AccountsCollection> accounts,
       @PluginName String pluginName, ProjectCache projectCache,
-      Provider<CurrentUser> userProvider) {
+      Provider<CurrentUser> userProvider, GroupsCollection groups) {
     this.views = views;
     this.createServiceUserFactory = createServiceUserFactory;
     this.list = list;
     this.accounts = accounts;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     this.userProvider = userProvider;
+    this.groups = groups;
   }
 
   @Override
@@ -71,10 +77,21 @@ public class ServiceUserCollection implements
     if (user instanceof AnonymousUser) {
       throw new AuthException("Authentication required");
     }
-    if (!user.getUserName().equals(
-        storage.get().getString(USER, id.get(), KEY_CREATED_BY))
-        && !user.getCapabilities().canAdministrateServer()) {
-      throw new ResourceNotFoundException(id);
+    if (!user.getCapabilities().canAdministrateServer()) {
+      String owner = storage.get().getString(USER, id.get(), KEY_OWNER);
+      if (owner != null) {
+        try {
+          GroupDescription.Basic group = groups.parse(owner);
+          if (!user.getEffectiveGroups().contains(group.getGroupUUID())) {
+            throw new ResourceNotFoundException(id);
+          }
+        } catch (UnprocessableEntityException e) {
+          throw new ResourceNotFoundException(id);
+        }
+      } else if (!user.getUserName().equals(
+          storage.get().getString(USER, id.get(), KEY_CREATED_BY))) {
+        throw new ResourceNotFoundException(id);
+      }
     }
     return new ServiceUserResource(
         accounts.get().parse(TopLevelResource.INSTANCE, id).getUser());

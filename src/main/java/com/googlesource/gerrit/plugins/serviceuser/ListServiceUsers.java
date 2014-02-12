@@ -14,28 +14,27 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_AT;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.common.collect.Maps;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.AuthException;
+import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.AnonymousUser;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
-import com.google.gerrit.server.account.AccountInfo;
-import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.account.AccountState;
-import com.google.gerrit.server.account.GetAccount;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+
+import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 
 import org.eclipse.jgit.lib.Config;
 
@@ -46,18 +45,18 @@ public class ListServiceUsers implements RestReadView<ConfigResource> {
   private final IdentifiedUser.GenericFactory userFactory;
   private final ProjectLevelConfig storage;
   private final AccountCache accountCache;
-  private final Provider<GetAccount> getAccount;
+  private final Provider<GetServiceUser> getServiceUser;
 
   @Inject
   ListServiceUsers(Provider<CurrentUser> userProvider,
       IdentifiedUser.GenericFactory userFactory, @PluginName String pluginName,
       ProjectCache projectCache, AccountCache accountCache,
-      Provider<GetAccount> getAccount) {
+      Provider<GetServiceUser> getServiceUser) {
     this.userProvider = userProvider;
     this.userFactory = userFactory;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     this.accountCache = accountCache;
-    this.getAccount = getAccount;
+    this.getServiceUser = getServiceUser;
   }
 
   @Override
@@ -77,31 +76,18 @@ public class ListServiceUsers implements RestReadView<ConfigResource> {
       if (isAdmin || currentUser.equals(createdBy)) {
         AccountState account = accountCache.getByUsername(username);
         if (account != null) {
-          ServiceUserInfo info = new ServiceUserInfo(getAccount.get().apply(
-              new AccountResource(userFactory.create(account.getAccount().getId()))));
-          info.username = null;
-          info.createdBy = createdBy;
-          info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
-          info.inactive = !account.getAccount().isActive() ? true : null;
-          accounts.put(username, info);
+          ServiceUserInfo info;
+          try {
+            info = getServiceUser.get().apply(
+                new ServiceUserResource(userFactory.create(account.getAccount().getId())));
+            info.username = null;
+            accounts.put(username, info);
+          } catch (ResourceNotFoundException e) {
+            // ignore this service user
+          }
         }
       }
     }
     return accounts;
-  }
-
-  public static class ServiceUserInfo extends AccountInfo {
-    public String createdBy;
-    public String createdAt;
-    public Boolean inactive;
-
-    public ServiceUserInfo(AccountInfo info) {
-      super(info._id);
-      _accountId = info._accountId;
-      name = info.name;
-      email = info.email;
-      username = info.username;
-      avatars = info.avatars;
-    }
   }
 }

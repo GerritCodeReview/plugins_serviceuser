@@ -17,30 +17,35 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_AT;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
+import com.google.gerrit.server.account.AccountInfo;
 import com.google.gerrit.server.account.GetAccount;
 import com.google.gerrit.server.git.ProjectLevelConfig;
+import com.google.gerrit.server.group.GroupJson.GroupInfo;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
-import com.googlesource.gerrit.plugins.serviceuser.ListServiceUsers.ServiceUserInfo;
 
 import org.eclipse.jgit.lib.Config;
 
 public class GetServiceUser implements RestReadView<ServiceUserResource> {
   private final Provider<GetAccount> getAccount;
   private final ProjectLevelConfig storage;
+  private final GetOwner getOwner;
 
   @Inject
   GetServiceUser(Provider<GetAccount> getAccount,
-      @PluginName String pluginName, ProjectCache projectCache) {
+      @PluginName String pluginName, ProjectCache projectCache,
+      GetOwner getOwner) {
     this.getAccount = getAccount;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.getOwner = getOwner;
   }
 
   @Override
@@ -56,6 +61,28 @@ public class GetServiceUser implements RestReadView<ServiceUserResource> {
     info.createdBy = db.getString(USER, username, KEY_CREATED_BY);
     info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
     info.inactive = !rsrc.getUser().getAccount().isActive() ? true : null;
+
+    Response<GroupInfo> response = getOwner.apply(rsrc);
+    if (response.statusCode() == SC_OK) {
+      info.owner = response.value();
+    }
+
     return info;
+  }
+
+  public static class ServiceUserInfo extends AccountInfo {
+    public String createdBy;
+    public String createdAt;
+    public Boolean inactive;
+    public GroupInfo owner;
+
+    public ServiceUserInfo(AccountInfo info) {
+      super(info._id);
+      _accountId = info._accountId;
+      name = info.name;
+      email = info.email;
+      username = info.username;
+      avatars = info.avatars;
+    }
   }
 }
