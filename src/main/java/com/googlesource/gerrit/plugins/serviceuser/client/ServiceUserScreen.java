@@ -111,26 +111,7 @@ public class ServiceUserScreen extends VerticalPanel {
     } else {
       t.addRow("Email Address", info.email());
     }
-    t.addRow("Owner Group", new EditableValue(info.username(),
-        info.owner() != null ? info.owner().name() : "") {
-      @Override
-      protected void save(String serviceUser, final String newValue) {
-        new RestApi("config").id("server")
-            .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
-            .view("owner").put(newValue, new AsyncCallback<GroupInfo>() {
-              @Override
-              public void onSuccess(GroupInfo result) {
-                updateValue(result != null ? result.name() : "");
-                Plugin.get().refresh();
-              }
-
-              @Override
-              public void onFailure(Throwable caught) {
-                // never invoked
-              }
-            });
-      }
-    });
+    t.addRow("Owner Group", createOwnerWidget(info));
     t.addRow("Created By", info.created_by());
     t.addRow("Created At", info.created_at());
     add(t);
@@ -185,6 +166,44 @@ public class ServiceUserScreen extends VerticalPanel {
     });
 
     return activeToggle;
+  }
+
+  private EditableValue createOwnerWidget(ServiceUserInfo info) {
+    EditableValue ownerWidget = new EditableValue(info.username(),
+        info.owner() != null ? info.owner().name() : "") {
+      @Override
+      protected void save(String serviceUser, final String newValue) {
+        new RestApi("config").id("server")
+            .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
+            .view("owner").put(newValue, new AsyncCallback<GroupInfo>() {
+              @Override
+              public void onSuccess(GroupInfo result) {
+                updateValue(result != null ? result.name() : "");
+                Plugin.get().refresh();
+              }
+
+              @Override
+              public void onFailure(Throwable caught) {
+                // never invoked
+              }
+            });
+      }
+    };
+    StringBuilder ownerWarning = new StringBuilder();
+    ownerWarning.append("If ");
+    ownerWarning.append(info.owner() != null ? "the owner group is changed" : "an owner group is set");
+    ownerWarning.append(" only members of the ");
+    ownerWarning.append(info.owner() != null ? "new " : "");
+    ownerWarning.append("owner group can see and administrate the service user.");
+    if (info.owner() != null) {
+      ownerWarning.append(" If the owner group is removed only the creator of the service user "
+          + "can see and administrate the service user.");
+    } else {
+      ownerWarning.append(" The creator of the service user cannot anymore see and "
+          + "administrate the service user if she/he is not member of the owner group.");
+    }
+    ownerWidget.setWarning(ownerWarning.toString());
+    return ownerWidget;
   }
 
   private static class MyTable extends FlexTable {
