@@ -18,9 +18,9 @@ file.
 
 <a id="group">
 `plugin.@PLUGIN@.group`
-:	A group to which newly created service users should be
-	automatically added. Multiple groups can be specified by having
-	multiple `plugin.@PLUGIN@.group` entries.
+:	The name of an internal group to which newly created service users
+	should be automatically added. Multiple groups can be specified by
+	having multiple `plugin.@PLUGIN@.group` entries.
 
 <a id="infoMessage">
 `plugin.@PLUGIN@.infoMessage`

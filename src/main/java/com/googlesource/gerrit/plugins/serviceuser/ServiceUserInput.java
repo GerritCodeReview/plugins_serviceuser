@@ -15,18 +15,13 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.gerrit.server.account.CreateAccount;
-import com.google.gerrit.server.config.PluginConfig;
-
-import java.util.Arrays;
 
 public class ServiceUserInput extends CreateAccount.Input {
 
-  public ServiceUserInput(String username, String email, String sshKey,
-      PluginConfig cfg) {
+  public ServiceUserInput(String username, String email, String sshKey) {
     this.username = username;
     this.name = username;
     this.email = email;
     this.sshKey = sshKey;
-    this.groups = Arrays.asList(cfg.getStringList("group"));
   }
 }
