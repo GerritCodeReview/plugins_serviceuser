@@ -18,6 +18,7 @@ import com.google.gerrit.plugin.client.Plugin;
 import com.google.gerrit.plugin.client.rpc.RestApi;
 import com.google.gerrit.plugin.client.screen.Screen;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.InlineHyperlink;
@@ -51,7 +52,7 @@ public class ServiceUserListScreen extends VerticalPanel {
   }
 
   private void display(NativeMap<ServiceUserInfo> info) {
-    int columns = 6;
+    int columns = 7;
     FlexTable t = new FlexTable();
     t.setStyleName("serviceuser-serviceUserTable");
     FlexCellFormatter fmt = t.getFlexCellFormatter();
@@ -64,9 +65,10 @@ public class ServiceUserListScreen extends VerticalPanel {
     t.setText(0, 0, "Username");
     t.setText(0, 1, "Full Name");
     t.setText(0, 2, "Email");
-    t.setText(0, 3, "Created By");
-    t.setText(0, 4, "Created At");
-    t.setText(0, 5, "Account State");
+    t.setText(0, 3, "Owner");
+    t.setText(0, 4, "Created By");
+    t.setText(0, 5, "Created At");
+    t.setText(0, 6, "Account State");
 
     int row = 1;
     for (String username : info.keySet()) {
@@ -81,9 +83,19 @@ public class ServiceUserListScreen extends VerticalPanel {
           username, "/x/" + Plugin.get().getName() + "/user/" + username));
       t.setText(row, 1, a.name());
       t.setText(row, 2, a.email());
-      t.setText(row, 3, a.created_by());
-      t.setText(row, 4, a.created_at());
-      t.setText(row, 5, !a.active() ? "Inactive" : "");
+
+      if (a.owner() != null) {
+        if (a.owner().url() != null) {
+          t.setWidget(row, 3,
+              new Anchor(a.owner().name(), a.owner().url()));
+        } else {
+          t.setText(row, 3, a.owner().name());
+        }
+      }
+
+      t.setText(row, 4, a.created_by());
+      t.setText(row, 5, a.created_at());
+      t.setText(row, 6, !a.active() ? "Inactive" : "");
       row++;
     }
 

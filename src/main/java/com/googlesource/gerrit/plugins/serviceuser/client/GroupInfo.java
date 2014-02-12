@@ -16,16 +16,10 @@ package com.googlesource.gerrit.plugins.serviceuser.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class ServiceUserInfo extends JavaScriptObject {
-  public final native int _account_id() /*-{ return this._account_id || 0; }-*/;
+public class GroupInfo extends JavaScriptObject {
   public final native String name() /*-{ return this.name; }-*/;
-  public final native String username() /*-{ return this.username; }-*/;
-  public final native String email() /*-{ return this.email; }-*/;
-  public final native String created_by() /*-{ return this.created_by; }-*/;
-  public final native String created_at() /*-{ return this.created_at; }-*/;
-  public final native boolean active() /*-{ return this.inactive ? false : true; }-*/;
-  public final native GroupInfo owner() /*-{ return this.owner; }-*/;
+  public final native String url() /*-{ return this.url; }-*/;
 
-  protected ServiceUserInfo() {
+  protected GroupInfo() {
   }
 }
