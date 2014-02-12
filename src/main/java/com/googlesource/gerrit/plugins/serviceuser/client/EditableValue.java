@@ -37,6 +37,7 @@ public abstract class EditableValue extends FlowPanel {
     label = new InlineLabel(name);
     edit = new Image(ServiceUserPlugin.RESOURCES.edit());
     edit.addStyleName("serviceuser-editButton");
+    edit.setTitle("Edit");
 
     input = new NpTextBox();
     input.setVisibleLength(25);
