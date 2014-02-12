@@ -19,9 +19,12 @@ import com.google.gwt.resources.client.ImageResource;
 
 public interface Resources extends ClientBundle {
 
+  @Source("editText.png")
+  public ImageResource edit();
+
   @Source("info.png")
   public ImageResource info();
 
-  @Source("editText.png")
-  public ImageResource edit();
+  @Source("warning.png")
+  public ImageResource warning();
 }

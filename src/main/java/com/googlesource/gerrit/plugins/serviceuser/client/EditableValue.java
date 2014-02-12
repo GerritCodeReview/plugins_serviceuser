@@ -31,6 +31,7 @@ public abstract class EditableValue extends FlowPanel {
   private final NpTextBox input;
   private final Button save;
   private final Button cancel;
+  private Image warning;
 
   EditableValue(final String serviceUser, final String name) {
     label = new InlineLabel(name);
@@ -59,6 +60,9 @@ public abstract class EditableValue extends FlowPanel {
         edit.setVisible(false);
         input.setVisible(true);
         save.setVisible(true);
+        if (warning != null) {
+          warning.setVisible(true);
+        }
         cancel.setVisible(true);
       }
     });
@@ -101,7 +105,19 @@ public abstract class EditableValue extends FlowPanel {
     input.setValue(label.getText());
     save.setVisible(false);
     save.setEnabled(false);
+    if (warning != null) {
+      warning.setVisible(false);
+    }
     cancel.setVisible(false);
+  }
+
+  public void setWarning(String msg) {
+    if (warning == null) {
+      warning = new Image(ServiceUserPlugin.RESOURCES.warning());
+      insert(warning, getWidgetIndex(save));
+      warning.setVisible(save.isVisible());
+    }
+    warning.setTitle(msg);
   }
 
   protected void updateValue(String newValue) {
@@ -111,6 +127,9 @@ public abstract class EditableValue extends FlowPanel {
     input.setVisible(false);
     input.setValue(newValue);
     save.setVisible(false);
+    if (warning != null) {
+      warning.setVisible(false);
+    }
     save.setEnabled(false);
     cancel.setVisible(false);
   }
