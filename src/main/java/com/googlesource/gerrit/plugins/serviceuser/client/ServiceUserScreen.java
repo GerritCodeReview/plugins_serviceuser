@@ -111,6 +111,26 @@ public class ServiceUserScreen extends VerticalPanel {
     } else {
       t.addRow("Email Address", info.email());
     }
+    t.addRow("Owner Group", new EditableValue(info.username(),
+        info.owner() != null ? info.owner().name() : "") {
+      @Override
+      protected void save(String serviceUser, final String newValue) {
+        new RestApi("config").id("server")
+            .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
+            .view("owner").put(newValue, new AsyncCallback<GroupInfo>() {
+              @Override
+              public void onSuccess(GroupInfo result) {
+                updateValue(result != null ? result.name() : "");
+                Plugin.get().refresh();
+              }
+
+              @Override
+              public void onFailure(Throwable caught) {
+                // never invoked
+              }
+            });
+      }
+    });
     t.addRow("Created By", info.created_by());
     t.addRow("Created At", info.created_at());
     add(t);
