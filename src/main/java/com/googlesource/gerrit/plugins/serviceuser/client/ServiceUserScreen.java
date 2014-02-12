@@ -69,7 +69,7 @@ public class ServiceUserScreen extends VerticalPanel {
   private void display(ServiceUserInfo info, boolean allowEmail) {
     MyTable t = new MyTable();
     t.setStyleName("serviceuser-serviceUserInfoTable");
-    t.addRow("Account State", createActiveToggle(info.username()));
+    t.addRow("Account State", createActiveToggle(info));
     t.addRow("Username", info.username());
     t.addRow("Full Name", new EditableValue(info.username(), info.name()) {
       @Override
@@ -118,7 +118,7 @@ public class ServiceUserScreen extends VerticalPanel {
     add(new SshPanel(info.username()));
   }
 
-  private ToggleButton createActiveToggle(final String serviceUser) {
+  private ToggleButton createActiveToggle(final ServiceUserInfo info) {
     final ToggleButton activeToggle = new ToggleButton();
     activeToggle.setStyleName("serviceuser-toggleButton");
     activeToggle.setVisible(false);
@@ -126,21 +126,8 @@ public class ServiceUserScreen extends VerticalPanel {
     activeToggle.setText("Active");
     activeToggle.setValue(false);
     activeToggle.setText("Inactive");
-
-    new RestApi("config").id("server")
-        .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
-        .view("active").get(NativeString.unwrap(new AsyncCallback<String>() {
-      @Override
-      public void onSuccess(String result) {
-        activeToggle.setValue(result != null && "ok".equals(result.trim()));
-        activeToggle.setVisible(true);
-      }
-
-      @Override
-      public void onFailure(Throwable caught) {
-        // never invoked
-      }
-    }));
+    activeToggle.setValue(info.active());
+    activeToggle.setVisible(true);
 
     activeToggle.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
       @Override
@@ -148,7 +135,7 @@ public class ServiceUserScreen extends VerticalPanel {
         if (event.getValue()) {
           new RestApi("config").id("server")
               .view(Plugin.get().getPluginName(), "serviceusers")
-              .id(serviceUser).view("active")
+              .id(info.username()).view("active")
               .put(new AsyncCallback<NoContent>() {
                 @Override
                 public void onSuccess(NoContent result) {
@@ -162,7 +149,7 @@ public class ServiceUserScreen extends VerticalPanel {
         } else {
           new RestApi("config").id("server")
               .view(Plugin.get().getPluginName(), "serviceusers")
-              .id(serviceUser).view("active")
+              .id(info.username()).view("active")
               .delete(new AsyncCallback<NoContent>() {
                 @Override
                 public void onSuccess(NoContent result) {

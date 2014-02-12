@@ -559,6 +559,8 @@ and in addition the following fields:
   user.
 * _created\_at_: The date when the service user was created in the
   format 'EEE, dd MMM yyyy HH:mm:ss Z'.
+* _inactive_: Whether the account state of the service user is
+  inactive. Not set if the account is active.
 
 ### <a id="service-user-input"></a>ServiceUserInput
 
