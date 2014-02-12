@@ -58,9 +58,11 @@ _GET /config/server/@PLUGIN@~serviceusers/\{username\}_
 
 Gets a service user.
 
-In order to be able to see a service user the caller must have created
-that service user or be a member of a group that is granted the
-'Administrate Server' capability.
+In order to be able to see a service user the caller must be
+
+* a member of the owner group,
+* the creator of the service user if no owner group is assigned or
+* a member of a group that is granted the 'Administrate Server' capability.
 
 #### Request
 
@@ -94,9 +96,11 @@ GET /config/server/@PLUGIN@~serviceusers/_
 
 Lists service users.
 
-In order to see a service user the caller must have created that service
-user or be a member of a group that is granted the 'Administrate Server'
-capability.
+In order to be able to see a service user the caller must be
+
+* a member of the owner group,
+* the creator of the service user if no owner group is assigned or
+* a member of a group that is granted the 'Administrate Server' capability.
 
 #### Request
 
@@ -480,6 +484,111 @@ Sets the service user state to inactive.
   HTTP/1.1 204 No Content
 ```
 
+### <a id="get-owner"> Get Owner
+GET /config/server/@PLUGIN@~serviceusers/\{username\}/owner_
+
+Retrieves the owner group of the service user.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/JenkinsVoter/owner HTTP/1.0
+```
+
+The owner group is returned as a
+[GroupInfo](../../../Documentation/rest-api-groups.html#group-info)
+entity.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Type: application/json;charset=UTF-8
+
+  {
+    "kind": "gerritcodereview#group",
+    "url": "#/admin/groups/uuid-2a97064e13ebc5c64b963d09a66219e539854226",
+    "options": {},
+    "description": "Jenkins Administrators",
+    "group_id": 10,
+    "owner": "JenkinsAdmins",
+    "owner_id": "2a97064e13ebc5c64b963d09a66219e539854226",
+    "id": "2a97064e13ebc5c64b963d09a66219e539854226",
+    "name": "JenkinsAdmins"
+  }
+```
+
+If no owner group for the service user is set the response is `200 OK`
+without any content in the request body.
+
+If an owner group is set but the group is not visible to the caller or
+doesn't exist anymore the response is `404 Not Found`.
+
+### <a id="set-owner"> Set Owner
+PUT /config/server/@PLUGIN@~serviceusers/\{username\}/owner_
+
+Sets the owner group for a service user.
+
+The owner group must be specified in the request body as a
+[OwnerInput](#owner-input) entity.
+
+#### Request
+
+```
+  PUT /config/server/@PLUGIN@~serviceusers/JenkinsVoter/owner HTTP/1.0
+  Content-Type: application/json;charset=UTF-8
+
+  {
+    "group": "JenkinsAdmins"
+  }
+```
+
+As response the new owner group is returned as a
+[GroupInfo](../../../Documentation/rest-api-groups.html#group-info)
+entity.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Type: application/json;charset=UTF-8
+
+  {
+    "kind": "gerritcodereview#group",
+    "url": "#/admin/groups/uuid-2a97064e13ebc5c64b963d09a66219e539854226",
+    "options": {},
+    "description": "Jenkins Administrators",
+    "group_id": 10,
+    "owner": "JenkinsAdmins",
+    "owner_id": "2a97064e13ebc5c64b963d09a66219e539854226",
+    "id": "2a97064e13ebc5c64b963d09a66219e539854226",
+    "name": "JenkinsAdmins"
+  }
+```
+
+If the service user didn't have an owner group before the response is
+`201 Created`.
+
+If the owner group of the service user is deleted the response is
+`204 No Content`.
+
+### <a id="delete-owner"> Delete Owner
+DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/owner_
+
+Delete the owner group of a service user.
+
+#### Request
+
+```
+  DELETE /config/server/@PLUGIN@~serviceusers/JenkinsVoter/owner HTTP/1.0
+```
+
+#### Response
+
+```
+  HTTP/1.1 204 No Content
+```
+
 ### <a id="get-config"> Get Config
 _GET /config/server/@PLUGIN@~config_
 
@@ -548,6 +657,13 @@ The `EmailInput` entity contains a new email address.
 
 * _email_: The new email address.
 
+### <a id="owner-input"></a>OwnerInput
+
+The `OwnerInput` entity contains a group that should own a service user.
+
+* _group_: A group. This can be the UUID of the group, the legacy
+  numeric ID of the group or the name of the group if it is unique.
+
 ### <a id="service-user-info"></a>ServiceUserInfo
 
 The `ServiceUserInfo` entity contains information about a service user.
@@ -561,6 +677,9 @@ and in addition the following fields:
   format 'EEE, dd MMM yyyy HH:mm:ss Z'.
 * _inactive_: Whether the account state of the service user is
   inactive. Not set if the account is active.
+* _owner_: The owner group of the service user as a
+  [GroupInfo](../../../Documentation/rest-api-groups.html#group-info)
+  entity. Not set if no owner group is assigned.
 
 ### <a id="service-user-input"></a>ServiceUserInput
 

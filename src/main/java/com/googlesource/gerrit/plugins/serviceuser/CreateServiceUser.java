@@ -51,7 +51,7 @@ import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 
 import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.Input;
-import com.googlesource.gerrit.plugins.serviceuser.ListServiceUsers.ServiceUserInfo;
+import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.PersonIdent;
@@ -76,6 +76,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   public static final String USER = "user";
   public static final String KEY_CREATED_BY = "createdBy";
   public static final String KEY_CREATED_AT = "createdAt";
+  public static final String KEY_OWNER = "owner";
 
   static class Input {
     String username;
@@ -183,7 +184,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
     db.setString(USER, username, KEY_CREATED_AT, creationDate);
 
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
-    md.setMessage("Create Service User '" + username + "'\n");
+    md.setMessage("Create service user '" + username + "'\n");
     storage.commit(md);
 
     ServiceUserInfo info = new ServiceUserInfo(response.value());
