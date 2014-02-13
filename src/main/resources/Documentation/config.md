@@ -36,3 +36,17 @@ file.
 `plugin.@PLUGIN@.allowEmail`
 :	Whether it is allowed to provide an email address for
 	a service user. By default false.
+
+<a id="createNotes">
+`plugin.@PLUGIN@.createNotes`
+:	Whether commits of a service user should be annotated by a Git note
+	that contains information about the current owners of the service
+	user. This allows to find a real person that is responsible for
+	this commit. To get such a Git note for each commit of a service
+	user the 'Forge Committer' access right must be blocked for service
+	users. By default true.
+
+<a id="createNotes">
+`plugin.@PLUGIN@.createNotesAsync`
+:	Whether the Git notes on commits that are pushed by a service user
+	should be created asynchronously. By default false.

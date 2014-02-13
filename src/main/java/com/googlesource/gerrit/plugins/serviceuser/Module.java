@@ -20,6 +20,7 @@ import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SS
 
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
+import com.google.gerrit.extensions.events.GitReferenceUpdatedListener;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
@@ -35,6 +36,9 @@ public class Module extends AbstractModule {
         .annotatedWith(Exports.named(CreateServiceUserCapability.ID))
         .to(CreateServiceUserCapability.class);
     DynamicSet.bind(binder(), TopMenu.class).to(ServiceUserMenu.class);
+    DynamicSet.bind(binder(), GitReferenceUpdatedListener.class)
+        .to(RefUpdateListener.class);
+    install(new FactoryModuleBuilder().build(CreateServiceUserNotes.Factory.class));
     install(new RestApiModule() {
       @Override
       protected void configure() {

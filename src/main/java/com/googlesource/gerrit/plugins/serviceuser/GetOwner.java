@@ -14,19 +14,18 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
+import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
-import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.group.GroupJson;
-import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.group.GroupJson.GroupInfo;
+import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -49,12 +48,8 @@ public class GetOwner implements RestReadView<ServiceUserResource> {
       throws ResourceNotFoundException, OrmException {
     String owner = storage.get().getString(USER, rsrc.getUser().getUserName(), KEY_OWNER);
     if (owner != null) {
-      try {
-        GroupDescription.Basic group = groups.parse(owner);
-        return Response.<GroupInfo> ok(json.format(group));
-      } catch (UnprocessableEntityException e) {
-        throw new ResourceNotFoundException(owner);
-      }
+      GroupDescription.Basic group = groups.parseId(owner);
+      return Response.<GroupInfo> ok(json.format(group));
     } else {
       return Response.none();
     }
