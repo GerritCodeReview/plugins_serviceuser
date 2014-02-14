@@ -19,8 +19,10 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_
 
 import com.google.common.base.Strings;
 import com.google.gerrit.common.data.GroupDescription;
+import com.google.gerrit.common.data.GroupDescriptions;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.DefaultInput;
+import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
@@ -67,7 +69,7 @@ public class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
       throws UnprocessableEntityException, RepositoryNotFoundException,
-      IOException, OrmException {
+      MethodNotAllowedException, IOException, OrmException {
     if (input == null) {
       input = new Input();
 
@@ -79,6 +81,9 @@ public class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       db.unset(USER, rsrc.getUser().getUserName(), KEY_OWNER);
     } else {
       group = groups.parse(input.group);
+      if (GroupDescriptions.toAccountGroup(group) == null) {
+        throw new MethodNotAllowedException();
+      }
       db.setString(USER, rsrc.getUser().getUserName(), KEY_OWNER,
           group.getGroupUUID().get());
     }

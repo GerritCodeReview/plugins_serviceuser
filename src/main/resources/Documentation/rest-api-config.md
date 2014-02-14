@@ -661,8 +661,9 @@ The `EmailInput` entity contains a new email address.
 
 The `OwnerInput` entity contains a group that should own a service user.
 
-* _group_: A group. This can be the UUID of the group, the legacy
-  numeric ID of the group or the name of the group if it is unique.
+* _group_: An internal Gerrit group. This can be the UUID of the group,
+  the legacy numeric ID of the group or the name of the group if it is
+  unique.
 
 ### <a id="service-user-info"></a>ServiceUserInfo
 
