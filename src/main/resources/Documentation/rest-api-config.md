@@ -25,7 +25,7 @@ capability.
 #### Request
 
 ```
-  PUT /config/server/@PLUGIN@~serviceusers/JenkinsVoter HTTP/1.0
+  POST /config/server/@PLUGIN@~serviceusers/JenkinsVoter HTTP/1.0
   Content-Type: application/json;charset=UTF-8
 
   {
