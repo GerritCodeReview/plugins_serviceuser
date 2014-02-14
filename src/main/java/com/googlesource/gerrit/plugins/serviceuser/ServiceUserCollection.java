@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
+import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATOR_ID;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
@@ -29,8 +29,9 @@ import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestView;
 import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
-import com.google.gerrit.server.AnonymousUser;
+import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountsCollection;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.ProjectLevelConfig;
@@ -74,7 +75,7 @@ public class ServiceUserCollection implements
       throw new ResourceNotFoundException(id);
     }
     CurrentUser user = userProvider.get();
-    if (user instanceof AnonymousUser) {
+    if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("Authentication required");
     }
     if (!user.getCapabilities().canAdministrateServer()) {
@@ -88,8 +89,8 @@ public class ServiceUserCollection implements
         } catch (UnprocessableEntityException e) {
           throw new ResourceNotFoundException(id);
         }
-      } else if (!user.getUserName().equals(
-          storage.get().getString(USER, id.get(), KEY_CREATED_BY))) {
+      } else if (!((IdentifiedUser)user).getAccountId().equals(
+          new Account.Id(storage.get().getInt(USER, id.get(), KEY_CREATOR_ID, -1)))) {
         throw new ResourceNotFoundException(id);
       }
     }

@@ -93,7 +93,7 @@ public class ServiceUserListScreen extends VerticalPanel {
         }
       }
 
-      t.setText(row, 4, a.created_by());
+      t.setText(row, 4, a.getDisplayName());
       t.setText(row, 5, a.created_at());
       t.setText(row, 6, !a.active() ? "Inactive" : "");
       row++;

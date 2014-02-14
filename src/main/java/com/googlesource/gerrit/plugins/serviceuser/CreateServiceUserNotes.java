@@ -220,7 +220,7 @@ class CreateServiceUserNotes {
     fmt.appendDate();
     fmt.append("Project", project.get());
     fmt.append("Branch", branch);
-    fmt.append(KEY_CREATED_BY, serviceUser.createdBy);
+    fmt.appendUser(KEY_CREATED_BY, serviceUser.createdBy);
     for (AccountInfo owner : listOwners(serviceUser)) {
       fmt.appendUser(KEY_OWNER, owner);
     }

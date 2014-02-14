@@ -672,8 +672,9 @@ It has the same fields as a detailed
 [AccountInfo](../../../Documentation/rest-api-accounts.html#account-info)
 and in addition the following fields:
 
-* _created\_by_: The username of the user that created this service
-  user.
+* _created\_by_: The user that created this service user as a detailed
+  [AccountInfo](../../../Documentation/rest-api-accounts.html#account-info)
+  entity.
 * _created\_at_: The date when the service user was created in the
   format 'EEE, dd MMM yyyy HH:mm:ss Z'.
 * _inactive_: Whether the account state of the service user is

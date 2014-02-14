@@ -15,7 +15,7 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_AT;
-import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
+import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATOR_ID;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
@@ -23,6 +23,7 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
+import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountInfo;
 import com.google.gerrit.server.account.GetAccount;
 import com.google.gerrit.server.git.ProjectLevelConfig;
@@ -38,14 +39,16 @@ public class GetServiceUser implements RestReadView<ServiceUserResource> {
   private final Provider<GetAccount> getAccount;
   private final ProjectLevelConfig storage;
   private final GetOwner getOwner;
+  private final AccountInfo.Loader.Factory accountLoader;
 
   @Inject
   GetServiceUser(Provider<GetAccount> getAccount,
       @PluginName String pluginName, ProjectCache projectCache,
-      GetOwner getOwner) {
+      GetOwner getOwner, AccountInfo.Loader.Factory accountLoader) {
     this.getAccount = getAccount;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     this.getOwner = getOwner;
+    this.accountLoader = accountLoader;
   }
 
   @Override
@@ -58,7 +61,10 @@ public class GetServiceUser implements RestReadView<ServiceUserResource> {
     }
 
     ServiceUserInfo info = new ServiceUserInfo(getAccount.get().apply(rsrc));
-    info.createdBy = db.getString(USER, username, KEY_CREATED_BY);
+    AccountInfo.Loader al = accountLoader.create(true);
+    info.createdBy =
+        al.get(new Account.Id(db.getInt(USER, username, KEY_CREATOR_ID, -1)));
+    al.fill();
     info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
     info.inactive = !rsrc.getUser().getAccount().isActive() ? true : null;
 
@@ -71,7 +77,7 @@ public class GetServiceUser implements RestReadView<ServiceUserResource> {
   }
 
   public static class ServiceUserInfo extends AccountInfo {
-    public String createdBy;
+    public AccountInfo createdBy;
     public String createdAt;
     public Boolean inactive;
     public GroupInfo owner;

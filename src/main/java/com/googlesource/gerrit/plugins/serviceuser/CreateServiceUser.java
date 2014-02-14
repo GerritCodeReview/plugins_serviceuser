@@ -19,6 +19,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
+import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.Response;
@@ -76,6 +77,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   public static final String USER = "user";
   public static final String KEY_CREATED_BY = "createdBy";
   public static final String KEY_CREATED_AT = "createdAt";
+  public static final String KEY_CREATOR_ID = "creatorId";
   public static final String KEY_OWNER = "owner";
 
   static class Input {
@@ -102,6 +104,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
   private final ProjectLevelConfig storage;
   private final DateFormat rfc2822DateFormatter;
   private final Provider<GetConfig> getConfig;
+  private final AccountInfo.Loader.Factory accountLoader;
 
   @Inject
   CreateServiceUser(PluginConfigFactory cfgFactory,
@@ -116,7 +119,8 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
       MetaDataUpdate.User metaDataUpdateFactory,
       ProjectCache projectCache,
       @Assisted String username,
-      Provider<GetConfig> getConfig) {
+      Provider<GetConfig> getConfig,
+      AccountInfo.Loader.Factory accountLoader) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
     this.createAccountFactory = createAccountFactory;
     this.groupCache = groupCache;
@@ -141,12 +145,18 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
     this.rfc2822DateFormatter.setCalendar(Calendar.getInstance(
         gerritIdent.getTimeZone(), Locale.US));
     this.getConfig = getConfig;
+    this.accountLoader = accountLoader;
   }
 
   @Override
   public Response<ServiceUserInfo> apply(ConfigResource resource, Input input)
-      throws BadRequestException, ResourceConflictException,
+      throws AuthException, BadRequestException, ResourceConflictException,
       UnprocessableEntityException, OrmException, IOException {
+    CurrentUser user = userProvider.get();
+    if (user == null || !user.isIdentifiedUser()) {
+      throw new AuthException("authentication required");
+    }
+
     if (input == null) {
       input = new Input();
     }
@@ -176,11 +186,15 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
         createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
     addToGroups(response.value()._id, cfg.getStringList("group"));
 
-    String creator = userProvider.get().getUserName();
+    String creator = user.getUserName();
+    Account.Id creatorId = ((IdentifiedUser)user).getAccountId();
     String creationDate = rfc2822DateFormatter.format(new Date());
 
     Config db = storage.get();
-    db.setString(USER, username, KEY_CREATED_BY, creator);
+    db.setInt(USER, username, KEY_CREATOR_ID, creatorId.get());
+    if (creator != null) {
+      db.setString(USER, username, KEY_CREATED_BY, creator);
+    }
     db.setString(USER, username, KEY_CREATED_AT, creationDate);
 
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
@@ -188,7 +202,9 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
     storage.commit(md);
 
     ServiceUserInfo info = new ServiceUserInfo(response.value());
-    info.createdBy = creator;
+    AccountInfo.Loader al = accountLoader.create(true);
+    info.createdBy = al.get(creatorId);
+    al.fill();
     info.createdAt = creationDate;
     return Response.created(info);
   }

@@ -112,7 +112,7 @@ public class ServiceUserScreen extends VerticalPanel {
       t.addRow("Email Address", info.email());
     }
     t.addRow("Owner Group", createOwnerWidget(info));
-    t.addRow("Created By", info.created_by());
+    t.addRow("Created By", info.getDisplayName());
     t.addRow("Created At", info.created_at());
     add(t);
 
