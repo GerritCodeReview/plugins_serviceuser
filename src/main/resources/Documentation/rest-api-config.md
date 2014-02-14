@@ -54,7 +54,7 @@ that describes the created account.
 ```
 
 ### <a id="get-service-user"> Get Service User
-_GET /config/server/@PLUGIN@~serviceusers/\{username\}_
+_GET /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)_
 
 Gets a service user.
 
@@ -139,7 +139,7 @@ ServiceUserInfo is not set since it is already available as map key.
 ```
 
 ### <a id="list-ssh-keys"> List SSH keys
-GET /config/server/@PLUGIN@~serviceusers/\{username\}/sshkeys/_
+GET /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/sshkeys/_
 
 Lists the SSH keys of a service user.
 
@@ -173,7 +173,7 @@ entities is returned.
 ```
 
 ### <a id="get-ssh-key"> Get SSH key
-GET /config/server/@PLUGIN@~serviceusers/\{username\}/sshkeys/[\{ssh-key-id\}](../../../Documentation/rest-api-accounts.html#ssh-key-id)_
+GET /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/sshkeys/[\{ssh-key-id\}](../../../Documentation/rest-api-accounts.html#ssh-key-id)_
 
 Gets an SSH key of a service user.
 
@@ -205,7 +205,7 @@ entity is returned.
 ```
 
 ### <a id="add-ssh-key"> Add SSH key
-POST /config/server/@PLUGIN@~serviceusers/\{username\}/sshkeys_
+POST /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/sshkeys_
 
 Adds an SSH key for a service user.
 
@@ -242,7 +242,7 @@ entity is returned that describes the new SSH key.
 ```
 
 ### <a id="delete-ssh-key"> Delete SSH key
-DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/sshkeys/[\{ssh-key-id\}](../../../Documentation/rest-api-accounts.html#ssh-key-id)_
+DELETE /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/sshkeys/[\{ssh-key-id\}](../../../Documentation/rest-api-accounts.html#ssh-key-id)_
 
 Deletes an SSH key of a service user.
 
@@ -259,7 +259,7 @@ Deletes an SSH key of a service user.
 ```
 
 ### <a id="get-full-name"> Get Full Name
-GET /config/server/@PLUGIN@~serviceusers/\{username\}/name_
+GET /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/name_
 
 Retrieves the full name of a service user.
 
@@ -283,7 +283,7 @@ Retrieves the full name of a service user.
 If the service user does not have a name an empty string is returned.
 
 ### <a id="set-full-name"> Set Full Name
-PUT /config/server/@PLUGIN@~serviceusers/\{username\}/name_
+PUT /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/name_
 
 Sets the full name of a service user.
 
@@ -321,7 +321,7 @@ Some realms may not allow to modify the full name. In this case the
 request is rejected with "`405 Method Not Allowed`".
 
 ### <a id="delete-full-name"> Delete Full Name
-DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/name_
+DELETE /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/name_
 
 Deletes the full name of a service user.
 
@@ -343,7 +343,7 @@ Some realms may not allow to modify the full name. In this case the
 request is rejected with "`405 Method Not Allowed`".
 
 ### <a id="get-email"> Get Email
-GET /config/server/@PLUGIN@~serviceusers/\{username\}/email_
+GET /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/email_
 
 Retrieves the (preferred) email of a service user.
 
@@ -367,7 +367,7 @@ Retrieves the (preferred) email of a service user.
 If the service user does not have an email address an empty string is returned.
 
 ### <a id="set-email"> Set Email
-PUT /config/server/@PLUGIN@~serviceusers/\{username\}/email_
+PUT /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/email_
 
 Sets the (preferred) email of a service user.
 
@@ -404,7 +404,7 @@ Some realms may not allow to modify the email. In this case the
 request is rejected with "`405 Method Not Allowed`".
 
 ### <a id="delete-email"> Delete Email
-DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/email_
+DELETE /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/email_
 
 Deletes the email of a service user.
 
@@ -426,7 +426,7 @@ Some realms may not allow to modify the email. In this case the
 request is rejected with "`405 Method Not Allowed`".
 
 ### <a id="get-active"> Get Active
-GET /config/server/@PLUGIN@~serviceusers/\{username\}/active_
+GET /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/active_
 
 Checks if a service user is active.
 
@@ -449,7 +449,7 @@ If the service user is active the string `ok` is returned.
 If the service user is inactive the response is `204 No Content`.
 
 ### <a id="set-active"> Set Active
-PUT /config/server/@PLUGIN@~serviceusers/\{username\}/active_
+PUT /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/active_
 
 Sets the service user state to active.
 
@@ -468,7 +468,7 @@ Sets the service user state to active.
 If the service user was already active the response is `200 OK`.
 
 ### <a id="delete-active"> Delete Active
-DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/active_
+DELETE /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/active_
 
 Sets the service user state to inactive.
 
@@ -485,7 +485,7 @@ Sets the service user state to inactive.
 ```
 
 ### <a id="get-owner"> Get Owner
-GET /config/server/@PLUGIN@~serviceusers/\{username\}/owner_
+GET /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/owner_
 
 Retrieves the owner group of the service user.
 
@@ -525,7 +525,7 @@ If an owner group is set but the group is not visible to the caller or
 doesn't exist anymore the response is `404 Not Found`.
 
 ### <a id="set-owner"> Set Owner
-PUT /config/server/@PLUGIN@~serviceusers/\{username\}/owner_
+PUT /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/owner_
 
 Sets the owner group for a service user.
 
@@ -573,7 +573,7 @@ If the owner group of the service user is deleted the response is
 `204 No Content`.
 
 ### <a id="delete-owner"> Delete Owner
-DELETE /config/server/@PLUGIN@~serviceusers/\{username\}/owner_
+DELETE /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/owner_
 
 Delete the owner group of a service user.
 

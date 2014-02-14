@@ -27,7 +27,6 @@ import com.google.gerrit.extensions.restapi.ChildCollection;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestView;
-import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.CurrentUser;
@@ -71,7 +70,8 @@ public class ServiceUserCollection implements
   @Override
   public ServiceUserResource parse(ConfigResource parent, IdString id)
       throws ResourceNotFoundException, AuthException, OrmException {
-    if (!storage.get().getSubsections(USER).contains(id.get())) {
+    IdentifiedUser serviceUser = accounts.get().parseId(id.get());
+    if (!storage.get().getSubsections(USER).contains(serviceUser.getUserName())) {
       throw new ResourceNotFoundException(id);
     }
     CurrentUser user = userProvider.get();
@@ -94,8 +94,7 @@ public class ServiceUserCollection implements
         throw new ResourceNotFoundException(id);
       }
     }
-    return new ServiceUserResource(
-        accounts.get().parse(TopLevelResource.INSTANCE, id).getUser());
+    return new ServiceUserResource(serviceUser);
   }
 
   @Override
