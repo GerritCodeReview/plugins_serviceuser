@@ -20,10 +20,14 @@ public class ConfigInfo extends JavaScriptObject {
   final native String getInfoMessage() /*-{ return this.info }-*/;
   final native String getOnSuccessMessage() /*-{ return this.on_success }-*/;
   final native boolean getAllowEmail() /*-{ return this.allow_email ? true : false; }-*/;
+  final native boolean getCreateNotes() /*-{ return this.create_notes ? true : false; }-*/;
+  final native boolean getCreateNotesAsync() /*-{ return this.create_notes_async ? true : false; }-*/;
 
   final native void setInfoMessage(String s) /*-{ this.info = s; }-*/;
   final native void setOnSuccessMessage(String s) /*-{ this.on_success = s; }-*/;
   final native void setAllowEmail(boolean s) /*-{ this.allow_email = s; }-*/;
+  final native void setCreateNotes(boolean s) /*-{ this.create_notes = s; }-*/;
+  final native void setCreateNotesAsync(boolean s) /*-{ this.create_notes_async = s; }-*/;
 
   static ConfigInfo create() {
     ConfigInfo g = (ConfigInfo) createObject();
