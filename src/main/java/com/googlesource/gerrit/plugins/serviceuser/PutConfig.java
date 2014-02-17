@@ -28,6 +28,7 @@ import com.google.inject.Inject;
 import com.googlesource.gerrit.plugins.serviceuser.PutConfig.Input;
 
 import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.util.FS;
 
@@ -39,6 +40,8 @@ public class PutConfig implements RestModifyView<ConfigResource, Input>{
     public String info;
     public String onSuccess;
     public Boolean allowEmail;
+    public Boolean createNotes;
+    public Boolean createNotesAsync;
   }
 
   private final PluginConfigFactory cfgFactory;
@@ -68,14 +71,28 @@ public class PutConfig implements RestModifyView<ConfigResource, Input>{
           Strings.emptyToNull(input.onSuccess));
     }
     if (input.allowEmail != null) {
-      if (input.allowEmail) {
-        cfg.setBoolean("plugin", pluginName, "allowEmail", true);
-      } else {
-        cfg.unset("plugin", pluginName, "allowEmail");
-      }
+      setBoolean(cfg, "allowEmail", input.allowEmail);
+    }
+    if (input.createNotes != null) {
+      setBoolean(cfg, "createNotes", input.createNotes, true);
+    }
+    if (input.createNotesAsync != null) {
+      setBoolean(cfg, "createNotesAsync", input.createNotesAsync);
     }
     cfg.save();
     cfgFactory.getFromGerritConfig(pluginName, true);
     return Response.<String> ok("OK");
+  }
+
+  private void setBoolean(Config cfg, String name, boolean value) {
+    setBoolean(cfg, name, value, false);
+  }
+
+  private void setBoolean(Config cfg, String name, boolean value, boolean defaultValue) {
+    if (value == defaultValue) {
+      cfg.unset("plugin", pluginName, name);
+    } else {
+      cfg.setBoolean("plugin", pluginName, name, value);
+    }
   }
 }
