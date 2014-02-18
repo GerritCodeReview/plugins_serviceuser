@@ -165,6 +165,29 @@
       "revId": "d77c70aca1721539c4055d2d58c142d8d132e799",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af6ae563_6a23978b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ServiceUserSettingsScreen.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-18T15:25:16Z",
+      "side": 1,
+      "message": "This class is different in plugins as in core. It forwards the calls to the RestApi methods in core.",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 15
+      },
+      "revId": "d77c70aca1721539c4055d2d58c142d8d132e799",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
