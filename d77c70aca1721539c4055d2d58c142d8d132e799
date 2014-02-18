@@ -141,6 +141,30 @@
       "revId": "d77c70aca1721539c4055d2d58c142d8d132e799",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af6ae563_aa20af80",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ConfigInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-02-18T15:24:30Z",
+      "side": 1,
+      "message": "Good point. Before continueing here I will first review your change. But probably I can do it only tomorrow.",
+      "parentUuid": "cf7b9935_2b46f93c",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 83
+      },
+      "revId": "d77c70aca1721539c4055d2d58c142d8d132e799",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
