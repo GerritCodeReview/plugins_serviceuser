@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "af6ae563_2a2d9f72",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ConfigInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-02-18T15:32:03Z",
+      "side": 1,
+      "message": "Just install the plugin. Then go in the top menu to \"Plugins\" -\u003e \"Installed\" and click on the settings icon for the serviceuser plugin. This brings you to the settings page of the serviceuser plugin. At the end of the page there is a table with blocked usernames. Just add some names there and click on the save button. The request to the server fails due to invalid JSON in the request body.",
+      "parentUuid": "af6ae563_0a30dbcd",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 83
+      },
+      "revId": "d77c70aca1721539c4055d2d58c142d8d132e799",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af6ae563_6a23978b",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ServiceUserSettingsScreen.java",
         "patchSetId": 3
