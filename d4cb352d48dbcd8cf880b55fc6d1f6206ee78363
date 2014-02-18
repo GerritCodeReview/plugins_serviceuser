@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "af6ae563_2aa03fb3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ConfigInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-02-18T14:56:00Z",
+      "side": 1,
+      "message": "\u003e Does it work, if you change it to JsArrayString from GWT\n\nThanks. This works very well!",
+      "parentUuid": "cf7b9935_0b30ddcd",
+      "revId": "d4cb352d48dbcd8cf880b55fc6d1f6206ee78363",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af6ae563_8aae0bab",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/StringListPanel.java",
         "patchSetId": 1
@@ -54,6 +72,30 @@
       "side": 1,
       "message": "Have you checked this file? In this change i do just that: sending list of string from config section:\n\n* foo\n* bar\n* baz\n\nA receive it as list of strings on the server.\n\n [1] https://gerrit-review.googlesource.com/#/c/54230/7/gerrit-gwtui/src/main/java/com/google/gerrit/client/projects/ConfigInfo.java",
       "parentUuid": "af6ae563_8aae0bab",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 18
+      },
+      "revId": "d4cb352d48dbcd8cf880b55fc6d1f6206ee78363",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf7b9935_eb3f9199",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/StringListPanel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-02-18T14:56:00Z",
+      "side": 1,
+      "message": "Thanks for the pointer. This was helpful. I still have it on my todo list to review this change. Too bad I didn\u0027t find time for it so far.\n\nThe reading of the values returned from the server is now working if I use JsArrayString instead of JsArray\u003cNativeString\u003e. This looks now very easy:\n\n  final native JsArrayString getBlockedNames() /*-{ return this.blocked_names; }-*/;\n\nand then:\n\n  void display(JsArrayString values) {\n    int row \u003d 1;\n    for (String v : Natives.asList(values)) {\n      populate(row, v);\n      row++;\n    }\n  }\n\nI\u0027m still struggling though to send back the list to the server. Based on the example to which you pointed me I modified the code in ConfigInfo [1] which I was expecting to work, but in the JSON that is send to the server this still looks like\n\n  \"blocked_names\":{\"0\":\"name1\", \"1\":\"name2\", \"2\":\"name3\"}}\n\nand not like \n\n  \"blocked_names\":[\"name1\", \"name2\", \"name3\"]\n\nas it it supposed to look. I\u0027m still not sure how to make this work. Any further hint would be much appreciated :)\n\n[1] https://gerrit-review.googlesource.com/#/c/54694/3/src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ConfigInfo.java",
+      "parentUuid": "af6ae563_6aa637d4",
       "range": {
         "startLine": 92,
         "startChar": 2,
