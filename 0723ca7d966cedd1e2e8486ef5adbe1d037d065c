@@ -22,6 +22,30 @@
       "revId": "0723ca7d966cedd1e2e8486ef5adbe1d037d065c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf7b9935_ab20a980",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-02-18T13:50:59Z",
+      "side": 1,
+      "message": "\u003e What if createNotesAsync is set, but createNotes is not set?\n\nIf createNotes is not set the value of createNotesAsync is ignored when reading the configuration.\n\n \u003e Does it make sense to save the createNotesAsync setting in that case?\n\nNot sure if this makes sense, but it also does not harm. What I have done now is that I\u0027ve changed the UI. If createNotes is not set then the checkbox for createNotesAsync gets disabled. If createNotesAsync is disabled and the settings are saved no value for createNotesAsync will be send to the server. This makes it more obvious how these parameters are related.",
+      "parentUuid": "8f6fe175_e9079534",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "0723ca7d966cedd1e2e8486ef5adbe1d037d065c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
