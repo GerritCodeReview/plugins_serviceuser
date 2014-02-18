@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "cf7b9935_0b30ddcd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ConfigInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-18T14:40:44Z",
+      "side": 1,
+      "message": "Does it work, if you change it to JsArrayString from GWT:\n\n  final native JsArrayString getBlockedNames() /*-{ return this.blocked_names; }-*/;\n\nand then trying to convert it like we are doing with permitted_labels in ChangeInfo, e. g.:\n\n    JsArrayString nativeValues \u003d change.permitted_values(labelName);\n    if (nativeValues \u003d\u003d null || nativeValues.length() \u003d\u003d 0) {\n      return;\n    }\n    List\u003cString\u003e values \u003d new ArrayList\u003c\u003e(nativeValues.length());\n    for (int i \u003d 0; i \u003c nativeValues.length(); i++) {\n      values.add(nativeValues.get(i));\n    }",
+      "revId": "d4cb352d48dbcd8cf880b55fc6d1f6206ee78363",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af6ae563_8aae0bab",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/StringListPanel.java",
         "patchSetId": 1
