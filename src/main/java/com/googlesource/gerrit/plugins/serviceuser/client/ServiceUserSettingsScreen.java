@@ -46,6 +46,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
   private CheckBox allowEmailCheckBox;
   private CheckBox createNotesCheckBox;
   private CheckBox createNotesAsyncCheckBox;
+  private StringListPanel blockedUsernamesPanel;
   private Button saveButton;
 
   ServiceUserSettingsScreen() {
@@ -147,9 +148,6 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     createNotesAsyncPanel.add(createNotesAsyncInfo);
     add(createNotesAsyncPanel);
 
-    HorizontalPanel buttons = new HorizontalPanel();
-    add(buttons);
-
     saveButton = new Button("Save");
     saveButton.addStyleName("serviceuser-saveButton");
     saveButton.addClickHandler(new ClickHandler() {
@@ -158,6 +156,15 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
         doSave();
       }
     });
+
+    blockedUsernamesPanel =
+        new StringListPanel("Blocked Usernames", "Username",
+            info.getBlockedNames(), saveButton);
+    add(blockedUsernamesPanel);
+
+    HorizontalPanel buttons = new HorizontalPanel();
+    add(buttons);
+
     buttons.add(saveButton);
     saveButton.setEnabled(false);
     OnEditEnabler onEditEnabler = new OnEditEnabler(saveButton, infoMsgTxt);
@@ -177,6 +184,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     in.setAllowEmail(allowEmailCheckBox.getValue());
     in.setCreateNotes(createNotesCheckBox.getValue());
     in.setCreateNotesAsync(createNotesAsyncCheckBox.getValue());
+    in.setBlockedNames(blockedUsernamesPanel.getValues());
     new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
         .put(in, new AsyncCallback<JavaScriptObject>() {
 
