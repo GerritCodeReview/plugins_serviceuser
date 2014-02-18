@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf7b9935_2b2d9972",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ConfigInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-18T14:50:39Z",
+      "side": 1,
+      "message": "Yeah, you have even used JsArrayString yourself in the same change i pointed out in previous comment:\n\n  public final native JsArrayString permittedValues()  /*-{ return this.permitted_values; }-*/;\n  public final native JsArrayString values()  /*-{ return this.values; }-*/;\n\nso the permittedValues() method was from you ;-)",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 84
+      },
+      "revId": "d77c70aca1721539c4055d2d58c142d8d132e799",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
