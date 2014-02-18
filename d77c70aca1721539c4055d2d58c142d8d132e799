@@ -117,6 +117,30 @@
       "revId": "d77c70aca1721539c4055d2d58c142d8d132e799",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf7b9935_2b46f93c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ConfigInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-18T15:16:43Z",
+      "side": 1,
+      "message": "How that? As i mentioned before, the working change that i pointed to send exactly that: list of string: config values per line. I even uploaded a test for it.\n\nCan you try it? And compare what are you doing differently? Positive side effect, if it does work, you can vote VRFY+1 as you wanted (someday) to review it anyway ;-)\n\n* change: https://gerrit-review.googlesource.com/#/c/54230\n* test: https://gerrit-review.googlesource.com/#/c/54231/",
+      "parentUuid": "cf7b9935_4b4fc552",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 83
+      },
+      "revId": "d77c70aca1721539c4055d2d58c142d8d132e799",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
