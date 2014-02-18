@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af6ae563_6aa637d4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/StringListPanel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-18T13:57:09Z",
+      "side": 1,
+      "message": "Have you checked this file? In this change i do just that: sending list of string from config section:\n\n* foo\n* bar\n* baz\n\nA receive it as list of strings on the server.\n\n [1] https://gerrit-review.googlesource.com/#/c/54230/7/gerrit-gwtui/src/main/java/com/google/gerrit/client/projects/ConfigInfo.java",
+      "parentUuid": "af6ae563_8aae0bab",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 18
+      },
+      "revId": "d4cb352d48dbcd8cf880b55fc6d1f6206ee78363",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af6ae563_eab9c7f7",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/StringListPanel.java",
         "patchSetId": 1
