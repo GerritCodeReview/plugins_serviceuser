@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "af6ae563_0a30dbcd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ConfigInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-02-18T15:26:15Z",
+      "side": 1,
+      "message": "What do i need to reproduce your problem? install service user plugin and start it? What else?",
+      "parentUuid": "af6ae563_aa20af80",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 83
+      },
+      "revId": "d77c70aca1721539c4055d2d58c142d8d132e799",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af6ae563_6a23978b",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ServiceUserSettingsScreen.java",
         "patchSetId": 3
