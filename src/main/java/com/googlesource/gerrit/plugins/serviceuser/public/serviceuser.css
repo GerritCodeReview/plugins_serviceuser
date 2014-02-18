@@ -7,23 +7,27 @@
 }
 
 .serviceuser-serviceUserTable,
-.serviceuser-sshKeyTable {
+.serviceuser-sshKeyTable,
+.serviceuser-stringListTable {
   border-collapse: separate;
   border-spacing: 0;
 }
 
 .serviceuser-serviceUserTable .leftMostCell,
-.serviceuser-sshKeyTable .leftMostCell {
+.serviceuser-sshKeyTable .leftMostCell,
+.serviceuser-stringListTable .leftMostCell {
   border-left: 1px solid #EEE;
 }
 
 .serviceuser-serviceUserTable .topMostCell,
-.serviceuser-sshKeyTable .topMostCell {
+.serviceuser-sshKeyTable .topMostCell,
+.serviceuser-stringListTable .topMostCell {
   border-top: 1px solid #EEE;
 }
 
 .serviceuser-serviceUserTable .dataHeader,
-.serviceuser-sshKeyTable .dataHeader {
+.serviceuser-sshKeyTable .dataHeader,
+.serviceuser-stringListTable .dataHeader {
   border: 1px solid #FFF;
   padding: 2px 6px 1px;
   background-color: #EEE;
@@ -32,14 +36,16 @@
   color: textColor;
 }
 
-.serviceuser-sshKeyTable .iconHeader {
+.serviceuser-sshKeyTable .iconHeader,
+.serviceuser-stringListTable .iconHeader {
   border-top: 1px solid #FFF;
   border-bottom: 1px solid #FFF;
   background-color: #EEE;
 }
 
 .serviceuser-serviceUserTable .dataCell,
-.serviceuser-sshKeyTable .dataCell {
+.serviceuser-sshKeyTable .dataCell,
+.serviceuser-stringListTable .dataCell {
   padding-left: 5px;
   padding-right: 5px;
   border-right: 1px solid #EEE;
@@ -48,7 +54,8 @@
   height: 20px;
 }
 
-.serviceuser-sshKeyTable .iconCell {
+.serviceuser-sshKeyTable .iconCell,
+.serviceuser-stringListTable .iconCell {
   width: 1px;
   padding: 0px;
   vertical-align: middle;
@@ -123,4 +130,9 @@
   right: 0;
   background: #BFC;
   border-style: inset;
+}
+
+.serviceuser-smallHeading {
+  margin-top: 5px;
+  font-weight: bold;
 }
