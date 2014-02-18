@@ -33,6 +33,7 @@ import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.util.FS;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequiresCapability(GlobalCapability.ADMINISTRATE_SERVER)
 public class PutConfig implements RestModifyView<ConfigResource, Input>{
@@ -42,6 +43,7 @@ public class PutConfig implements RestModifyView<ConfigResource, Input>{
     public Boolean allowEmail;
     public Boolean createNotes;
     public Boolean createNotesAsync;
+    public List<String> blockedNames;
   }
 
   private final PluginConfigFactory cfgFactory;
@@ -78,6 +80,9 @@ public class PutConfig implements RestModifyView<ConfigResource, Input>{
     }
     if (input.createNotesAsync != null) {
       setBoolean(cfg, "createNotesAsync", input.createNotesAsync);
+    }
+    if (input.blockedNames != null) {
+      cfg.setStringList("plugin", pluginName, "block", input.blockedNames);
     }
     cfg.save();
     cfgFactory.getFromGerritConfig(pluginName, true);
