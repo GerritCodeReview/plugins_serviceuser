@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
+import com.google.gerrit.client.rpc.NativeMap;
 import com.google.gerrit.plugin.client.Plugin;
 import com.google.gerrit.plugin.client.rpc.RestApi;
 import com.google.gerrit.plugin.client.screen.Screen;

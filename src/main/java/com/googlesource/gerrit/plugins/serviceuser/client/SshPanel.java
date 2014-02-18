@@ -14,8 +14,8 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
+import com.google.gerrit.client.rpc.Natives;
 import com.google.gerrit.plugin.client.Plugin;
-import com.google.gerrit.plugin.client.rpc.Natives;
 import com.google.gerrit.plugin.client.rpc.NoContent;
 import com.google.gerrit.plugin.client.rpc.RestApi;
 import com.google.gwt.core.client.JsArray;
