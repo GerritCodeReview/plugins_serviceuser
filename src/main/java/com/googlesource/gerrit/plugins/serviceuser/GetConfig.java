@@ -22,6 +22,9 @@ import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.inject.Inject;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class GetConfig implements RestReadView<ConfigResource> {
 
   private final PluginConfig cfg;
@@ -40,6 +43,9 @@ public class GetConfig implements RestReadView<ConfigResource> {
     info.allowEmail = toBoolean(cfg.getBoolean("allowEmail", false));
     info.createNotes = toBoolean(cfg.getBoolean("createNotes", true));
     info.createNotesAsync = toBoolean(cfg.getBoolean("createNotesAsync", false));
+    String[] blocked = cfg.getStringList("block");
+    Arrays.sort(blocked);
+    info.blockedNames = Arrays.asList(blocked);
     return info;
   }
 
@@ -48,10 +54,11 @@ public class GetConfig implements RestReadView<ConfigResource> {
   }
 
   public class ConfigInfo {
-    String info;
-    String onSuccess;
-    Boolean allowEmail;
-    Boolean createNotes;
-    Boolean createNotesAsync;
+    public String info;
+    public String onSuccess;
+    public Boolean allowEmail;
+    public Boolean createNotes;
+    public Boolean createNotesAsync;
+    public List<String> blockedNames;
   }
 }
