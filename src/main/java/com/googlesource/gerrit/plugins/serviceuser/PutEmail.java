@@ -74,12 +74,14 @@ public class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       if (Strings.emptyToNull(email) == null) {
         return Response.none();
       } else {
-        return deleteEmail.get().apply(rsrc.getUser(), input.email);
+        return deleteEmail.get().apply(rsrc.getUser(), email);
       }
-    } else if (email.equals(input.email)) {
+    } else if (email != null && email.equals(input.email)) {
       return Response.ok(email);
     } else {
-      deleteEmail.get().apply(rsrc.getUser(), email);
+      if (email != null) {
+        deleteEmail.get().apply(rsrc.getUser(), email);
+      }
       CreateEmail.Input in = new CreateEmail.Input();
       in.email = input.email;
       in.noConfirmation = true;
