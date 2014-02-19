@@ -14,17 +14,15 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATOR_ID;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.common.collect.Maps;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.AuthException;
+import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestReadView;
-import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.CurrentUser;
-import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.config.ConfigResource;
@@ -42,20 +40,20 @@ import java.util.Map;
 
 public class ListServiceUsers implements RestReadView<ConfigResource> {
   private final Provider<CurrentUser> userProvider;
-  private final IdentifiedUser.GenericFactory userFactory;
   private final ProjectLevelConfig storage;
   private final AccountCache accountCache;
+  private final Provider<ServiceUserCollection> serviceUsers;
   private final Provider<GetServiceUser> getServiceUser;
 
   @Inject
   ListServiceUsers(Provider<CurrentUser> userProvider,
-      IdentifiedUser.GenericFactory userFactory, @PluginName String pluginName,
-      ProjectCache projectCache, AccountCache accountCache,
+      @PluginName String pluginName, ProjectCache projectCache,
+      AccountCache accountCache, Provider<ServiceUserCollection> serviceUsers,
       Provider<GetServiceUser> getServiceUser) {
     this.userProvider = userProvider;
-    this.userFactory = userFactory;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     this.accountCache = accountCache;
+    this.serviceUsers = serviceUsers;
     this.getServiceUser = getServiceUser;
   }
 
@@ -69,22 +67,19 @@ public class ListServiceUsers implements RestReadView<ConfigResource> {
 
     Map<String, ServiceUserInfo> accounts = Maps.newTreeMap();
     Config db = storage.get();
-    boolean isAdmin = user.getCapabilities().canAdministrateServer();
     for (String username : db.getSubsections(USER)) {
-      Account.Id createdBy =
-          new Account.Id(db.getInt(USER, username, KEY_CREATOR_ID, -1));
-      if (isAdmin || ((IdentifiedUser)user).getAccountId().equals(createdBy)) {
-        AccountState account = accountCache.getByUsername(username);
-        if (account != null) {
-          ServiceUserInfo info;
-          try {
-            info = getServiceUser.get().apply(
-                new ServiceUserResource(userFactory.create(account.getAccount().getId())));
-            info.username = null;
-            accounts.put(username, info);
-          } catch (ResourceNotFoundException e) {
-            // ignore this service user
-          }
+      AccountState account = accountCache.getByUsername(username);
+      if (account != null) {
+        ServiceUserInfo info;
+        try {
+          ServiceUserResource serviceUserResource =
+              serviceUsers.get().parse(new ConfigResource(),
+                  IdString.fromDecoded(username));
+          info = getServiceUser.get().apply(serviceUserResource);
+          info.username = null;
+          accounts.put(username, info);
+        } catch (ResourceNotFoundException e) {
+          // this service user is not visible to the caller -> ignore it
         }
       }
     }
