@@ -24,6 +24,7 @@ import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
+import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.CreateEmail;
 import com.google.gerrit.server.account.DeleteEmail;
 import com.google.gerrit.server.account.PutPreferred;
@@ -45,18 +46,21 @@ public class PutEmail implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<CreateEmail.Factory> createEmailFactory;
   private final Provider<DeleteEmail> deleteEmail;
   private final Provider<PutPreferred> putPreferred;
+  private final Provider<CurrentUser> self;
 
   @Inject
   PutEmail(Provider<GetConfig> getConfig,
       Provider<GetEmail> getEmail,
       Provider<CreateEmail.Factory> createEmailFactory,
       Provider<DeleteEmail> deleteEmail,
-      Provider<PutPreferred> putPreferred) {
+      Provider<PutPreferred> putPreferred,
+      Provider<CurrentUser> self) {
     this.getConfig = getConfig;
     this.getEmail = getEmail;
     this.createEmailFactory = createEmailFactory;
     this.deleteEmail = deleteEmail;
     this.putPreferred = putPreferred;
+    this.self = self;
   }
 
   @Override
@@ -65,7 +69,8 @@ public class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       ResourceConflictException, MethodNotAllowedException, OrmException,
       BadRequestException, EmailException {
     Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
-    if (emailAllowed == null || !emailAllowed) {
+    if ((emailAllowed == null || !emailAllowed)
+        && !self.get().getCapabilities().canAdministrateServer()) {
       throw new ResourceConflictException("setting email not allowed");
     }
 
