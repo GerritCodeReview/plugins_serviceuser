@@ -71,7 +71,9 @@ public class ServiceUserCollection implements
   public ServiceUserResource parse(ConfigResource parent, IdString id)
       throws ResourceNotFoundException, AuthException, OrmException {
     IdentifiedUser serviceUser = accounts.get().parseId(id.get());
-    if (!storage.get().getSubsections(USER).contains(serviceUser.getUserName())) {
+    if (serviceUser == null
+        || !storage.get().getSubsections(USER)
+            .contains(serviceUser.getUserName())) {
       throw new ResourceNotFoundException(id);
     }
     CurrentUser user = userProvider.get();
