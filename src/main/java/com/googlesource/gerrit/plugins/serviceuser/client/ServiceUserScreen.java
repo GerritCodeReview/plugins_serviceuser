@@ -48,8 +48,19 @@ public class ServiceUserScreen extends VerticalPanel {
                   .view(Plugin.get().getPluginName(), "config")
                   .get(new AsyncCallback<ConfigInfo>() {
                     @Override
-                    public void onSuccess(ConfigInfo configInfo) {
-                      display(serviceUserInfo, configInfo.getAllowEmail());
+                    public void onSuccess(final ConfigInfo configInfo) {
+                      AccountCapabilities.all(new AsyncCallback<AccountCapabilities>() {
+                        @Override
+                        public void onSuccess(AccountCapabilities ac) {
+                            display(serviceUserInfo, configInfo.getAllowEmail()
+                                || ac.canPerform("administrateServer"));
+                        }
+
+                        @Override
+                        public void onFailure(Throwable caught) {
+                          // never invoked
+                        }
+                      }, "administrateServer");
                     }
 
                     @Override
