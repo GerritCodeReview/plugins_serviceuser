@@ -622,7 +622,7 @@ _PUT /config/server/@PLUGIN@~config_
 
 Sets the configuration of the @PLUGIN@ plugin.
 
-The new configuration must be specified as a [ConfigInfo](#config-info)
+The new configuration must be specified as a [ConfigInput](#config-input)
 entity in the request body. Not setting a parameter leaves the parameter
 unchanged.
 
@@ -643,7 +643,8 @@ unchanged.
 
 ### <a id="config-info"></a>ConfigInfo
 
-The `ConfigInfo` entity contains configuration of the @PLUGIN@ plugin.
+The `ConfigInfo` entity contains the configuration of the @PLUGIN@
+plugin.
 
 * _info_: HTML formatted message that should be displayed on the
   service user creation screen.
@@ -659,6 +660,33 @@ The `ConfigInfo` entity contains configuration of the @PLUGIN@ plugin.
   `false`).
 * _blocked\_names_: List of usernames which are forbidden to be used as
   name for a service user. The blocked usernames are case insensitive.
+* _groups_: Map of groups to which newly created service users are
+  automatically added. The map maps the group name to a
+  [GroupInfo](../../../Documentation/rest-api-groups.html#group-info)
+  entity. The `name` field in the GroupInfo entities is not set since
+  the names are already available as map keys.
+
+### <a id="config-input"></a>ConfigInput
+
+The `ConfigInput` entity contains updates for the configuration of the
+@PLUGIN@ plugin.
+
+* _info_: HTML formatted message that should be displayed on the
+  service user creation screen.
+* _on\_success_: HTML formatted message that should be displayed after
+  a service user was successfully created.
+* _allow\_email_: Whether it is allowed to provide an email address for
+  a service user (not set if `false`).
+* _create\_notes_: Whether commits of a service user should be
+  annotated by a Git note that contains information about the current
+  owners of the service user (not set if `false`).
+* _create\_notes\_async_: Whether the Git notes on commits that are
+  pushed by a service user should be created asynchronously (not set if
+  `false`).
+* _blocked\_names_: List of usernames which are forbidden to be used as
+  name for a service user. The blocked usernames are case insensitive.
+* _groups_: List of names of internal groups to which newly created
+  service users should be automatically added.
 
 ### <a id="email-input"></a>EmailInput
 

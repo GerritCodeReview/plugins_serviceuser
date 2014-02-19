@@ -49,6 +49,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
   private CheckBox createNotesCheckBox;
   private CheckBox createNotesAsyncCheckBox;
   private StringListPanel blockedUsernamesPanel;
+  private StringListPanel groupsPanel;
   private Button saveButton;
 
   ServiceUserSettingsScreen() {
@@ -172,6 +173,11 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
             info.getBlockedNames(), saveButton);
     add(blockedUsernamesPanel);
 
+    groupsPanel =
+        new StringListPanel("Groups", "Group Name",
+            info.getGroups().keySet(), saveButton);
+    add(groupsPanel);
+
     HorizontalPanel buttons = new HorizontalPanel();
     add(buttons);
 
@@ -197,6 +203,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
       in.setCreateNotesAsync(createNotesAsyncCheckBox.getValue());
     }
     in.setBlockedNames(blockedUsernamesPanel.getValues());
+    in.setGroups(groupsPanel.getValues());
     new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
         .put(in, new AsyncCallback<JavaScriptObject>() {
 

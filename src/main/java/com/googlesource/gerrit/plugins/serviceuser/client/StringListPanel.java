@@ -33,6 +33,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwtexpui.globalkey.client.NpTextBox;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class StringListPanel extends FlowPanel {
@@ -41,6 +42,11 @@ public class StringListPanel extends FlowPanel {
   private final Button deleteButton;
 
   StringListPanel(String title, String fieldName, JsArrayString values,
+      final FocusWidget w) {
+    this(title, fieldName, Natives.asList(values), w);
+  }
+
+  StringListPanel(String title, String fieldName, Collection<String> values,
       final FocusWidget w) {
     Label titleLabel = new Label(title);
     titleLabel.setStyleName("serviceuser-smallHeading");
@@ -112,9 +118,9 @@ public class StringListPanel extends FlowPanel {
       setText(0, 1, name);
     }
 
-    void display(JsArrayString values) {
+    void display(Collection<String> values) {
       int row = 1;
-      for (String v : Natives.asList(values)) {
+      for (String v : values) {
         populate(row, v);
         row++;
       }
