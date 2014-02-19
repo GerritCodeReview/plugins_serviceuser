@@ -20,6 +20,9 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
+import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
+import com.google.gerrit.reviewdb.client.AccountGroup;
+import com.google.gerrit.server.account.GroupCache;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
@@ -44,23 +47,27 @@ public class PutConfig implements RestModifyView<ConfigResource, Input>{
     public Boolean createNotes;
     public Boolean createNotesAsync;
     public List<String> blockedNames;
+    public List<String> groups;
   }
 
   private final PluginConfigFactory cfgFactory;
   private final SitePaths sitePaths;
   private final String pluginName;
+  private final GroupCache groupCache;
 
   @Inject
   PutConfig(PluginConfigFactory cfgFactory, SitePaths sitePaths,
-      @PluginName String pluginName) throws IOException, ConfigInvalidException {
+      @PluginName String pluginName, GroupCache groupCache) throws IOException,
+      ConfigInvalidException {
     this.cfgFactory = cfgFactory;
     this.sitePaths = sitePaths;
     this.pluginName = pluginName;
+    this.groupCache = groupCache;
   }
 
   @Override
   public Response<String> apply(ConfigResource rsrc, Input input)
-      throws IOException, ConfigInvalidException {
+      throws IOException, ConfigInvalidException, UnprocessableEntityException {
     FileBasedConfig cfg =
         new FileBasedConfig(sitePaths.gerrit_config, FS.DETECTED);
     cfg.load();
@@ -83,6 +90,15 @@ public class PutConfig implements RestModifyView<ConfigResource, Input>{
     }
     if (input.blockedNames != null) {
       cfg.setStringList("plugin", pluginName, "block", input.blockedNames);
+    }
+    if (input.groups != null) {
+      for (String g : input.groups) {
+        if (groupCache.get(new AccountGroup.NameKey(g)) == null) {
+          throw new UnprocessableEntityException(
+              String.format("Group %s does not exist.", g));
+        }
+      }
+      cfg.setStringList("plugin", pluginName, "group", input.groups);
     }
     cfg.save();
     cfgFactory.getFromGerritConfig(pluginName, true);

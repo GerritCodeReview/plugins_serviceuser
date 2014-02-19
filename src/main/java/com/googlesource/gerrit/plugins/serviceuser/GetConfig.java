@@ -15,37 +15,68 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.common.base.Strings;
+import com.google.gerrit.common.data.GroupDescriptions;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.RestReadView;
+import com.google.gerrit.reviewdb.client.AccountGroup;
+import com.google.gerrit.server.account.GroupCache;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.group.GroupJson;
+import com.google.gerrit.server.group.GroupJson.GroupInfo;
+import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class GetConfig implements RestReadView<ConfigResource> {
+  private static final Logger log = LoggerFactory.getLogger(GetConfig.class);
 
   private final PluginConfig cfg;
+  private final GroupCache groupCache;
+  private final GroupJson groupJson;
 
   @Inject
   public GetConfig(PluginConfigFactory cfgFactory,
-      @PluginName String pluginName) {
+      @PluginName String pluginName, GroupCache groupCache, GroupJson groupJson) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
+    this.groupCache = groupCache;
+    this.groupJson = groupJson;
   }
 
   @Override
-  public ConfigInfo apply(ConfigResource rsrc) {
+  public ConfigInfo apply(ConfigResource rsrc) throws OrmException {
     ConfigInfo info = new ConfigInfo();
     info.info = Strings.emptyToNull(cfg.getString("infoMessage"));
     info.onSuccess = Strings.emptyToNull(cfg.getString("onSuccessMessage"));
     info.allowEmail = toBoolean(cfg.getBoolean("allowEmail", false));
     info.createNotes = toBoolean(cfg.getBoolean("createNotes", true));
     info.createNotesAsync = toBoolean(cfg.getBoolean("createNotesAsync", false));
+
     String[] blocked = cfg.getStringList("block");
     Arrays.sort(blocked);
     info.blockedNames = Arrays.asList(blocked);
+
+    String[] groups = cfg.getStringList("group");
+    info.groups = new TreeMap<>();
+    for (String g : groups) {
+      AccountGroup group = groupCache.get(new AccountGroup.NameKey(g));
+      if (group != null) {
+        GroupInfo groupInfo = groupJson.format(GroupDescriptions.forAccountGroup(group));
+        groupInfo.name = null;
+        info.groups.put(g, groupInfo);
+      } else {
+        log.warn(String.format("Service user group %s does not exist.", g));
+      }
+    }
+
     return info;
   }
 
@@ -60,5 +91,6 @@ public class GetConfig implements RestReadView<ConfigResource> {
     public Boolean createNotes;
     public Boolean createNotesAsync;
     public List<String> blockedNames;
+    public Map<String, GroupInfo> groups;
   }
 }
