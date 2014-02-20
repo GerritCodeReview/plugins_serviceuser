@@ -37,16 +37,21 @@ public class GetConfig implements RestReadView<ConfigResource> {
     ConfigInfo info = new ConfigInfo();
     info.info = Strings.emptyToNull(cfg.getString("infoMessage"));
     info.onSuccess = Strings.emptyToNull(cfg.getString("onSuccessMessage"));
-    info.allowEmail = cfg.getBoolean("allowEmail", false);
-    if (!info.allowEmail) {
-      info.allowEmail = null;
-    }
+    info.allowEmail = toBoolean(cfg.getBoolean("allowEmail", false));
+    info.createNotes = toBoolean(cfg.getBoolean("createNotes", true));
+    info.createNotesAsync = toBoolean(cfg.getBoolean("createNotesAsync", false));
     return info;
+  }
+
+  private static Boolean toBoolean(boolean v) {
+    return v ? v : null;
   }
 
   public class ConfigInfo {
     String info;
     String onSuccess;
     Boolean allowEmail;
+    Boolean createNotes;
+    Boolean createNotesAsync;
   }
 }

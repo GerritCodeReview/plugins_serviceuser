@@ -612,7 +612,8 @@ contains the configuration.
 
   )]}'
   {
-    "on_success": "Don\u0027t forget to assign \u003ca href\u003d\"Documentation/access-control.html\"\u003eaccess rights\u003c/a\u003e to the service user."
+    "on_success": "Don\u0027t forget to assign \u003ca href\u003d\"Documentation/access-control.html\"\u003eaccess rights\u003c/a\u003e to the service user.",
+    "create_notes": true
   }
 ```
 
@@ -650,6 +651,12 @@ The `ConfigInfo` entity contains configuration of the @PLUGIN@ plugin.
   a service user was successfully created.
 * _allow\_email_: Whether it is allowed to provide an email address for
   a service user (not set if `false`).
+* _create\_notes_: Whether commits of a service user should be
+  annotated by a Git note that contains information about the current
+  owners of the service user (not set if `false`).
+* _create\_notes\_async_: Whether the Git notes on commits that are
+  pushed by a service user should be created asynchronously (not set if
+  `false`).
 
 ### <a id="email-input"></a>EmailInput
 

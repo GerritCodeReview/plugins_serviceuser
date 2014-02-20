@@ -22,6 +22,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -44,6 +46,8 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
   private TextArea infoMsgTxt;
   private TextArea onSuccessMsgTxt;
   private CheckBox allowEmailCheckBox;
+  private CheckBox createNotesCheckBox;
+  private CheckBox createNotesAsyncCheckBox;
   private Button saveButton;
 
   ServiceUserSettingsScreen() {
@@ -121,6 +125,38 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     allowEmailPanel.add(allowEmailInfo);
     add(allowEmailPanel);
 
+    Panel createNotesPanel = new HorizontalPanel();
+    createNotesCheckBox = new CheckBox("Create Git Notes");
+    createNotesCheckBox.setValue(info.getCreateNotes());
+    createNotesPanel.add(createNotesCheckBox);
+    Image createNotesInfo = new Image(ServiceUserPlugin.RESOURCES.info());
+    createNotesInfo.setTitle("Whether commits of a service user should be "
+        + "annotated by a Git note that contains information about the current "
+        + "owners of the service user. This allows to find a real person that "
+        + "is responsible for this commit. To get such a Git note for each commit "
+        + "of a service user the 'Forge Committer' access right must be blocked "
+        + "for service users.");
+    createNotesPanel.add(createNotesInfo);
+    add(createNotesPanel);
+
+    Panel createNotesAsyncPanel = new HorizontalPanel();
+    createNotesAsyncCheckBox = new CheckBox("Create Git Notes Asynchronously");
+    createNotesAsyncCheckBox.setValue(info.getCreateNotesAsync());
+    createNotesAsyncCheckBox.setEnabled(info.getCreateNotes());
+    createNotesAsyncPanel.add(createNotesAsyncCheckBox);
+    Image createNotesAsyncInfo = new Image(ServiceUserPlugin.RESOURCES.info());
+    createNotesAsyncInfo.setTitle("Whether the Git notes on commits that are "
+        + "pushed by a service user should be created asynchronously.");
+    createNotesAsyncPanel.add(createNotesAsyncInfo);
+    add(createNotesAsyncPanel);
+
+    createNotesCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+      @Override
+      public void onValueChange(ValueChangeEvent<Boolean> event) {
+        createNotesAsyncCheckBox.setEnabled(event.getValue());
+      }
+    });
+
     HorizontalPanel buttons = new HorizontalPanel();
     add(buttons);
 
@@ -137,6 +173,8 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     OnEditEnabler onEditEnabler = new OnEditEnabler(saveButton, infoMsgTxt);
     onEditEnabler.listenTo(onSuccessMsgTxt);
     onEditEnabler.listenTo(allowEmailCheckBox);
+    onEditEnabler.listenTo(createNotesCheckBox);
+    onEditEnabler.listenTo(createNotesAsyncCheckBox);
 
     infoMsgTxt.setFocus(true);
     saveButton.setEnabled(false);
@@ -147,6 +185,10 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     in.setInfoMessage(infoMsgTxt.getValue());
     in.setOnSuccessMessage(onSuccessMsgTxt.getValue());
     in.setAllowEmail(allowEmailCheckBox.getValue());
+    in.setCreateNotes(createNotesCheckBox.getValue());
+    if (createNotesAsyncCheckBox.isEnabled()) {
+      in.setCreateNotesAsync(createNotesAsyncCheckBox.getValue());
+    }
     new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
         .put(in, new AsyncCallback<JavaScriptObject>() {
 
