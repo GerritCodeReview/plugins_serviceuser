@@ -29,6 +29,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwtexpui.globalkey.client.NpTextBox;
 
@@ -40,6 +41,8 @@ public class StringListPanel extends FlowPanel {
   private final NpTextBox input;
   private final StringListTable t;
   private final Button deleteButton;
+  private final HorizontalPanel titlePanel;
+  private Image info;
 
   StringListPanel(String title, String fieldName, JsArrayString values,
       final FocusWidget w) {
@@ -48,9 +51,11 @@ public class StringListPanel extends FlowPanel {
 
   StringListPanel(String title, String fieldName, Collection<String> values,
       final FocusWidget w) {
+    titlePanel = new HorizontalPanel();
     Label titleLabel = new Label(title);
     titleLabel.setStyleName("serviceuser-smallHeading");
-    add(titleLabel);
+    titlePanel.add(titleLabel);
+    add(titlePanel);
     input = new NpTextBox();
     input.addKeyPressHandler(new KeyPressHandler() {
       @Override
@@ -91,6 +96,14 @@ public class StringListPanel extends FlowPanel {
     });
 
     t.display(values);
+  }
+
+  void setInfo(String msg) {
+    if (info == null) {
+      info = new Image(ServiceUserPlugin.RESOURCES.info());
+      titlePanel.add(info);
+    }
+    info.setTitle(msg);
   }
 
   List<String> getValues() {
