@@ -25,6 +25,7 @@ import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.extensions.webui.TopMenu;
+import com.google.gerrit.server.git.validators.CommitValidationListener;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
@@ -38,6 +39,8 @@ public class Module extends AbstractModule {
     DynamicSet.bind(binder(), TopMenu.class).to(ServiceUserMenu.class);
     DynamicSet.bind(binder(), GitReferenceUpdatedListener.class)
         .to(RefUpdateListener.class);
+    DynamicSet.bind(binder(), CommitValidationListener.class)
+        .to(ValidateServiceUserCommits.class);
     install(new FactoryModuleBuilder().build(CreateServiceUserNotes.Factory.class));
     install(new RestApiModule() {
       @Override
