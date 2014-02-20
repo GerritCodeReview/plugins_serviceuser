@@ -22,6 +22,7 @@ import com.google.gerrit.plugin.client.screen.Screen;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ToggleButton;
@@ -52,8 +53,10 @@ public class ServiceUserScreen extends VerticalPanel {
                       AccountCapabilities.all(new AsyncCallback<AccountCapabilities>() {
                         @Override
                         public void onSuccess(AccountCapabilities ac) {
-                            display(serviceUserInfo, configInfo.getAllowEmail()
-                                || ac.canPerform("administrateServer"));
+                          boolean isAdmin = ac.canPerform("administrateServer");
+                          display(serviceUserInfo,
+                              configInfo.getAllowEmail() || isAdmin,
+                              configInfo.getAllowOwner() || isAdmin);
                         }
 
                         @Override
@@ -77,7 +80,7 @@ public class ServiceUserScreen extends VerticalPanel {
           });
   }
 
-  private void display(ServiceUserInfo info, boolean allowEmail) {
+  private void display(ServiceUserInfo info, boolean allowEmail, boolean allowOwner) {
     MyTable t = new MyTable();
     t.setStyleName("serviceuser-serviceUserInfoTable");
     t.addRow("Account State", createActiveToggle(info));
@@ -122,7 +125,7 @@ public class ServiceUserScreen extends VerticalPanel {
     } else {
       t.addRow("Email Address", info.email());
     }
-    t.addRow("Owner Group", createOwnerWidget(info));
+    t.addRow("Owner Group", createOwnerWidget(info, allowOwner));
     t.addRow("Created By", info.getDisplayName());
     t.addRow("Created At", info.created_at());
     add(t);
@@ -179,49 +182,57 @@ public class ServiceUserScreen extends VerticalPanel {
     return activeToggle;
   }
 
-  private EditableValue createOwnerWidget(ServiceUserInfo info) {
-    EditableValue ownerWidget = new EditableValue(info.username(),
-        info.owner() != null ? info.owner().name() : "",
-        info.owner() != null ? info.owner().url() : null) {
-      @Override
-      protected void save(String serviceUser, final String newValue) {
-        new RestApi("config").id("server")
-            .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
-            .view("owner").put(newValue, new AsyncCallback<GroupInfo>() {
-              @Override
-              public void onSuccess(GroupInfo result) {
-                updateValue(result != null ? result.name() : "");
-                updateHref(result != null ? result.url() : "");
-                Plugin.get().refresh();
-              }
+  private Widget createOwnerWidget(ServiceUserInfo info, boolean allowOwner) {
+    if (allowOwner) {
+      EditableValue ownerWidget = new EditableValue(info.username(),
+          info.owner() != null ? info.owner().name() : "",
+          info.owner() != null ? info.owner().url() : null) {
+        @Override
+        protected void save(String serviceUser, final String newValue) {
+          new RestApi("config").id("server")
+              .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
+              .view("owner").put(newValue, new AsyncCallback<GroupInfo>() {
+                @Override
+                public void onSuccess(GroupInfo result) {
+                  updateValue(result != null ? result.name() : "");
+                  updateHref(result != null ? result.url() : "");
+                  Plugin.get().refresh();
+                }
 
-              @Override
-              public void onFailure(Throwable caught) {
-                // never invoked
-              }
-            });
-      }
-    };
-    StringBuilder ownerWarning = new StringBuilder();
-    ownerWarning.append("If ");
-    ownerWarning.append(info.owner() != null
-        ? "the owner group is changed"
-        : "an owner group is set");
-    ownerWarning.append(" only members of the ");
-    ownerWarning.append(info.owner() != null ? "new " : "");
-    ownerWarning.append("owner group can see and administrate"
-        + " the service user.");
-    if (info.owner() != null) {
-      ownerWarning.append(" If the owner group is removed only the"
-          + " creator of the service user can see and administrate"
+                @Override
+                public void onFailure(Throwable caught) {
+                  // never invoked
+                }
+              });
+        }
+      };
+      StringBuilder ownerWarning = new StringBuilder();
+      ownerWarning.append("If ");
+      ownerWarning.append(info.owner() != null
+          ? "the owner group is changed"
+          : "an owner group is set");
+      ownerWarning.append(" only members of the ");
+      ownerWarning.append(info.owner() != null ? "new " : "");
+      ownerWarning.append("owner group can see and administrate"
           + " the service user.");
+      if (info.owner() != null) {
+        ownerWarning.append(" If the owner group is removed only the"
+            + " creator of the service user can see and administrate"
+            + " the service user.");
+      } else {
+        ownerWarning.append(" The creator of the service user can no"
+            + " longer see and administrate the service user if she/he"
+            + " is not member of the owner group.");
+      }
+      ownerWidget.setWarning(ownerWarning.toString());
+      return ownerWidget;
     } else {
-      ownerWarning.append(" The creator of the service user can no"
-          + " longer see and administrate the service user if she/he"
-          + " is not member of the owner group.");
+      if (info.owner() != null && info.owner().url() != null) {
+        return new Anchor(info.owner().name(), info.owner().url());
+      } else {
+        return new Label(info.owner() != null ? info.owner().name() : "");
+      }
     }
-    ownerWidget.setWarning(ownerWarning.toString());
-    return ownerWidget;
   }
 
   private static class MyTable extends FlexTable {

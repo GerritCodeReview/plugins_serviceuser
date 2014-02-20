@@ -37,6 +37,11 @@ file.
 :	Whether it is allowed to provide an email address for
 	a service user. By default false.
 
+<a id="allowOwner">
+`plugin.@PLUGIN@.allowOwner`
+:	Whether it is allowed to set an owner group for a service user.
+	By default false.
+
 <a id="createNotes">
 `plugin.@PLUGIN@.createNotes`
 :	Whether commits of a service user should be annotated by a Git note
