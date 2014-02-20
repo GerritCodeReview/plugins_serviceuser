@@ -23,10 +23,13 @@ import com.google.gerrit.common.data.GroupDescriptions;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.DefaultInput;
 import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
+import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.group.GroupJson.GroupInfo;
@@ -35,6 +38,7 @@ import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import com.googlesource.gerrit.plugins.serviceuser.PutOwner.Input;
 
@@ -49,27 +53,38 @@ public class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     public String group;
   }
 
+  private final Provider<GetConfig> getConfig;
   private final GroupsCollection groups;
   private final ProjectLevelConfig storage;
   private final Project.NameKey allProjects;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final GroupJson json;
+  private final Provider<CurrentUser> self;
 
   @Inject
-  PutOwner(GroupsCollection groups, @PluginName String pluginName,
-      ProjectCache projectCache, MetaDataUpdate.User metaDataUpdateFactory,
-      GroupJson json) {
+  PutOwner(Provider<GetConfig> getConfig, GroupsCollection groups,
+      @PluginName String pluginName, ProjectCache projectCache,
+      MetaDataUpdate.User metaDataUpdateFactory, GroupJson json,
+      Provider<CurrentUser> self) {
+    this.getConfig = getConfig;
     this.groups = groups;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.json = json;
+    this.self = self;
   }
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
       throws UnprocessableEntityException, RepositoryNotFoundException,
-      MethodNotAllowedException, IOException, OrmException {
+      MethodNotAllowedException, IOException, OrmException, ResourceConflictException {
+    Boolean ownerAllowed = getConfig.get().apply(new ConfigResource()).allowOwner;
+    if ((ownerAllowed == null || !ownerAllowed)
+        && !self.get().getCapabilities().canAdministrateServer()) {
+      throw new ResourceConflictException("setting owner not allowed");
+    }
+
     if (input == null) {
       input = new Input();
 

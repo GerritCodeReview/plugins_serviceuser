@@ -38,6 +38,7 @@ public class GetConfig implements RestReadView<ConfigResource> {
     info.info = Strings.emptyToNull(cfg.getString("infoMessage"));
     info.onSuccess = Strings.emptyToNull(cfg.getString("onSuccessMessage"));
     info.allowEmail = toBoolean(cfg.getBoolean("allowEmail", false));
+    info.allowOwner = toBoolean(cfg.getBoolean("allowOwner", false));
     info.createNotes = toBoolean(cfg.getBoolean("createNotes", true));
     info.createNotesAsync = toBoolean(cfg.getBoolean("createNotesAsync", false));
     return info;
@@ -51,6 +52,7 @@ public class GetConfig implements RestReadView<ConfigResource> {
     String info;
     String onSuccess;
     Boolean allowEmail;
+    Boolean allowOwner;
     Boolean createNotes;
     Boolean createNotesAsync;
   }

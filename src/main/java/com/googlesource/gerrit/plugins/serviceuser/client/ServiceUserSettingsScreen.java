@@ -46,6 +46,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
   private TextArea infoMsgTxt;
   private TextArea onSuccessMsgTxt;
   private CheckBox allowEmailCheckBox;
+  private CheckBox allowOwnerCheckBox;
   private CheckBox createNotesCheckBox;
   private CheckBox createNotesAsyncCheckBox;
   private Button saveButton;
@@ -125,6 +126,16 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     allowEmailPanel.add(allowEmailInfo);
     add(allowEmailPanel);
 
+    Panel allowOwnerPanel = new HorizontalPanel();
+    allowOwnerCheckBox = new CheckBox("Allow Owner Group");
+    allowOwnerCheckBox.setValue(info.getAllowOwner());
+    allowOwnerPanel.add(allowOwnerCheckBox);
+    Image allowOwnerInfo = new Image(ServiceUserPlugin.RESOURCES.info());
+    allowOwnerInfo.setTitle("Whether it is allowed to set an owner group "
+        + "for a service user.");
+    allowOwnerPanel.add(allowOwnerInfo);
+    add(allowOwnerPanel);
+
     Panel createNotesPanel = new HorizontalPanel();
     createNotesCheckBox = new CheckBox("Create Git Notes");
     createNotesCheckBox.setValue(info.getCreateNotes());
@@ -173,6 +184,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     OnEditEnabler onEditEnabler = new OnEditEnabler(saveButton, infoMsgTxt);
     onEditEnabler.listenTo(onSuccessMsgTxt);
     onEditEnabler.listenTo(allowEmailCheckBox);
+    onEditEnabler.listenTo(allowOwnerCheckBox);
     onEditEnabler.listenTo(createNotesCheckBox);
     onEditEnabler.listenTo(createNotesAsyncCheckBox);
 
@@ -185,6 +197,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     in.setInfoMessage(infoMsgTxt.getValue());
     in.setOnSuccessMessage(onSuccessMsgTxt.getValue());
     in.setAllowEmail(allowEmailCheckBox.getValue());
+    in.setAllowOwner(allowOwnerCheckBox.getValue());
     in.setCreateNotes(createNotesCheckBox.getValue());
     if (createNotesAsyncCheckBox.isEnabled()) {
       in.setCreateNotesAsync(createNotesAsyncCheckBox.getValue());

@@ -651,6 +651,8 @@ The `ConfigInfo` entity contains configuration of the @PLUGIN@ plugin.
   a service user was successfully created.
 * _allow\_email_: Whether it is allowed to provide an email address for
   a service user (not set if `false`).
+* _allow\_owner_: Whether it is allowed to set an owner group for a
+  service user (not set if `false`).
 * _create\_notes_: Whether commits of a service user should be
   annotated by a Git note that contains information about the current
   owners of the service user (not set if `false`).
