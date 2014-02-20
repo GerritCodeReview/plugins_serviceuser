@@ -60,6 +60,7 @@ public abstract class EditableValue extends FlowPanel {
         label.setVisible(false);
         edit.setVisible(false);
         input.setVisible(true);
+        input.setFocus(true);
         save.setVisible(true);
         if (warning != null) {
           warning.setVisible(true);
