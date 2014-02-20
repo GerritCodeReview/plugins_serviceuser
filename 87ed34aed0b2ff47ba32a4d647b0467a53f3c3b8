@@ -93,6 +93,30 @@
       "revId": "87ed34aed0b2ff47ba32a4d647b0467a53f3c3b8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afd66580_aa028f25",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateServiceUserCommits.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-02-20T13:29:13Z",
+      "side": 1,
+      "message": "Ah, yes.  Obviously.  I should have realised that.  Thanks :)",
+      "parentUuid": "2f8fd5ae_7e2311b9",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 37
+      },
+      "revId": "87ed34aed0b2ff47ba32a4d647b0467a53f3c3b8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
