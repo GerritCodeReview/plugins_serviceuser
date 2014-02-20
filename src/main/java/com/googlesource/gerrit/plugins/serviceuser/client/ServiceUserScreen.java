@@ -181,7 +181,8 @@ public class ServiceUserScreen extends VerticalPanel {
 
   private EditableValue createOwnerWidget(ServiceUserInfo info) {
     EditableValue ownerWidget = new EditableValue(info.username(),
-        info.owner() != null ? info.owner().name() : "") {
+        info.owner() != null ? info.owner().name() : "",
+        info.owner() != null ? info.owner().url() : null) {
       @Override
       protected void save(String serviceUser, final String newValue) {
         new RestApi("config").id("server")
@@ -190,6 +191,7 @@ public class ServiceUserScreen extends VerticalPanel {
               @Override
               public void onSuccess(GroupInfo result) {
                 updateValue(result != null ? result.name() : "");
+                updateHref(result != null ? result.url() : "");
                 Plugin.get().refresh();
               }
 
