@@ -166,7 +166,7 @@ class CreateServiceUserNotes {
     fmt.append("Project", project.get());
     fmt.append("Branch", branch);
     fmt.appendUser(KEY_CREATED_BY, serviceUser.createdBy);
-    for (AccountInfo owner : serviceUserResolver.listOwners(serviceUser)) {
+    for (AccountInfo owner : serviceUserResolver.listActiveOwners(serviceUser)) {
       fmt.appendUser(KEY_OWNER, owner);
     }
     return fmt.toString();
