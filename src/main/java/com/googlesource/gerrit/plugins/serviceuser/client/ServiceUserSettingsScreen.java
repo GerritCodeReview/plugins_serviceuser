@@ -171,11 +171,16 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     blockedUsernamesPanel =
         new StringListPanel("Blocked Usernames", "Username",
             info.getBlockedNames(), saveButton);
+    blockedUsernamesPanel.setInfo("List of usernames which are "
+        + "forbidden to be used as name for a service user. "
+        + "The blocked usernames are case insensitive.");
     add(blockedUsernamesPanel);
 
     groupsPanel =
         new StringListPanel("Groups", "Group Name",
             info.getGroups().keySet(), saveButton);
+    groupsPanel.setInfo("Names of groups to which newly created "
+        + "service users should be added automatically.");
     add(groupsPanel);
 
     HorizontalPanel buttons = new HorizontalPanel();
