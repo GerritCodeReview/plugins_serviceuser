@@ -19,22 +19,33 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwtexpui.globalkey.client.NpTextBox;
 
 public abstract class EditableValue extends FlowPanel {
-  private final InlineLabel label;
+  private final Widget labelWidget;
   private final Image edit;
   private final NpTextBox input;
   private final Button save;
   private final Button cancel;
   private Image warning;
 
-  EditableValue(final String serviceUser, final String name) {
-    label = new InlineLabel(name);
+  EditableValue(String serviceUser, String name) {
+    this(serviceUser, name, null);
+  }
+
+  EditableValue(final String serviceUser, String name, String href) {
+    if (href != null) {
+      labelWidget = new Anchor(name, href);
+    } else {
+      labelWidget = new InlineLabel(name);
+    }
     edit = new Image(ServiceUserPlugin.RESOURCES.edit());
     edit.addStyleName("serviceuser-editButton");
     edit.setTitle("Edit");
@@ -57,7 +68,7 @@ public abstract class EditableValue extends FlowPanel {
     edit.addClickHandler(new  ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        label.setVisible(false);
+        labelWidget.setVisible(false);
         edit.setVisible(false);
         input.setVisible(true);
         input.setFocus(true);
@@ -93,7 +104,7 @@ public abstract class EditableValue extends FlowPanel {
       }
     });
 
-    add(label);
+    add(labelWidget);
     add(edit);
     add(input);
     add(save);
@@ -101,10 +112,14 @@ public abstract class EditableValue extends FlowPanel {
   }
 
   private void cancel() {
-    label.setVisible(true);
+    labelWidget.setVisible(true);
     edit.setVisible(true);
     input.setVisible(false);
-    input.setValue(label.getText());
+    if (labelWidget instanceof Label) {
+      input.setValue(((Label)labelWidget).getText());
+    } else {
+      input.setValue(((Anchor)labelWidget).getText());
+    }
     save.setVisible(false);
     save.setEnabled(false);
     if (warning != null) {
@@ -123,8 +138,12 @@ public abstract class EditableValue extends FlowPanel {
   }
 
   protected void updateValue(String newValue) {
-    label.setText(newValue);
-    label.setVisible(true);
+    if (labelWidget instanceof Label) {
+      ((Label)labelWidget).setText(newValue);
+    } else {
+      ((Anchor)labelWidget).setText(newValue);
+    }
+    labelWidget.setVisible(true);
     edit.setVisible(true);
     input.setVisible(false);
     input.setValue(newValue);
@@ -134,6 +153,12 @@ public abstract class EditableValue extends FlowPanel {
     }
     save.setEnabled(false);
     cancel.setVisible(false);
+  }
+
+  protected void updateHref(String newHref) {
+    if (labelWidget instanceof Anchor) {
+      ((Anchor)labelWidget).setHref(newHref);
+    }
   }
 
   protected abstract void save(String serviceUser, final String newValue);
