@@ -17,29 +17,13 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 
-import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
-import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
-import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.reviewdb.client.AccountGroup;
-import com.google.gerrit.reviewdb.client.AccountProjectWatch;
-import com.google.gerrit.reviewdb.client.Change.Id;
 import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.reviewdb.server.ReviewDb;
-import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.GerritPersonIdent;
-import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountInfo;
-import com.google.gerrit.server.account.AccountResolver;
-import com.google.gerrit.server.account.GroupMembership;
 import com.google.gerrit.server.config.AnonymousCowardName;
 import com.google.gerrit.server.git.NotesBranchUtil;
-import com.google.gerrit.server.group.ListMembers;
-import com.google.gerrit.server.util.RequestContext;
-import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
@@ -58,11 +42,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 class CreateServiceUserNotes {
   private static final Logger log =
@@ -76,13 +55,8 @@ class CreateServiceUserNotes {
 
   private final PersonIdent gerritServerIdent;
   private final NotesBranchUtil.Factory notesBranchUtilFactory;
-  private final AccountResolver resolver;
-  private final IdentifiedUser.GenericFactory genericUserFactory;
-  private final Provider<GetServiceUser> getServiceUser;
-  private final Provider<ListMembers> listMembers;
+  private final ServiceUserResolver serviceUserResolver;
   private final @AnonymousCowardName String anonymousCowardName;
-  private final ThreadLocalRequestContext tl;
-  private final SchemaFactory<ReviewDb> schema;
   private final Project.NameKey project;
   private final Repository git;
 
@@ -93,24 +67,14 @@ class CreateServiceUserNotes {
   @Inject
   CreateServiceUserNotes(@GerritPersonIdent PersonIdent gerritIdent,
       NotesBranchUtil.Factory notesBranchUtilFactory,
-      AccountResolver resolver,
-      IdentifiedUser.GenericFactory genericUserFactory,
-      Provider<GetServiceUser> getServiceUser,
-      Provider<ListMembers> listMembers,
+      ServiceUserResolver serviceUserResolver,
       @AnonymousCowardName String anonymousCowardName,
-      ThreadLocalRequestContext tl,
-      SchemaFactory<ReviewDb> schema,
       @Assisted Project.NameKey project,
       @Assisted Repository git) {
     this.gerritServerIdent = gerritIdent;
     this.notesBranchUtilFactory = notesBranchUtilFactory;
-    this.resolver = resolver;
-    this.genericUserFactory = genericUserFactory;
-    this.getServiceUser = getServiceUser;
-    this.listMembers = listMembers;
+    this.serviceUserResolver = serviceUserResolver;
     this.anonymousCowardName = anonymousCowardName;
-    this.tl = tl;
-    this.schema = schema;
     this.project = project;
     this.git = git;
   }
@@ -137,7 +101,8 @@ class CreateServiceUserNotes {
 
     try {
       for (RevCommit c : rw) {
-        ServiceUserInfo serviceUser = getAsServiceUser(c.getCommitterIdent());
+        ServiceUserInfo serviceUser =
+            serviceUserResolver.getAsServiceUser(c.getCommitterIdent());
         if (serviceUser != null) {
           ObjectId content = createNoteContent(branch, serviceUser);
           getNotes().set(c, content);
@@ -146,26 +111,6 @@ class CreateServiceUserNotes {
       }
     } finally {
       rw.release();
-    }
-  }
-
-  private ServiceUserInfo getAsServiceUser(PersonIdent committerIdent)
-      throws OrmException {
-    StringBuilder committer = new StringBuilder();
-    committer.append(committerIdent.getName());
-    committer.append(" <");
-    committer.append(committerIdent.getEmailAddress());
-    committer.append("> ");
-
-    Account account = resolver.find(committer.toString());
-    if (account == null) {
-      return null;
-    }
-    try {
-      return getServiceUser.get().apply(
-          new ServiceUserResource(genericUserFactory.create(account.getId())));
-    } catch (ResourceNotFoundException e) {
-      return null;
     }
   }
 
@@ -221,89 +166,10 @@ class CreateServiceUserNotes {
     fmt.append("Project", project.get());
     fmt.append("Branch", branch);
     fmt.appendUser(KEY_CREATED_BY, serviceUser.createdBy);
-    for (AccountInfo owner : listOwners(serviceUser)) {
+    for (AccountInfo owner : serviceUserResolver.listOwners(serviceUser)) {
       fmt.appendUser(KEY_OWNER, owner);
     }
     return fmt.toString();
-  }
-
-  private List<AccountInfo> listOwners(ServiceUserInfo serviceUser) throws OrmException {
-    if (serviceUser.owner == null) {
-      return Collections.emptyList();
-    }
-
-    final ReviewDb db = schema.open();
-    try {
-      RequestContext context = new RequestContext() {
-        @Override
-        public CurrentUser getCurrentUser() {
-          return new CurrentUser(null) {
-
-            @Override
-            public Set<Id> getStarredChanges() {
-              return null;
-            }
-
-            @Override
-            public Collection<AccountProjectWatch> getNotificationFilters() {
-              return null;
-            }
-
-            @Override
-            public GroupMembership getEffectiveGroups() {
-              return new GroupMembership() {
-                @Override
-                public Set<AccountGroup.UUID> intersection(Iterable<AccountGroup.UUID> groupIds) {
-                  return null;
-                }
-
-                @Override
-                public Set<AccountGroup.UUID> getKnownGroups() {
-                  return null;
-                }
-
-                @Override
-                public boolean containsAnyOf(Iterable<AccountGroup.UUID> groupIds) {
-                  return true;
-                }
-
-                @Override
-                public boolean contains(AccountGroup.UUID groupId) {
-                  return true;
-                }
-              };
-            }
-          };
-        }
-
-        @Override
-        public Provider<ReviewDb> getReviewDbProvider() {
-          return new Provider<ReviewDb>() {
-            @Override
-            public ReviewDb get() {
-              return db;
-            }};
-        }
-      };
-      RequestContext old = tl.setContext(context);
-      try {
-        ListMembers lm = listMembers.get();
-        lm.setRecursive(true);
-        List<AccountInfo> owners = new ArrayList<>();
-        for (AccountInfo a : lm.apply(new AccountGroup.UUID(serviceUser.owner.id))) {
-          owners.add(a);
-        }
-        return owners;
-      } catch (MethodNotAllowedException e) {
-        log.error(String.format("Failed to list members of owner group %s for service user %s.",
-            serviceUser.owner.name, serviceUser.username));
-        return Collections.emptyList();
-      } finally {
-        tl.setContext(old);
-      }
-    } finally {
-      db.close();
-    }
   }
 
   private ObjectInserter getInserter() {
