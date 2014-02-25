@@ -657,6 +657,8 @@ The `ConfigInfo` entity contains configuration of the @PLUGIN@ plugin.
 * _create\_notes\_async_: Whether the Git notes on commits that are
   pushed by a service user should be created asynchronously (not set if
   `false`).
+* _blocked\_names_: List of usernames which are forbidden to be used as
+  name for a service user. The blocked usernames are case insensitive.
 
 ### <a id="email-input"></a>EmailInput
 
