@@ -48,21 +48,23 @@ public class ValidateServiceUserCommits implements CommitValidationListener {
       PersonIdent committer = receiveEvent.commit.getCommitterIdent();
       ServiceUserInfo serviceUser =
           serviceUserResolver.getAsServiceUser(committer);
-      if (serviceUser.owner != null
-          && serviceUserResolver.listActiveOwners(serviceUser).isEmpty()) {
-        throw new CommitValidationException(String.format(
-            "Commit %s of service user %s (%s) is rejected because "
-            + "all service user owner accounts are inactive.",
-            receiveEvent.commit.getId().getName(), committer.getName(),
-            committer.getEmailAddress()));
-      } else {
-        AccountState creator = accountCache.get(serviceUser.createdBy._id);
-        if (creator == null || !creator.getAccount().isActive()) {
+      if (serviceUser != null) {
+        if (serviceUser.owner != null
+            && serviceUserResolver.listActiveOwners(serviceUser).isEmpty()) {
           throw new CommitValidationException(String.format(
               "Commit %s of service user %s (%s) is rejected because "
-              + "the account of the service creator is inactive.",
+              + "all service user owner accounts are inactive.",
               receiveEvent.commit.getId().getName(), committer.getName(),
               committer.getEmailAddress()));
+        } else {
+          AccountState creator = accountCache.get(serviceUser.createdBy._id);
+          if (creator == null || !creator.getAccount().isActive()) {
+            throw new CommitValidationException(String.format(
+                "Commit %s of service user %s (%s) is rejected because "
+                + "the account of the service creator is inactive.",
+                receiveEvent.commit.getId().getName(), committer.getName(),
+                committer.getEmailAddress()));
+          }
         }
       }
     } catch (OrmException e) {
