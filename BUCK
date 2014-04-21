@@ -11,4 +11,10 @@ gerrit_plugin(
     'Gerrit-HttpModule: com.googlesource.gerrit.plugins.serviceuser.HttpModule',
     'Gerrit-SshModule: com.googlesource.gerrit.plugins.serviceuser.SshModule',
   ],
+  compile_deps = [
+    '//gerrit-gwtexpui:Clippy',
+    '//gerrit-gwtexpui:GlobalKey',
+    '//gerrit-gwtexpui:SafeHtml',
+    '//gerrit-gwtexpui:UserAgent',
+  ]
 )
