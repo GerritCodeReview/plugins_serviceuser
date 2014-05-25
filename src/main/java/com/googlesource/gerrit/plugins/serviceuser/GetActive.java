@@ -17,8 +17,10 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
-public class GetActive implements RestReadView<ServiceUserResource> {
+@Singleton
+class GetActive implements RestReadView<ServiceUserResource> {
   private final Provider<com.google.gerrit.server.account.GetActive> getActive;
 
   @Inject

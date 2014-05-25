@@ -24,6 +24,7 @@ import com.google.gerrit.server.git.ProjectRunnable;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.lib.ObjectId;
@@ -33,7 +34,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class RefUpdateListener implements GitReferenceUpdatedListener {
+@Singleton
+class RefUpdateListener implements GitReferenceUpdatedListener {
   private static final Logger log = LoggerFactory
       .getLogger(RefUpdateListener.class);
 

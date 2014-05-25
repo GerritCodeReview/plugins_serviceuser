@@ -32,10 +32,12 @@ import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
 import org.eclipse.jgit.lib.Config;
 
-public class GetServiceUser implements RestReadView<ServiceUserResource> {
+@Singleton
+class GetServiceUser implements RestReadView<ServiceUserResource> {
   private final Provider<GetAccount> getAccount;
   private final ProjectLevelConfig storage;
   private final GetOwner getOwner;

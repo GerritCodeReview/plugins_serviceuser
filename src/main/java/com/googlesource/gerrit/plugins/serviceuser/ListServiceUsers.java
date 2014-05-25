@@ -31,6 +31,7 @@ import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 
@@ -38,7 +39,8 @@ import org.eclipse.jgit.lib.Config;
 
 import java.util.Map;
 
-public class ListServiceUsers implements RestReadView<ConfigResource> {
+@Singleton
+class ListServiceUsers implements RestReadView<ConfigResource> {
   private final Provider<CurrentUser> userProvider;
   private final ProjectLevelConfig storage;
   private final AccountCache accountCache;

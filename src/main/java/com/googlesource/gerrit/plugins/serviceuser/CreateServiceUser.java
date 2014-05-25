@@ -70,7 +70,7 @@ import java.util.List;
 import java.util.Locale;
 
 @RequiresCapability(CreateServiceUserCapability.ID)
-public class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
+class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   private static final Logger log =
       LoggerFactory.getLogger(CreateServiceUser.class);
 
@@ -86,7 +86,7 @@ public class CreateServiceUser implements RestModifyView<ConfigResource, Input> 
     String email;
   }
 
-  public static interface Factory {
+  interface Factory {
     CreateServiceUser create(String username);
   }
 

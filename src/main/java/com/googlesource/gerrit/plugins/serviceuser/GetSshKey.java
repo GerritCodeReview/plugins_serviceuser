@@ -19,8 +19,10 @@ import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.account.GetSshKeys.SshKeyInfo;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
-public class GetSshKey implements RestReadView<ServiceUserResource.SshKey> {
+@Singleton
+class GetSshKey implements RestReadView<ServiceUserResource.SshKey> {
   private final Provider<com.google.gerrit.server.account.GetSshKey> getSshKey;
 
   @Inject

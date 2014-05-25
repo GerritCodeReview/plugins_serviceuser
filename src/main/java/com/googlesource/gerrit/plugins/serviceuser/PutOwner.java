@@ -39,6 +39,7 @@ import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
 import com.googlesource.gerrit.plugins.serviceuser.PutOwner.Input;
 
@@ -47,7 +48,8 @@ import org.eclipse.jgit.lib.Config;
 
 import java.io.IOException;
 
-public class PutOwner implements RestModifyView<ServiceUserResource, Input> {
+@Singleton
+class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   public static class Input {
     @DefaultInput
     public String group;

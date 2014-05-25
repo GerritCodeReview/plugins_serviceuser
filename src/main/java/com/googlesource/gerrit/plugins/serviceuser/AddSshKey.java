@@ -23,10 +23,12 @@ import com.google.gerrit.server.account.GetSshKeys.SshKeyInfo;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
 import java.io.IOException;
 
-public class AddSshKey implements RestModifyView<ServiceUserResource, Input> {
+@Singleton
+class AddSshKey implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<com.google.gerrit.server.account.AddSshKey> addSshKey;
 
   @Inject

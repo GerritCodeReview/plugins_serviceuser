@@ -22,8 +22,10 @@ import com.google.gerrit.extensions.restapi.RestView;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
-public class SshKeys implements
+@Singleton
+class SshKeys implements
     ChildCollection<ServiceUserResource, ServiceUserResource.SshKey> {
   private final DynamicMap<RestView<ServiceUserResource.SshKey>> views;
   private final Provider<GetSshKeys> list;

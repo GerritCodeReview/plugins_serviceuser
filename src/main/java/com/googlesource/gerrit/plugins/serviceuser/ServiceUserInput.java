@@ -16,9 +16,9 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.gerrit.server.account.CreateAccount;
 
-public class ServiceUserInput extends CreateAccount.Input {
+class ServiceUserInput extends CreateAccount.Input {
 
-  public ServiceUserInput(String username, String email, String sshKey) {
+  ServiceUserInput(String username, String email, String sshKey) {
     this.username = username;
     this.name = username;
     this.email = email;

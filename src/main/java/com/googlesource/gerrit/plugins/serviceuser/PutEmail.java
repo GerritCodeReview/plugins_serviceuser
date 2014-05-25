@@ -32,10 +32,12 @@ import com.google.gerrit.server.config.ConfigResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
 import com.googlesource.gerrit.plugins.serviceuser.PutEmail.Input;
 
-public class PutEmail implements RestModifyView<ServiceUserResource, Input> {
+@Singleton
+class PutEmail implements RestModifyView<ServiceUserResource, Input> {
   public static class Input {
     @DefaultInput
     public String email;

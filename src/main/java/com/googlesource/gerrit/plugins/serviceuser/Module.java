@@ -29,7 +29,7 @@ import com.google.gerrit.server.git.validators.CommitValidationListener;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
-public class Module extends AbstractModule {
+class Module extends AbstractModule {
 
   @Override
   protected void configure() {

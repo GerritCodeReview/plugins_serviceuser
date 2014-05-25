@@ -35,6 +35,7 @@ import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 
@@ -48,7 +49,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class ServiceUserResolver {
+@Singleton
+class ServiceUserResolver {
   private static final Logger log =
       LoggerFactory.getLogger(ServiceUserResolver.class);
 

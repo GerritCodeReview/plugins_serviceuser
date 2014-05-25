@@ -27,6 +27,7 @@ import com.google.gerrit.server.group.GroupJson;
 import com.google.gerrit.server.group.GroupJson.GroupInfo;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class GetConfig implements RestReadView<ConfigResource> {
+@Singleton
+class GetConfig implements RestReadView<ConfigResource> {
   private static final Logger log = LoggerFactory.getLogger(GetConfig.class);
 
   private final PluginConfig cfg;

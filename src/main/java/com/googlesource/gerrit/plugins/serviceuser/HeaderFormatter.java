@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class HeaderFormatter {
+class HeaderFormatter {
   private final StringBuilder sb = new StringBuilder();
   private final DateFormat rfc2822DateFormatter;
   private final String anonymousCowardName;

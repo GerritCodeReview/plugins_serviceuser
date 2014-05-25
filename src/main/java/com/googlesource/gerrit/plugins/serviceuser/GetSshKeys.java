@@ -20,10 +20,12 @@ import com.google.gerrit.server.account.GetSshKeys.SshKeyInfo;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
 import java.util.List;
 
-public class GetSshKeys implements RestReadView<ServiceUserResource> {
+@Singleton
+class GetSshKeys implements RestReadView<ServiceUserResource> {
   private final Provider<com.google.gerrit.server.account.GetSshKeys> getSshKeys;
 
   @Inject
