@@ -22,8 +22,10 @@ import com.google.gerrit.server.account.PutName.Input;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
-public class PutName implements RestModifyView<ServiceUserResource, Input> {
+@Singleton
+class PutName implements RestModifyView<ServiceUserResource, Input> {
   private Provider<com.google.gerrit.server.account.PutName> putName;
 
   @Inject

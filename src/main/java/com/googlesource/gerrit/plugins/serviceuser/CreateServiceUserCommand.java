@@ -32,7 +32,7 @@ import java.io.UnsupportedEncodingException;
 
 @RequiresCapability(CreateServiceUserCapability.ID)
 @CommandMetaData(name = "create", description = "Create Service User")
-public class CreateServiceUserCommand extends SshCommand {
+class CreateServiceUserCommand extends SshCommand {
 
   @Argument(index = 0, required = true, metaVar = "USERNAME", usage = "name of the service user")
   private String username;

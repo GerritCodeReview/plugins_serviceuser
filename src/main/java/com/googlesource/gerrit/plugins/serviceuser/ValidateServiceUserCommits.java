@@ -22,6 +22,7 @@ import com.google.gerrit.server.git.validators.CommitValidationListener;
 import com.google.gerrit.server.git.validators.CommitValidationMessage;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 
@@ -30,7 +31,8 @@ import org.eclipse.jgit.lib.PersonIdent;
 import java.util.Collections;
 import java.util.List;
 
-public class ValidateServiceUserCommits implements CommitValidationListener {
+@Singleton
+class ValidateServiceUserCommits implements CommitValidationListener {
   private final ServiceUserResolver serviceUserResolver;
   private final AccountCache accountCache;
 

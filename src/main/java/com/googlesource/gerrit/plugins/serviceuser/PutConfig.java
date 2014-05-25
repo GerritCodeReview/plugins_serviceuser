@@ -27,6 +27,7 @@ import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import com.googlesource.gerrit.plugins.serviceuser.PutConfig.Input;
 
@@ -39,7 +40,8 @@ import java.io.IOException;
 import java.util.List;
 
 @RequiresCapability(GlobalCapability.ADMINISTRATE_SERVER)
-public class PutConfig implements RestModifyView<ConfigResource, Input>{
+@Singleton
+class PutConfig implements RestModifyView<ConfigResource, Input> {
   public static class Input {
     public String info;
     public String onSuccess;

@@ -19,7 +19,7 @@ import com.google.gerrit.extensions.webui.GwtPlugin;
 import com.google.gerrit.extensions.webui.WebUiPlugin;
 import com.google.gerrit.httpd.plugins.HttpPluginModule;
 
-public class HttpModule extends HttpPluginModule {
+class HttpModule extends HttpPluginModule {
 
   @Override
   protected void configureServlets() {

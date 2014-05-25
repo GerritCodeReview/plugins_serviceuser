@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.gerrit.extensions.config.CapabilityDefinition;
 
-public class CreateServiceUserCapability extends CapabilityDefinition {
+class CreateServiceUserCapability extends CapabilityDefinition {
 
   public final static String ID = "createServiceUser";
 

@@ -21,8 +21,10 @@ import com.google.gerrit.server.account.DeleteSshKey.Input;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
-public class DeleteSshKey implements
+@Singleton
+class DeleteSshKey implements
     RestModifyView<ServiceUserResource.SshKey, Input> {
   private final Provider<com.google.gerrit.server.account.DeleteSshKey> deleteSshKey;
 

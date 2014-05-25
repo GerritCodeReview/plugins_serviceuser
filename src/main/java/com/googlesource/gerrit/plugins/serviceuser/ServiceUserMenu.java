@@ -27,14 +27,14 @@ import com.google.inject.Provider;
 
 import java.util.List;
 
-public class ServiceUserMenu implements TopMenu {
+class ServiceUserMenu implements TopMenu {
   private final String pluginName;
   private final Provider<CurrentUser> userProvider;
   private final List<MenuEntry> menuEntries;
   private final Provider<ListServiceUsers> listServiceUsers;
 
   @Inject
-  public ServiceUserMenu(@PluginName String pluginName,
+  ServiceUserMenu(@PluginName String pluginName,
       Provider<CurrentUser> userProvider,
       Provider<ListServiceUsers> listServiceUsers) {
     this.pluginName = pluginName;

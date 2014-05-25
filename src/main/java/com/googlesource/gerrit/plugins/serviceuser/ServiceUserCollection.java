@@ -39,8 +39,10 @@ import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
-public class ServiceUserCollection implements
+@Singleton
+class ServiceUserCollection implements
     ChildCollection<ConfigResource, ServiceUserResource>,
     AcceptsCreate<ConfigResource> {
 
