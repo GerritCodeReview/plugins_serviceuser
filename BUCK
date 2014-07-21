@@ -1,4 +1,15 @@
+include_defs('//bucklets/gerrit_plugin.bucklet')
 MODULE = 'com.googlesource.gerrit.plugins.serviceuser.CreateServiceUserForm'
+
+if __standalone_mode__:
+  DEPS = ['//lib/gerrit:gwtexpui']
+else:
+  DEPS = [
+    '//gerrit-gwtexpui:Clippy',
+    '//gerrit-gwtexpui:GlobalKey',
+    '//gerrit-gwtexpui:SafeHtml',
+    '//gerrit-gwtexpui:UserAgent',
+  ]
 
 gerrit_plugin(
   name = 'serviceuser',
@@ -11,10 +22,10 @@ gerrit_plugin(
     'Gerrit-HttpModule: com.googlesource.gerrit.plugins.serviceuser.HttpModule',
     'Gerrit-SshModule: com.googlesource.gerrit.plugins.serviceuser.SshModule',
   ],
-  provided_deps = [
-    '//gerrit-gwtexpui:Clippy',
-    '//gerrit-gwtexpui:GlobalKey',
-    '//gerrit-gwtexpui:SafeHtml',
-    '//gerrit-gwtexpui:UserAgent',
-  ]
+  provided_deps = DEPS,
+)
+
+java_library(
+  name = 'classpath',
+  deps = [':serviceuser__plugin'],
 )
