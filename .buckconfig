@@ -1,5 +1,8 @@
 [alias]
   plugin = //:serviceuser
+  in = //:install
+  mvn_install = //:install
+  mvn_deploy = //:deploy
 
 [java]
   src_roots = java, resources

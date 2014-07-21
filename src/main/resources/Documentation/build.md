@@ -30,7 +30,6 @@ Add link to the .buckversion file:
 
 To build the plugin, issue the following command:
 
-
 ```
   buck build plugin
 ```
@@ -39,6 +38,20 @@ The output is created in
 
 ```
   buck-out/gen/serviceuser/serviceuser.jar
+```
+
+To publish the artifacts (jar, sources and javadoc) to the local Maven
+repository issue the following command:
+
+```
+  buck build mvn_install
+```
+
+To publish the artifacts (jar, sources and javadoc) to the remote Maven
+repository issue the following command:
+
+```
+  buck build mvn_deploy
 ```
 
 Build in Gerrit tree
