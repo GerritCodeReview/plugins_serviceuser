@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "990818db_3a0c21ce",
+        "filename": "fake_pom_deploy.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-07-22T20:13:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19f3481c_be4659e0",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "9a026dfdbe9a2f1fb1a5dac99988f3eb6b164c8e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19f3481c_9e4b9dea",
         "filename": "fake_pom_install.xml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-22T18:20:23Z",
       "side": 1,
       "message": "gitiles?",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "9a026dfdbe9a2f1fb1a5dac99988f3eb6b164c8e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19f3481c_fe50e197",
+        "filename": "fake_pom_install.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-07-22T20:13:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19f3481c_9e4b9dea",
       "range": {
         "startLine": 3,
         "startChar": 2,
