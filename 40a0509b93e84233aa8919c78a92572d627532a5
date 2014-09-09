@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "106cff13_f93873e5",
+        "filename": "VERSION",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1012623
+      },
+      "writtenOn": "2014-09-09T13:39:33Z",
+      "side": 1,
+      "message": "master is at 2.11-SNAPSHOT so should probably update",
+      "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d065072b_17b41605",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1012623
+      },
+      "writtenOn": "2014-09-09T13:39:33Z",
+      "side": 1,
+      "message": "should include the version info like here: https://gerrit-review.googlesource.com/#/c/58729/10/lib/gerrit/BUC",
+      "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d065072b_77a90aad",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012623
+      },
+      "writtenOn": "2014-09-09T13:39:33Z",
+      "side": 1,
+      "message": "Reference version info from VERSION file.  \nVER \u003d PLUGIN_VERSION",
+      "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "106cff13_d935b7ed",
+        "filename": "lib/gwt/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012623
+      },
+      "writtenOn": "2014-09-09T13:39:33Z",
+      "side": 1,
+      "message": "seems a little old?",
+      "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
