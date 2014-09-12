@@ -41,20 +41,23 @@ import java.util.TreeMap;
 class GetConfig implements RestReadView<ConfigResource> {
   private static final Logger log = LoggerFactory.getLogger(GetConfig.class);
 
-  private final PluginConfig cfg;
+  private final PluginConfigFactory cfgFactory;
+  private final String pluginName;
   private final GroupCache groupCache;
   private final GroupJson groupJson;
 
   @Inject
   public GetConfig(PluginConfigFactory cfgFactory,
       @PluginName String pluginName, GroupCache groupCache, GroupJson groupJson) {
-    this.cfg = cfgFactory.getFromGerritConfig(pluginName);
+    this.cfgFactory = cfgFactory;
+    this.pluginName = pluginName;
     this.groupCache = groupCache;
     this.groupJson = groupJson;
   }
 
   @Override
   public ConfigInfo apply(ConfigResource rsrc) throws OrmException {
+    PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
     ConfigInfo info = new ConfigInfo();
     info.info = Strings.emptyToNull(cfg.getString("infoMessage"));
     info.onSuccess = Strings.emptyToNull(cfg.getString("onSuccessMessage"));
