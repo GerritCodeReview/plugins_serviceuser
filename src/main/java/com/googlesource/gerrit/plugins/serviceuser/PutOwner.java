@@ -57,7 +57,8 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
 
   private final Provider<GetConfig> getConfig;
   private final GroupsCollection groups;
-  private final ProjectLevelConfig storage;
+  private final String pluginName;
+  private final ProjectCache projectCache;
   private final Project.NameKey allProjects;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final GroupJson json;
@@ -70,7 +71,8 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       Provider<CurrentUser> self) {
     this.getConfig = getConfig;
     this.groups = groups;
-    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.pluginName = pluginName;
+    this.projectCache = projectCache;
     this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.json = json;
@@ -81,6 +83,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
       throws UnprocessableEntityException, RepositoryNotFoundException,
       MethodNotAllowedException, IOException, OrmException, ResourceConflictException {
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     Boolean ownerAllowed = getConfig.get().apply(new ConfigResource()).allowOwner;
     if ((ownerAllowed == null || !ownerAllowed)
         && !self.get().getCapabilities().canAdministrateServer()) {
