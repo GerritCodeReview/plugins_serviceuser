@@ -42,7 +42,8 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
   private final CreateServiceUserNotes.Factory serviceUserNotesFactory;
   private final GitRepositoryManager repoManager;
   private final WorkQueue workQueue;
-  private final PluginConfig cfg;
+  private final PluginConfigFactory cfgFactory;
+  private final String pluginName;
 
   @Inject
   RefUpdateListener(CreateServiceUserNotes.Factory serviceUserNotesFactory,
@@ -51,11 +52,13 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     this.serviceUserNotesFactory = serviceUserNotesFactory;
     this.repoManager = repoManager;
     this.workQueue = workQueue;
-    this.cfg = cfgFactory.getFromGerritConfig(pluginName);
+    this.cfgFactory = cfgFactory;
+    this.pluginName = pluginName;
   }
 
   @Override
   public void onGitReferenceUpdated(final Event event) {
+    PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
     if (!cfg.getBoolean("createNotes", true)) {
       return;
     }
