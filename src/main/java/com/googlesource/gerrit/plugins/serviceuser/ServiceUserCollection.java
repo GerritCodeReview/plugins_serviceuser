@@ -50,7 +50,8 @@ class ServiceUserCollection implements
   private final CreateServiceUser.Factory createServiceUserFactory;
   private final Provider<ListServiceUsers> list;
   private final Provider<AccountsCollection> accounts;
-  private final ProjectLevelConfig storage;
+  private final String pluginName;
+  private final ProjectCache projectCache;
   private final Provider<CurrentUser> userProvider;
   private final GroupsCollection groups;
 
@@ -64,7 +65,8 @@ class ServiceUserCollection implements
     this.createServiceUserFactory = createServiceUserFactory;
     this.list = list;
     this.accounts = accounts;
-    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.pluginName = pluginName;
+    this.projectCache = projectCache;
     this.userProvider = userProvider;
     this.groups = groups;
   }
@@ -72,6 +74,7 @@ class ServiceUserCollection implements
   @Override
   public ServiceUserResource parse(ConfigResource parent, IdString id)
       throws ResourceNotFoundException, AuthException, OrmException {
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     IdentifiedUser serviceUser = accounts.get().parseId(id.get());
     if (serviceUser == null
         || !storage.get().getSubsections(USER)

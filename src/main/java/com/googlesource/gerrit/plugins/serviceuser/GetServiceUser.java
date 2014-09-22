@@ -39,7 +39,8 @@ import org.eclipse.jgit.lib.Config;
 @Singleton
 class GetServiceUser implements RestReadView<ServiceUserResource> {
   private final Provider<GetAccount> getAccount;
-  private final ProjectLevelConfig storage;
+  private final String pluginName;
+  private final ProjectCache projectCache;
   private final GetOwner getOwner;
   private final AccountInfo.Loader.Factory accountLoader;
 
@@ -48,7 +49,8 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
       @PluginName String pluginName, ProjectCache projectCache,
       GetOwner getOwner, AccountInfo.Loader.Factory accountLoader) {
     this.getAccount = getAccount;
-    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.pluginName = pluginName;
+    this.projectCache = projectCache;
     this.getOwner = getOwner;
     this.accountLoader = accountLoader;
   }
@@ -56,6 +58,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   @Override
   public ServiceUserInfo apply(ServiceUserResource rsrc)
       throws ResourceNotFoundException, OrmException {
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     String username = rsrc.getUser().getUserName();
     Config db = storage.get();
     if (!db.getSubsections(USER).contains(username)) {
