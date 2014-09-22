@@ -34,20 +34,23 @@ import com.google.inject.Singleton;
 @Singleton
 class GetOwner implements RestReadView<ServiceUserResource> {
   private final GroupsCollection groups;
-  private final ProjectLevelConfig storage;
+  private final String pluginName;
+  private final ProjectCache projectCache;
   private final GroupJson json;
 
   @Inject
   GetOwner(GroupsCollection groups, @PluginName String pluginName,
       ProjectCache projectCache, GroupJson json) {
     this.groups = groups;
-    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.pluginName = pluginName;
+    this.projectCache = projectCache;
     this.json = json;
   }
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc)
       throws ResourceNotFoundException, OrmException {
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     String owner = storage.get().getString(USER, rsrc.getUser().getUserName(), KEY_OWNER);
     if (owner != null) {
       GroupDescription.Basic group = groups.parseId(owner);

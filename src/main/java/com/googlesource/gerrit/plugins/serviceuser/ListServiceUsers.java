@@ -42,7 +42,8 @@ import java.util.Map;
 @Singleton
 class ListServiceUsers implements RestReadView<ConfigResource> {
   private final Provider<CurrentUser> userProvider;
-  private final ProjectLevelConfig storage;
+  private final String pluginName;
+  private final ProjectCache projectCache;
   private final AccountCache accountCache;
   private final Provider<ServiceUserCollection> serviceUsers;
   private final Provider<GetServiceUser> getServiceUser;
@@ -53,7 +54,8 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
       AccountCache accountCache, Provider<ServiceUserCollection> serviceUsers,
       Provider<GetServiceUser> getServiceUser) {
     this.userProvider = userProvider;
-    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.pluginName = pluginName;
+    this.projectCache = projectCache;
     this.accountCache = accountCache;
     this.serviceUsers = serviceUsers;
     this.getServiceUser = getServiceUser;
@@ -62,6 +64,7 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
   @Override
   public Map<String, ServiceUserInfo> apply(ConfigResource rscr)
       throws OrmException, AuthException {
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("Authentication required");
