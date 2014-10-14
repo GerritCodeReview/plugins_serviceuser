@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f0e5ac1c_12222c98",
+        "filename": "VERSION",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-10-14T06:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "106cff13_f93873e5",
+      "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d065072b_17b41605",
         "filename": "lib/gerrit/BUCK",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2014-09-09T13:39:33Z",
       "side": 1,
       "message": "should include the version info like here: https://gerrit-review.googlesource.com/#/c/58729/10/lib/gerrit/BUC",
+      "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0e5ac1c_f22d6887",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-10-14T06:32:30Z",
+      "side": 1,
+      "message": "align_path() wasn\u0027t merge yet, so cannot do that this way.",
+      "parentUuid": "d065072b_17b41605",
       "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f0e5ac1c_d23264e7",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-10-14T06:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d065072b_77a90aad",
+      "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "106cff13_d935b7ed",
         "filename": "lib/gwt/BUCK",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2014-09-09T13:39:33Z",
       "side": 1,
       "message": "seems a little old?",
+      "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10cb2096_138b4c2a",
+        "filename": "lib/gwt/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-10-14T06:32:30Z",
+      "side": 1,
+      "message": "This is the one we are using.",
+      "parentUuid": "106cff13_d935b7ed",
       "revId": "40a0509b93e84233aa8919c78a92572d627532a5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
