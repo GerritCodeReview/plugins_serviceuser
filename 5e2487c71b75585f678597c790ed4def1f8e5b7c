@@ -22,6 +22,30 @@
       "revId": "5e2487c71b75585f678597c790ed4def1f8e5b7c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0e5ac1c_d20024db",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-10-14T11:48:50Z",
+      "side": 1,
+      "message": "You are right. Sorry. My verify+1 was done against older gerrit-plugin-api that was created before TimeUtil move changed.",
+      "parentUuid": "10cb2096_533f84ac",
+      "range": {
+        "startLine": 3,
+        "startChar": 7,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "5e2487c71b75585f678597c790ed4def1f8e5b7c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
