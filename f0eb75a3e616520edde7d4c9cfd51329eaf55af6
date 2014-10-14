@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10cb2096_33eac8b2",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2014-10-14T21:27:50Z",
+      "side": 1,
+      "message": "We should remove this as long as we build against a SNAPSHOT version. At least my SNAPSHOT version has a different SHA1.",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 52
+      },
+      "revId": "f0eb75a3e616520edde7d4c9cfd51329eaf55af6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
