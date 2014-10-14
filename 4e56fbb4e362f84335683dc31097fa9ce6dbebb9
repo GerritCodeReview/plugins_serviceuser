@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10cb2096_d30034db",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2014-10-14T20:49:15Z",
+      "side": 1,
+      "message": "Maven build against Central is expected to fail, as TimeUtil class move wasn\u0027t reflected there yet.",
+      "range": {
+        "startLine": 29,
+        "startChar": 23,
+        "endLine": 29,
+        "endChar": 36
+      },
+      "revId": "4e56fbb4e362f84335683dc31097fa9ce6dbebb9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
