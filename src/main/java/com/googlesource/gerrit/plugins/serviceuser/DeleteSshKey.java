@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.account.AccountResource;
@@ -35,7 +36,7 @@ class DeleteSshKey implements
 
   @Override
   public Response<?> apply(ServiceUserResource.SshKey rsrc, Input input)
-      throws OrmException {
+      throws OrmException, AuthException {
     return deleteSshKey.get().apply(
         new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
   }
