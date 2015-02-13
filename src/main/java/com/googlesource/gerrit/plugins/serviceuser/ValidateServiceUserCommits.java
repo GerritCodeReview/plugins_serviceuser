@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.events.CommitReceivedEvent;
@@ -59,7 +60,8 @@ class ValidateServiceUserCommits implements CommitValidationListener {
               receiveEvent.commit.getId().getName(), committer.getName(),
               committer.getEmailAddress()));
         } else {
-          AccountState creator = accountCache.get(serviceUser.createdBy._id);
+          AccountState creator = accountCache.get(
+              new Account.Id(serviceUser.createdBy._accountId));
           if (creator == null || !creator.getAccount().isActive()) {
             throw new CommitValidationException(String.format(
                 "Commit %s of service user %s (%s) is rejected because "

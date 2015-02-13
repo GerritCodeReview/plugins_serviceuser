@@ -195,6 +195,7 @@ public class CreateServiceUserScreen extends VerticalPanel {
         p.add(new Label("The service user '" + username + "' was created."));
         Button okButton = new Button("OK");
         okButton.addClickHandler(new ClickHandler() {
+          @Override
           public void onClick(ClickEvent event) {
             successDialog.hide();
           }

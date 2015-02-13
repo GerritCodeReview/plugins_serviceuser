@@ -156,6 +156,7 @@ class SshPanel extends Composite {
       new RestApi("config").id("server")
           .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
           .view("sshkeys").post(txt, new AsyncCallback<SshKeyInfo>() {
+        @Override
         public void onSuccess(SshKeyInfo k) {
           addTxt.setText("");
           keys.addOneKey(k);
@@ -215,7 +216,7 @@ class SshPanel extends Composite {
     private ValueChangeHandler<Boolean> updateDeleteHandler;
 
     SshKeyTable() {
-      this.sshKeyInfos = new HashMap<Integer, SshKeyInfo>();
+      this.sshKeyInfos = new HashMap<>();
       setStyleName("serviceuser-sshKeyTable");
       setWidth("");
       setText(0, 2, "Status");
@@ -245,7 +246,7 @@ class SshPanel extends Composite {
     }
 
     void deleteChecked() {
-      final HashSet<Integer> sequenceNumbers = new HashSet<Integer>();
+      final HashSet<Integer> sequenceNumbers = new HashSet<>();
       for (int row = 1; row < getRowCount(); row++) {
         SshKeyInfo k = getRowItem(row);
         if (k != null && ((CheckBox) getWidget(row, 1)).getValue()) {
@@ -259,6 +260,7 @@ class SshPanel extends Composite {
           new RestApi("config").id("server")
               .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
               .view("sshkeys").id(seq).delete(new AsyncCallback<NoContent>() {
+                @Override
                 public void onSuccess(NoContent result) {
                   for (int row = 1; row < getRowCount();) {
                     SshKeyInfo k = getRowItem(row);

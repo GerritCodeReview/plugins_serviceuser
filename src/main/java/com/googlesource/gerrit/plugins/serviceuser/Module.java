@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.config.ConfigResource.CONFIG_KIND;
 import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SERVICE_USER_KIND;
-import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SSH_KEY_KIND;
+import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SERVICE_USER_SSH_KEY_KIND;
 
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
@@ -46,7 +46,7 @@ class Module extends AbstractModule {
       @Override
       protected void configure() {
         DynamicMap.mapOf(binder(), SERVICE_USER_KIND);
-        DynamicMap.mapOf(binder(), SSH_KEY_KIND);
+        DynamicMap.mapOf(binder(), SERVICE_USER_SSH_KEY_KIND);
         bind(ServiceUserCollection.class);
         child(CONFIG_KIND, "serviceusers").to(ServiceUserCollection.class);
         get(SERVICE_USER_KIND).to(GetServiceUser.class);
@@ -54,9 +54,9 @@ class Module extends AbstractModule {
         get(CONFIG_KIND, "config").to(GetConfig.class);
         put(CONFIG_KIND, "config").to(PutConfig.class);
         child(SERVICE_USER_KIND, "sshkeys").to(SshKeys.class);
-        get(SSH_KEY_KIND).to(GetSshKey.class);
+        get(SERVICE_USER_SSH_KEY_KIND).to(GetSshKey.class);
         post(SERVICE_USER_KIND, "sshkeys").to(AddSshKey.class);
-        delete(SSH_KEY_KIND).to(DeleteSshKey.class);
+        delete(SERVICE_USER_SSH_KEY_KIND).to(DeleteSshKey.class);
         get(SERVICE_USER_KIND, "name").to(GetName.class);
         put(SERVICE_USER_KIND, "name").to(PutName.class);
         delete(SERVICE_USER_KIND, "name").to(PutName.class);

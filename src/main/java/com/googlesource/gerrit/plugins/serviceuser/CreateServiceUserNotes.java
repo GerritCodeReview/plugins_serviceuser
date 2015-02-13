@@ -17,9 +17,9 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 
+import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.GerritPersonIdent;
-import com.google.gerrit.server.account.AccountInfo;
 import com.google.gerrit.server.config.AnonymousCowardName;
 import com.google.gerrit.server.git.NotesBranchUtil;
 import com.google.gwtorm.server.OrmException;

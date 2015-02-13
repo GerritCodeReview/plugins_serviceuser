@@ -15,7 +15,7 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.common.base.Strings;
-import com.google.gerrit.server.account.AccountInfo;
+import com.google.gerrit.extensions.common.AccountInfo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -71,7 +71,7 @@ class HeaderFormatter {
     }
 
     if (!wroteData) {
-      sb.append(anonymousCowardName).append(" #").append(user._id.get());
+      sb.append(anonymousCowardName).append(" #").append(user._accountId);
     }
   }
 

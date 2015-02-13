@@ -20,6 +20,7 @@ import com.google.common.collect.Lists;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
+import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
@@ -37,7 +38,7 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
-import com.google.gerrit.server.account.AccountInfo;
+import com.google.gerrit.server.account.AccountLoader;
 import com.google.gerrit.server.account.CreateAccount;
 import com.google.gerrit.server.account.GroupCache;
 import com.google.gerrit.server.config.ConfigResource;
@@ -104,7 +105,7 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   private final ProjectLevelConfig storage;
   private final DateFormat rfc2822DateFormatter;
   private final Provider<GetConfig> getConfig;
-  private final AccountInfo.Loader.Factory accountLoader;
+  private final AccountLoader.Factory accountLoader;
 
   @Inject
   CreateServiceUser(PluginConfigFactory cfgFactory,
@@ -120,7 +121,7 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
       ProjectCache projectCache,
       @Assisted String username,
       Provider<GetConfig> getConfig,
-      AccountInfo.Loader.Factory accountLoader) {
+      AccountLoader.Factory accountLoader) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
     this.createAccountFactory = createAccountFactory;
     this.groupCache = groupCache;
@@ -184,7 +185,9 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
         new ServiceUserInput(username, input.email, input.sshKey);
     Response<AccountInfo> response =
         createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
-    addToGroups(response.value()._id, cfg.getStringList("group"));
+
+    addToGroups(new Account.Id(response.value()._accountId),
+        cfg.getStringList("group"));
 
     String creator = user.getUserName();
     Account.Id creatorId = ((IdentifiedUser)user).getAccountId();
@@ -202,7 +205,7 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
     storage.commit(md);
 
     ServiceUserInfo info = new ServiceUserInfo(response.value());
-    AccountInfo.Loader al = accountLoader.create(true);
+    AccountLoader al = accountLoader.create(true);
     info.createdBy = al.get(creatorId);
     al.fill();
     info.createdAt = creationDate;

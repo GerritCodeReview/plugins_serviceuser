@@ -23,8 +23,9 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
+import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.server.account.AccountInfo;
+import com.google.gerrit.server.account.AccountLoader;
 import com.google.gerrit.server.account.GetAccount;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.group.GroupJson.GroupInfo;
@@ -42,12 +43,12 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   private final String pluginName;
   private final ProjectCache projectCache;
   private final GetOwner getOwner;
-  private final AccountInfo.Loader.Factory accountLoader;
+  private final AccountLoader.Factory accountLoader;
 
   @Inject
   GetServiceUser(Provider<GetAccount> getAccount,
       @PluginName String pluginName, ProjectCache projectCache,
-      GetOwner getOwner, AccountInfo.Loader.Factory accountLoader) {
+      GetOwner getOwner, AccountLoader.Factory accountLoader) {
     this.getAccount = getAccount;
     this.pluginName = pluginName;
     this.projectCache = projectCache;
@@ -66,7 +67,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
     }
 
     ServiceUserInfo info = new ServiceUserInfo(getAccount.get().apply(rsrc));
-    AccountInfo.Loader al = accountLoader.create(true);
+    AccountLoader al = accountLoader.create(true);
     info.createdBy =
         al.get(new Account.Id(db.getInt(USER, username, KEY_CREATOR_ID, -1)));
     al.fill();
@@ -88,7 +89,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
     public GroupInfo owner;
 
     public ServiceUserInfo(AccountInfo info) {
-      super(info._id);
+      super(info._accountId);
       _accountId = info._accountId;
       name = info.name;
       email = info.email;

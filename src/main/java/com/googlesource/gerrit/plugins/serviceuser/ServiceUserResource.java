@@ -24,7 +24,7 @@ class ServiceUserResource extends AccountResource {
   static final TypeLiteral<RestView<ServiceUserResource>> SERVICE_USER_KIND =
       new TypeLiteral<RestView<ServiceUserResource>>() {};
 
-  static final TypeLiteral<RestView<SshKey>> SSH_KEY_KIND =
+  static final TypeLiteral<RestView<SshKey>> SERVICE_USER_SSH_KEY_KIND =
       new TypeLiteral<RestView<SshKey>>() {};
 
   ServiceUserResource(IdentifiedUser user) {

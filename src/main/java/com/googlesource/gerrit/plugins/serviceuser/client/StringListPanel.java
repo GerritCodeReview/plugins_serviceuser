@@ -140,7 +140,7 @@ public class StringListPanel extends FlowPanel {
     }
 
     List<String> getValues() {
-      List<String> values = new ArrayList<String>();
+      List<String> values = new ArrayList<>();
       for (int row = 1; row < getRowCount(); row++) {
         values.add(getText(row, 1));
       }

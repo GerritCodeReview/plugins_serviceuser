@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
+import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
@@ -24,7 +24,6 @@ import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
-import com.google.gerrit.server.account.AccountInfo;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.GroupMembership;
@@ -40,8 +39,6 @@ import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 
 import org.eclipse.jgit.lib.PersonIdent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,9 +48,6 @@ import java.util.Set;
 
 @Singleton
 class ServiceUserResolver {
-  private static final Logger log =
-      LoggerFactory.getLogger(ServiceUserResolver.class);
-
   private final AccountResolver resolver;
   private final IdentifiedUser.GenericFactory genericUserFactory;
   private final Provider<GetServiceUser> getServiceUser;
@@ -164,10 +158,6 @@ class ServiceUserResolver {
           owners.add(a);
         }
         return owners;
-      } catch (MethodNotAllowedException e) {
-        log.error(String.format("Failed to list members of owner group %s for service user %s.",
-            serviceUser.owner.name, serviceUser.username));
-        return Collections.emptyList();
       } finally {
         tl.setContext(old);
       }
@@ -180,7 +170,7 @@ class ServiceUserResolver {
       throws OrmException {
     List<AccountInfo> activeOwners = new ArrayList<>();
     for (AccountInfo owner : listOwners(serviceUser)) {
-      AccountState accountState = accountCache.get(owner._id);
+      AccountState accountState = accountCache.get(new Account.Id(owner._accountId));
       if (accountState != null && accountState.getAccount().isActive()) {
         activeOwners.add(owner);
       }
