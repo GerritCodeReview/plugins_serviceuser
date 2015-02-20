@@ -14,8 +14,8 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
+import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.common.base.Strings;
 import com.google.gerrit.common.data.GroupDescription;
@@ -32,8 +32,8 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.GroupJson.GroupInfo;
 import com.google.gerrit.server.group.GroupJson;
+import com.google.gerrit.server.group.GroupJson.GroupInfo;
 import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
