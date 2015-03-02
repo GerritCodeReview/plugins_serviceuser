@@ -71,7 +71,7 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
   public Response<String> apply(ConfigResource rsrc, Input input)
       throws IOException, ConfigInvalidException, UnprocessableEntityException {
     FileBasedConfig cfg =
-        new FileBasedConfig(sitePaths.gerrit_config, FS.DETECTED);
+        new FileBasedConfig(sitePaths.gerrit_config.toFile(), FS.DETECTED);
     cfg.load();
     if (input.info != null) {
       cfg.setString("plugin", pluginName, "infoMessage",
