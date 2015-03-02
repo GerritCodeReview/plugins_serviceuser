@@ -22,6 +22,30 @@
       "revId": "bc0c640d81ef47ab4ea1effbc02aa1ab45758aee",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85527d4f_d8d5adf0",
+        "filename": "lib/gwt/BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-03-02T08:43:06Z",
+      "side": 1,
+      "message": "Not sure what is better here.",
+      "parentUuid": "72a1d25d_3cceb1ad",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "bc0c640d81ef47ab4ea1effbc02aa1ab45758aee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
