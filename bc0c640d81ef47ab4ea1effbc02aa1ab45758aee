@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72a1d25d_3cceb1ad",
+        "filename": "lib/gwt/BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-03-02T07:24:08Z",
+      "side": 1,
+      "message": "Another option would be not to add unbundled libraries to gerrit_plugin bucklet:\n\n  GWT_DEPS \u003d [\n    \u0027//lib/gwt:user\u0027,\n    \u0027//lib/gwt:dev\u0027,\n    \u0027//lib/ow2:ow2-asm\u0027,\n    \u0027//lib/ow2:ow2-asm-analysis\u0027,\n    \u0027//lib/ow2:ow2-asm-util\u0027,\n    \u0027//lib/ow2:ow2-asm-tree\u0027,\n  ]\n\nand instead require the plugins, to supply them as exported_deps to the gwt-dev.jar here:\n\n  [...]\n  deps \u003d [\n    \u0027:javax-validation\u0027,\n    \u0027:javax-validation_src\u0027,\n  ],\n  exported_deps \u003d [\n    \u0027//lib/ow2:ow2-asm\u0027,\n    \u0027//lib/ow2:ow2-asm-analysis\u0027,\n    \u0027//lib/ow2:ow2-asm-util\u0027,\n  ],\n  attach_source \u003d False,\n  [...]\n\nBut i think that the error message is better, when the libraries not found, as what is currently the case, when plugins missed to add exported deps (Class not found exception).",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "bc0c640d81ef47ab4ea1effbc02aa1ab45758aee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
