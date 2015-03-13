@@ -85,21 +85,20 @@ class CreateServiceUserNotes {
       return;
     }
 
-    RevWalk rw = new RevWalk(git);
-    try {
-      RevCommit n = rw.parseCommit(newObjectId);
-      rw.markStart(n);
-      if (n.getParentCount() == 1 && n.getParent(0).equals(oldObjectId)) {
-        rw.markUninteresting(rw.parseCommit(oldObjectId));
-      } else {
-        markUninteresting(git, branch, rw, oldObjectId);
+    try (RevWalk rw = new RevWalk(git)) {
+      try {
+        RevCommit n = rw.parseCommit(newObjectId);
+        rw.markStart(n);
+        if (n.getParentCount() == 1 && n.getParent(0).equals(oldObjectId)) {
+          rw.markUninteresting(rw.parseCommit(oldObjectId));
+        } else {
+          markUninteresting(git, branch, rw, oldObjectId);
+        }
+      } catch (Exception e) {
+        log.error(e.getMessage(), e);
+        return;
       }
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      return;
-    }
 
-    try {
       for (RevCommit c : rw) {
         ServiceUserInfo serviceUser =
             serviceUserResolver.getAsServiceUser(c.getCommitterIdent());
@@ -109,8 +108,6 @@ class CreateServiceUserNotes {
           getMessage().append("* ").append(c.getShortMessage()).append("\n");
         }
       }
-    } finally {
-      rw.release();
     }
   }
 
@@ -126,7 +123,7 @@ class CreateServiceUserNotes {
               message.toString());
     } finally {
       if (inserter != null) {
-        inserter.release();
+        inserter.close();
       }
     }
   }
