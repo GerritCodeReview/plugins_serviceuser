@@ -21,6 +21,7 @@ import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.AccountInfo;
+import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
@@ -28,7 +29,6 @@ import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountLoader;
 import com.google.gerrit.server.account.GetAccount;
 import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.GroupJson.GroupInfo;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;

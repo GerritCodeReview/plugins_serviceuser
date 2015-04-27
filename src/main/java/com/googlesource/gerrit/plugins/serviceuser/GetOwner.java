@@ -19,12 +19,12 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER
 
 import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.group.GroupJson;
-import com.google.gerrit.server.group.GroupJson.GroupInfo;
 import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
