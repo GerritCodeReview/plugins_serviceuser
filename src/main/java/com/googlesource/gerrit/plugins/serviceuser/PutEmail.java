@@ -19,6 +19,7 @@ import com.google.gerrit.common.errors.EmailException;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.DefaultInput;
+import com.google.gerrit.extensions.api.accounts.EmailInput;
 import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
@@ -89,7 +90,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       if (email != null) {
         deleteEmail.get().apply(rsrc.getUser(), email);
       }
-      CreateEmail.Input in = new CreateEmail.Input();
+      EmailInput in = new EmailInput();
       in.email = input.email;
       in.noConfirmation = true;
       createEmailFactory.get().create(input.email).apply(rsrc.getUser(), in);
