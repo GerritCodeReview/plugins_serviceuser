@@ -22,6 +22,30 @@
       "revId": "192ad6fdc794ab0c2a5fb5f26f360364bb29eef1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9972f48f_34eff0fb",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2015-06-15T13:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9972f48f_f4dc9857",
+      "range": {
+        "startLine": 4,
+        "startChar": 7,
+        "endLine": 4,
+        "endChar": 18
+      },
+      "revId": "192ad6fdc794ab0c2a5fb5f26f360364bb29eef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
