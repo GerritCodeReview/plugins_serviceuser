@@ -110,7 +110,7 @@ class CreateServiceUserNotes {
         }
       }
     } finally {
-      rw.release();
+      rw.close();
     }
   }
 
@@ -126,7 +126,7 @@ class CreateServiceUserNotes {
               message.toString());
     } finally {
       if (inserter != null) {
-        inserter.release();
+        inserter.close();
       }
     }
   }
