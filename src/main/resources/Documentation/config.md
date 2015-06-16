@@ -37,6 +37,14 @@ file.
 :	Whether it is allowed to provide an email address for
 	a service user. By default false.
 
+<a id="allowHttpPassword">
+`plugin.@PLUGIN@.allowHttpPassword`
+:	Whether it is allowed for service user owners to generate HTTP
+    passwords for their service users. Independent of this setting
+    Gerrit administrators are always able to set/generate HTTP
+    passwords for any service user.
+    By default false.
+
 <a id="allowOwner">
 `plugin.@PLUGIN@.allowOwner`
 :	Whether it is allowed to set an owner group for a service user.

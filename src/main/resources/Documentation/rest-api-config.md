@@ -425,6 +425,89 @@ As response the new email is returned.
 Some realms may not allow to modify the email. In this case the
 request is rejected with "`405 Method Not Allowed`".
 
+### <a id="get-http-password"> Get HTTP password
+GET
+/config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/password.http_
+
+Retrieves the HTTP password of a service user.
+
+#### Request
+
+```
+  GET /config/server/@PLUGIN@~serviceusers/JenkinsVoter/password.http HTTP/1.0
+```
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  "6A5zoF7Bf2fMggf4R6pO3Bzgchnwl6oBI8+yA3YJUA"
+```
+
+If the service user does not have an HTTP password an empty string is returned.
+
+### <a id="set-http-password"> Set/Generate HTTP password
+PUT
+/config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/password.http_
+
+Sets/Generates an HTTP password for a service user.
+
+The options for setting/generating the HTTP password must be provided
+in the request body inside a [HttpPasswordInput](#http-password-input)
+entity.
+
+#### Request
+
+```
+  PUT /config/server/@PLUGIN@~serviceusers/JenkinsVoter/password.http HTTP/1.0
+  Content-Type: application/json;charset=UTF-8
+
+  {
+    "generate": true
+  }
+```
+
+As response the new HTTP password is returned.
+
+#### Response
+
+```
+  HTTP/1.1 200 OK
+  Content-Disposition: attachment
+  Content-Type: application/json;charset=UTF-8
+
+  )]}'
+  "6A5zoF7Bf2fMggf4R6pO3Bzgchnwl6oBI8+yA3YJUA"
+```
+
+If the HTTP password was deleted the response is "`204 No Content`".
+
+
+### <a id="delete-http-password"> Delete HTTP password
+DELETE
+/config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/password.http
+
+Clears the HTTP password of a service user.
+
+#### Request
+
+```
+  DELETE
+  /config/server/@PLUGIN@~serviceusers/JenkinsVoter/password.http HTTP/1.0
+```
+
+As response "`204 No Content`" is returned.
+
+#### Response
+
+```
+  HTTP/1.1 204 No Content
+```
+
 ### <a id="get-active"> Get Active
 GET /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/active_
 
@@ -652,6 +735,8 @@ plugin.
   a service user was successfully created.
 * _allow\_email_: Whether it is allowed to provide an email address for
   a service user (not set if `false`).
+* _allow\_http\_password_: Whether it is allowed to generate an HTTP
+  password for a service user (not set if `false`).
 * _create\_notes_: Whether commits of a service user should be
   annotated by a Git note that contains information about the current
   owners of the service user (not set if `false`).
@@ -677,6 +762,8 @@ The `ConfigInput` entity contains updates for the configuration of the
   a service user was successfully created.
 * _allow\_email_: Whether it is allowed to provide an email address for
   a service user (not set if `false`).
+* _allow\_http\_password_: Whether it is allowed to generate an HTTP
+  password for a service user (not set if `false`).
 * _allow\_owner_: Whether it is allowed to set an owner group for a
   service user (not set if `false`).
 * _create\_notes_: Whether commits of a service user should be
@@ -695,6 +782,14 @@ The `ConfigInput` entity contains updates for the configuration of the
 The `EmailInput` entity contains a new email address.
 
 * _email_: The new email address.
+
+### <a id="http-password-input"></a>HttpPasswordInput
+
+The `HttpPasswordInput` entity contains information for
+setting/generating an HTTP password.
+
+* _generate_: Whether a new HTTP password should be generated.
+* _http\_password_: The new HTTP password.
 
 ### <a id="owner-input"></a>OwnerInput
 
