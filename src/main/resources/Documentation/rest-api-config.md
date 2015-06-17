@@ -414,7 +414,7 @@ Deletes the email of a service user.
   DELETE /config/server/@PLUGIN@~serviceusers/JenkinsVoter/email HTTP/1.0
 ```
 
-As response the new email is returned.
+As response "`204 No Content`" is returned.
 
 #### Response
 
