@@ -19,15 +19,20 @@ import com.google.gerrit.plugin.client.Plugin;
 import com.google.gerrit.plugin.client.rpc.NoContent;
 import com.google.gerrit.plugin.client.rpc.RestApi;
 import com.google.gerrit.plugin.client.screen.Screen;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwtexpui.clippy.client.CopyableLabel;
 
 public class ServiceUserScreen extends VerticalPanel {
   static class Factory implements Screen.EntryPoint {
@@ -38,39 +43,52 @@ public class ServiceUserScreen extends VerticalPanel {
     }
   }
 
-  ServiceUserScreen(String serviceUser) {
+  ServiceUserScreen(final String serviceUser) {
     setStyleName("serviceuser-panel");
 
     new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
         .id(serviceUser).get(new AsyncCallback<ServiceUserInfo>() {
             @Override
             public void onSuccess(final ServiceUserInfo serviceUserInfo) {
-              new RestApi("config").id("server")
-                  .view(Plugin.get().getPluginName(), "config")
-                  .get(new AsyncCallback<ConfigInfo>() {
-                    @Override
-                    public void onSuccess(final ConfigInfo configInfo) {
-                      AccountCapabilities.all(new AsyncCallback<AccountCapabilities>() {
-                        @Override
-                        public void onSuccess(AccountCapabilities ac) {
-                          boolean isAdmin = ac.canPerform("administrateServer");
-                          display(serviceUserInfo,
-                              configInfo.getAllowEmail() || isAdmin,
-                              configInfo.getAllowOwner() || isAdmin);
-                        }
+              new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
+                  .id(serviceUser).view("password.http").get(new AsyncCallback<MyNativeString>() {
+                      @Override
+                      public void onSuccess(final MyNativeString httpPassword) {
+                        new RestApi("config").id("server")
+                            .view(Plugin.get().getPluginName(), "config")
+                            .get(new AsyncCallback<ConfigInfo>() {
+                              @Override
+                              public void onSuccess(final ConfigInfo configInfo) {
+                                AccountCapabilities.all(new AsyncCallback<AccountCapabilities>() {
+                                  @Override
+                                  public void onSuccess(AccountCapabilities ac) {
+                                    boolean isAdmin = ac.canPerform("administrateServer");
+                                    display(serviceUserInfo,
+                                        httpPassword.asString(),
+                                        configInfo.getAllowEmail() || isAdmin,
+                                        configInfo.getAllowOwner() || isAdmin,
+                                        configInfo.getAllowHttpPassword() || isAdmin);
+                                  }
 
-                        @Override
-                        public void onFailure(Throwable caught) {
-                          // never invoked
-                        }
-                      }, "administrateServer");
-                    }
+                                  @Override
+                                  public void onFailure(Throwable caught) {
+                                    // never invoked
+                                  }
+                                }, "administrateServer");
+                              }
 
-                    @Override
-                    public void onFailure(Throwable caught) {
-                      // never invoked
-                    }
-                  });
+                              @Override
+                              public void onFailure(Throwable caught) {
+                                // never invoked
+                              }
+                            });
+                      }
+
+                      @Override
+                      public void onFailure(Throwable caught) {
+                        // never invoked
+                      }
+                });
             }
 
             @Override
@@ -80,7 +98,8 @@ public class ServiceUserScreen extends VerticalPanel {
           });
   }
 
-  private void display(ServiceUserInfo info, boolean allowEmail, boolean allowOwner) {
+  private void display(ServiceUserInfo info, String httpPassword,
+      boolean allowEmail, boolean allowOwner, boolean allowHttpPassword) {
     MyTable t = new MyTable();
     t.setStyleName("serviceuser-serviceUserInfoTable");
     t.addRow("Account State", createActiveToggle(info));
@@ -125,6 +144,10 @@ public class ServiceUserScreen extends VerticalPanel {
     } else {
       t.addRow("Email Address", info.email());
     }
+    t.addRow(
+        "HTTP Password",
+        createHttpPasswordWidget(info.username(), httpPassword,
+            allowHttpPassword));
     t.addRow("Owner Group", createOwnerWidget(info, allowOwner));
     t.addRow("Created By", info.getDisplayName());
     t.addRow("Created At", info.created_at());
@@ -180,6 +203,70 @@ public class ServiceUserScreen extends VerticalPanel {
     });
 
     return activeToggle;
+  }
+
+  private Widget createHttpPasswordWidget(final String serviceUser,
+      String httpPassword, boolean allowHttpPassword) {
+    if (allowHttpPassword) {
+      HorizontalPanel p = new HorizontalPanel();
+      final CopyableLabel label = new CopyableLabel(httpPassword);
+      label.setVisible(!httpPassword.isEmpty());
+      p.add(label);
+
+      final Image delete = new Image(ServiceUserPlugin.RESOURCES.deleteHover());
+      delete.addStyleName("serviceuser-deleteButton");
+      delete.setTitle("Clear HTTP password");
+      delete.addClickHandler(new  ClickHandler() {
+        @Override
+        public void onClick(ClickEvent event) {
+          new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
+              .id(serviceUser).view("password.http").delete(new AsyncCallback<NoContent>() {
+                  @Override
+                  public void onSuccess(NoContent noContent) {
+                    label.setText("");
+                    label.setVisible(false);
+                    delete.setVisible(false);
+                  }
+
+                  @Override
+                  public void onFailure(Throwable caught) {
+                    // never invoked
+                  }
+              });
+        }
+      });
+      delete.setVisible(!httpPassword.isEmpty());
+      p.add(delete);
+
+      Image generate = new Image(ServiceUserPlugin.RESOURCES.gear());
+      generate.addStyleName("serviceuser-generateButton");
+      generate.setTitle("Generate new HTTP password");
+      generate.addClickHandler(new  ClickHandler() {
+        @Override
+        public void onClick(ClickEvent event) {
+          HttpPasswordInput in = HttpPasswordInput.create();
+          in.generate(true);
+          new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
+              .id(serviceUser).view("password.http").put(in, new AsyncCallback<MyNativeString>() {
+                  @Override
+                  public void onSuccess(MyNativeString newPassword) {
+                    label.setText(newPassword.asString());
+                    label.setVisible(true);
+                    delete.setVisible(true);
+                  }
+
+                  @Override
+                  public void onFailure(Throwable caught) {
+                    // never invoked
+                  }
+              });
+        }
+      });
+      p.add(generate);
+      return p;
+    } else {
+      return new CopyableLabel(httpPassword);
+    }
   }
 
   private Widget createOwnerWidget(ServiceUserInfo info, boolean allowOwner) {
