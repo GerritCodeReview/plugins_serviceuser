@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9217887_45d5aa2c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetHttpPassword.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-17T20:13:59Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be protected by some capability? Also when `allowHttpPassword` config optin wasn\u0027t set, does it make sense to return always empty string here (I saw it\u0027s documented behaviour, but still)?",
+      "range": {
+        "startLine": 27,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "20fa40f2037bd1655d13d64c9f2e1b88cb384932",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e148e32_f9c9579a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutHttpPassword.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-17T20:13:59Z",
+      "side": 1,
+      "message": "This handler isn\u0027t protected by any capability. When this config option is enabled, then anyone on the site can request pwd generation for a service user and then read the pwd (If i read the code correctly, it wasn\u0027t protected either). Now i could perform REST actions on behalf of service user. It this expected behaviour (or what am I missing)?",
+      "range": {
+        "startLine": 80,
+        "startChar": 10,
+        "endLine": 80,
+        "endChar": 63
+      },
+      "revId": "20fa40f2037bd1655d13d64c9f2e1b88cb384932",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e148e32_d9c6938a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutHttpPassword.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-17T20:13:59Z",
+      "side": 1,
+      "message": "Code repetition, lines 80-81 above.",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 87,
+        "endChar": 66
+      },
+      "revId": "20fa40f2037bd1655d13d64c9f2e1b88cb384932",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
