@@ -86,9 +86,12 @@
   margin-bottom: 10px;
 }
 
-.serviceuser-editButton {
+.serviceuser-editButton,
+.serviceuser-deleteButton,
+.serviceuser-generateButton {
   float: right;
   cursor: pointer;
+  margin-left: 2px;
 }
 
 .serviceuser-toggleButton {
