@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fe6916e5_17c0746f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetHttpPassword.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-18T08:18:46Z",
+      "side": 1,
+      "message": "The permission check is done in ServiceUserCollection. Service users are only visible to their owners and Gerrit administrators. If you cannot see the service user also this view cannot be accessed.\n\n \u003e does it make sense to return always empty string here (I \n \u003e saw it\u0027s documented behaviour, but still)?\n\nAh, you are a too good reviewer :D\nI thought that nobody would notice this.\nReturning an empty String if there is no HTTP password is indeed inconsistent with the GetHttpPassword REST endpoint in Gerrit core. In Gerrit Core we return \u0027404 Not Found\u0027 if there is no HTTP password. I initially wanted to do the same here, but then I changed it to return an empty string. This is needed to work around another bug/missing feature in Gerrit core. When a REST call is done from a plugin and it provides an AsyncCallback for it, then the onSuccess(...) method is properly invoked when the request was successful, but the onFailure(...) method is never invoked. Failures are already handled in Gerrit core and for any failure it shows the error dialog. So at the moment the plugin has no chance to handle the \u0027404 Not Found\u0027 response and avoid an error dialog for it. But having no HTTP password is not an error and we don\u0027t want an error dialog in this case. Hence I worked around this, by just returning \u0027200 OK\u0027 with an empty string if there is no HTTP password *sigh*",
+      "parentUuid": "b9217887_45d5aa2c",
+      "range": {
+        "startLine": 27,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "20fa40f2037bd1655d13d64c9f2e1b88cb384932",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e148e32_f9c9579a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutHttpPassword.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fe6916e5_37c57880",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutHttpPassword.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-18T08:18:46Z",
+      "side": 1,
+      "message": "The permission check is done in ServiceUserCollection. Service users are only visible to their owners and Gerrit administrators. If you cannot see the service user also this view cannot be accessed.",
+      "parentUuid": "3e148e32_f9c9579a",
+      "range": {
+        "startLine": 80,
+        "startChar": 10,
+        "endLine": 80,
+        "endChar": 63
+      },
+      "revId": "20fa40f2037bd1655d13d64c9f2e1b88cb384932",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e148e32_d9c6938a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutHttpPassword.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2015-06-17T20:13:59Z",
       "side": 1,
       "message": "Code repetition, lines 80-81 above.",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 87,
+        "endChar": 66
+      },
+      "revId": "20fa40f2037bd1655d13d64c9f2e1b88cb384932",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de80d2c6_76e45022",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutHttpPassword.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-18T08:18:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e148e32_d9c6938a",
       "range": {
         "startLine": 86,
         "startChar": 10,
