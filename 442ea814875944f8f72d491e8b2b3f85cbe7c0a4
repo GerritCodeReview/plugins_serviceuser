@@ -99,6 +99,24 @@
       "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de80d2c6_f6c6208a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/MyNativeString.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-18T07:42:08Z",
+      "side": 1,
+      "message": "The easiest way to reproduce this, is to take this change and replace the 2 occurences of MyNativeString in ServiceUserScreen with NativeString and as result the HTTP password is no longer shown.\n\n1. Install the serviceuser plugin\n2. Create a service user under \u0027People\u0027 \u003e \u0027Create Service User\u0027\n3. ServiceUserScreen fails to load with JavaScript TypeError:\n  SEVERE: (TypeError) : this.c is undefinedClass$S125: (TypeError) : this.c is undefined\n\tat Unknown.wrap_4(gerrit_ui-0.js)\n\tat Unknown.entry0(gerrit_ui-0.js)\n\tat Unknown.entry_0/\u003c(gerrit_ui-0.js)\n\tat Unknown.anonymous(Unknown)\n\nExpected:\n3. Go as admin to the ServiceUserScreen and generate an HTTP password (by clicking on the gear icon)\n4. ServiceUserScreen with HTTP password should be displayed",
+      "parentUuid": "b9217887_05cbb294",
+      "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
