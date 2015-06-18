@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "de80d2c6_36ded84e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetHttpPassword.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-18T09:40:04Z",
+      "side": 1,
+      "message": "| I thought that nobody would notice this.\n\n;-)\n\n\n| Hence I worked around this, by just returning \u0027200 OK\u0027 with an empty string if there is no HTTP password *sigh*\n\n\nThe only problem that I have with this workaround: nobody is aware of this bug/inconsistency/discrepancy between core and plugin. So that the other plugin developers would face it and would re-investigate and re-try to solve or provide another ugly workaround for the same bug you found here.\n\nI started to add \"Known bugs, limitation, issues\" to dev-buck.txt. How about to add something similar to dev-plugin.txt? Also a reproducer would be nice to be able to further track down this problem and hopefully fix it.",
+      "parentUuid": "fe6916e5_17c0746f",
+      "range": {
+        "startLine": 27,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "20fa40f2037bd1655d13d64c9f2e1b88cb384932",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e148e32_f9c9579a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutHttpPassword.java",
         "patchSetId": 2
