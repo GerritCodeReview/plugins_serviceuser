@@ -117,6 +117,24 @@
       "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe6916e5_b7d0a83e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/MyNativeString.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-18T09:48:00Z",
+      "side": 1,
+      "message": "Thanks. Will look into this. But this use case is very common, so that we should add this to our new \"Known bugs, limitation, issues\" in dev-buck.txt, as commented on another change.",
+      "parentUuid": "de80d2c6_f6c6208a",
+      "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
