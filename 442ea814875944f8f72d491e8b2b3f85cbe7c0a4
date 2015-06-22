@@ -153,6 +153,24 @@
       "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e534a56_3889492e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/MyNativeString.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-22T11:28:42Z",
+      "side": 1,
+      "message": "Yes, this series is for 2.11 and should be tested with Gerrit 2.11. Sorry, forgot to say this.\n\nI will of course do the adaption when it is merged to master.",
+      "parentUuid": "1e534a56_d86c8dfd",
+      "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
