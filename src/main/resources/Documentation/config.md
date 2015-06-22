@@ -34,8 +34,11 @@ file.
 
 <a id="allowEmail">
 `plugin.@PLUGIN@.allowEmail`
-:	Whether it is allowed to provide an email address for
-	a service user. By default false.
+:	Whether it is allowed for service user owners to set email
+	addresses for their service users. Independent of this setting
+	Gerrit administrators are always able to set email addresses for
+	any service user.
+	By default false.
 
 <a id="allowOwner">
 `plugin.@PLUGIN@.allowOwner`
