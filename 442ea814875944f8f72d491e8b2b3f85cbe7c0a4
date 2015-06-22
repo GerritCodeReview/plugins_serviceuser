@@ -135,6 +135,24 @@
       "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e534a56_d86c8dfd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/MyNativeString.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-22T06:18:22Z",
+      "side": 1,
+      "message": "| The easiest way to reproduce this, is to take this change and replace the 2 occurences of MyNativeString in ServiceUserScreen with NativeString and as result the HTTP password is no longer shown.\n\nYou haven\u0027t mentioned, that I need gerrit-2.11 to test against this plugin-series, because running it against gerrit master is failing with missing GroupInfo Json container, as it was moved to extension-package on master: [1].\n\n* [1] http://paste.openstack.org/show/312578/",
+      "parentUuid": "de80d2c6_f6c6208a",
+      "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
