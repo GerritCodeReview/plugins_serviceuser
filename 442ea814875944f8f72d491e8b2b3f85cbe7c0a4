@@ -189,6 +189,24 @@
       "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e534a56_b83a79d2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/MyNativeString.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-22T22:47:41Z",
+      "side": 1,
+      "message": "Have you managed to configure SDM session to debug both modules Gerit core and plugin? It wasn\u0027t that easy: [1]. Apparently I did something wrong. The only way it worked, was to include in SDM launch invocation \"com.googlesource.gerrit.plugins.serviceuser.CreateServiceUserForm\" and link client package from serviceuser plugin to Gerrit core.\n\nDuring debug session, I saw, that the password is correctly returned and handled by NativeString, but in the end something went wrong in flushPostEventPumpCommands_0_g$ (SchedulerImpl.java:347). Here some debug session dump: [2]. I also don\u0027t understand why ActionContext is involved?\n\n* [1] http://imgur.com/yiQtULn\n* [2] http://paste.openstack.org/show/314625/",
+      "parentUuid": "fe6916e5_b7d0a83e",
+      "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
