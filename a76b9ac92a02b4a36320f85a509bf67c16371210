@@ -166,6 +166,30 @@
       "revId": "a76b9ac92a02b4a36320f85a509bf67c16371210",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe559639_d7457c65",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-22T11:43:25Z",
+      "side": 1,
+      "message": "Sure, but I would expect, that the admin user is also not abled to set/generate password for service user without allowHttpPassword explicitly being set. Does it make sense?",
+      "parentUuid": "fe559639_f748807d",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "a76b9ac92a02b4a36320f85a509bf67c16371210",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
