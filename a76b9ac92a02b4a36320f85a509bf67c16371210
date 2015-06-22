@@ -22,6 +22,30 @@
       "revId": "a76b9ac92a02b4a36320f85a509bf67c16371210",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e534a56_78358106",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-22T08:13:42Z",
+      "side": 1,
+      "message": "Probably admin user supposed to be able to always generate HTTP password?",
+      "parentUuid": "1e534a56_383b09fe",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "a76b9ac92a02b4a36320f85a509bf67c16371210",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
