@@ -225,6 +225,24 @@
       "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e534a56_b8e8b9a2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/MyNativeString.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-23T08:29:48Z",
+      "side": 1,
+      "message": "| Cool, maybe we should have some documentation about this.\n\nJepp, will upload dev-eclipse.txt or dev-plugins.txt (or both) later today.\n\n| Strange, but not sure what to make out of it :(\n\nNothing, just submit your series. We can always improve things once we found out the root cause for the breakage.",
+      "parentUuid": "fe559639_57268cc1",
+      "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
