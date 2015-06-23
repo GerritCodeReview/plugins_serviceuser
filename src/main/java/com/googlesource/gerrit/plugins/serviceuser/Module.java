@@ -63,6 +63,9 @@ class Module extends AbstractModule {
         get(SERVICE_USER_KIND, "email").to(GetEmail.class);
         put(SERVICE_USER_KIND, "email").to(PutEmail.class);
         delete(SERVICE_USER_KIND, "email").to(PutEmail.class);
+        get(SERVICE_USER_KIND, "password.http").to(GetHttpPassword.class);
+        put(SERVICE_USER_KIND, "password.http").to(PutHttpPassword.class);
+        delete(SERVICE_USER_KIND, "password.http").to(PutHttpPassword.class);
         get(SERVICE_USER_KIND, "active").to(GetActive.class);
         put(SERVICE_USER_KIND, "active").to(PutActive.class);
         delete(SERVICE_USER_KIND, "active").to(DeleteActive.class);
