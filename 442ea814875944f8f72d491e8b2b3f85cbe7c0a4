@@ -243,6 +243,24 @@
       "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe559639_37ccb85d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/MyNativeString.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-23T08:35:18Z",
+      "side": 1,
+      "message": "\u003e Nothing, just submit your series. We can always improve \n \u003e things once we found out the root cause for the breakage.\n\nYes, I would go ahead with merging this series, but what I meant is that I\u0027m puzzled about why it is failing there.",
+      "parentUuid": "1e534a56_b8e8b9a2",
+      "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
