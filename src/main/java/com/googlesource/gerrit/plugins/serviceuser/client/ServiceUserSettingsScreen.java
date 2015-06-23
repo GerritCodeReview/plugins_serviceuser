@@ -46,6 +46,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
   private TextArea infoMsgTxt;
   private TextArea onSuccessMsgTxt;
   private CheckBox allowEmailCheckBox;
+  private CheckBox allowHttpPasswordCheckBox;
   private CheckBox allowOwnerCheckBox;
   private CheckBox createNotesCheckBox;
   private CheckBox createNotesAsyncCheckBox;
@@ -128,6 +129,17 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     allowEmailPanel.add(allowEmailInfo);
     add(allowEmailPanel);
 
+    Panel allowHttpPasswordPanel = new HorizontalPanel();
+    allowHttpPasswordCheckBox = new CheckBox("Allow HTTP password");
+    allowHttpPasswordCheckBox.setValue(info.getAllowHttpPassword());
+    allowHttpPasswordPanel.add(allowHttpPasswordCheckBox);
+    Image allowHttpPasswordInfo = new Image(ServiceUserPlugin.RESOURCES.info());
+    allowHttpPasswordInfo.setTitle("Whether it is allowed to generate an HTTP password "
+        + "for a service user. E.g. having an HTTP password allows a service user "
+        + "to use the Gerrit REST API.");
+    allowHttpPasswordPanel.add(allowHttpPasswordInfo);
+    add(allowHttpPasswordPanel);
+
     Panel allowOwnerPanel = new HorizontalPanel();
     allowOwnerCheckBox = new CheckBox("Allow Owner Group");
     allowOwnerCheckBox.setValue(info.getAllowOwner());
@@ -202,6 +214,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     OnEditEnabler onEditEnabler = new OnEditEnabler(saveButton, infoMsgTxt);
     onEditEnabler.listenTo(onSuccessMsgTxt);
     onEditEnabler.listenTo(allowEmailCheckBox);
+    onEditEnabler.listenTo(allowHttpPasswordCheckBox);
     onEditEnabler.listenTo(allowOwnerCheckBox);
     onEditEnabler.listenTo(createNotesCheckBox);
     onEditEnabler.listenTo(createNotesAsyncCheckBox);
@@ -215,6 +228,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     in.setInfoMessage(infoMsgTxt.getValue());
     in.setOnSuccessMessage(onSuccessMsgTxt.getValue());
     in.setAllowEmail(allowEmailCheckBox.getValue());
+    in.setAllowHttpPassword(allowHttpPasswordCheckBox.getValue());
     in.setAllowOwner(allowOwnerCheckBox.getValue());
     in.setCreateNotes(createNotesCheckBox.getValue());
     if (createNotesAsyncCheckBox.isEnabled()) {
