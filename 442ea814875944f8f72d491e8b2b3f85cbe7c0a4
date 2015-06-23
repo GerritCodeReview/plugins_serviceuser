@@ -207,6 +207,24 @@
       "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe559639_57268cc1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/MyNativeString.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-23T08:19:29Z",
+      "side": 1,
+      "message": "Thanks a lot for looking into this. Much appreciated.\n\n \u003e Have you managed to configure SDM session to debug both \n \u003e modules Gerit core and plugin? \n\nNo, I\u0027ve never done this.\n\n \u003e It wasn\u0027t that easy: [1]. Apparently I did something \n \u003e wrong. The only way it worked, was to include in SDM \n \u003e launch invocation \n \u003e \"com.googlesource.gerrit.plugins.serviceuser.CreateServiceUserForm\"\n \u003e and link client package from serviceuser plugin to \n \u003e Gerrit core.\n\nCool, maybe we should have some documentation about this.\n\n \u003e During debug session, I saw, that the password is \n \u003e correctly returned and handled by NativeString, but in \n \u003e the end something went wrong in \n \u003e flushPostEventPumpCommands_0_g$ \n \u003e (SchedulerImpl.java:347).\n\nStrange, but not sure what to make out of it :(\n\n \u003e Here some debug session dump: [2]. I also don\u0027t understand why ActionContext \n \u003e is involved?\n\nIf I understand it correctly, ActionContext is the glue code that is used by plugins to execute REST calls through the Gerrit core client. Looking at com.google.gerrit.client.api.Plugin you can see how the get/put/post/delete methods are mapped to ActionContext.",
+      "parentUuid": "1e534a56_b83a79d2",
+      "revId": "442ea814875944f8f72d491e8b2b3f85cbe7c0a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
