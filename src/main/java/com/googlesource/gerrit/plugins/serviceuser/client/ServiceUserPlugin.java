@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
+import com.google.gerrit.client.Resources;
 import com.google.gerrit.plugin.client.Plugin;
 import com.google.gerrit.plugin.client.PluginEntryPoint;
 import com.google.gwt.core.client.GWT;

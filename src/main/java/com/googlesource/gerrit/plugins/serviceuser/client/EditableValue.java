@@ -36,15 +36,15 @@ public abstract class EditableValue extends FlowPanel {
   private final Button cancel;
   private Image warning;
 
-  EditableValue(String serviceUser, String name) {
-    this(serviceUser, name, null);
+  EditableValue(String serviceUser, String value) {
+    this(serviceUser, value, null);
   }
 
-  EditableValue(final String serviceUser, String name, String href) {
+  EditableValue(final String serviceUser, String value, String href) {
     if (href != null) {
-      labelWidget = new Anchor(name, href);
+      labelWidget = new Anchor(value, href);
     } else {
-      labelWidget = new InlineLabel(name);
+      labelWidget = new InlineLabel(value);
     }
     edit = new Image(ServiceUserPlugin.RESOURCES.edit());
     edit.addStyleName("serviceuser-editButton");
@@ -52,7 +52,7 @@ public abstract class EditableValue extends FlowPanel {
 
     input = new NpTextBox();
     input.setVisibleLength(25);
-    input.setValue(name);
+    input.setValue(value);
     input.setVisible(false);
     save = new Button();
     save.setText("Save");

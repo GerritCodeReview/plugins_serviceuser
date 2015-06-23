@@ -1,4 +1,4 @@
-// Copyright (C) 2014 The Android Open Source Project
+// Copyright (C) 2015 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,17 +14,15 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.core.client.JavaScriptObject;
 
-public interface Resources extends ClientBundle {
+public class HttpPasswordInput extends JavaScriptObject {
+  final native void generate(boolean g) /*-{ if (g) this.generate = g; }-*/;
 
-  @Source("editText.png")
-  public ImageResource edit();
+  public static HttpPasswordInput create() {
+    return createObject().cast();
+  }
 
-  @Source("info.png")
-  public ImageResource info();
-
-  @Source("warning.png")
-  public ImageResource warning();
+  protected HttpPasswordInput() {
+  }
 }

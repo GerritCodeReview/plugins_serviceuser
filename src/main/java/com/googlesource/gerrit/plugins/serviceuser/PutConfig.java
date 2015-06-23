@@ -46,6 +46,7 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
     public String info;
     public String onSuccess;
     public Boolean allowEmail;
+    public Boolean allowHttpPassword;
     public Boolean allowOwner;
     public Boolean createNotes;
     public Boolean createNotesAsync;
@@ -83,6 +84,9 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
     }
     if (input.allowEmail != null) {
       setBoolean(cfg, "allowEmail", input.allowEmail);
+    }
+    if (input.allowHttpPassword != null) {
+      setBoolean(cfg, "allowHttpPassword", input.allowHttpPassword);
     }
     if (input.allowOwner != null) {
       setBoolean(cfg, "allowOwner", input.allowOwner);
