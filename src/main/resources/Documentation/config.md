@@ -109,7 +109,8 @@ passwords for them. This can be done on the service user screen.
 *WARNING*: If access to the REST API is enabled, service users can use
 the [Create Email REST endpoint](../../../Documentation/rest-api-accounts.html#create-account-email)
 in Gerrit core to create an email address even if
-[allowEmail](#allowEmail) is set to `false`.
+[allowEmail](#allowEmail) is set to `false`, unless
+[registration of email addresses in Gerrit is disabled](../../../Documentation/config-gerrit.html#sendemail.allowRegisterNewEmail).
 
 ### Git Push
 
