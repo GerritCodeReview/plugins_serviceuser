@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7ee446f7_fbe96ff3",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-24T10:54:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe559639_d7df3cf4",
+      "range": {
+        "startLine": 103,
+        "startChar": 50,
+        "endLine": 105,
+        "endChar": 5
+      },
+      "revId": "84ba10d017f2f31660739c720f5f26b46d4843fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e534a56_f86511c2",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-06-23T15:50:31Z",
       "side": 1,
       "message": "Mention how? Using this plugin, or doing it manually through set HTTP password endpoint?",
+      "range": {
+        "startLine": 106,
+        "startChar": 14,
+        "endLine": 106,
+        "endChar": 64
+      },
+      "revId": "84ba10d017f2f31660739c720f5f26b46d4843fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ee446f7_1b045b4e",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-24T10:54:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e534a56_f86511c2",
       "range": {
         "startLine": 106,
         "startChar": 14,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7ee446f7_3b091765",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-24T10:54:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e534a56_b85b9903",
+      "range": {
+        "startLine": 115,
+        "startChar": 41,
+        "endLine": 116,
+        "endChar": 25
+      },
+      "revId": "84ba10d017f2f31660739c720f5f26b46d4843fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e534a56_98585508",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2015-06-23T15:50:31Z",
       "side": 1,
       "message": "Mention how? using this plugin or using set account endpoint?",
+      "range": {
+        "startLine": 117,
+        "startChar": 34,
+        "endLine": 118,
+        "endChar": 8
+      },
+      "revId": "84ba10d017f2f31660739c720f5f26b46d4843fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fed8363c_1f52833d",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-06-24T10:54:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e534a56_98585508",
       "range": {
         "startLine": 117,
         "startChar": 34,
