@@ -46,6 +46,30 @@
       "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9efc9ac6_e426bac2",
+        "filename": "BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2015-06-25T16:57:47Z",
+      "side": 1,
+      "message": "I just wanted to repair the standalone build nonetheless.\nBut it currently (for me) failed with 15 unrelated errors.\nLike:\n\n  [...]/PutOwner.java:115: error: cannot find symbol\n          : Response.\u003cGroupInfo\u003e none();\n                      ^\n\nor\n\n  [...]/PutEmail.java:93: error: cannot find symbol\n        EmailInput in \u003d new EmailInput();\n        ^\n\n...\n\nSo it seems the standalone build got left behind some time\nago and would need more love than just adding commons-codec.",
+      "parentUuid": "be423edc_bdda3f10",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 7
+      },
+      "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
