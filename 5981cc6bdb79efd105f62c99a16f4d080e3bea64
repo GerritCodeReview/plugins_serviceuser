@@ -118,6 +118,30 @@
       "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e11a608_d3dd1452",
+        "filename": "BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-25T18:23:03Z",
+      "side": 1,
+      "message": "I have very strong impression that you are ignoring or mixing (?) the roles here.\n\nWhen you are messing around with SNAPSHOT versions you have developer role. What developer is doing and using:\n\n* Ant\n* Maven\n* Buck in tree\n* Buck standalone\n* Eclipse native compilation\n* manually javac invocation\n* gradles\n\n  NOBODY CARES!!!\n\nPlease read carefully what I just said and reassure you understand it and may be re-read until you really understand, as it\u0027s getting annoying your blame on standalone Buck build mode.\n\nStandalone build mode was invented for users of plugins tole and not (!) fo developers! Wonna see it in action: [1]?\n\n  git clone --recursive https://github.com/davido/gerrit-oauth-provider.git\n  cd gerrit-oauth-provider \u0026\u0026 buck build plugin\n  cp buck-out/gen/gerrit-oauth-provider.jar $gerrit_site/plugins\n\n* [1] https://github.com/davido/gerrit-oauth-provider",
+      "parentUuid": "5eaea2fa_32ca908f",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 7
+      },
+      "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
