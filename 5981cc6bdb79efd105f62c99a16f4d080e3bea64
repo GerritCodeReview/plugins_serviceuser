@@ -94,6 +94,30 @@
       "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5eaea2fa_32ca908f",
+        "filename": "BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2015-06-25T18:05:29Z",
+      "side": 1,
+      "message": "\u003e Pull latest gerrit master\n\nDoesn\u0027t that kills the \"standalone\" in \"standalone build\"?\n;-)\n\nI know that you need this just to work around \"other issues\".\nBut those \"other issues\" are real.\nThey make the \"standalone build\" not any faster, and not any\nmore convenient than \"in-tree build\".\n\nOn the contrary ... in fact ... the steps you described\nabove contain more manual work than in-tree build. :-(\n\nAs nice as standalone building would be. For me,\nthe surrounding environment for standalone building would\nneed more love before it\u0027s worth doing standalone builds.\nThey just break too often, and involve too much manual\nkeeping-in-sync.",
+      "parentUuid": "7e11a608_53d10441",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 7
+      },
+      "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
