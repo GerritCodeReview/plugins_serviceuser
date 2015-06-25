@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5eaea2fa_92e37c1a",
+        "filename": "lib/commons/BUCK",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2015-06-25T18:18:55Z",
+      "side": 1,
+      "message": "I can\u0027t help it.\n\nSuch duplication feels burdensome right from the start.\nThis is just bound to run out of sync with gerrit core :-(",
+      "revId": "f75e7f07b5a73bfd4efff7c5e5bc19f6c7854bfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
