@@ -6,6 +6,7 @@ REPO = MAVEN_LOCAL
 maven_jar(
   name = 'plugin-api',
   id = 'com.google.gerrit:gerrit-plugin-api:' + VER,
+  sha1 = '6f023f82ec1a82712cc2fcb34080481c1f851bb4',
   attach_source = False,
   repository = REPO,
   license = 'Apache2.0',
@@ -14,6 +15,7 @@ maven_jar(
 maven_jar(
   name = 'gwtui-api',
   id = 'com.google.gerrit:gerrit-plugin-gwtui:' + VER,
+  sha1 = '3f6edca1acdb952812048b6029b5c68ba3020384',
   attach_source = False,
   repository = REPO,
   license = 'Apache2.0',

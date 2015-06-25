@@ -12,6 +12,9 @@ gerrit_plugin(
     'Gerrit-HttpModule: com.googlesource.gerrit.plugins.serviceuser.HttpModule',
     'Gerrit-SshModule: com.googlesource.gerrit.plugins.serviceuser.SshModule',
   ],
+  provided_deps = [
+    '//lib/commons:codec',
+  ],
 )
 
 java_library(
