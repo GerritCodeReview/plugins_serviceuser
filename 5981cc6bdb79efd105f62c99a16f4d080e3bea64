@@ -70,6 +70,30 @@
       "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e11a608_53d10441",
+        "filename": "BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-06-25T17:41:34Z",
+      "side": 1,
+      "message": "| So it seems the standalone build got left behind some time\n\nNo. The problem is Buck cache. lib/gerrit/BUCK doesn\u0027t mention sha1. That why it fetch wrong plugin-api that missing the version is needed by latst version of this plugin.\n\nWorkaround:\n\n* Pull latest gerrit master\n* buck build api_install\n* compute sha1 for plugin-api and plugin-gwtui\n* patch lib/gerrit/BUCK:\n\nIn my case:\n\n  maven_jar(\n    name \u003d \u0027plugin-api\u0027,\n    id \u003d \u0027com.google.gerrit:gerrit-plugin-api:\u0027 + VER,\n    sha1 \u003d \u00276f023f82ec1a82712cc2fcb34080481c1f851bb4\u0027,\n    attach_source \u003d False,\n    repository \u003d REPO,\n    license \u003d \u0027Apache2.0\u0027,\n  )\n  maven_jar(\n    name \u003d \u0027gwtui-api\u0027,\n    id \u003d \u0027com.google.gerrit:gerrit-plugin-gwtui:\u0027 + VER,\n    sha1 \u003d \u00273f6edca1acdb952812048b6029b5c68ba3020384\u0027,\n    attach_source \u003d False,\n    repository \u003d REPO,\n    license \u003d \u0027Apache2.0\u0027,\n  )\n\n* Observe that compiling now triggers downloading of new version of plugin api and is successful:\n\n  $ buck build plugin\n  Using buckd.\n  [-] PROCESSING BUCK FILES...FINISHED 0,2s\n  [-] BUILDING...FINISHED 13,7s (44/44 JOBS)\n  Log:\n  Download file:///home/davido/.m2/repository/com/google/gerrit/\n  gerrit-plugin-gwtui/2.12-SNAPSHOT/gerrit-plugin-gwtui-2.12-SNAPSHOT.jar\n  Download file:///home/davido/.m2/repository/com/google/gerrit/\n  gerrit-plugin-api/2.12-SNAPSHOT/gerrit-plugin-api-2.12-SNAPSHOT.jar",
+      "parentUuid": "9efc9ac6_e426bac2",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 7
+      },
+      "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
