@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e11a608_93e39c1a",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2015-06-25T18:17:11Z",
+      "side": 1,
+      "message": "That seems to be the sha1 of your local build, hence it\u0027s\nnot publicly available/fetchable for others.\n\nDropped in PS5.",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "b6d988317bddbcee0f7a6f1e91333a3090c9f3a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5eaea2fa_72d41833",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2015-06-25T18:17:11Z",
+      "side": 1,
+      "message": "see line 9",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 50
+      },
+      "revId": "b6d988317bddbcee0f7a6f1e91333a3090c9f3a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
