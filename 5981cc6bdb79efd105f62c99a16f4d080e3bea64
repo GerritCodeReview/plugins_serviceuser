@@ -142,6 +142,30 @@
       "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ec49ad3_a4b5a222",
+        "filename": "BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2015-06-25T20:04:25Z",
+      "side": 1,
+      "message": "You know that I like to have a standalone mode.\nAnd you know my unaddressed reservations.\nWe\u0027ve been through this many times.\n\nPlease, let\u0027s not iterate on it again, and let\u0027s instead\nkeep this productive :-)\n\nPS5 is a commit that allows in-tree building again.\nAnd it also has the standalone modifications that you suggested.\n\nSo PS5 is fine by me.",
+      "parentUuid": "7e11a608_d3dd1452",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 7
+      },
+      "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
