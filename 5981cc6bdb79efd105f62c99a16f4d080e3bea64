@@ -22,6 +22,30 @@
       "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be423edc_bdda3f10",
+        "filename": "BUCK",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012155
+      },
+      "writtenOn": "2015-06-25T16:41:46Z",
+      "side": 1,
+      "message": "\u003e provided_deps\n\nThanks.\nDone in PS3.\n\n\u003e What about standalone build mode?\n\nFor plugins that require further libraries, I find standalone\nbuild mode problematic, as one has to keep library\ndefinitions in sync with gerrit core.\n\nThat\u0027s tedious, and as we\u0027re human such \u0027manually\nkeeping things in sync\u0027 tasks don\u0027t work too well.\nFrom my point of view, maintaining two build systems (in-tree\nand standalone build) is just burning developer time.\n\nHence, I clarified in the commit message that it only tackles\nthe in-tree build.",
+      "parentUuid": "9efc9ac6_e4fd9a80",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 7
+      },
+      "revId": "5981cc6bdb79efd105f62c99a16f4d080e3bea64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
