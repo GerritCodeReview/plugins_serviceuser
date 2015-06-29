@@ -51,9 +51,9 @@ public class ServiceUserScreen extends VerticalPanel {
             @Override
             public void onSuccess(final ServiceUserInfo serviceUserInfo) {
               new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
-                  .id(serviceUser).view("password.http").get(new AsyncCallback<MyNativeString>() {
+                  .id(serviceUser).view("password.http").get(new AsyncCallback<NativeString>() {
                       @Override
-                      public void onSuccess(final MyNativeString httpPassword) {
+                      public void onSuccess(final NativeString httpPassword) {
                         new RestApi("config").id("server")
                             .view(Plugin.get().getPluginName(), "config")
                             .get(new AsyncCallback<ConfigInfo>() {
@@ -247,9 +247,9 @@ public class ServiceUserScreen extends VerticalPanel {
           HttpPasswordInput in = HttpPasswordInput.create();
           in.generate(true);
           new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
-              .id(serviceUser).view("password.http").put(in, new AsyncCallback<MyNativeString>() {
+              .id(serviceUser).view("password.http").put(in, new AsyncCallback<NativeString>() {
                   @Override
-                  public void onSuccess(MyNativeString newPassword) {
+                  public void onSuccess(NativeString newPassword) {
                     label.setText(newPassword.asString());
                     label.setVisible(true);
                     delete.setVisible(true);
