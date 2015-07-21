@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "edfb2e32_9e123d88",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-07-21T09:34:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33e929fb_11190ca8",
+      "revId": "0c9a5fa2ecc806685cd8a68034f0d48f3dc6bcbf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53e69d29_d20b845f",
         "filename": "lib/gerrit/BUCK",
         "patchSetId": 3
@@ -48,6 +66,24 @@
       "writtenOn": "2015-07-01T12:46:36Z",
       "side": 1,
       "message": "Same here.",
+      "revId": "0c9a5fa2ecc806685cd8a68034f0d48f3dc6bcbf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edfb2e32_7e577131",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2015-07-21T09:34:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53e69d29_d20b845f",
       "revId": "0c9a5fa2ecc806685cd8a68034f0d48f3dc6bcbf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
