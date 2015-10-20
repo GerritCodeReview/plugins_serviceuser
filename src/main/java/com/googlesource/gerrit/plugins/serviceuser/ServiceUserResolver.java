@@ -100,7 +100,7 @@ class ServiceUserResolver {
     try {
       RequestContext context = new RequestContext() {
         @Override
-        public CurrentUser getCurrentUser() {
+        public CurrentUser getUser() {
           return new CurrentUser(null) {
 
             @Override
