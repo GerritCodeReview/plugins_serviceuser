@@ -213,7 +213,9 @@ public class ServiceUserScreen extends VerticalPanel {
       label.setVisible(!httpPassword.isEmpty());
       p.add(label);
 
-      final Image delete = new Image(ServiceUserPlugin.RESOURCES.deleteHover());
+      // The redNot icon is only used as temporary measure until gerrit core
+      // provides a better icon that symbolizes "clear".
+      final Image delete = new Image(ServiceUserPlugin.RESOURCES.redNot());
       delete.addStyleName("serviceuser-deleteButton");
       delete.setTitle("Clear HTTP password");
       delete.addClickHandler(new  ClickHandler() {
