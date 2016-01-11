@@ -15,12 +15,14 @@
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
 import com.google.gerrit.client.Resources;
+import com.google.gerrit.client.admin.AdminResources;
 import com.google.gerrit.plugin.client.Plugin;
 import com.google.gerrit.plugin.client.PluginEntryPoint;
 import com.google.gwt.core.client.GWT;
 
 public class ServiceUserPlugin extends PluginEntryPoint {
   public static final Resources RESOURCES = GWT.create(Resources.class);
+  public static final AdminResources ADMINRESOURCES = GWT.create(AdminResources.class);
 
   @Override
   public void onPluginLoad() {

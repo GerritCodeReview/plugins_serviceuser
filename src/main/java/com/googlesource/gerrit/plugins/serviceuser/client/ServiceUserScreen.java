@@ -213,7 +213,7 @@ public class ServiceUserScreen extends VerticalPanel {
       label.setVisible(!httpPassword.isEmpty());
       p.add(label);
 
-      final Image delete = new Image(ServiceUserPlugin.RESOURCES.deleteHover());
+      final Image delete = new Image(ServiceUserPlugin.ADMINRESOURCES.deleteHover());
       delete.addStyleName("serviceuser-deleteButton");
       delete.setTitle("Clear HTTP password");
       delete.addClickHandler(new  ClickHandler() {
