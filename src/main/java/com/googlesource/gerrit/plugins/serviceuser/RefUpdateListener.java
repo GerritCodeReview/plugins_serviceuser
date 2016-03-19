@@ -98,15 +98,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
 
   private void createServiceUserNotes(Event e) {
     Project.NameKey projectName = new Project.NameKey(e.getProjectName());
-    Repository git;
-    try {
-      git = repoManager.openRepository(projectName);
-    } catch (IOException x) {
-      log.error(x.getMessage(), x);
-      return;
-    }
-
-    try {
+    try (Repository git = repoManager.openRepository(projectName)){
       CreateServiceUserNotes crn = serviceUserNotesFactory.create(
           projectName, git);
       crn.createNotes(e.getRefName(),
@@ -115,8 +107,6 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
       crn.commitNotes();
     } catch (IOException | OrmException | ConcurrentRefUpdateException x) {
       log.error(x.getMessage(), x);
-    } finally {
-      git.close();
     }
   }
 }
