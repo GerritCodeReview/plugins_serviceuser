@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "883645c6_89497981",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2016-05-03T15:53:03Z",
+      "side": 1,
+      "message": "nit: long line",
+      "revId": "49137239c0c0c64911825aeaf20512e865230c3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "883645c6_a94e3d84",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/SshKeys.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2016-05-03T15:53:03Z",
+      "side": 1,
+      "message": "nit: long line",
+      "revId": "49137239c0c0c64911825aeaf20512e865230c3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
