@@ -22,6 +22,10 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
+import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+
+import java.io.IOException;
 import java.util.List;
 
 @Singleton
@@ -34,7 +38,9 @@ class GetSshKeys implements RestReadView<ServiceUserResource> {
   }
 
   @Override
-  public List<SshKeyInfo> apply(ServiceUserResource rsrc) throws AuthException, OrmException {
+  public List<SshKeyInfo> apply(ServiceUserResource rsrc)
+      throws AuthException, OrmException, RepositoryNotFoundException, IOException,
+          ConfigInvalidException {
     return getSshKeys.get().apply(rsrc.getUser());
   }
 }

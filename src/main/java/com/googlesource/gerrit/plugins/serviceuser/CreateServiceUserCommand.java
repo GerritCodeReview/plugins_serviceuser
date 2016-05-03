@@ -22,6 +22,7 @@ import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
@@ -48,7 +49,7 @@ class CreateServiceUserCommand extends SshCommand {
   @Inject private CreateServiceUser.Factory createServiceUser;
 
   @Override
-  protected void run() throws OrmException, IOException, UnloggedFailure {
+  protected void run() throws OrmException, IOException, UnloggedFailure, ConfigInvalidException {
     CreateServiceUser.Input input = new CreateServiceUser.Input();
     input.sshKey = readSshKey();
 
