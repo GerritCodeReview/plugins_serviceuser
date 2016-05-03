@@ -55,6 +55,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.Input;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.PersonIdent;
 import org.slf4j.Logger;
@@ -152,7 +153,8 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   @Override
   public Response<ServiceUserInfo> apply(ConfigResource resource, Input input)
       throws AuthException, BadRequestException, ResourceConflictException,
-      UnprocessableEntityException, OrmException, IOException {
+      UnprocessableEntityException, OrmException, IOException,
+      ConfigInvalidException {
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("authentication required");
