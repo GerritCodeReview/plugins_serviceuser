@@ -25,14 +25,14 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-class SshKeys implements
-    ChildCollection<ServiceUserResource, ServiceUserResource.SshKey> {
+class SshKeys implements ChildCollection<ServiceUserResource, ServiceUserResource.SshKey> {
   private final DynamicMap<RestView<ServiceUserResource.SshKey>> views;
   private final Provider<GetSshKeys> list;
   private final Provider<com.google.gerrit.server.account.SshKeys> sshKeys;
 
   @Inject
-  SshKeys(DynamicMap<RestView<ServiceUserResource.SshKey>> views,
+  SshKeys(
+      DynamicMap<RestView<ServiceUserResource.SshKey>> views,
       Provider<GetSshKeys> list,
       Provider<com.google.gerrit.server.account.SshKeys> sshKeys) {
     this.views = views;

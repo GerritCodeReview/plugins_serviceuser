@@ -37,11 +37,15 @@ class CreateServiceUserCommand extends SshCommand {
   @Argument(index = 0, required = true, metaVar = "USERNAME", usage = "name of the service user")
   private String username;
 
-  @Option(name = "--ssh-key", required = true, metaVar = "-|KEY", usage = "public key for SSH authentication")
+  @Option(
+    name = "--ssh-key",
+    required = true,
+    metaVar = "-|KEY",
+    usage = "public key for SSH authentication"
+  )
   private String sshKey;
 
-  @Inject
-  private CreateServiceUser.Factory createServiceUser;
+  @Inject private CreateServiceUser.Factory createServiceUser;
 
   @Override
   protected void run() throws OrmException, IOException, UnloggedFailure {
@@ -61,8 +65,7 @@ class CreateServiceUserCommand extends SshCommand {
     }
     if ("-".equals(sshKey)) {
       sshKey = "";
-      BufferedReader br =
-          new BufferedReader(new InputStreamReader(in, "UTF-8"));
+      BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
       String line;
       while ((line = br.readLine()) != null) {
         sshKey += line + "\n";

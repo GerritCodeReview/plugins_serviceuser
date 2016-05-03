@@ -25,8 +25,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-class DeleteSshKey implements
-    RestModifyView<ServiceUserResource.SshKey, Input> {
+class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> {
   private final Provider<com.google.gerrit.server.account.DeleteSshKey> deleteSshKey;
 
   @Inject
@@ -37,7 +36,8 @@ class DeleteSshKey implements
   @Override
   public Response<?> apply(ServiceUserResource.SshKey rsrc, Input input)
       throws OrmException, AuthException {
-    return deleteSshKey.get().apply(
-        new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
+    return deleteSshKey
+        .get()
+        .apply(new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
   }
 }
