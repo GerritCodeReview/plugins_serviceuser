@@ -24,6 +24,10 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
+import org.eclipse.jgit.errors.ConfigInvalidException;
+
+import java.io.IOException;
+
 @Singleton
 class SshKeys implements
     ChildCollection<ServiceUserResource, ServiceUserResource.SshKey> {
@@ -47,7 +51,7 @@ class SshKeys implements
 
   @Override
   public ServiceUserResource.SshKey parse(ServiceUserResource parent, IdString id)
-      throws ResourceNotFoundException, OrmException {
+      throws ResourceNotFoundException, OrmException, IOException, ConfigInvalidException {
     return new ServiceUserResource.SshKey(sshKeys.get().parse(parent.getUser(), id));
   }
 
