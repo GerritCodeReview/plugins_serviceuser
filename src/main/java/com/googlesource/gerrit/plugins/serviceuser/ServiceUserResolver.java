@@ -109,11 +109,6 @@ class ServiceUserResolver {
             }
 
             @Override
-            public Collection<AccountProjectWatch> getNotificationFilters() {
-              return null;
-            }
-
-            @Override
             public GroupMembership getEffectiveGroups() {
               return new GroupMembership() {
                 @Override
