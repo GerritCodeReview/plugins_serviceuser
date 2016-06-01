@@ -104,11 +104,6 @@ class ServiceUserResolver {
           return new CurrentUser(null) {
 
             @Override
-            public Set<Id> getStarredChanges() {
-              return null;
-            }
-
-            @Override
             public GroupMembership getEffectiveGroups() {
               return new GroupMembership() {
                 @Override
