@@ -23,6 +23,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
+import java.io.IOException;
+
 @Singleton
 class PutActive implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<com.google.gerrit.server.account.PutActive> putActive;
@@ -34,7 +36,7 @@ class PutActive implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<String> apply(ServiceUserResource rsrc, Input input)
-      throws ResourceNotFoundException, OrmException {
+      throws ResourceNotFoundException, OrmException, IOException {
     return putActive.get().apply(rsrc, input);
   }
 }

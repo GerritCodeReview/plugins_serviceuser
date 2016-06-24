@@ -215,7 +215,7 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   }
 
   private void addToGroups(Account.Id accountId, String[] groupNames)
-      throws OrmException {
+      throws OrmException, IOException {
     for (String groupName : groupNames) {
       AccountGroup group = groupCache.get(new AccountGroup.NameKey(groupName));
       if (group != null) {
