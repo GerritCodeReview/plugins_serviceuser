@@ -30,6 +30,8 @@ import com.googlesource.gerrit.plugins.serviceuser.PutHttpPassword.Input;
 
 import org.apache.commons.codec.binary.Base64;
 
+import java.io.IOException;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
@@ -67,7 +69,7 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
   @Override
   public Response<String> apply(ServiceUserResource rsrc, Input input)
       throws AuthException, ResourceConflictException,
-      ResourceNotFoundException, OrmException {
+      ResourceNotFoundException, OrmException, IOException {
     if (input == null) {
       input = new Input();
     }
