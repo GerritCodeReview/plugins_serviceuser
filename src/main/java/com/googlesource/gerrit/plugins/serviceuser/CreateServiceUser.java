@@ -20,6 +20,7 @@ import com.google.common.collect.Lists;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
+import com.google.gerrit.extensions.api.accounts.AccountInput;
 import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
@@ -183,7 +184,7 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
       }
     }
 
-    CreateAccount.Input in =
+    AccountInput in =
         new ServiceUserInput(username, input.email, input.sshKey);
     Response<AccountInfo> response =
         createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
