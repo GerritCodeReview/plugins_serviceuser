@@ -79,15 +79,17 @@ class ServiceUserResolver {
     committer.append(committerIdent.getEmailAddress());
     committer.append("> ");
 
-    Account account = resolver.find(committer.toString());
-    if (account == null) {
-      return null;
-    }
-    try {
-      return getServiceUser.get().apply(
-          new ServiceUserResource(genericUserFactory.create(account.getId())));
-    } catch (ResourceNotFoundException e) {
-      return null;
+    try (ReviewDb db = schema.open())  {
+      Account account = resolver.find(db, committer.toString());
+      if (account == null) {
+        return null;
+      }
+      try {
+        return getServiceUser.get().apply(
+            new ServiceUserResource(genericUserFactory.create(account.getId())));
+      } catch (ResourceNotFoundException e) {
+        return null;
+      }
     }
   }
 
