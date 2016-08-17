@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fb1b23b6_e6defe05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-08-17T14:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b2397ed_87e106c4",
+      "revId": "c9938b3e90552481676a69955563bcd9c10012d5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b2397ed_a7e40ad4",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserResolver.java",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "1b2397ed_c7381e37",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-08-17T14:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b2397ed_a7e40ad4",
+      "range": {
+        "startLine": 82,
+        "startChar": 9,
+        "endLine": 82,
+        "endChar": 15
+      },
+      "revId": "c9938b3e90552481676a69955563bcd9c10012d5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb1b23b6_86b8eab7",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserResolver.java",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2016-08-17T13:31:27Z",
       "side": 1,
       "message": "nit: unneeded blank line",
+      "revId": "c9938b3e90552481676a69955563bcd9c10012d5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb1b23b6_c6db0214",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2016-08-17T14:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb1b23b6_86b8eab7",
       "revId": "c9938b3e90552481676a69955563bcd9c10012d5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
