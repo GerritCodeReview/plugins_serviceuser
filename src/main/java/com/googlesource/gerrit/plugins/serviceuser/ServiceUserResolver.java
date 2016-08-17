@@ -98,8 +98,7 @@ class ServiceUserResolver {
       return Collections.emptyList();
     }
 
-    final ReviewDb db = schema.open();
-    try {
+    try (ReviewDb db = schema.open()) {
       RequestContext context = new RequestContext() {
         @Override
         public CurrentUser getUser() {
@@ -153,8 +152,6 @@ class ServiceUserResolver {
       } finally {
         tl.setContext(old);
       }
-    } finally {
-      db.close();
     }
   }
 
