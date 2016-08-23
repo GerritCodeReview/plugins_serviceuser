@@ -6,15 +6,15 @@ with Gerrit. E.g. a service user is needed to run the
 in Jenkins. A service user is not able to login into the Gerrit WebUI
 and it cannot push commits or tags.
 
-This plugin supports the creation of service users via [SSH](cmd-create.html),
-[REST](rest-api-config.html) and in the [WebUI](#webui).
+This plugin supports the creation of service users via [SSH](cmd-create.md),
+[REST](rest-api-config.md) and in the [WebUI](#webui).
 
 To create a service user a user must be a member of a group that is
 granted the 'Create Service User' capability (provided by this plugin)
 or the 'Administrate Server' capability.
 
 The plugin can be [configured to automatically add new service users to
-groups](config.html#group). This allows to automatically assign or
+groups](config.md#group). This allows to automatically assign or
 block certain access rights for the service users.
 
 For each created service user the plugin stores some

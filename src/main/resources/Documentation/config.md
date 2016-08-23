@@ -79,15 +79,15 @@ administrators have some control over what service users can do.
 
 Every service user for which a public SSH key is uploaded can access
 Gerrit projects via Git over SSH (if the
-[Read](access-control.html#category_read) permission is granted).
+[Read](access-control.md#category_read) permission is granted).
 
 In addition these service users can make use of the Gerrit
-[SSH API](cmd-index.html#user_commands).
+[SSH API](cmd-index.md#user_commands).
 
 E.g. this enables service users to be used for continuous integration
 builds: They can clone projects, fetch open changes and then vote and
 comment on the changes (for voting the corresponding
-[label permission](access-control.html#category_review_labels) must be
+[label permission](access-control.md#category_review_labels) must be
 assigned on the project).
 
 There is no setting to disable SSH access for service users.
@@ -95,7 +95,7 @@ There is no setting to disable SSH access for service users.
 ### Git over HTTP / Access to REST API
 
 To be able to do Git operations over HTTP and to access the Gerrit
-[REST API](rest-api.html) service users must have an HTTP password.
+[REST API](rest-api.md) service users must have an HTTP password.
 
 Gerrit administrators can control by the
 [allowHttpPassword](#allowHttpPassword) plugin configuration parameter
