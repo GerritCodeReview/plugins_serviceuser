@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4be70257_c3ed48ba",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/DeleteActive.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-09-19T09:13:20Z",
+      "side": 1,
+      "message": "This should be moved after import of Response",
+      "revId": "242428e4b6ac4d376f3305942285111021ac3659",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
