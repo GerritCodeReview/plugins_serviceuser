@@ -14,7 +14,8 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.ResourceConflictException;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.account.DeleteActive.Input;
@@ -36,7 +37,7 @@ class DeleteActive implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<?> apply(ServiceUserResource rsrc, Input input)
-      throws ResourceNotFoundException, OrmException, IOException {
+      throws ResourceConflictException, RestApiException, OrmException, IOException {
     return deleteActive.get().apply(rsrc, input);
   }
 }
