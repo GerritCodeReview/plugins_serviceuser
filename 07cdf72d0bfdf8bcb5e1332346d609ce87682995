@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3404fc28_d26ba569",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "Feb 5, 2017 10:03:35 AM",
+      "side": 1,
+      "message": "This hould be:\n\n  @commons_codec//jar:neverlink\n\nOtherwise, this would be included in the sahded JAR. That\u0027s the difference. Why it souldn\u0027t land in the shaded plugin JAR? Because it\u0027s already included in gerrit core.\n\nThat\u0027s why it was included in provided_deps in Buck build:\n\n  provided_deps \u003d [\n    \u0027//lib/commons:codec\u0027,\n  ],\n\nIf unsure, just check if that artifact is included in plugin (it should not):\n\n  $ unzip -t bazel-genfiles/plugins/serviceuser/serviceuser.jar | grep org/apache/commons/codec | wc -l\n  35\n\nWhat you want is this:\n\n  $ unzip -t bazel-genfiles/plugins/serviceuser/serviceuser.jar | grep org/apache/commons/codec | wc -l\n  0\n\nBTW. commons-codec is used for Base64 encoding. This can be done now in native Java.",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "07cdf72d0bfdf8bcb5e1332346d609ce87682995",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
