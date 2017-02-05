@@ -22,6 +22,30 @@
       "revId": "07cdf72d0bfdf8bcb5e1332346d609ce87682995",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2944b277_5dd02c10",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "Feb 5, 2017 10:25:47 AM",
+      "side": 1,
+      "message": "Oh, but it failed for me. When i removed neverlink it worked (by failing i me it showed a warnning saying something about  @commons_codec//jar:neverlink",
+      "parentUuid": "3404fc28_d26ba569",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "07cdf72d0bfdf8bcb5e1332346d609ce87682995",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
