@@ -425,31 +425,6 @@ As response "`204 No Content`" is returned.
 Some realms may not allow to modify the email. In this case the
 request is rejected with "`405 Method Not Allowed`".
 
-### <a id="get-http-password"> Get HTTP password
-GET
-/config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/password.http_
-
-Retrieves the HTTP password of a service user.
-
-#### Request
-
-```
-  GET /config/server/@PLUGIN@~serviceusers/JenkinsVoter/password.http HTTP/1.0
-```
-
-#### Response
-
-```
-  HTTP/1.1 200 OK
-  Content-Disposition: attachment
-  Content-Type: application/json;charset=UTF-8
-
-  )]}'
-  "6A5zoF7Bf2fMggf4R6pO3Bzgchnwl6oBI8+yA3YJUA"
-```
-
-If the service user does not have an HTTP password an empty string is returned.
-
 ### <a id="set-http-password"> Set/Generate HTTP password
 PUT
 /config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/password.http_
