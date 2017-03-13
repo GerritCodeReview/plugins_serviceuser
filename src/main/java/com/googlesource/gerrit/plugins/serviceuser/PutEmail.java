@@ -37,6 +37,8 @@ import com.google.inject.Singleton;
 
 import com.googlesource.gerrit.plugins.serviceuser.PutEmail.Input;
 
+import org.eclipse.jgit.errors.ConfigInvalidException;
+
 import java.io.IOException;
 
 @Singleton
@@ -72,7 +74,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
   public Response<?> apply(ServiceUserResource rsrc, Input input)
       throws AuthException, ResourceNotFoundException,
       ResourceConflictException, MethodNotAllowedException, OrmException,
-      BadRequestException, EmailException, IOException {
+      BadRequestException, ConfigInvalidException, EmailException, IOException {
     Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
     if ((emailAllowed == null || !emailAllowed)
         && !self.get().getCapabilities().canAdministrateServer()) {
