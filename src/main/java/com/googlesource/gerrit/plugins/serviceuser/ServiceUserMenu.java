@@ -14,14 +14,20 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
+
 import com.google.common.collect.Lists;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.client.MenuItem;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.webui.TopMenu;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.CapabilityControl;
 import com.google.gerrit.server.config.ConfigResource;
+import com.google.gerrit.server.permissions.GlobalPermission;
+import com.google.gerrit.server.permissions.PermissionBackend;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -33,15 +39,18 @@ class ServiceUserMenu implements TopMenu {
   private final Provider<CurrentUser> userProvider;
   private final List<MenuEntry> menuEntries;
   private final Provider<ListServiceUsers> listServiceUsers;
+  private final PermissionBackend permissionBackend;
 
   @Inject
   ServiceUserMenu(@PluginName String pluginName,
       Provider<CurrentUser> userProvider,
-      Provider<ListServiceUsers> listServiceUsers) {
+      Provider<ListServiceUsers> listServiceUsers,
+      PermissionBackend permissionBackend) throws PermissionBackendException {
     this.pluginName = pluginName;
     this.userProvider = userProvider;
     this.listServiceUsers = listServiceUsers;
     menuEntries = Lists.newArrayList();
+    this.permissionBackend = permissionBackend;
 
     List<MenuItem> peopleItems = Lists.newArrayListWithExpectedSize(2);
     if (canCreateServiceUser()) {
@@ -57,15 +66,15 @@ class ServiceUserMenu implements TopMenu {
 
   private boolean canCreateServiceUser() {
     if (userProvider.get().isIdentifiedUser()) {
-      CapabilityControl ctl = userProvider.get().getCapabilities();
-      return ctl.canPerform(pluginName + "-" + CreateServiceUserCapability.ID)
-          || ctl.canAdministrateServer();
+      return permissionBackend.user(userProvider).testOrFalse(
+        new PluginPermission(pluginName, CreateServiceUserCapability.ID)) &&
+          permissionBackend.user(userProvider).testOrFalse(ADMINISTRATE_SERVER);
     } else {
       return false;
     }
   }
 
-  private boolean hasServiceUser() {
+  private boolean hasServiceUser() throws PermissionBackendException {
     try {
       return !listServiceUsers.get().apply(new ConfigResource()).isEmpty();
     } catch (AuthException | OrmException e) {
