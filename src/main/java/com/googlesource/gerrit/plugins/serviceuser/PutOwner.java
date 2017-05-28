@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
@@ -22,6 +23,7 @@ import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.common.data.GroupDescriptions;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;
+import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.DefaultInput;
 import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
@@ -35,6 +37,8 @@ import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.group.GroupJson;
 import com.google.gerrit.server.group.GroupsCollection;
+import com.google.gerrit.server.permissions.PermissionBackend;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -63,12 +67,13 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final GroupJson json;
   private final Provider<CurrentUser> self;
+  private final PermissionBackend permissionBackend;
 
   @Inject
   PutOwner(Provider<GetConfig> getConfig, GroupsCollection groups,
       @PluginName String pluginName, ProjectCache projectCache,
       MetaDataUpdate.User metaDataUpdateFactory, GroupJson json,
-      Provider<CurrentUser> self) {
+      Provider<CurrentUser> self, PermissionBackend permissionBackend) {
     this.getConfig = getConfig;
     this.groups = groups;
     this.pluginName = pluginName;
@@ -77,17 +82,18 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.json = json;
     this.self = self;
+    this.permissionBackend = permissionBackend;
   }
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
       throws UnprocessableEntityException, RepositoryNotFoundException,
-      MethodNotAllowedException, IOException, OrmException, ResourceConflictException {
+      MethodNotAllowedException, IOException, OrmException, ResourceConflictException,
+      AuthException, PermissionBackendException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     Boolean ownerAllowed = getConfig.get().apply(new ConfigResource()).allowOwner;
-    if ((ownerAllowed == null || !ownerAllowed)
-        && !self.get().getCapabilities().canAdministrateServer()) {
-      throw new ResourceConflictException("setting owner not allowed");
+    if ((ownerAllowed == null || !ownerAllowed)) {
+      permissionBackend.user(self).check(ADMINISTRATE_SERVER);
     }
 
     if (input == null) {
