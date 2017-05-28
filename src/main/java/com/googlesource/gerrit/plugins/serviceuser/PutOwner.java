@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
@@ -35,6 +36,7 @@ import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.group.GroupJson;
 import com.google.gerrit.server.group.GroupsCollection;
+import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -63,12 +65,13 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final GroupJson json;
   private final Provider<CurrentUser> self;
+  private final PermissionBackend permissionBackend;
 
   @Inject
   PutOwner(Provider<GetConfig> getConfig, GroupsCollection groups,
       @PluginName String pluginName, ProjectCache projectCache,
       MetaDataUpdate.User metaDataUpdateFactory, GroupJson json,
-      Provider<CurrentUser> self) {
+      Provider<CurrentUser> self, PermissionBackend permissionBackend) {
     this.getConfig = getConfig;
     this.groups = groups;
     this.pluginName = pluginName;
@@ -77,6 +80,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.json = json;
     this.self = self;
+    this.permissionBackend = permissionBackend;
   }
 
   @Override
@@ -85,9 +89,8 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       MethodNotAllowedException, IOException, OrmException, ResourceConflictException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     Boolean ownerAllowed = getConfig.get().apply(new ConfigResource()).allowOwner;
-    if ((ownerAllowed == null || !ownerAllowed)
-        && !self.get().getCapabilities().canAdministrateServer()) {
-      throw new ResourceConflictException("setting owner not allowed");
+    if ((ownerAllowed == null || !ownerAllowed)) {
+      permissionBackend.user(self).check(ADMINISTRATE_SERVER);
     }
 
     if (input == null) {

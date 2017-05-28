@@ -13,6 +13,8 @@
 // limitations under the License.
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
+
 import com.google.common.base.Strings;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
@@ -21,6 +23,7 @@ import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.ConfigResource;
+import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -58,14 +61,16 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
   private final Provider<GetConfig> getConfig;
   private final com.google.gerrit.server.account.PutHttpPassword putHttpPassword;
   private final Provider<CurrentUser> self;
+  private final PermissionBackend permissionBackend;
 
   @Inject
   PutHttpPassword(Provider<GetConfig> getConfig,
       com.google.gerrit.server.account.PutHttpPassword putHttpPassword,
-      Provider<CurrentUser> self) {
+      Provider<CurrentUser> self, PermissionBackend permissionBackend) {
     this.getConfig = getConfig;
     this.putHttpPassword = putHttpPassword;
     this.self = self;
+    this.permissionBackend = permissionBackend;
   }
 
   @Override
@@ -79,12 +84,11 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
 
     Boolean httpPasswordAllowed = getConfig.get().apply(new ConfigResource()).allowHttpPassword;
     if (input.generate || input.httpPassword == null) {
-      if ((httpPasswordAllowed == null || !httpPasswordAllowed)
-          && !self.get().getCapabilities().canAdministrateServer()) {
-        throw new ResourceConflictException("not allowed to generate HTTP password");
+      if ((httpPasswordAllowed == null || !httpPasswordAllowed)) {
+        permissionBackend.user(self).check(ADMINISTRATE_SERVER);
       }
     } else {
-      if (!self.get().getCapabilities().canAdministrateServer()) {
+      if (!permissionBackend.user(self).check(ADMINISTRATE_SERVER)) {
         throw new AuthException("not allowed to set HTTP password directly, "
             + "requires the Administrate Server permission");
       }
