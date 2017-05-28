@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
+
 import com.google.common.base.Strings;
 import com.google.gerrit.common.errors.EmailException;
 import com.google.gerrit.extensions.restapi.AuthException;
@@ -30,6 +32,7 @@ import com.google.gerrit.server.account.CreateEmail;
 import com.google.gerrit.server.account.DeleteEmail;
 import com.google.gerrit.server.account.PutPreferred;
 import com.google.gerrit.server.config.ConfigResource;
+import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -54,6 +57,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<DeleteEmail> deleteEmail;
   private final Provider<PutPreferred> putPreferred;
   private final Provider<CurrentUser> self;
+  private final PermissionBackend permissionBackend;
 
   @Inject
   PutEmail(Provider<GetConfig> getConfig,
@@ -61,13 +65,15 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       Provider<CreateEmail.Factory> createEmailFactory,
       Provider<DeleteEmail> deleteEmail,
       Provider<PutPreferred> putPreferred,
-      Provider<CurrentUser> self) {
+      Provider<CurrentUser> self,
+      PermissionBackend permissionBackend) {
     this.getConfig = getConfig;
     this.getEmail = getEmail;
     this.createEmailFactory = createEmailFactory;
     this.deleteEmail = deleteEmail;
     this.putPreferred = putPreferred;
     this.self = self;
+    this.permissionBackend = permissionBackend;
   }
 
   @Override
@@ -76,9 +82,8 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       ResourceConflictException, MethodNotAllowedException, OrmException,
       BadRequestException, ConfigInvalidException, EmailException, IOException {
     Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
-    if ((emailAllowed == null || !emailAllowed)
-        && !self.get().getCapabilities().canAdministrateServer()) {
-      throw new ResourceConflictException("setting email not allowed");
+    if ((emailAllowed == null || !emailAllowed)) {
+      permissionBackend.user(self).check(ADMINISTRATE_SERVER);
     }
 
     String email = getEmail.get().apply(rsrc);
