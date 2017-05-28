@@ -19,6 +19,7 @@ import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.account.DeleteSshKey.Input;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -43,7 +44,8 @@ class DeleteSshKey
   @Override
   public Response<?> apply(ServiceUserResource.SshKey rsrc, Input input)
       throws OrmException, AuthException, RepositoryNotFoundException,
-      IOException, ConfigInvalidException {
+      IOException, ConfigInvalidException,
+      PermissionBackendException {
     return deleteSshKey.get().apply(
         new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
   }
