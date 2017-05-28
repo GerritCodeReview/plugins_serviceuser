@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "886b3100_c4d8080e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutHttpPassword.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2017-05-28T16:30:19Z",
+      "side": 1,
+      "message": "check returns void and throws AuthException when denied.",
+      "range": {
+        "startLine": 91,
+        "startChar": 69,
+        "endLine": 91,
+        "endChar": 0
+      },
+      "revId": "1272944a8a7a0cb8a8ff378f18bbbda687ea18ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "456cb64b_0901ec2a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2017-05-28T16:30:19Z",
+      "side": 1,
+      "message": "check returns void and throws AuthException when denied.",
+      "range": {
+        "startLine": 93,
+        "startChar": 75,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "1272944a8a7a0cb8a8ff378f18bbbda687ea18ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3eea3f5_78de78b9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserMenu.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2017-05-28T16:30:19Z",
+      "side": 1,
+      "message": "testOrFalse",
+      "range": {
+        "startLine": 69,
+        "startChar": 50,
+        "endLine": 69,
+        "endChar": 54
+      },
+      "revId": "1272944a8a7a0cb8a8ff378f18bbbda687ea18ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "773bc38b_926c2d61",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserMenu.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001240
+      },
+      "writtenOn": "2017-05-28T16:30:19Z",
+      "side": 1,
+      "message": "testOrFalse",
+      "range": {
+        "startLine": 71,
+        "startChar": 47,
+        "endLine": 71,
+        "endChar": 52
+      },
+      "revId": "1272944a8a7a0cb8a8ff378f18bbbda687ea18ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
