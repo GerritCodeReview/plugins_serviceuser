@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATOR_ID;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
@@ -35,6 +36,7 @@ import com.google.gerrit.server.account.AccountsCollection;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.group.GroupsCollection;
+import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -54,13 +56,15 @@ class ServiceUserCollection implements
   private final ProjectCache projectCache;
   private final Provider<CurrentUser> userProvider;
   private final GroupsCollection groups;
+  private final PermissionBackend permissionBackend;
 
   @Inject
   ServiceUserCollection(DynamicMap<RestView<ServiceUserResource>> views,
       CreateServiceUser.Factory createServiceUserFactory,
       Provider<ListServiceUsers> list, Provider<AccountsCollection> accounts,
       @PluginName String pluginName, ProjectCache projectCache,
-      Provider<CurrentUser> userProvider, GroupsCollection groups) {
+      Provider<CurrentUser> userProvider, GroupsCollection groups,
+      PermissionBackend permissionBackend) {
     this.views = views;
     this.createServiceUserFactory = createServiceUserFactory;
     this.list = list;
@@ -69,6 +73,7 @@ class ServiceUserCollection implements
     this.projectCache = projectCache;
     this.userProvider = userProvider;
     this.groups = groups;
+    this.permissionBackend = permissionBackend;
   }
 
   @Override
@@ -85,21 +90,20 @@ class ServiceUserCollection implements
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("Authentication required");
     }
-    if (!user.getCapabilities().canAdministrateServer()) {
-      String owner = storage.get().getString(USER, id.get(), KEY_OWNER);
-      if (owner != null) {
-        try {
-          GroupDescription.Basic group = groups.parse(owner);
-          if (!user.getEffectiveGroups().contains(group.getGroupUUID())) {
-            throw new ResourceNotFoundException(id);
-          }
-        } catch (UnprocessableEntityException e) {
+    permissionBackend.user(userProvider).check(ADMINISTRATE_SERVER);
+    String owner = storage.get().getString(USER, id.get(), KEY_OWNER);
+    if (owner != null) {
+      try {
+        GroupDescription.Basic group = groups.parse(owner);
+        if (!user.getEffectiveGroups().contains(group.getGroupUUID())) {
           throw new ResourceNotFoundException(id);
         }
-      } else if (!((IdentifiedUser)user).getAccountId().equals(
-          new Account.Id(storage.get().getInt(USER, id.get(), KEY_CREATOR_ID, -1)))) {
+      } catch (UnprocessableEntityException e) {
         throw new ResourceNotFoundException(id);
       }
+    } else if (!((IdentifiedUser)user).getAccountId().equals(
+        new Account.Id(storage.get().getInt(USER, id.get(), KEY_CREATOR_ID, -1)))) {
+      throw new ResourceNotFoundException(id);
     }
     return new ServiceUserResource(serviceUser);
   }
