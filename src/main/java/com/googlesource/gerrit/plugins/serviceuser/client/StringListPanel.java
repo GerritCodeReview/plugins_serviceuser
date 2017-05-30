@@ -32,7 +32,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwtexpui.globalkey.client.NpTextBox;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -44,40 +43,40 @@ public class StringListPanel extends FlowPanel {
   private final HorizontalPanel titlePanel;
   private Image info;
 
-  StringListPanel(String title, String fieldName, JsArrayString values,
-      final FocusWidget w) {
+  StringListPanel(String title, String fieldName, JsArrayString values, final FocusWidget w) {
     this(title, fieldName, Natives.asList(values), w);
   }
 
-  StringListPanel(String title, String fieldName, Collection<String> values,
-      final FocusWidget w) {
+  StringListPanel(String title, String fieldName, Collection<String> values, final FocusWidget w) {
     titlePanel = new HorizontalPanel();
     Label titleLabel = new Label(title);
     titleLabel.setStyleName("serviceuser-smallHeading");
     titlePanel.add(titleLabel);
     add(titlePanel);
     input = new NpTextBox();
-    input.addKeyPressHandler(new KeyPressHandler() {
-      @Override
-      public void onKeyPress(KeyPressEvent event) {
-        if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
-          w.setEnabled(true);
-          add();
-        }
-      }
-    });
+    input.addKeyPressHandler(
+        new KeyPressHandler() {
+          @Override
+          public void onKeyPress(KeyPressEvent event) {
+            if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+              w.setEnabled(true);
+              add();
+            }
+          }
+        });
     HorizontalPanel p = new HorizontalPanel();
     p.add(input);
     Button addButton = new Button("Add");
     addButton.setEnabled(false);
     new OnEditEnabler(addButton, input);
-    addButton.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        w.setEnabled(true);
-        add();
-      }
-    });
+    addButton.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(ClickEvent event) {
+            w.setEnabled(true);
+            add();
+          }
+        });
     p.add(addButton);
     add(p);
 
@@ -87,13 +86,14 @@ public class StringListPanel extends FlowPanel {
     deleteButton = new Button("Delete");
     deleteButton.setEnabled(false);
     add(deleteButton);
-    deleteButton.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        w.setEnabled(true);
-        t.deleteChecked();
-      }
-    });
+    deleteButton.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(ClickEvent event) {
+            w.setEnabled(true);
+            t.deleteChecked();
+          }
+        });
 
     t.display(values);
   }
@@ -154,12 +154,13 @@ public class StringListPanel extends FlowPanel {
       fmt.addStyleName(row, 1, "dataCell");
 
       CheckBox checkBox = new CheckBox();
-      checkBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-        @Override
-        public void onValueChange(ValueChangeEvent<Boolean> event) {
-          enableDelete();
-        }
-      });
+      checkBox.addValueChangeHandler(
+          new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+              enableDelete();
+            }
+          });
       setWidget(row, 0, checkBox);
       setText(row, 1, value);
     }
@@ -168,7 +169,7 @@ public class StringListPanel extends FlowPanel {
       int insertPos = getRowCount();
       for (int row = 1; row < getRowCount(); row++) {
         int compareResult = v.compareTo(getText(row, 1));
-        if (compareResult < 0)  {
+        if (compareResult < 0) {
           insertPos = row;
           break;
         } else if (compareResult == 0) {

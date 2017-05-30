@@ -21,15 +21,13 @@ import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
-
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.Option;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
 
 @RequiresCapability(CreateServiceUserCapability.ID)
 @CommandMetaData(name = "create", description = "Create Service User")
@@ -38,15 +36,18 @@ class CreateServiceUserCommand extends SshCommand {
   @Argument(index = 0, required = true, metaVar = "USERNAME", usage = "name of the service user")
   private String username;
 
-  @Option(name = "--ssh-key", required = true, metaVar = "-|KEY", usage = "public key for SSH authentication")
+  @Option(
+    name = "--ssh-key",
+    required = true,
+    metaVar = "-|KEY",
+    usage = "public key for SSH authentication"
+  )
   private String sshKey;
 
-  @Inject
-  private CreateServiceUser.Factory createServiceUser;
+  @Inject private CreateServiceUser.Factory createServiceUser;
 
   @Override
-  protected void run() throws OrmException, IOException, UnloggedFailure,
-      ConfigInvalidException {
+  protected void run() throws OrmException, IOException, UnloggedFailure, ConfigInvalidException {
     CreateServiceUser.Input input = new CreateServiceUser.Input();
     input.sshKey = readSshKey();
 
@@ -63,8 +64,7 @@ class CreateServiceUserCommand extends SshCommand {
     }
     if ("-".equals(sshKey)) {
       sshKey = "";
-      BufferedReader br =
-          new BufferedReader(new InputStreamReader(in, "UTF-8"));
+      BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
       String line;
       while ((line = br.readLine()) != null) {
         sshKey += line + "\n";

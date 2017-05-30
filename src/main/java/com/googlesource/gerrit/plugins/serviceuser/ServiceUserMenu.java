@@ -29,7 +29,6 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
 import java.util.List;
 
 class ServiceUserMenu implements TopMenu {
@@ -40,10 +39,12 @@ class ServiceUserMenu implements TopMenu {
   private final PermissionBackend permissionBackend;
 
   @Inject
-  ServiceUserMenu(@PluginName String pluginName,
+  ServiceUserMenu(
+      @PluginName String pluginName,
       Provider<CurrentUser> userProvider,
       Provider<ListServiceUsers> listServiceUsers,
-      PermissionBackend permissionBackend) throws PermissionBackendException {
+      PermissionBackend permissionBackend)
+      throws PermissionBackendException {
     this.pluginName = pluginName;
     this.userProvider = userProvider;
     this.listServiceUsers = listServiceUsers;
@@ -64,9 +65,10 @@ class ServiceUserMenu implements TopMenu {
 
   private boolean canCreateServiceUser() {
     if (userProvider.get().isIdentifiedUser()) {
-      return permissionBackend.user(userProvider).testOrFalse(
-        new PluginPermission(pluginName, CreateServiceUserCapability.ID)) &&
-          permissionBackend.user(userProvider).testOrFalse(ADMINISTRATE_SERVER);
+      return permissionBackend
+              .user(userProvider)
+              .testOrFalse(new PluginPermission(pluginName, CreateServiceUserCapability.ID))
+          && permissionBackend.user(userProvider).testOrFalse(ADMINISTRATE_SERVER);
     } else {
       return false;
     }

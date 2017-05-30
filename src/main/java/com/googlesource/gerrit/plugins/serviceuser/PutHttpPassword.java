@@ -29,17 +29,12 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
 import com.googlesource.gerrit.plugins.serviceuser.PutHttpPassword.Input;
-
-import org.apache.commons.codec.binary.Base64;
-
-import org.eclipse.jgit.errors.ConfigInvalidException;
-
 import java.io.IOException;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import org.apache.commons.codec.binary.Base64;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 public class PutHttpPassword implements RestModifyView<ServiceUserResource, Input> {
@@ -65,9 +60,11 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
   private final PermissionBackend permissionBackend;
 
   @Inject
-  PutHttpPassword(Provider<GetConfig> getConfig,
+  PutHttpPassword(
+      Provider<GetConfig> getConfig,
       com.google.gerrit.server.account.PutHttpPassword putHttpPassword,
-      Provider<CurrentUser> self, PermissionBackend permissionBackend) {
+      Provider<CurrentUser> self,
+      PermissionBackend permissionBackend) {
     this.getConfig = getConfig;
     this.putHttpPassword = putHttpPassword;
     this.self = self;
@@ -77,7 +74,7 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
   @Override
   public Response<String> apply(ServiceUserResource rsrc, Input input)
       throws AuthException, ResourceConflictException, ConfigInvalidException,
-      ResourceNotFoundException, OrmException, IOException, PermissionBackendException {
+          ResourceNotFoundException, OrmException, IOException, PermissionBackendException {
     if (input == null) {
       input = new Input();
     }

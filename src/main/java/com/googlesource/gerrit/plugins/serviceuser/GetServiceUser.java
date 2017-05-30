@@ -34,7 +34,6 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
 import org.eclipse.jgit.lib.Config;
 
 @Singleton
@@ -46,9 +45,12 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   private final AccountLoader.Factory accountLoader;
 
   @Inject
-  GetServiceUser(Provider<GetAccount> getAccount,
-      @PluginName String pluginName, ProjectCache projectCache,
-      GetOwner getOwner, AccountLoader.Factory accountLoader) {
+  GetServiceUser(
+      Provider<GetAccount> getAccount,
+      @PluginName String pluginName,
+      ProjectCache projectCache,
+      GetOwner getOwner,
+      AccountLoader.Factory accountLoader) {
     this.getAccount = getAccount;
     this.pluginName = pluginName;
     this.projectCache = projectCache;
@@ -68,8 +70,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
 
     ServiceUserInfo info = new ServiceUserInfo(getAccount.get().apply(rsrc));
     AccountLoader al = accountLoader.create(true);
-    info.createdBy =
-        al.get(new Account.Id(db.getInt(USER, username, KEY_CREATOR_ID, -1)));
+    info.createdBy = al.get(new Account.Id(db.getInt(USER, username, KEY_CREATOR_ID, -1)));
     al.fill();
     info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
     info.inactive = !rsrc.getUser().getAccount().isActive() ? true : null;

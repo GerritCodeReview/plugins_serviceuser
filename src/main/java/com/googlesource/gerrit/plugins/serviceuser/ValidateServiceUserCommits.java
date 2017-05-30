@@ -24,13 +24,10 @@ import com.google.gerrit.server.git.validators.CommitValidationMessage;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
-
-import org.eclipse.jgit.lib.PersonIdent;
-
 import java.util.Collections;
 import java.util.List;
+import org.eclipse.jgit.lib.PersonIdent;
 
 @Singleton
 class ValidateServiceUserCommits implements CommitValidationListener {
@@ -38,36 +35,37 @@ class ValidateServiceUserCommits implements CommitValidationListener {
   private final AccountCache accountCache;
 
   @Inject
-  ValidateServiceUserCommits(ServiceUserResolver serviceUserResolver,
-      AccountCache accountCache) {
+  ValidateServiceUserCommits(ServiceUserResolver serviceUserResolver, AccountCache accountCache) {
     this.serviceUserResolver = serviceUserResolver;
     this.accountCache = accountCache;
   }
 
   @Override
-  public List<CommitValidationMessage> onCommitReceived(
-      CommitReceivedEvent receiveEvent) throws CommitValidationException {
+  public List<CommitValidationMessage> onCommitReceived(CommitReceivedEvent receiveEvent)
+      throws CommitValidationException {
     try {
       PersonIdent committer = receiveEvent.commit.getCommitterIdent();
-      ServiceUserInfo serviceUser =
-          serviceUserResolver.getAsServiceUser(committer);
+      ServiceUserInfo serviceUser = serviceUserResolver.getAsServiceUser(committer);
       if (serviceUser != null) {
         if (serviceUser.owner != null
             && serviceUserResolver.listActiveOwners(serviceUser).isEmpty()) {
-          throw new CommitValidationException(String.format(
-              "Commit %s of service user %s (%s) is rejected because "
-              + "all service user owner accounts are inactive.",
-              receiveEvent.commit.getId().getName(), committer.getName(),
-              committer.getEmailAddress()));
+          throw new CommitValidationException(
+              String.format(
+                  "Commit %s of service user %s (%s) is rejected because "
+                      + "all service user owner accounts are inactive.",
+                  receiveEvent.commit.getId().getName(),
+                  committer.getName(),
+                  committer.getEmailAddress()));
         } else {
-          AccountState creator = accountCache.get(
-              new Account.Id(serviceUser.createdBy._accountId));
+          AccountState creator = accountCache.get(new Account.Id(serviceUser.createdBy._accountId));
           if (creator == null || !creator.getAccount().isActive()) {
-            throw new CommitValidationException(String.format(
-                "Commit %s of service user %s (%s) is rejected because "
-                + "the account of the service creator is inactive.",
-                receiveEvent.commit.getId().getName(), committer.getName(),
-                committer.getEmailAddress()));
+            throw new CommitValidationException(
+                String.format(
+                    "Commit %s of service user %s (%s) is rejected because "
+                        + "the account of the service creator is inactive.",
+                    receiveEvent.commit.getId().getName(),
+                    committer.getName(),
+                    committer.getEmailAddress()));
           }
         }
       }

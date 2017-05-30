@@ -25,19 +25,16 @@ import com.google.gerrit.server.git.WorkQueue;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
+import java.io.IOException;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-
 @Singleton
 class RefUpdateListener implements GitReferenceUpdatedListener {
-  private static final Logger log = LoggerFactory
-      .getLogger(RefUpdateListener.class);
+  private static final Logger log = LoggerFactory.getLogger(RefUpdateListener.class);
 
   private final CreateServiceUserNotes.Factory serviceUserNotesFactory;
   private final GitRepositoryManager repoManager;
@@ -46,9 +43,12 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
   private final String pluginName;
 
   @Inject
-  RefUpdateListener(CreateServiceUserNotes.Factory serviceUserNotesFactory,
-      GitRepositoryManager repoManager, WorkQueue workQueue,
-      PluginConfigFactory cfgFactory, @PluginName String pluginName) {
+  RefUpdateListener(
+      CreateServiceUserNotes.Factory serviceUserNotesFactory,
+      GitRepositoryManager repoManager,
+      WorkQueue workQueue,
+      PluginConfigFactory cfgFactory,
+      @PluginName String pluginName) {
     this.serviceUserNotesFactory = serviceUserNotesFactory;
     this.repoManager = repoManager;
     this.workQueue = workQueue;
@@ -63,32 +63,33 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
       return;
     }
 
-    Runnable task = new ProjectRunnable() {
-      @Override
-      public void run() {
-        createServiceUserNotes(event);
-      }
+    Runnable task =
+        new ProjectRunnable() {
+          @Override
+          public void run() {
+            createServiceUserNotes(event);
+          }
 
-      @Override
-      public Project.NameKey getProjectNameKey() {
-        return new Project.NameKey(event.getProjectName());
-      }
+          @Override
+          public Project.NameKey getProjectNameKey() {
+            return new Project.NameKey(event.getProjectName());
+          }
 
-      @Override
-      public String getRemoteName() {
-        return null;
-      }
+          @Override
+          public String getRemoteName() {
+            return null;
+          }
 
-      @Override
-      public boolean hasCustomizedPrint() {
-        return true;
-      }
+          @Override
+          public boolean hasCustomizedPrint() {
+            return true;
+          }
 
-      @Override
-      public String toString() {
-        return "create-service-user-notes";
-      }
-    };
+          @Override
+          public String toString() {
+            return "create-service-user-notes";
+          }
+        };
     if (cfg.getBoolean("createNotesAsync", false)) {
       workQueue.getDefaultQueue().submit(task);
     } else {
@@ -98,10 +99,10 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
 
   private void createServiceUserNotes(Event e) {
     Project.NameKey projectName = new Project.NameKey(e.getProjectName());
-    try (Repository git = repoManager.openRepository(projectName)){
-      CreateServiceUserNotes crn = serviceUserNotesFactory.create(
-          projectName, git);
-      crn.createNotes(e.getRefName(),
+    try (Repository git = repoManager.openRepository(projectName)) {
+      CreateServiceUserNotes crn = serviceUserNotesFactory.create(projectName, git);
+      crn.createNotes(
+          e.getRefName(),
           ObjectId.fromString(e.getOldObjectId()),
           ObjectId.fromString(e.getNewObjectId()));
       crn.commitNotes();

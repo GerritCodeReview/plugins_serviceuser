@@ -16,7 +16,6 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.common.base.Strings;
 import com.google.gerrit.extensions.common.AccountInfo;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,8 +30,7 @@ class HeaderFormatter {
 
   HeaderFormatter(TimeZone tz, String anonymousCowardName) {
     this.anonymousCowardName = anonymousCowardName;
-    rfc2822DateFormatter =
-        new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+    rfc2822DateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
     rfc2822DateFormatter.setCalendar(Calendar.getInstance(tz, Locale.US));
   }
 
@@ -41,8 +39,7 @@ class HeaderFormatter {
   }
 
   void appendDate() {
-    sb.append("Date: ").append(rfc2822DateFormatter.format(new Date()))
-        .append("\n");
+    sb.append("Date: ").append(rfc2822DateFormatter.format(new Date())).append("\n");
   }
 
   void appendUser(String key, AccountInfo user) {

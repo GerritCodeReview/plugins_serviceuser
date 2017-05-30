@@ -28,16 +28,13 @@ import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import com.googlesource.gerrit.plugins.serviceuser.PutConfig.Input;
-
+import java.io.IOException;
+import java.util.List;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.util.FS;
-
-import java.io.IOException;
-import java.util.List;
 
 @RequiresCapability(GlobalCapability.ADMINISTRATE_SERVER)
 @Singleton
@@ -60,8 +57,11 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
   private final GroupCache groupCache;
 
   @Inject
-  PutConfig(PluginConfigFactory cfgFactory, SitePaths sitePaths,
-      @PluginName String pluginName, GroupCache groupCache) {
+  PutConfig(
+      PluginConfigFactory cfgFactory,
+      SitePaths sitePaths,
+      @PluginName String pluginName,
+      GroupCache groupCache) {
     this.cfgFactory = cfgFactory;
     this.sitePaths = sitePaths;
     this.pluginName = pluginName;
@@ -71,16 +71,13 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
   @Override
   public Response<String> apply(ConfigResource rsrc, Input input)
       throws IOException, ConfigInvalidException, UnprocessableEntityException {
-    FileBasedConfig cfg =
-        new FileBasedConfig(sitePaths.gerrit_config.toFile(), FS.DETECTED);
+    FileBasedConfig cfg = new FileBasedConfig(sitePaths.gerrit_config.toFile(), FS.DETECTED);
     cfg.load();
     if (input.info != null) {
-      cfg.setString("plugin", pluginName, "infoMessage",
-          Strings.emptyToNull(input.info));
+      cfg.setString("plugin", pluginName, "infoMessage", Strings.emptyToNull(input.info));
     }
     if (input.onSuccess != null) {
-      cfg.setString("plugin", pluginName, "onSuccessMessage",
-          Strings.emptyToNull(input.onSuccess));
+      cfg.setString("plugin", pluginName, "onSuccessMessage", Strings.emptyToNull(input.onSuccess));
     }
     if (input.allowEmail != null) {
       setBoolean(cfg, "allowEmail", input.allowEmail);
@@ -103,15 +100,14 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
     if (input.groups != null) {
       for (String g : input.groups) {
         if (groupCache.get(new AccountGroup.NameKey(g)) == null) {
-          throw new UnprocessableEntityException(
-              String.format("Group %s does not exist.", g));
+          throw new UnprocessableEntityException(String.format("Group %s does not exist.", g));
         }
       }
       cfg.setStringList("plugin", pluginName, "group", input.groups);
     }
     cfg.save();
     cfgFactory.getFromGerritConfig(pluginName, true);
-    return Response.<String> ok("OK");
+    return Response.<String>ok("OK");
   }
 
   private void setBoolean(Config cfg, String name, boolean value) {

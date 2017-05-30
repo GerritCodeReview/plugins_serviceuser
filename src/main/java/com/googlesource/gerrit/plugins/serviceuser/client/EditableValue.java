@@ -65,44 +65,48 @@ public abstract class EditableValue extends FlowPanel {
     OnEditEnabler e = new OnEditEnabler(save);
     e.listenTo(input);
 
-    edit.addClickHandler(new  ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        labelWidget.setVisible(false);
-        edit.setVisible(false);
-        input.setVisible(true);
-        input.setFocus(true);
-        save.setVisible(true);
-        if (warning != null) {
-          warning.setVisible(true);
-        }
-        cancel.setVisible(true);
-      }
-    });
-    save.addClickHandler(new  ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        save.setEnabled(false);
-        save(serviceUser, input.getValue().trim());
-      }
-    });
-    input.addKeyPressHandler(new KeyPressHandler() {
-      @Override
-      public void onKeyPress(KeyPressEvent event) {
-        if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
-          save.setEnabled(false);
-          save(serviceUser, input.getValue().trim());
-        } else if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ESCAPE) {
-          cancel();
-        }
-      }
-    });
-    cancel.addClickHandler(new  ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        cancel();
-      }
-    });
+    edit.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(ClickEvent event) {
+            labelWidget.setVisible(false);
+            edit.setVisible(false);
+            input.setVisible(true);
+            input.setFocus(true);
+            save.setVisible(true);
+            if (warning != null) {
+              warning.setVisible(true);
+            }
+            cancel.setVisible(true);
+          }
+        });
+    save.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(ClickEvent event) {
+            save.setEnabled(false);
+            save(serviceUser, input.getValue().trim());
+          }
+        });
+    input.addKeyPressHandler(
+        new KeyPressHandler() {
+          @Override
+          public void onKeyPress(KeyPressEvent event) {
+            if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+              save.setEnabled(false);
+              save(serviceUser, input.getValue().trim());
+            } else if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ESCAPE) {
+              cancel();
+            }
+          }
+        });
+    cancel.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(ClickEvent event) {
+            cancel();
+          }
+        });
 
     add(labelWidget);
     add(edit);
@@ -116,9 +120,9 @@ public abstract class EditableValue extends FlowPanel {
     edit.setVisible(true);
     input.setVisible(false);
     if (labelWidget instanceof Label) {
-      input.setValue(((Label)labelWidget).getText());
+      input.setValue(((Label) labelWidget).getText());
     } else {
-      input.setValue(((Anchor)labelWidget).getText());
+      input.setValue(((Anchor) labelWidget).getText());
     }
     save.setVisible(false);
     save.setEnabled(false);
@@ -139,9 +143,9 @@ public abstract class EditableValue extends FlowPanel {
 
   protected void updateValue(String newValue) {
     if (labelWidget instanceof Label) {
-      ((Label)labelWidget).setText(newValue);
+      ((Label) labelWidget).setText(newValue);
     } else {
-      ((Anchor)labelWidget).setText(newValue);
+      ((Anchor) labelWidget).setText(newValue);
     }
     labelWidget.setVisible(true);
     edit.setVisible(true);
@@ -157,7 +161,7 @@ public abstract class EditableValue extends FlowPanel {
 
   protected void updateHref(String newHref) {
     if (labelWidget instanceof Anchor) {
-      ((Anchor)labelWidget).setHref(newHref);
+      ((Anchor) labelWidget).setHref(newHref);
     }
   }
 
