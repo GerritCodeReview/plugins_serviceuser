@@ -316,9 +316,8 @@ public class ServiceUserScreen extends VerticalPanel {
           });
       p.add(generate);
       return p;
-    } else {
-      return new CopyableLabel(httpPassword);
     }
+    return new CopyableLabel(httpPassword);
   }
 
   private Widget createOwnerWidget(ServiceUserInfo info, boolean allowOwner) {
@@ -372,13 +371,11 @@ public class ServiceUserScreen extends VerticalPanel {
       }
       ownerWidget.setWarning(ownerWarning.toString());
       return ownerWidget;
-    } else {
-      if (info.owner() != null && info.owner().url() != null) {
-        return new Anchor(info.owner().name(), info.owner().url());
-      } else {
-        return new Label(info.owner() != null ? info.owner().name() : "");
-      }
     }
+    if (info.owner() != null && info.owner().url() != null) {
+      return new Anchor(info.owner().name(), info.owner().url());
+    }
+    return new Label(info.owner() != null ? info.owner().name() : "");
   }
 
   private static class MyTable extends FlexTable {

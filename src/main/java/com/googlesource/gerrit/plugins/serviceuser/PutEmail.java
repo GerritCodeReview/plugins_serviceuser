@@ -88,9 +88,8 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
     if (Strings.emptyToNull(input.email) == null) {
       if (Strings.emptyToNull(email) == null) {
         return Response.none();
-      } else {
-        return deleteEmail.get().apply(rsrc.getUser(), email);
       }
+      return deleteEmail.get().apply(rsrc.getUser(), email);
     } else if (email != null && email.equals(input.email)) {
       return Response.ok(email);
     } else {

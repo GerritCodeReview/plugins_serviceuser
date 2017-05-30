@@ -69,9 +69,8 @@ class ServiceUserMenu implements TopMenu {
               .user(userProvider)
               .testOrFalse(new PluginPermission(pluginName, CreateServiceUserCapability.ID))
           && permissionBackend.user(userProvider).testOrFalse(ADMINISTRATE_SERVER);
-    } else {
-      return false;
     }
+    return false;
   }
 
   private boolean hasServiceUser() throws PermissionBackendException {
