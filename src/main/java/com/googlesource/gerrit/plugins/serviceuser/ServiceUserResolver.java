@@ -18,7 +18,6 @@ import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
-import com.google.gerrit.reviewdb.client.Change.Id;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
@@ -40,7 +39,6 @@ import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInf
 import org.eclipse.jgit.lib.PersonIdent;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
