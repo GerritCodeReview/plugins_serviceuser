@@ -58,8 +58,7 @@ class GetOwner implements RestReadView<ServiceUserResource> {
     if (owner != null) {
       GroupDescription.Basic group = groups.parseId(owner);
       return Response.<GroupInfo>ok(json.format(group));
-    } else {
-      return Response.none();
     }
+    return Response.none();
   }
 }
