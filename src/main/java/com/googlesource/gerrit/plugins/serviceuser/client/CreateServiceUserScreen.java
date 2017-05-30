@@ -55,28 +55,32 @@ public class CreateServiceUserScreen extends VerticalPanel {
 
     Panel usernamePanel = new VerticalPanel();
     usernamePanel.add(new Label("Username:"));
-    usernameTxt = new TextBox() {
-      @Override
-      public void onBrowserEvent(Event event) {
-        super.onBrowserEvent(event);
-        if (event.getTypeInt() == Event.ONPASTE) {
-          Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-            @Override
-            public void execute() {
-              if (getValue().trim().length() != 0) {
-                setEnabled(true);
-              }
+    usernameTxt =
+        new TextBox() {
+          @Override
+          public void onBrowserEvent(Event event) {
+            super.onBrowserEvent(event);
+            if (event.getTypeInt() == Event.ONPASTE) {
+              Scheduler.get()
+                  .scheduleDeferred(
+                      new ScheduledCommand() {
+                        @Override
+                        public void execute() {
+                          if (getValue().trim().length() != 0) {
+                            setEnabled(true);
+                          }
+                        }
+                      });
             }
-          });
-        }
-      }
-    };
-    usernameTxt.addKeyPressHandler(new KeyPressHandler() {
-      @Override
-      public void onKeyPress(final KeyPressEvent event) {
-        event.stopPropagation();
-      }
-    });
+          }
+        };
+    usernameTxt.addKeyPressHandler(
+        new KeyPressHandler() {
+          @Override
+          public void onKeyPress(final KeyPressEvent event) {
+            event.stopPropagation();
+          }
+        });
     usernameTxt.sinkEvents(Event.ONPASTE);
     usernameTxt.setVisibleLength(40);
     usernamePanel.add(usernameTxt);
@@ -86,12 +90,13 @@ public class CreateServiceUserScreen extends VerticalPanel {
     sshKeyPanel.add(new Label("Public SSH Key:"));
     sshKeyPanel.add(new SshKeyHelpPanel());
     sshKeyTxt = new TextArea();
-    sshKeyTxt.addKeyPressHandler(new KeyPressHandler() {
-      @Override
-      public void onKeyPress(final KeyPressEvent event) {
-        event.stopPropagation();
-      }
-    });
+    sshKeyTxt.addKeyPressHandler(
+        new KeyPressHandler() {
+          @Override
+          public void onKeyPress(final KeyPressEvent event) {
+            event.stopPropagation();
+          }
+        });
     sshKeyTxt.setVisibleLines(12);
     sshKeyTxt.setCharacterWidth(80);
     sshKeyTxt.getElement().setPropertyBoolean("spellcheck", false);
@@ -103,12 +108,13 @@ public class CreateServiceUserScreen extends VerticalPanel {
 
     final Button createButton = new Button("Create");
     createButton.addStyleName("serviceuser-createButton");
-    createButton.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(final ClickEvent event) {
-        doCreate();
-      }
-    });
+    createButton.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(final ClickEvent event) {
+            doCreate();
+          }
+        });
     buttons.add(createButton);
     createButton.setEnabled(false);
     new OnEditEnabler(createButton, usernameTxt);
@@ -116,54 +122,61 @@ public class CreateServiceUserScreen extends VerticalPanel {
     usernameTxt.setFocus(true);
     createButton.setEnabled(false);
 
-    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
-        .get(new AsyncCallback<ConfigInfo>() {
-          @Override
-          public void onSuccess(ConfigInfo info) {
-            onSuccessMessage = info.getOnSuccessMessage();
+    new RestApi("config")
+        .id("server")
+        .view(Plugin.get().getPluginName(), "config")
+        .get(
+            new AsyncCallback<ConfigInfo>() {
+              @Override
+              public void onSuccess(ConfigInfo info) {
+                onSuccessMessage = info.getOnSuccessMessage();
 
-            String infoMessage = info.getInfoMessage();
-            if (infoMessage != null && !"".equals(infoMessage)) {
-              insert(new HTML(infoMessage), 0);
-            }
+                String infoMessage = info.getInfoMessage();
+                if (infoMessage != null && !"".equals(infoMessage)) {
+                  insert(new HTML(infoMessage), 0);
+                }
 
-            if (info.getAllowEmail()) {
-              Panel emailPanel = new VerticalPanel();
-              emailPanel.add(new Label("Email:"));
-              emailTxt = new TextBox() {
-                @Override
-                public void onBrowserEvent(Event event) {
-                  super.onBrowserEvent(event);
-                  if (event.getTypeInt() == Event.ONPASTE) {
-                    Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-                      @Override
-                      public void execute() {
-                        if (getValue().trim().length() != 0) {
-                          setEnabled(true);
+                if (info.getAllowEmail()) {
+                  Panel emailPanel = new VerticalPanel();
+                  emailPanel.add(new Label("Email:"));
+                  emailTxt =
+                      new TextBox() {
+                        @Override
+                        public void onBrowserEvent(Event event) {
+                          super.onBrowserEvent(event);
+                          if (event.getTypeInt() == Event.ONPASTE) {
+                            Scheduler.get()
+                                .scheduleDeferred(
+                                    new ScheduledCommand() {
+                                      @Override
+                                      public void execute() {
+                                        if (getValue().trim().length() != 0) {
+                                          setEnabled(true);
+                                        }
+                                      }
+                                    });
+                          }
                         }
-                      }
-                    });
-                  }
+                      };
+                  emailTxt.addKeyPressHandler(
+                      new KeyPressHandler() {
+                        @Override
+                        public void onKeyPress(final KeyPressEvent event) {
+                          event.stopPropagation();
+                        }
+                      });
+                  emailTxt.sinkEvents(Event.ONPASTE);
+                  emailTxt.setVisibleLength(40);
+                  emailPanel.add(emailTxt);
+                  insert(emailPanel, 2);
                 }
-              };
-              emailTxt.addKeyPressHandler(new KeyPressHandler() {
-                @Override
-                public void onKeyPress(final KeyPressEvent event) {
-                  event.stopPropagation();
-                }
-              });
-              emailTxt.sinkEvents(Event.ONPASTE);
-              emailTxt.setVisibleLength(40);
-              emailPanel.add(emailTxt);
-              insert(emailPanel, 2);
-            }
-          }
+              }
 
-          @Override
-          public void onFailure(Throwable caught) {
-            // never invoked
-          }
-    });
+              @Override
+              public void onFailure(Throwable caught) {
+                // never invoked
+              }
+            });
   }
 
   private void doCreate() {
@@ -178,44 +191,49 @@ public class CreateServiceUserScreen extends VerticalPanel {
     if (emailTxt != null) {
       in.email(emailTxt.getValue().trim());
     }
-    new RestApi("config").id("server").view("serviceuser", "serviceusers")
-        .id(username).post(in, new AsyncCallback<JavaScriptObject>() {
+    new RestApi("config")
+        .id("server")
+        .view("serviceuser", "serviceusers")
+        .id(username)
+        .post(
+            in,
+            new AsyncCallback<JavaScriptObject>() {
 
-      @Override
-      public void onSuccess(JavaScriptObject result) {
-        clearForm();
-        Plugin.get().go("/x/" + Plugin.get().getName() + "/user/" + username);
+              @Override
+              public void onSuccess(JavaScriptObject result) {
+                clearForm();
+                Plugin.get().go("/x/" + Plugin.get().getName() + "/user/" + username);
 
-        final DialogBox successDialog = new DialogBox();
-        successDialog.setText("Service User Created");
-        successDialog.setAnimationEnabled(true);
+                final DialogBox successDialog = new DialogBox();
+                successDialog.setText("Service User Created");
+                successDialog.setAnimationEnabled(true);
 
-        Panel p = new VerticalPanel();
-        p.setStyleName("serviceuser-panel");
-        p.add(new Label("The service user '" + username + "' was created."));
-        Button okButton = new Button("OK");
-        okButton.addClickHandler(new ClickHandler() {
-          @Override
-          public void onClick(ClickEvent event) {
-            successDialog.hide();
-          }
-        });
+                Panel p = new VerticalPanel();
+                p.setStyleName("serviceuser-panel");
+                p.add(new Label("The service user '" + username + "' was created."));
+                Button okButton = new Button("OK");
+                okButton.addClickHandler(
+                    new ClickHandler() {
+                      @Override
+                      public void onClick(ClickEvent event) {
+                        successDialog.hide();
+                      }
+                    });
 
-        if (onSuccessMessage != null && !"".equals(onSuccessMessage)) {
-          p.add(new HTML(onSuccessMessage));
-        }
+                if (onSuccessMessage != null && !"".equals(onSuccessMessage)) {
+                  p.add(new HTML(onSuccessMessage));
+                }
 
-        p.add(okButton);
-        successDialog.add(p);
+                p.add(okButton);
+                successDialog.add(p);
 
-        successDialog.center();
-        successDialog.show();
-      }
+                successDialog.center();
+                successDialog.show();
+              }
 
-      @Override
-      public void onFailure(Throwable caught) {
-      }
-    });
+              @Override
+              public void onFailure(Throwable caught) {}
+            });
   }
 
   private void clearForm() {
@@ -228,6 +246,7 @@ public class CreateServiceUserScreen extends VerticalPanel {
 
   private static class ServiceUserInput extends JavaScriptObject {
     final native void ssh_key(String s) /*-{ this.ssh_key = s; }-*/;
+
     final native void email(String e) /*-{ this.email = e; }-*/;
 
     static ServiceUserInput create() {
@@ -235,7 +254,6 @@ public class CreateServiceUserScreen extends VerticalPanel {
       return g;
     }
 
-    protected ServiceUserInput() {
-    }
+    protected ServiceUserInput() {}
   }
 }

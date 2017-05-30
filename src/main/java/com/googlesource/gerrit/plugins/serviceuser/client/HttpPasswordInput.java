@@ -23,6 +23,5 @@ public class HttpPasswordInput extends JavaScriptObject {
     return createObject().cast();
   }
 
-  protected HttpPasswordInput() {
-  }
+  protected HttpPasswordInput() {}
 }

@@ -24,10 +24,8 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
-import org.eclipse.jgit.errors.ConfigInvalidException;
-
 import java.io.IOException;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class AddSshKey implements RestModifyView<ServiceUserResource, Input> {
@@ -40,8 +38,7 @@ class AddSshKey implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<SshKeyInfo> apply(ServiceUserResource rsrc, Input input)
-      throws AuthException, BadRequestException, OrmException, IOException,
-      ConfigInvalidException {
+      throws AuthException, BadRequestException, OrmException, IOException, ConfigInvalidException {
     return addSshKey.get().apply(rsrc.getUser(), input);
   }
 }

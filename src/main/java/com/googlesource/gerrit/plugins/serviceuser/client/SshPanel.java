@@ -36,7 +36,6 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwtexpui.clippy.client.CopyableLabel;
 import com.google.gwtexpui.globalkey.client.NpTextArea;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -66,12 +65,13 @@ class SshPanel extends Composite {
     FlowPanel body = new FlowPanel();
 
     showAddKeyBlock = new Button("Add Key ...");
-    showAddKeyBlock.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(final ClickEvent event) {
-        showAddKeyBlock(true);
-      }
-    });
+    showAddKeyBlock.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(final ClickEvent event) {
+            showAddKeyBlock(true);
+          }
+        });
 
     keys = new SshKeyTable();
     body.add(keys);
@@ -79,12 +79,13 @@ class SshPanel extends Composite {
       final FlowPanel fp = new FlowPanel();
       deleteKey = new Button("Delete");
       deleteKey.setEnabled(false);
-      deleteKey.addClickHandler(new ClickHandler() {
-        @Override
-        public void onClick(final ClickEvent event) {
-          keys.deleteChecked();
-        }
-      });
+      deleteKey.addClickHandler(
+          new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
+              keys.deleteChecked();
+            }
+          });
       fp.add(deleteKey);
       fp.add(showAddKeyBlock);
       body.add(fp);
@@ -106,35 +107,37 @@ class SshPanel extends Composite {
     addKeyBlock.add(buttons);
 
     clearNew = new Button("Clear");
-    clearNew.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(final ClickEvent event) {
-        addTxt.setText("");
-        addTxt.setFocus(true);
-      }
-    });
+    clearNew.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(final ClickEvent event) {
+            addTxt.setText("");
+            addTxt.setFocus(true);
+          }
+        });
     buttons.add(clearNew);
 
     addNew = new Button("Add");
-    addNew.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(final ClickEvent event) {
-        doAddNew();
-      }
-    });
+    addNew.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(final ClickEvent event) {
+            doAddNew();
+          }
+        });
     buttons.add(addNew);
 
     closeAddKeyBlock = new Button("Close");
-    closeAddKeyBlock.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(final ClickEvent event) {
-        showAddKeyBlock(false);
-      }
-    });
+    closeAddKeyBlock.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(final ClickEvent event) {
+            showAddKeyBlock(false);
+          }
+        });
     buttons.add(closeAddKeyBlock);
     buttons.setCellWidth(closeAddKeyBlock, "100%");
-    buttons.setCellHorizontalAlignment(closeAddKeyBlock,
-        HasHorizontalAlignment.ALIGN_RIGHT);
+    buttons.setCellHorizontalAlignment(closeAddKeyBlock, HasHorizontalAlignment.ALIGN_RIGHT);
 
     body.add(addKeyBlock);
 
@@ -153,25 +156,30 @@ class SshPanel extends Composite {
   void doAddNew() {
     final String txt = addTxt.getText();
     if (txt != null && txt.length() > 0) {
-      new RestApi("config").id("server")
-          .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
-          .view("sshkeys").post(txt, new AsyncCallback<SshKeyInfo>() {
-        @Override
-        public void onSuccess(SshKeyInfo k) {
-          addTxt.setText("");
-          keys.addOneKey(k);
-          if (!keys.isVisible()) {
-            showAddKeyBlock(false);
-            setKeyTableVisible(true);
-            keys.updateDeleteButton();
-          }
-        }
+      new RestApi("config")
+          .id("server")
+          .view(Plugin.get().getPluginName(), "serviceusers")
+          .id(serviceUser)
+          .view("sshkeys")
+          .post(
+              txt,
+              new AsyncCallback<SshKeyInfo>() {
+                @Override
+                public void onSuccess(SshKeyInfo k) {
+                  addTxt.setText("");
+                  keys.addOneKey(k);
+                  if (!keys.isVisible()) {
+                    showAddKeyBlock(false);
+                    setKeyTableVisible(true);
+                    keys.updateDeleteButton();
+                  }
+                }
 
-        @Override
-        public void onFailure(final Throwable caught) {
-          // never invoked
-        }
-      });
+                @Override
+                public void onFailure(final Throwable caught) {
+                  // never invoked
+                }
+              });
     }
   }
 
@@ -182,29 +190,32 @@ class SshPanel extends Composite {
   }
 
   private void refreshSshKeys() {
-    new RestApi("config").id("server")
-        .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
-        .view("sshkeys").get(new AsyncCallback<JsArray<SshKeyInfo>>() {
-      @Override
-      public void onSuccess(JsArray<SshKeyInfo> result) {
-        keys.display(Natives.asList(result));
-        if (result.length() == 0 && keys.isVisible()) {
-          showAddKeyBlock(true);
-        }
-        if (++loadCount == 2) {
-          display();
-        }
-      }
+    new RestApi("config")
+        .id("server")
+        .view(Plugin.get().getPluginName(), "serviceusers")
+        .id(serviceUser)
+        .view("sshkeys")
+        .get(
+            new AsyncCallback<JsArray<SshKeyInfo>>() {
+              @Override
+              public void onSuccess(JsArray<SshKeyInfo> result) {
+                keys.display(Natives.asList(result));
+                if (result.length() == 0 && keys.isVisible()) {
+                  showAddKeyBlock(true);
+                }
+                if (++loadCount == 2) {
+                  display();
+                }
+              }
 
-      @Override
-      public void onFailure(Throwable caught) {
-        // never invoked
-      }
-    });
+              @Override
+              public void onFailure(Throwable caught) {
+                // never invoked
+              }
+            });
   }
 
-  void display() {
-  }
+  void display() {}
 
   private void showAddKeyBlock(boolean show) {
     showAddKeyBlock.setVisible(!show);
@@ -237,12 +248,13 @@ class SshPanel extends Composite {
       fmt.addStyleName(0, 4, "topMostCell");
       fmt.addStyleName(0, 5, "topMostCell");
 
-      updateDeleteHandler = new ValueChangeHandler<Boolean>() {
-        @Override
-        public void onValueChange(ValueChangeEvent<Boolean> event) {
-          updateDeleteButton();
-        }
-      };
+      updateDeleteHandler =
+          new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+              updateDeleteButton();
+            }
+          };
     }
 
     void deleteChecked() {
@@ -257,31 +269,36 @@ class SshPanel extends Composite {
         updateDeleteButton();
       } else {
         for (int seq : sequenceNumbers) {
-          new RestApi("config").id("server")
-              .view(Plugin.get().getPluginName(), "serviceusers").id(serviceUser)
-              .view("sshkeys").id(seq).delete(new AsyncCallback<NoContent>() {
-                @Override
-                public void onSuccess(NoContent result) {
-                  for (int row = 1; row < getRowCount();) {
-                    SshKeyInfo k = getRowItem(row);
-                    if (k != null && sequenceNumbers.contains(k.seq())) {
-                      removeRow(row);
-                    } else {
-                      row++;
+          new RestApi("config")
+              .id("server")
+              .view(Plugin.get().getPluginName(), "serviceusers")
+              .id(serviceUser)
+              .view("sshkeys")
+              .id(seq)
+              .delete(
+                  new AsyncCallback<NoContent>() {
+                    @Override
+                    public void onSuccess(NoContent result) {
+                      for (int row = 1; row < getRowCount(); ) {
+                        SshKeyInfo k = getRowItem(row);
+                        if (k != null && sequenceNumbers.contains(k.seq())) {
+                          removeRow(row);
+                        } else {
+                          row++;
+                        }
+                      }
+                      if (getRowCount() == 1) {
+                        display(Collections.<SshKeyInfo>emptyList());
+                      } else {
+                        updateDeleteButton();
+                      }
                     }
-                  }
-                  if (getRowCount() == 1) {
-                    display(Collections.<SshKeyInfo> emptyList());
-                  } else {
-                    updateDeleteButton();
-                  }
-                }
 
-                @Override
-                public void onFailure(Throwable caught) {
-                  // never invoked
-                }
-              });
+                    @Override
+                    public void onFailure(Throwable caught) {
+                      // never invoked
+                    }
+                  });
         }
       }
     }
@@ -291,8 +308,7 @@ class SshPanel extends Composite {
         setKeyTableVisible(false);
         showAddKeyBlock(true);
       } else {
-        while (1 < getRowCount())
-          removeRow(getRowCount() - 1);
+        while (1 < getRowCount()) removeRow(getRowCount() - 1);
         for (SshKeyInfo k : result) {
           addOneKey(k);
         }

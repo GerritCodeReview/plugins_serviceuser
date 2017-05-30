@@ -18,10 +18,10 @@ import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE
 
 import com.google.common.base.Strings;
 import com.google.gerrit.common.errors.EmailException;
+import com.google.gerrit.extensions.api.accounts.EmailInput;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.DefaultInput;
-import com.google.gerrit.extensions.api.accounts.EmailInput;
 import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
@@ -38,18 +38,14 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
 import com.googlesource.gerrit.plugins.serviceuser.PutEmail.Input;
-
-import org.eclipse.jgit.errors.ConfigInvalidException;
-
 import java.io.IOException;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class PutEmail implements RestModifyView<ServiceUserResource, Input> {
   public static class Input {
-    @DefaultInput
-    public String email;
+    @DefaultInput public String email;
   }
 
   private final Provider<GetConfig> getConfig;
@@ -61,7 +57,8 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
   private final PermissionBackend permissionBackend;
 
   @Inject
-  PutEmail(Provider<GetConfig> getConfig,
+  PutEmail(
+      Provider<GetConfig> getConfig,
       Provider<GetEmail> getEmail,
       Provider<CreateEmail.Factory> createEmailFactory,
       Provider<DeleteEmail> deleteEmail,
@@ -79,10 +76,9 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<?> apply(ServiceUserResource rsrc, Input input)
-      throws AuthException, ResourceNotFoundException,
-      ResourceConflictException, MethodNotAllowedException, OrmException,
-      BadRequestException, ConfigInvalidException, EmailException, IOException,
-      PermissionBackendException {
+      throws AuthException, ResourceNotFoundException, ResourceConflictException,
+          MethodNotAllowedException, OrmException, BadRequestException, ConfigInvalidException,
+          EmailException, IOException, PermissionBackendException {
     Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
     if ((emailAllowed == null || !emailAllowed)) {
       permissionBackend.user(self).check(ADMINISTRATE_SERVER);

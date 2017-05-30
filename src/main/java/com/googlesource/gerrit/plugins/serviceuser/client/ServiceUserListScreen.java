@@ -37,19 +37,23 @@ public class ServiceUserListScreen extends VerticalPanel {
   ServiceUserListScreen() {
     setStyleName("serviceuser-panel");
 
-    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
-        .get(NativeMap.copyKeysIntoChildren("username",
-            new AsyncCallback<NativeMap<ServiceUserInfo>>() {
-              @Override
-              public void onSuccess(NativeMap<ServiceUserInfo> info) {
-                display(info);
-              }
+    new RestApi("config")
+        .id("server")
+        .view(Plugin.get().getPluginName(), "serviceusers")
+        .get(
+            NativeMap.copyKeysIntoChildren(
+                "username",
+                new AsyncCallback<NativeMap<ServiceUserInfo>>() {
+                  @Override
+                  public void onSuccess(NativeMap<ServiceUserInfo> info) {
+                    display(info);
+                  }
 
-              @Override
-              public void onFailure(Throwable caught) {
-                // never invoked
-              }
-            }));
+                  @Override
+                  public void onFailure(Throwable caught) {
+                    // never invoked
+                  }
+                }));
   }
 
   private void display(NativeMap<ServiceUserInfo> info) {
@@ -80,15 +84,16 @@ public class ServiceUserListScreen extends VerticalPanel {
         fmt.addStyleName(row, 0, "leftMostCell");
       }
 
-      t.setWidget(row, 0, new InlineHyperlink(
-          username, "/x/" + Plugin.get().getName() + "/user/" + username));
+      t.setWidget(
+          row,
+          0,
+          new InlineHyperlink(username, "/x/" + Plugin.get().getName() + "/user/" + username));
       t.setText(row, 1, a.name());
       t.setText(row, 2, a.email());
 
       if (a.owner() != null) {
         if (a.owner().url() != null) {
-          t.setWidget(row, 3,
-              new Anchor(a.owner().name(), a.owner().url()));
+          t.setWidget(row, 3, new Anchor(a.owner().name(), a.owner().url()));
         } else {
           t.setText(row, 3, a.owner().name());
         }

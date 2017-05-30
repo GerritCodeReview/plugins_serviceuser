@@ -32,7 +32,6 @@ class GetSshKey implements RestReadView<ServiceUserResource.SshKey> {
 
   @Override
   public SshKeyInfo apply(ServiceUserResource.SshKey rsrc) {
-    return getSshKey.get().apply(
-        new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()));
+    return getSshKey.get().apply(new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()));
   }
 }

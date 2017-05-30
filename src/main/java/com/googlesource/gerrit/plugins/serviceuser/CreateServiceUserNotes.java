@@ -25,9 +25,8 @@ import com.google.gerrit.server.git.NotesBranchUtil;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
-
+import java.io.IOException;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
@@ -41,11 +40,8 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-
 class CreateServiceUserNotes {
-  private static final Logger log =
-      LoggerFactory.getLogger(CreateServiceUserNotes.class);
+  private static final Logger log = LoggerFactory.getLogger(CreateServiceUserNotes.class);
 
   interface Factory {
     CreateServiceUserNotes create(Project.NameKey project, Repository git);
@@ -65,7 +61,8 @@ class CreateServiceUserNotes {
   private StringBuilder message;
 
   @Inject
-  CreateServiceUserNotes(@GerritPersonIdent PersonIdent gerritIdent,
+  CreateServiceUserNotes(
+      @GerritPersonIdent PersonIdent gerritIdent,
       NotesBranchUtil.Factory notesBranchUtilFactory,
       ServiceUserResolver serviceUserResolver,
       @AnonymousCowardName String anonymousCowardName,
@@ -100,8 +97,7 @@ class CreateServiceUserNotes {
       }
 
       for (RevCommit c : rw) {
-        ServiceUserInfo serviceUser =
-            serviceUserResolver.getAsServiceUser(c.getCommitterIdent());
+        ServiceUserInfo serviceUser = serviceUserResolver.getAsServiceUser(c.getCommitterIdent());
         if (serviceUser != null) {
           ObjectId content = createNoteContent(branch, serviceUser);
           getNotes().set(c, content);
@@ -118,9 +114,10 @@ class CreateServiceUserNotes {
       }
 
       message.insert(0, "Update notes for service user commits\n\n");
-      notesBranchUtilFactory.create(project, git, inserter)
-          .commitAllNotes(serviceUserNotes, REFS_NOTES_SERVICEUSER, gerritServerIdent,
-              message.toString());
+      notesBranchUtilFactory
+          .create(project, git, inserter)
+          .commitAllNotes(
+              serviceUserNotes, REFS_NOTES_SERVICEUSER, gerritServerIdent, message.toString());
     } finally {
       if (inserter != null) {
         inserter.close();
@@ -128,8 +125,7 @@ class CreateServiceUserNotes {
     }
   }
 
-  private void markUninteresting(Repository git, String branch, RevWalk rw,
-      ObjectId oldObjectId) {
+  private void markUninteresting(Repository git, String branch, RevWalk rw, ObjectId oldObjectId) {
     for (Ref r : git.getAllRefs().values()) {
       try {
         if (r.getName().equals(branch)) {
@@ -150,15 +146,13 @@ class CreateServiceUserNotes {
 
   private ObjectId createNoteContent(String branch, ServiceUserInfo serviceUser)
       throws IOException, OrmException {
-    return getInserter().insert(Constants.OBJ_BLOB,
-        createServiceUserNote(branch, serviceUser).getBytes("UTF-8"));
+    return getInserter()
+        .insert(Constants.OBJ_BLOB, createServiceUserNote(branch, serviceUser).getBytes("UTF-8"));
   }
 
-  private String createServiceUserNote(String branch,
-      ServiceUserInfo serviceUser) throws OrmException {
-    HeaderFormatter fmt =
-        new HeaderFormatter(gerritServerIdent.getTimeZone(),
-            anonymousCowardName);
+  private String createServiceUserNote(String branch, ServiceUserInfo serviceUser)
+      throws OrmException {
+    HeaderFormatter fmt = new HeaderFormatter(gerritServerIdent.getTimeZone(), anonymousCowardName);
     fmt.appendDate();
     fmt.append("Project", project.get());
     fmt.append("Branch", branch);

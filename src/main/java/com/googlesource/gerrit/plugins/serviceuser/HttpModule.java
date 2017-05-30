@@ -23,7 +23,6 @@ class HttpModule extends HttpPluginModule {
 
   @Override
   protected void configureServlets() {
-    DynamicSet.bind(binder(), WebUiPlugin.class)
-        .toInstance(new GwtPlugin("serviceuser"));
+    DynamicSet.bind(binder(), WebUiPlugin.class).toInstance(new GwtPlugin("serviceuser"));
   }
 }
