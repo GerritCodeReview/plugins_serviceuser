@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96d88b21_a43e5b6d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2017-06-02T14:07:51Z",
+      "side": 1,
+      "message": "This should be:\n\nif (!permissionBackend.user(userProvider).testOrFalse(ADMINISTRATE_SERVER)) {\n  ...\n\n\nAs commented before the below code should only be executed if the user is not an admin.",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 73
+      },
+      "revId": "981032debc80268657f75704f5647fbb5fab0e93",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
