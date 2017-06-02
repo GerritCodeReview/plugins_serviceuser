@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0985269f_7835f0a1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2017-06-02T13:49:09Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "01dca938_719d1fd5",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 5
+      },
+      "revId": "16541f26f95de09aeadd42c1c7576c83cf1fb0e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "332e5781_5641246f",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserMenu.java",
         "patchSetId": 8
