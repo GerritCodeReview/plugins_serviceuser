@@ -26,20 +26,22 @@ public class SshKeyHelpPanel extends FlowPanel {
     b.append("<ol>")
         .append("<li>From the Terminal or Git Bash, run <em>ssh-keygen</em></li>")
         .append("<li>")
-            .append("Enter a path for the key, e.g. <em>id_rsa</em>. If you are generating the key<br />")
-            .append("on your local system take care to not overwrite your own SSH key.")
+        .append(
+            "Enter a path for the key, e.g. <em>id_rsa</em>. If you are generating the key<br />")
+        .append("on your local system take care to not overwrite your own SSH key.")
         .append("</li>")
         .append("<li>")
-            .append("Enter a passphrase only if the service where you intend to use this<br />")
-            .append("service user is able to deal with passphrases, otherwise leave it blank.<br />")
-            .append("Remember this passphrase, as you will need it to unlock the key.")
+        .append("Enter a passphrase only if the service where you intend to use this<br />")
+        .append("service user is able to deal with passphrases, otherwise leave it blank.<br />")
+        .append("Remember this passphrase, as you will need it to unlock the key.")
         .append("</li>")
         .append("<li>")
-            .append("Open <em>id_rsa.pub</em> and copy &amp; paste the contents into the box below.<br />")
-            .append("Note that <em>id_rsa.pub</em> is your public key and can be shared,<br />")
-            .append("while <em>id_rsa</em> is your private key and should be kept secret.")
+        .append(
+            "Open <em>id_rsa.pub</em> and copy &amp; paste the contents into the box below.<br />")
+        .append("Note that <em>id_rsa.pub</em> is your public key and can be shared,<br />")
+        .append("while <em>id_rsa</em> is your private key and should be kept secret.")
         .append("</li>")
-     .append("</ol>");
+        .append("</ol>");
     dp.add(new HTML(b.toString()));
     add(dp);
   }

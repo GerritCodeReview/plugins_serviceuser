@@ -37,41 +37,40 @@ class Module extends AbstractModule {
         .annotatedWith(Exports.named(CreateServiceUserCapability.ID))
         .to(CreateServiceUserCapability.class);
     DynamicSet.bind(binder(), TopMenu.class).to(ServiceUserMenu.class);
-    DynamicSet.bind(binder(), GitReferenceUpdatedListener.class)
-        .to(RefUpdateListener.class);
-    DynamicSet.bind(binder(), CommitValidationListener.class)
-        .to(ValidateServiceUserCommits.class);
+    DynamicSet.bind(binder(), GitReferenceUpdatedListener.class).to(RefUpdateListener.class);
+    DynamicSet.bind(binder(), CommitValidationListener.class).to(ValidateServiceUserCommits.class);
     install(new FactoryModuleBuilder().build(CreateServiceUserNotes.Factory.class));
-    install(new RestApiModule() {
-      @Override
-      protected void configure() {
-        DynamicMap.mapOf(binder(), SERVICE_USER_KIND);
-        DynamicMap.mapOf(binder(), SERVICE_USER_SSH_KEY_KIND);
-        bind(ServiceUserCollection.class);
-        child(CONFIG_KIND, "serviceusers").to(ServiceUserCollection.class);
-        get(SERVICE_USER_KIND).to(GetServiceUser.class);
-        install(new FactoryModuleBuilder().build(CreateServiceUser.Factory.class));
-        get(CONFIG_KIND, "config").to(GetConfig.class);
-        put(CONFIG_KIND, "config").to(PutConfig.class);
-        child(SERVICE_USER_KIND, "sshkeys").to(SshKeys.class);
-        get(SERVICE_USER_SSH_KEY_KIND).to(GetSshKey.class);
-        post(SERVICE_USER_KIND, "sshkeys").to(AddSshKey.class);
-        delete(SERVICE_USER_SSH_KEY_KIND).to(DeleteSshKey.class);
-        get(SERVICE_USER_KIND, "name").to(GetName.class);
-        put(SERVICE_USER_KIND, "name").to(PutName.class);
-        delete(SERVICE_USER_KIND, "name").to(PutName.class);
-        get(SERVICE_USER_KIND, "email").to(GetEmail.class);
-        put(SERVICE_USER_KIND, "email").to(PutEmail.class);
-        delete(SERVICE_USER_KIND, "email").to(PutEmail.class);
-        put(SERVICE_USER_KIND, "password.http").to(PutHttpPassword.class);
-        delete(SERVICE_USER_KIND, "password.http").to(PutHttpPassword.class);
-        get(SERVICE_USER_KIND, "active").to(GetActive.class);
-        put(SERVICE_USER_KIND, "active").to(PutActive.class);
-        delete(SERVICE_USER_KIND, "active").to(DeleteActive.class);
-        get(SERVICE_USER_KIND, "owner").to(GetOwner.class);
-        put(SERVICE_USER_KIND, "owner").to(PutOwner.class);
-        delete(SERVICE_USER_KIND, "owner").to(PutOwner.class);
-      }
-    });
+    install(
+        new RestApiModule() {
+          @Override
+          protected void configure() {
+            DynamicMap.mapOf(binder(), SERVICE_USER_KIND);
+            DynamicMap.mapOf(binder(), SERVICE_USER_SSH_KEY_KIND);
+            bind(ServiceUserCollection.class);
+            child(CONFIG_KIND, "serviceusers").to(ServiceUserCollection.class);
+            get(SERVICE_USER_KIND).to(GetServiceUser.class);
+            install(new FactoryModuleBuilder().build(CreateServiceUser.Factory.class));
+            get(CONFIG_KIND, "config").to(GetConfig.class);
+            put(CONFIG_KIND, "config").to(PutConfig.class);
+            child(SERVICE_USER_KIND, "sshkeys").to(SshKeys.class);
+            get(SERVICE_USER_SSH_KEY_KIND).to(GetSshKey.class);
+            post(SERVICE_USER_KIND, "sshkeys").to(AddSshKey.class);
+            delete(SERVICE_USER_SSH_KEY_KIND).to(DeleteSshKey.class);
+            get(SERVICE_USER_KIND, "name").to(GetName.class);
+            put(SERVICE_USER_KIND, "name").to(PutName.class);
+            delete(SERVICE_USER_KIND, "name").to(PutName.class);
+            get(SERVICE_USER_KIND, "email").to(GetEmail.class);
+            put(SERVICE_USER_KIND, "email").to(PutEmail.class);
+            delete(SERVICE_USER_KIND, "email").to(PutEmail.class);
+            put(SERVICE_USER_KIND, "password.http").to(PutHttpPassword.class);
+            delete(SERVICE_USER_KIND, "password.http").to(PutHttpPassword.class);
+            get(SERVICE_USER_KIND, "active").to(GetActive.class);
+            put(SERVICE_USER_KIND, "active").to(PutActive.class);
+            delete(SERVICE_USER_KIND, "active").to(DeleteActive.class);
+            get(SERVICE_USER_KIND, "owner").to(GetOwner.class);
+            put(SERVICE_USER_KIND, "owner").to(PutOwner.class);
+            delete(SERVICE_USER_KIND, "owner").to(PutOwner.class);
+          }
+        });
   }
 }

@@ -52,16 +52,8 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
-
 import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.Input;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
-
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -71,11 +63,15 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.eclipse.jgit.lib.Config;
+import org.eclipse.jgit.lib.PersonIdent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RequiresCapability(CreateServiceUserCapability.ID)
 class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
-  private static final Logger log =
-      LoggerFactory.getLogger(CreateServiceUser.class);
+  private static final Logger log = LoggerFactory.getLogger(CreateServiceUser.class);
 
   public static final String USER = "user";
   public static final String KEY_CREATED_BY = "createdBy";
@@ -110,7 +106,8 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   private final AccountLoader.Factory accountLoader;
 
   @Inject
-  CreateServiceUser(PluginConfigFactory cfgFactory,
+  CreateServiceUser(
+      PluginConfigFactory cfgFactory,
       @PluginName String pluginName,
       CreateAccount.Factory createAccountFactory,
       GroupCache groupCache,
@@ -132,7 +129,8 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
     this.db = db;
     this.username = username;
     this.blockedNames =
-        Lists.transform(Arrays.asList(cfg.getStringList("block")),
+        Lists.transform(
+            Arrays.asList(cfg.getStringList("block")),
             new Function<String, String>() {
               @Override
               public String apply(String blockedName) {
@@ -143,10 +141,9 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
-    this.rfc2822DateFormatter =
-        new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
-    this.rfc2822DateFormatter.setCalendar(Calendar.getInstance(
-        gerritIdent.getTimeZone(), Locale.US));
+    this.rfc2822DateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+    this.rfc2822DateFormatter.setCalendar(
+        Calendar.getInstance(gerritIdent.getTimeZone(), Locale.US));
     this.getConfig = getConfig;
     this.accountLoader = accountLoader;
   }
@@ -154,8 +151,7 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   @Override
   public Response<ServiceUserInfo> apply(ConfigResource resource, Input input)
       throws AuthException, BadRequestException, ResourceConflictException,
-      UnprocessableEntityException, OrmException, IOException,
-      ConfigInvalidException {
+          UnprocessableEntityException, OrmException, IOException, ConfigInvalidException {
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("authentication required");
@@ -172,8 +168,8 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
     }
 
     if (blockedNames.contains(username.toLowerCase())) {
-      throw new BadRequestException("The username '" + username
-          + "' is not allowed as name for service users.");
+      throw new BadRequestException(
+          "The username '" + username + "' is not allowed as name for service users.");
     }
 
     input.email = Strings.emptyToNull(input.email);
@@ -184,16 +180,14 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
       }
     }
 
-    AccountInput in =
-        new ServiceUserInput(username, input.email, input.sshKey);
+    AccountInput in = new ServiceUserInput(username, input.email, input.sshKey);
     Response<AccountInfo> response =
         createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
 
-    addToGroups(new Account.Id(response.value()._accountId),
-        cfg.getStringList("group"));
+    addToGroups(new Account.Id(response.value()._accountId), cfg.getStringList("group"));
 
     String creator = user.getUserName();
-    Account.Id creatorId = ((IdentifiedUser)user).getAccountId();
+    Account.Id creatorId = ((IdentifiedUser) user).getAccountId();
     String creationDate = rfc2822DateFormatter.format(new Date());
 
     Config db = storage.get();
@@ -221,16 +215,19 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
       AccountGroup group = groupCache.get(new AccountGroup.NameKey(groupName));
       if (group != null) {
         AccountGroupMember m =
-            new AccountGroupMember(new AccountGroupMember.Key(
-                accountId, group.getId()));
-        db.get().accountGroupMembersAudit().insert(Collections.singleton(
-            new AccountGroupMemberAudit(
-                m, currentUser.get().getAccountId(), TimeUtil.nowTs())));
+            new AccountGroupMember(new AccountGroupMember.Key(accountId, group.getId()));
+        db.get()
+            .accountGroupMembersAudit()
+            .insert(
+                Collections.singleton(
+                    new AccountGroupMemberAudit(
+                        m, currentUser.get().getAccountId(), TimeUtil.nowTs())));
         db.get().accountGroupMembers().insert(Collections.singleton(m));
       } else {
-        log.error(String.format(
-            "Could not add new service user %s to group %s: group not found",
-            username, groupName));
+        log.error(
+            String.format(
+                "Could not add new service user %s to group %s: group not found",
+                username, groupName));
       }
     }
     if (groupNames.length > 0) {

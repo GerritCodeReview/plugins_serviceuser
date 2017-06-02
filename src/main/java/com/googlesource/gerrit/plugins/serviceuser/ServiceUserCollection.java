@@ -45,9 +45,8 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-class ServiceUserCollection implements
-    ChildCollection<ConfigResource, ServiceUserResource>,
-    AcceptsCreate<ConfigResource> {
+class ServiceUserCollection
+    implements ChildCollection<ConfigResource, ServiceUserResource>, AcceptsCreate<ConfigResource> {
 
   private final DynamicMap<RestView<ServiceUserResource>> views;
   private final CreateServiceUser.Factory createServiceUserFactory;
@@ -60,11 +59,15 @@ class ServiceUserCollection implements
   private final PermissionBackend permissionBackend;
 
   @Inject
-  ServiceUserCollection(DynamicMap<RestView<ServiceUserResource>> views,
+  ServiceUserCollection(
+      DynamicMap<RestView<ServiceUserResource>> views,
       CreateServiceUser.Factory createServiceUserFactory,
-      Provider<ListServiceUsers> list, Provider<AccountsCollection> accounts,
-      @PluginName String pluginName, ProjectCache projectCache,
-      Provider<CurrentUser> userProvider, GroupsCollection groups,
+      Provider<ListServiceUsers> list,
+      Provider<AccountsCollection> accounts,
+      @PluginName String pluginName,
+      ProjectCache projectCache,
+      Provider<CurrentUser> userProvider,
+      GroupsCollection groups,
       PermissionBackend permissionBackend) {
     this.views = views;
     this.createServiceUserFactory = createServiceUserFactory;
@@ -83,8 +86,7 @@ class ServiceUserCollection implements
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     IdentifiedUser serviceUser = accounts.get().parseId(id.get());
     if (serviceUser == null
-        || !storage.get().getSubsections(USER)
-            .contains(serviceUser.getUserName())) {
+        || !storage.get().getSubsections(USER).contains(serviceUser.getUserName())) {
       throw new ResourceNotFoundException(id);
     }
     CurrentUser user = userProvider.get();
@@ -102,8 +104,9 @@ class ServiceUserCollection implements
         } catch (UnprocessableEntityException e) {
           throw new ResourceNotFoundException(id);
         }
-      } else if (!((IdentifiedUser)user).getAccountId().equals(
-          new Account.Id(storage.get().getInt(USER, id.get(), KEY_CREATOR_ID, -1)))) {
+      } else if (!((IdentifiedUser) user)
+          .getAccountId()
+          .equals(new Account.Id(storage.get().getInt(USER, id.get(), KEY_CREATOR_ID, -1)))) {
         throw new ResourceNotFoundException(id);
       }
     }

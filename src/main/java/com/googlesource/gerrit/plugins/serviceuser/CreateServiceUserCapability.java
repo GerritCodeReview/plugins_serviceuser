@@ -18,10 +18,10 @@ import com.google.gerrit.extensions.config.CapabilityDefinition;
 
 class CreateServiceUserCapability extends CapabilityDefinition {
 
-  public final static String ID = "createServiceUser";
+  public static final String ID = "createServiceUser";
 
   @Override
   public String getDescription() {
-      return "Create Service User";
+    return "Create Service User";
   }
 }
