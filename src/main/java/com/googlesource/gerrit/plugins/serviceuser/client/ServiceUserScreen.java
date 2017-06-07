@@ -48,57 +48,45 @@ public class ServiceUserScreen extends VerticalPanel {
 
     new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
         .id(serviceUser).get(new AsyncCallback<ServiceUserInfo>() {
-            @Override
-            public void onSuccess(final ServiceUserInfo serviceUserInfo) {
-              new RestApi("config").id("server").view(Plugin.get().getPluginName(), "serviceusers")
-                  .id(serviceUser).view("password.http").get(new AsyncCallback<NativeString>() {
+          @Override
+          public void onSuccess(final ServiceUserInfo serviceUserInfo) {
+            new RestApi("config").id("server")
+                .view(Plugin.get().getPluginName(), "config")
+                .get(new AsyncCallback<ConfigInfo>() {
+                  @Override
+                  public void onSuccess(final ConfigInfo configInfo) {
+                    AccountCapabilities.all(new AsyncCallback<AccountCapabilities>() {
                       @Override
-                      public void onSuccess(final NativeString httpPassword) {
-                        new RestApi("config").id("server")
-                            .view(Plugin.get().getPluginName(), "config")
-                            .get(new AsyncCallback<ConfigInfo>() {
-                              @Override
-                              public void onSuccess(final ConfigInfo configInfo) {
-                                AccountCapabilities.all(new AsyncCallback<AccountCapabilities>() {
-                                  @Override
-                                  public void onSuccess(AccountCapabilities ac) {
-                                    boolean isAdmin = ac.canPerform("administrateServer");
-                                    display(serviceUserInfo,
-                                        httpPassword.asString(),
-                                        configInfo.getAllowEmail() || isAdmin,
-                                        configInfo.getAllowOwner() || isAdmin,
-                                        configInfo.getAllowHttpPassword() || isAdmin);
-                                  }
-
-                                  @Override
-                                  public void onFailure(Throwable caught) {
-                                    // never invoked
-                                  }
-                                }, "administrateServer");
-                              }
-
-                              @Override
-                              public void onFailure(Throwable caught) {
-                                // never invoked
-                              }
-                            });
+                      public void onSuccess(AccountCapabilities ac) {
+                        boolean isAdmin = ac.canPerform("administrateServer");
+                          display(serviceUserInfo,
+                                  configInfo.getAllowEmail() || isAdmin,
+                                  configInfo.getAllowOwner() || isAdmin,
+                                  configInfo.getAllowHttpPassword() || isAdmin);
                       }
 
                       @Override
                       public void onFailure(Throwable caught) {
                         // never invoked
                       }
-                });
-            }
+                    }, "administrateServer");
+                  }
 
-            @Override
-            public void onFailure(Throwable caught) {
-              // never invoked
-            }
-          });
+                  @Override
+                  public void onFailure(Throwable caught) {
+                     // never invoked
+                  }
+                });
+          }
+
+          @Override
+          public void onFailure(Throwable caught) {
+            // never invoked
+          }
+        });
   }
 
-  private void display(ServiceUserInfo info, String httpPassword,
+  private void display(ServiceUserInfo info,
       boolean allowEmail, boolean allowOwner, boolean allowHttpPassword) {
     MyTable t = new MyTable();
     t.setStyleName("serviceuser-serviceUserInfoTable");
@@ -146,7 +134,7 @@ public class ServiceUserScreen extends VerticalPanel {
     }
     t.addRow(
         "HTTP Password",
-        createHttpPasswordWidget(info.username(), httpPassword,
+        createHttpPasswordWidget(info.username(),
             allowHttpPassword));
     t.addRow("Owner Group", createOwnerWidget(info, allowOwner));
     t.addRow("Created By", info.getDisplayName());
@@ -206,11 +194,11 @@ public class ServiceUserScreen extends VerticalPanel {
   }
 
   private Widget createHttpPasswordWidget(final String serviceUser,
-      String httpPassword, boolean allowHttpPassword) {
+      boolean allowHttpPassword) {
     if (allowHttpPassword) {
       HorizontalPanel p = new HorizontalPanel();
-      final CopyableLabel label = new CopyableLabel(httpPassword);
-      label.setVisible(!httpPassword.isEmpty());
+      final CopyableLabel label = new CopyableLabel("");
+      label.setVisible(false);
       p.add(label);
 
       // The redNot icon is only used as temporary measure until gerrit core
@@ -237,7 +225,7 @@ public class ServiceUserScreen extends VerticalPanel {
               });
         }
       });
-      delete.setVisible(!httpPassword.isEmpty());
+      delete.setVisible(true);
       p.add(delete);
 
       Image generate = new Image(ServiceUserPlugin.RESOURCES.gear());
@@ -267,7 +255,7 @@ public class ServiceUserScreen extends VerticalPanel {
       p.add(generate);
       return p;
     } else {
-      return new CopyableLabel(httpPassword);
+      return new CopyableLabel("");
     }
   }
 
