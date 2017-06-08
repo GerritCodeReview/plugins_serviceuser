@@ -45,6 +45,30 @@
       "revId": "2e5bd613ad2d0c0b32f3586a8b1c8fbc5676a4e9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f1ee7ba_1ad694f4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ServiceUserScreen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1011624
+      },
+      "writtenOn": "2017-06-08T06:54:58Z",
+      "side": 1,
+      "message": "Removed the whole call. The REST endpoint should  already be gone that\u0027s the reason why a fatal error happend in the first place.",
+      "parentUuid": "7bd9b004_05c55a18",
+      "range": {
+        "startLine": 53,
+        "startChar": 14,
+        "endLine": 56,
+        "endChar": 78
+      },
+      "revId": "2e5bd613ad2d0c0b32f3586a8b1c8fbc5676a4e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
