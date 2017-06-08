@@ -22,6 +22,29 @@
       "revId": "2e5bd613ad2d0c0b32f3586a8b1c8fbc5676a4e9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7bd9b004_05c55a18",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/ServiceUserScreen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2017-06-08T05:10:46Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this whole call be removed? And also the server-side REST endpoint?",
+      "range": {
+        "startLine": 53,
+        "startChar": 14,
+        "endLine": 56,
+        "endChar": 78
+      },
+      "revId": "2e5bd613ad2d0c0b32f3586a8b1c8fbc5676a4e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
