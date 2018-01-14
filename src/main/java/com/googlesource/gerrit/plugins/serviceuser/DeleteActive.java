@@ -23,6 +23,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class DeleteActive implements RestModifyView<ServiceUserResource, Input> {
@@ -35,7 +36,7 @@ class DeleteActive implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<?> apply(ServiceUserResource rsrc, Input input)
-      throws RestApiException, OrmException, IOException {
+      throws RestApiException, OrmException, IOException, ConfigInvalidException {
     return deleteActive.get().apply(rsrc, input);
   }
 }

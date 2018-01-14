@@ -25,8 +25,10 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.PersonIdent;
 
 @Singleton
@@ -68,7 +70,7 @@ class ValidateServiceUserCommits implements CommitValidationListener {
                   committer.getEmailAddress()));
         }
       }
-    } catch (OrmException e) {
+    } catch (IOException | OrmException | ConfigInvalidException e) {
       throw new CommitValidationException(
           "Internal error while checking for service user commits.", e);
     }

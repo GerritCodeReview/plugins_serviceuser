@@ -43,6 +43,8 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import java.io.IOException;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class ServiceUserCollection
@@ -82,7 +84,8 @@ class ServiceUserCollection
 
   @Override
   public ServiceUserResource parse(ConfigResource parent, IdString id)
-      throws ResourceNotFoundException, AuthException, OrmException, PermissionBackendException {
+      throws ResourceNotFoundException, AuthException, IOException, OrmException,
+          PermissionBackendException, ConfigInvalidException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     IdentifiedUser serviceUser = accounts.get().parseId(id.get());
     if (serviceUser == null

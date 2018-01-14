@@ -34,7 +34,9 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
+import java.io.IOException;
 import java.util.Map;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 
 @Singleton
@@ -64,7 +66,8 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
 
   @Override
   public Map<String, ServiceUserInfo> apply(ConfigResource rscr)
-      throws OrmException, AuthException, PermissionBackendException {
+      throws OrmException, IOException, AuthException, PermissionBackendException,
+          ConfigInvalidException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
