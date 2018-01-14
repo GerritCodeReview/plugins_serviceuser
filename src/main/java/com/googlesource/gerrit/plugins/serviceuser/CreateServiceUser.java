@@ -47,6 +47,7 @@ import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectLevelConfig;
+import com.google.gerrit.server.group.InternalGroup;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -63,6 +64,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.PersonIdent;
@@ -212,10 +214,10 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   private void addToGroups(Account.Id accountId, String[] groupNames)
       throws OrmException, IOException {
     for (String groupName : groupNames) {
-      AccountGroup group = groupCache.get(new AccountGroup.NameKey(groupName));
-      if (group != null) {
+      Optional<InternalGroup> group = groupCache.get(new AccountGroup.NameKey(groupName));
+      if (group.isPresent()) {
         AccountGroupMember m =
-            new AccountGroupMember(new AccountGroupMember.Key(accountId, group.getId()));
+            new AccountGroupMember(new AccountGroupMember.Key(accountId, group.get().getId()));
         db.get()
             .accountGroupMembersAudit()
             .insert(

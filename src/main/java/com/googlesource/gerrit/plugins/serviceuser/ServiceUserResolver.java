@@ -34,10 +34,12 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.PersonIdent;
 
 @Singleton
@@ -68,25 +70,24 @@ class ServiceUserResolver {
     this.accountCache = accountCache;
   }
 
-  ServiceUserInfo getAsServiceUser(PersonIdent committerIdent) throws OrmException {
+  ServiceUserInfo getAsServiceUser(PersonIdent committerIdent)
+      throws ConfigInvalidException, IOException, OrmException {
     StringBuilder committer = new StringBuilder();
     committer.append(committerIdent.getName());
     committer.append(" <");
     committer.append(committerIdent.getEmailAddress());
     committer.append("> ");
 
-    try (ReviewDb db = schema.open()) {
-      Account account = resolver.find(db, committer.toString());
-      if (account == null) {
-        return null;
-      }
-      try {
-        return getServiceUser
-            .get()
-            .apply(new ServiceUserResource(genericUserFactory.create(account.getId())));
-      } catch (ResourceNotFoundException e) {
-        return null;
-      }
+    Account account = resolver.find(committer.toString());
+    if (account == null) {
+      return null;
+    }
+    try {
+      return getServiceUser
+          .get()
+          .apply(new ServiceUserResource(genericUserFactory.create(account.getId())));
+    } catch (ResourceNotFoundException e) {
+      return null;
     }
   }
 
@@ -100,7 +101,7 @@ class ServiceUserResolver {
           new RequestContext() {
             @Override
             public CurrentUser getUser() {
-              return new CurrentUser(null) {
+              return new CurrentUser() {
 
                 @Override
                 public GroupMembership getEffectiveGroups() {

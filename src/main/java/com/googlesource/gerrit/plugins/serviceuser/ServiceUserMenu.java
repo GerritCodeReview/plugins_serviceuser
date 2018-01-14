@@ -29,7 +29,9 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import java.io.IOException;
 import java.util.List;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 
 class ServiceUserMenu implements TopMenu {
   private final String pluginName;
@@ -44,7 +46,7 @@ class ServiceUserMenu implements TopMenu {
       Provider<CurrentUser> userProvider,
       Provider<ListServiceUsers> listServiceUsers,
       PermissionBackend permissionBackend)
-      throws PermissionBackendException {
+      throws IOException, PermissionBackendException, ConfigInvalidException {
     this.pluginName = pluginName;
     this.userProvider = userProvider;
     this.listServiceUsers = listServiceUsers;
@@ -73,7 +75,8 @@ class ServiceUserMenu implements TopMenu {
     return false;
   }
 
-  private boolean hasServiceUser() throws PermissionBackendException {
+  private boolean hasServiceUser()
+      throws PermissionBackendException, IOException, ConfigInvalidException {
     try {
       return !listServiceUsers.get().apply(new ConfigResource()).isEmpty();
     } catch (AuthException | OrmException e) {

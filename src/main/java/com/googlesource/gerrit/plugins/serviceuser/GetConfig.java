@@ -15,7 +15,6 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.common.base.Strings;
-import com.google.gerrit.common.data.GroupDescriptions;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.RestReadView;
@@ -25,12 +24,15 @@ import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.group.GroupJson;
+import com.google.gerrit.server.group.InternalGroup;
+import com.google.gerrit.server.group.InternalGroupDescription;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,9 +77,9 @@ class GetConfig implements RestReadView<ConfigResource> {
     String[] groups = cfg.getStringList("group");
     info.groups = new TreeMap<>();
     for (String g : groups) {
-      AccountGroup group = groupCache.get(new AccountGroup.NameKey(g));
-      if (group != null) {
-        GroupInfo groupInfo = groupJson.format(GroupDescriptions.forAccountGroup(group));
+      Optional<InternalGroup> group = groupCache.get(new AccountGroup.NameKey(g));
+      if (group.isPresent()) {
+        GroupInfo groupInfo = groupJson.format(new InternalGroupDescription(group.get()));
         groupInfo.name = null;
         info.groups.put(g, groupInfo);
       } else {
