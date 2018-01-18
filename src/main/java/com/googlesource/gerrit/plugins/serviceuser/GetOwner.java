@@ -20,16 +20,16 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER
 import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;
-import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.GroupJson;
-import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.restapi.group.GroupJson;
+import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.util.Optional;
 
 @Singleton
 class GetOwner implements RestReadView<ServiceUserResource> {
@@ -51,13 +51,15 @@ class GetOwner implements RestReadView<ServiceUserResource> {
   }
 
   @Override
-  public Response<GroupInfo> apply(ServiceUserResource rsrc)
-      throws ResourceNotFoundException, OrmException {
+  public Response<GroupInfo> apply(ServiceUserResource rsrc) throws OrmException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    String owner = storage.get().getString(USER, rsrc.getUser().getUserName(), KEY_OWNER);
-    if (owner != null) {
-      GroupDescription.Basic group = groups.parseId(owner);
-      return Response.<GroupInfo>ok(json.format(group));
+    Optional<String> username = rsrc.getUser().getUserName();
+    if (username.isPresent()) {
+      String owner = storage.get().getString(USER, username.get(), KEY_OWNER);
+      if (owner != null) {
+        GroupDescription.Basic group = groups.parseId(owner);
+        return Response.<GroupInfo>ok(json.format(group));
+      }
     }
     return Response.none();
   }

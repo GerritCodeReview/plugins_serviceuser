@@ -55,14 +55,14 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
   }
 
   private final Provider<GetConfig> getConfig;
-  private final com.google.gerrit.server.account.PutHttpPassword putHttpPassword;
+  private final com.google.gerrit.server.restapi.account.PutHttpPassword putHttpPassword;
   private final Provider<CurrentUser> self;
   private final PermissionBackend permissionBackend;
 
   @Inject
   PutHttpPassword(
       Provider<GetConfig> getConfig,
-      com.google.gerrit.server.account.PutHttpPassword putHttpPassword,
+      com.google.gerrit.server.restapi.account.PutHttpPassword putHttpPassword,
       Provider<CurrentUser> self,
       PermissionBackend permissionBackend) {
     this.getConfig = getConfig;

@@ -14,10 +14,10 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.extensions.common.Input;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gerrit.server.account.PutActive.Input;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -27,10 +27,10 @@ import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class PutActive implements RestModifyView<ServiceUserResource, Input> {
-  private final Provider<com.google.gerrit.server.account.PutActive> putActive;
+  private final Provider<com.google.gerrit.server.restapi.account.PutActive> putActive;
 
   @Inject
-  PutActive(Provider<com.google.gerrit.server.account.PutActive> putActive) {
+  PutActive(Provider<com.google.gerrit.server.restapi.account.PutActive> putActive) {
     this.putActive = putActive;
   }
 

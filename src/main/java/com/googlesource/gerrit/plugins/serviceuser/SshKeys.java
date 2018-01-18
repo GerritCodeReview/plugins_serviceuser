@@ -30,13 +30,13 @@ import org.eclipse.jgit.errors.ConfigInvalidException;
 class SshKeys implements ChildCollection<ServiceUserResource, ServiceUserResource.SshKey> {
   private final DynamicMap<RestView<ServiceUserResource.SshKey>> views;
   private final Provider<GetSshKeys> list;
-  private final Provider<com.google.gerrit.server.account.SshKeys> sshKeys;
+  private final Provider<com.google.gerrit.server.restapi.account.SshKeys> sshKeys;
 
   @Inject
   SshKeys(
       DynamicMap<RestView<ServiceUserResource.SshKey>> views,
       Provider<GetSshKeys> list,
-      Provider<com.google.gerrit.server.account.SshKeys> sshKeys) {
+      Provider<com.google.gerrit.server.restapi.account.SshKeys> sshKeys) {
     this.views = views;
     this.list = list;
     this.sshKeys = sshKeys;

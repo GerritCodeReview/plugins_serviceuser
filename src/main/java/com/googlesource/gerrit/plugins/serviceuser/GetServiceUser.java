@@ -22,18 +22,20 @@ import static javax.servlet.http.HttpServletResponse.SC_OK;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.common.GroupInfo;
+import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountLoader;
-import com.google.gerrit.server.account.GetAccount;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.restapi.account.GetAccount;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import java.util.Optional;
 import org.eclipse.jgit.lib.Config;
 
 @Singleton
@@ -60,19 +62,22 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
 
   @Override
   public ServiceUserInfo apply(ServiceUserResource rsrc)
-      throws ResourceNotFoundException, OrmException {
+      throws ResourceNotFoundException, OrmException, BadRequestException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    String username = rsrc.getUser().getUserName();
+    Optional<String> username = rsrc.getUser().getUserName();
+    if (!username.isPresent()) {
+      throw new BadRequestException("username is not set");
+    }
     Config db = storage.get();
-    if (!db.getSubsections(USER).contains(username)) {
-      throw new ResourceNotFoundException(username);
+    if (!db.getSubsections(USER).contains(username.get())) {
+      throw new ResourceNotFoundException(username.get());
     }
 
     ServiceUserInfo info = new ServiceUserInfo(getAccount.get().apply(rsrc));
     AccountLoader al = accountLoader.create(true);
-    info.createdBy = al.get(new Account.Id(db.getInt(USER, username, KEY_CREATOR_ID, -1)));
+    info.createdBy = al.get(new Account.Id(db.getInt(USER, username.get(), KEY_CREATOR_ID, -1)));
     al.fill();
-    info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
+    info.createdAt = db.getString(USER, username.get(), KEY_CREATED_AT);
     info.inactive = !rsrc.getUser().getAccount().isActive() ? true : null;
 
     Response<GroupInfo> response = getOwner.apply(rsrc);
