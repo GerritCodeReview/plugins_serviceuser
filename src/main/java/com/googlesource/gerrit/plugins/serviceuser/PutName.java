@@ -14,11 +14,11 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.extensions.common.NameInput;
 import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gerrit.server.account.PutName.Input;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -27,16 +27,17 @@ import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
-class PutName implements RestModifyView<ServiceUserResource, Input> {
-  private Provider<com.google.gerrit.server.account.PutName> putName;
+class PutName
+    implements RestModifyView<ServiceUserResource, com.google.gerrit.extensions.common.NameInput> {
+  private Provider<com.google.gerrit.server.restapi.account.PutName> putName;
 
   @Inject
-  PutName(Provider<com.google.gerrit.server.account.PutName> putName) {
+  PutName(Provider<com.google.gerrit.server.restapi.account.PutName> putName) {
     this.putName = putName;
   }
 
   @Override
-  public Response<String> apply(ServiceUserResource rsrc, Input input)
+  public Response<String> apply(ServiceUserResource rsrc, NameInput input)
       throws MethodNotAllowedException, ResourceNotFoundException, OrmException, IOException,
           ConfigInvalidException {
     return putName.get().apply(rsrc.getUser(), input);

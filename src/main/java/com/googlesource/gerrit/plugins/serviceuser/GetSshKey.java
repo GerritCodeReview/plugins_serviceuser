@@ -23,10 +23,10 @@ import com.google.inject.Singleton;
 
 @Singleton
 class GetSshKey implements RestReadView<ServiceUserResource.SshKey> {
-  private final Provider<com.google.gerrit.server.account.GetSshKey> getSshKey;
+  private final Provider<com.google.gerrit.server.restapi.account.GetSshKey> getSshKey;
 
   @Inject
-  GetSshKey(Provider<com.google.gerrit.server.account.GetSshKey> getSshKey) {
+  GetSshKey(Provider<com.google.gerrit.server.restapi.account.GetSshKey> getSshKey) {
     this.getSshKey = getSshKey;
   }
 
