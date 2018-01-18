@@ -21,6 +21,7 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.client.MenuItem;
 import com.google.gerrit.extensions.restapi.AuthException;
+import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.webui.TopMenu;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.ConfigResource;
@@ -46,7 +47,7 @@ class ServiceUserMenu implements TopMenu {
       Provider<CurrentUser> userProvider,
       Provider<ListServiceUsers> listServiceUsers,
       PermissionBackend permissionBackend)
-      throws IOException, PermissionBackendException, ConfigInvalidException {
+      throws IOException, PermissionBackendException, ConfigInvalidException, BadRequestException {
     this.pluginName = pluginName;
     this.userProvider = userProvider;
     this.listServiceUsers = listServiceUsers;
@@ -76,7 +77,7 @@ class ServiceUserMenu implements TopMenu {
   }
 
   private boolean hasServiceUser()
-      throws PermissionBackendException, IOException, ConfigInvalidException {
+      throws PermissionBackendException, IOException, ConfigInvalidException, BadRequestException {
     try {
       return !listServiceUsers.get().apply(new ConfigResource()).isEmpty();
     } catch (AuthException | OrmException e) {
