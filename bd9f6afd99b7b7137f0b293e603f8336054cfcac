@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf2f677c_68325543",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutName.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1057569
+      },
+      "writtenOn": "2018-01-18T09:35:07Z",
+      "side": 1,
+      "message": "nit: use NameInput since you imported it (also as used in line 40)",
+      "range": {
+        "startLine": 31,
+        "startChar": 51,
+        "endLine": 31,
+        "endChar": 96
+      },
+      "revId": "bd9f6afd99b7b7137f0b293e603f8336054cfcac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
