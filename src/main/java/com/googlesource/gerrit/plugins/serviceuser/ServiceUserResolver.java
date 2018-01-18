@@ -25,7 +25,7 @@ import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.GroupMembership;
-import com.google.gerrit.server.group.ListMembers;
+import com.google.gerrit.server.restapi.group.ListMembers;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.gwtorm.server.OrmException;
@@ -146,7 +146,7 @@ class ServiceUserResolver {
         ListMembers lm = listMembers.get();
         lm.setRecursive(true);
         List<AccountInfo> owners = new ArrayList<>();
-        for (AccountInfo a : lm.apply(new AccountGroup.UUID(serviceUser.owner.id))) {
+        for (AccountInfo a : lm.getTransitiveMembers(new AccountGroup.UUID(serviceUser.owner.id))) {
           owners.add(a);
         }
         return owners;
