@@ -40,7 +40,6 @@ import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountLoader;
-import com.google.gerrit.server.account.CreateAccount;
 import com.google.gerrit.server.account.GroupCache;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
@@ -49,6 +48,7 @@ import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.group.InternalGroup;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.restapi.account.CreateAccount;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -188,14 +188,14 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
 
     addToGroups(new Account.Id(response.value()._accountId), cfg.getStringList("group"));
 
-    String creator = user.getUserName();
+    Optional<String> creator = user.getUserName();
     Account.Id creatorId = ((IdentifiedUser) user).getAccountId();
     String creationDate = rfc2822DateFormatter.format(new Date());
 
     Config db = storage.get();
     db.setInt(USER, username, KEY_CREATOR_ID, creatorId.get());
-    if (creator != null) {
-      db.setString(USER, username, KEY_CREATED_BY, creator);
+    if (creator.isPresent()) {
+      db.setString(USER, username, KEY_CREATED_BY, creator.get());
     }
     db.setString(USER, username, KEY_CREATED_AT, creationDate);
 

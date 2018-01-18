@@ -24,12 +24,13 @@ import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.GroupJson;
-import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.restapi.group.GroupJson;
+import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.util.Optional;
 
 @Singleton
 class GetOwner implements RestReadView<ServiceUserResource> {
@@ -54,7 +55,11 @@ class GetOwner implements RestReadView<ServiceUserResource> {
   public Response<GroupInfo> apply(ServiceUserResource rsrc)
       throws ResourceNotFoundException, OrmException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    String owner = storage.get().getString(USER, rsrc.getUser().getUserName(), KEY_OWNER);
+    Optional<String> username = rsrc.getUser().getUserName();
+    if (!username.isPresent()) {
+      throw new ResourceNotFoundException("username doesn't exist");
+    }
+    String owner = storage.get().getString(USER, username.get(), KEY_OWNER);
     if (owner != null) {
       GroupDescription.Basic group = groups.parseId(owner);
       return Response.<GroupInfo>ok(json.format(group));

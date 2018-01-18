@@ -27,13 +27,14 @@ import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountLoader;
-import com.google.gerrit.server.account.GetAccount;
 import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.restapi.account.GetAccount;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import java.util.Optional;
 import org.eclipse.jgit.lib.Config;
 
 @Singleton
@@ -62,17 +63,20 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   public ServiceUserInfo apply(ServiceUserResource rsrc)
       throws ResourceNotFoundException, OrmException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    String username = rsrc.getUser().getUserName();
+    Optional<String> username = rsrc.getUser().getUserName();
+    if (!username.isPresent()) {
+      throw new ResourceNotFoundException("username doesn't exist");
+    }
     Config db = storage.get();
-    if (!db.getSubsections(USER).contains(username)) {
-      throw new ResourceNotFoundException(username);
+    if (!db.getSubsections(USER).contains(username.get())) {
+      throw new ResourceNotFoundException(username.get());
     }
 
     ServiceUserInfo info = new ServiceUserInfo(getAccount.get().apply(rsrc));
     AccountLoader al = accountLoader.create(true);
-    info.createdBy = al.get(new Account.Id(db.getInt(USER, username, KEY_CREATOR_ID, -1)));
+    info.createdBy = al.get(new Account.Id(db.getInt(USER, username.get(), KEY_CREATOR_ID, -1)));
     al.fill();
-    info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
+    info.createdAt = db.getString(USER, username.get(), KEY_CREATED_AT);
     info.inactive = !rsrc.getUser().getAccount().isActive() ? true : null;
 
     Response<GroupInfo> response = getOwner.apply(rsrc);

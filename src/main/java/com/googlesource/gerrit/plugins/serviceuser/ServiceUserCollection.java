@@ -32,18 +32,19 @@ import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.account.AccountsCollection;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.restapi.account.AccountsCollection;
+import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.util.Optional;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
@@ -88,8 +89,16 @@ class ServiceUserCollection
           PermissionBackendException, ConfigInvalidException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     IdentifiedUser serviceUser = accounts.get().parseId(id.get());
-    if (serviceUser == null
-        || !storage.get().getSubsections(USER).contains(serviceUser.getUserName())) {
+    if (serviceUser == null) {
+      throw new ResourceNotFoundException(id);
+    }
+
+    Optional<String> username = serviceUser.getUserName();
+    if (!username.isPresent()) {
+      throw new ResourceNotFoundException("username doesn't exist");
+    }
+
+    if (!storage.get().getSubsections(USER).contains(username.get())) {
       throw new ResourceNotFoundException(id);
     }
     CurrentUser user = userProvider.get();
@@ -127,7 +136,6 @@ class ServiceUserCollection
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public CreateServiceUser create(ConfigResource parent, IdString username) {
     return createServiceUserFactory.create(username.get());
   }

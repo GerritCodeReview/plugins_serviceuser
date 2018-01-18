@@ -27,7 +27,6 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 import java.io.IOException;
-import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
@@ -108,7 +107,7 @@ class CreateServiceUserNotes {
     }
   }
 
-  void commitNotes() throws IOException, ConcurrentRefUpdateException {
+  void commitNotes() throws IOException {
     try {
       if (serviceUserNotes == null) {
         return;

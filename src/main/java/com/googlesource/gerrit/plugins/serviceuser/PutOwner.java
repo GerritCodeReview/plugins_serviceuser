@@ -26,6 +26,7 @@ import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.DefaultInput;
 import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
+import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
@@ -35,17 +36,18 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.MetaDataUpdate;
 import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.GroupJson;
-import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.restapi.group.GroupJson;
+import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.PutOwner.Input;
 import java.io.IOException;
+import java.util.Optional;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
 
@@ -90,30 +92,34 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
       throws UnprocessableEntityException, RepositoryNotFoundException, MethodNotAllowedException,
           IOException, OrmException, ResourceConflictException, AuthException,
-          PermissionBackendException {
+          PermissionBackendException, ResourceNotFoundException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     Boolean ownerAllowed = getConfig.get().apply(new ConfigResource()).allowOwner;
     if ((ownerAllowed == null || !ownerAllowed)) {
       permissionBackend.user(self).check(ADMINISTRATE_SERVER);
+    }
+    Optional<String> username = rsrc.getUser().getUserName();
+    if (!username.isPresent()) {
+      throw new ResourceNotFoundException("username doesn't exist");
     }
 
     if (input == null) {
       input = new Input();
     }
     Config db = storage.get();
-    String oldGroup = db.getString(USER, rsrc.getUser().getUserName(), KEY_OWNER);
+    String oldGroup = db.getString(USER, username.get(), KEY_OWNER);
     GroupDescription.Basic group = null;
     if (Strings.isNullOrEmpty(input.group)) {
-      db.unset(USER, rsrc.getUser().getUserName(), KEY_OWNER);
+      db.unset(USER, username.get(), KEY_OWNER);
     } else {
       group = groups.parse(input.group);
       if (!AccountGroup.isInternalGroup(group.getGroupUUID())) {
         throw new MethodNotAllowedException();
       }
-      db.setString(USER, rsrc.getUser().getUserName(), KEY_OWNER, group.getGroupUUID().get());
+      db.setString(USER, username.get(), KEY_OWNER, group.getGroupUUID().get());
     }
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
-    md.setMessage("Set owner for service user '" + rsrc.getUser().getUserName() + "'\n");
+    md.setMessage("Set owner for service user '" + username.get() + "'\n");
     storage.commit(md);
     return group != null
         ? (oldGroup != null
