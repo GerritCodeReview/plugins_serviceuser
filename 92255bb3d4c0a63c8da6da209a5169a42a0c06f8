@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "817fa96d_f5e5fda6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetOwner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-02-16T07:53:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b258c73e_87d76432",
+      "range": {
+        "startLine": 60,
+        "startChar": 43,
+        "endLine": 60,
+        "endChar": 65
+      },
+      "revId": "92255bb3d4c0a63c8da6da209a5169a42a0c06f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe93db52_b440ee40",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetServiceUser.java",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "writtenOn": "2018-02-16T07:23:40Z",
       "side": 1,
       "message": "Same here",
+      "range": {
+        "startLine": 68,
+        "startChar": 43,
+        "endLine": 68,
+        "endChar": 65
+      },
+      "revId": "92255bb3d4c0a63c8da6da209a5169a42a0c06f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5932d9db_6915cfc3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-02-16T07:53:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe93db52_b440ee40",
       "range": {
         "startLine": 68,
         "startChar": 43,
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "d100b2bf_2f8e20dd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-02-16T07:53:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c37b4694_1b44c201",
+      "range": {
+        "startLine": 103,
+        "startChar": 43,
+        "endLine": 103,
+        "endChar": 65
+      },
+      "revId": "92255bb3d4c0a63c8da6da209a5169a42a0c06f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "771c3ec3_507319c7",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
         "patchSetId": 4
@@ -130,6 +202,30 @@
       "writtenOn": "2018-02-16T07:23:40Z",
       "side": 1,
       "message": "and here",
+      "range": {
+        "startLine": 98,
+        "startChar": 43,
+        "endLine": 98,
+        "endChar": 65
+      },
+      "revId": "92255bb3d4c0a63c8da6da209a5169a42a0c06f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc5c3e9_cd493ba8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-02-16T07:53:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "771c3ec3_507319c7",
       "range": {
         "startLine": 98,
         "startChar": 43,
