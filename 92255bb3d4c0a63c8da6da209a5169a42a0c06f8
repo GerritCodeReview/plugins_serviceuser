@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b258c73e_87d76432",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetOwner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-16T07:36:46Z",
+      "side": 1,
+      "message": "Do we even need to throw an exception here?  In the previous code it would just return Response.none() if the owner is null, which I guess is what would happen if the username wasn\u0027t there.\n\nSo in that case maybe just enclose the following block (L62 to L66) inside \"if username.isPresent() {\"",
+      "parentUuid": "560fd92e_d7fca704",
+      "range": {
+        "startLine": 60,
+        "startChar": 43,
+        "endLine": 60,
+        "endChar": 65
+      },
+      "revId": "92255bb3d4c0a63c8da6da209a5169a42a0c06f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe93db52_b440ee40",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetServiceUser.java",
         "patchSetId": 4
