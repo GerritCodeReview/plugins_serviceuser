@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19bfe0a4_b32904da",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetOwner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-16T07:23:40Z",
+      "side": 1,
+      "message": "This is not that the username doesn\u0027t exist, but that the calling user does not have a username set.\n\nIn that case shouldn\u0027t this rather be a bad request exception?",
+      "range": {
+        "startLine": 60,
+        "startChar": 43,
+        "endLine": 60,
+        "endChar": 65
+      },
+      "revId": "92255bb3d4c0a63c8da6da209a5169a42a0c06f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe93db52_b440ee40",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-16T07:23:40Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 68,
+        "startChar": 43,
+        "endLine": 68,
+        "endChar": 65
+      },
+      "revId": "92255bb3d4c0a63c8da6da209a5169a42a0c06f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c37b4694_1b44c201",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-16T07:23:40Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 103,
+        "startChar": 43,
+        "endLine": 103,
+        "endChar": 65
+      },
+      "revId": "92255bb3d4c0a63c8da6da209a5169a42a0c06f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "771c3ec3_507319c7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-16T07:23:40Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 98,
+        "startChar": 43,
+        "endLine": 98,
+        "endChar": 65
+      },
+      "revId": "92255bb3d4c0a63c8da6da209a5169a42a0c06f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
