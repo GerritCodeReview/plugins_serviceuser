@@ -23,7 +23,6 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
 import java.io.IOException;
 
 @Singleton
@@ -37,8 +36,7 @@ class PutName implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<String> apply(ServiceUserResource rsrc, Input input)
-      throws MethodNotAllowedException, ResourceNotFoundException, OrmException,
-      IOException {
+      throws MethodNotAllowedException, ResourceNotFoundException, OrmException, IOException {
     return putName.get().apply(rsrc.getUser(), input);
   }
 }

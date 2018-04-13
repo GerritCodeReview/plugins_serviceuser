@@ -33,15 +33,12 @@ import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
-
-import org.eclipse.jgit.lib.PersonIdent;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import org.eclipse.jgit.lib.PersonIdent;
 
 @Singleton
 class ServiceUserResolver {
@@ -54,11 +51,14 @@ class ServiceUserResolver {
   private final AccountCache accountCache;
 
   @Inject
-  ServiceUserResolver(AccountResolver resolver,
+  ServiceUserResolver(
+      AccountResolver resolver,
       IdentifiedUser.GenericFactory genericUserFactory,
       Provider<GetServiceUser> getServiceUser,
-      Provider<ListMembers> listMembers, SchemaFactory<ReviewDb> schema,
-      ThreadLocalRequestContext tl, AccountCache accountCache) {
+      Provider<ListMembers> listMembers,
+      SchemaFactory<ReviewDb> schema,
+      ThreadLocalRequestContext tl,
+      AccountCache accountCache) {
     this.resolver = resolver;
     this.genericUserFactory = genericUserFactory;
     this.getServiceUser = getServiceUser;
@@ -68,22 +68,22 @@ class ServiceUserResolver {
     this.accountCache = accountCache;
   }
 
-  ServiceUserInfo getAsServiceUser(PersonIdent committerIdent)
-      throws OrmException {
+  ServiceUserInfo getAsServiceUser(PersonIdent committerIdent) throws OrmException {
     StringBuilder committer = new StringBuilder();
     committer.append(committerIdent.getName());
     committer.append(" <");
     committer.append(committerIdent.getEmailAddress());
     committer.append("> ");
 
-    try (ReviewDb db = schema.open())  {
+    try (ReviewDb db = schema.open()) {
       Account account = resolver.find(db, committer.toString());
       if (account == null) {
         return null;
       }
       try {
-        return getServiceUser.get().apply(
-            new ServiceUserResource(genericUserFactory.create(account.getId())));
+        return getServiceUser
+            .get()
+            .apply(new ServiceUserResource(genericUserFactory.create(account.getId())));
       } catch (ResourceNotFoundException e) {
         return null;
       }
@@ -96,47 +96,50 @@ class ServiceUserResolver {
     }
 
     try (ReviewDb db = schema.open()) {
-      RequestContext context = new RequestContext() {
-        @Override
-        public CurrentUser getUser() {
-          return new CurrentUser(null) {
+      RequestContext context =
+          new RequestContext() {
+            @Override
+            public CurrentUser getUser() {
+              return new CurrentUser(null) {
+
+                @Override
+                public GroupMembership getEffectiveGroups() {
+                  return new GroupMembership() {
+                    @Override
+                    public Set<AccountGroup.UUID> intersection(
+                        Iterable<AccountGroup.UUID> groupIds) {
+                      return null;
+                    }
+
+                    @Override
+                    public Set<AccountGroup.UUID> getKnownGroups() {
+                      return null;
+                    }
+
+                    @Override
+                    public boolean containsAnyOf(Iterable<AccountGroup.UUID> groupIds) {
+                      return true;
+                    }
+
+                    @Override
+                    public boolean contains(AccountGroup.UUID groupId) {
+                      return true;
+                    }
+                  };
+                }
+              };
+            }
 
             @Override
-            public GroupMembership getEffectiveGroups() {
-              return new GroupMembership() {
+            public Provider<ReviewDb> getReviewDbProvider() {
+              return new Provider<ReviewDb>() {
                 @Override
-                public Set<AccountGroup.UUID> intersection(Iterable<AccountGroup.UUID> groupIds) {
-                  return null;
-                }
-
-                @Override
-                public Set<AccountGroup.UUID> getKnownGroups() {
-                  return null;
-                }
-
-                @Override
-                public boolean containsAnyOf(Iterable<AccountGroup.UUID> groupIds) {
-                  return true;
-                }
-
-                @Override
-                public boolean contains(AccountGroup.UUID groupId) {
-                  return true;
+                public ReviewDb get() {
+                  return db;
                 }
               };
             }
           };
-        }
-
-        @Override
-        public Provider<ReviewDb> getReviewDbProvider() {
-          return new Provider<ReviewDb>() {
-            @Override
-            public ReviewDb get() {
-              return db;
-            }};
-        }
-      };
       RequestContext old = tl.setContext(context);
       try {
         ListMembers lm = listMembers.get();
@@ -152,8 +155,7 @@ class ServiceUserResolver {
     }
   }
 
-  List<AccountInfo> listActiveOwners(ServiceUserInfo serviceUser)
-      throws OrmException {
+  List<AccountInfo> listActiveOwners(ServiceUserInfo serviceUser) throws OrmException {
     List<AccountInfo> activeOwners = new ArrayList<>();
     for (AccountInfo owner : listOwners(serviceUser)) {
       AccountState accountState = accountCache.get(new Account.Id(owner._accountId));

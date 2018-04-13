@@ -39,8 +39,11 @@ class GetOwner implements RestReadView<ServiceUserResource> {
   private final GroupJson json;
 
   @Inject
-  GetOwner(GroupsCollection groups, @PluginName String pluginName,
-      ProjectCache projectCache, GroupJson json) {
+  GetOwner(
+      GroupsCollection groups,
+      @PluginName String pluginName,
+      ProjectCache projectCache,
+      GroupJson json) {
     this.groups = groups;
     this.pluginName = pluginName;
     this.projectCache = projectCache;
@@ -54,7 +57,7 @@ class GetOwner implements RestReadView<ServiceUserResource> {
     String owner = storage.get().getString(USER, rsrc.getUser().getUserName(), KEY_OWNER);
     if (owner != null) {
       GroupDescription.Basic group = groups.parseId(owner);
-      return Response.<GroupInfo> ok(json.format(group));
+      return Response.<GroupInfo>ok(json.format(group));
     }
     return Response.none();
   }

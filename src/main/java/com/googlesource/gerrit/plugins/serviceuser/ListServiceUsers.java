@@ -32,12 +32,9 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
-
-import org.eclipse.jgit.lib.Config;
-
 import java.util.Map;
+import org.eclipse.jgit.lib.Config;
 
 @Singleton
 class ListServiceUsers implements RestReadView<ConfigResource> {
@@ -49,9 +46,12 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
   private final Provider<GetServiceUser> getServiceUser;
 
   @Inject
-  ListServiceUsers(Provider<CurrentUser> userProvider,
-      @PluginName String pluginName, ProjectCache projectCache,
-      AccountCache accountCache, Provider<ServiceUserCollection> serviceUsers,
+  ListServiceUsers(
+      Provider<CurrentUser> userProvider,
+      @PluginName String pluginName,
+      ProjectCache projectCache,
+      AccountCache accountCache,
+      Provider<ServiceUserCollection> serviceUsers,
       Provider<GetServiceUser> getServiceUser) {
     this.userProvider = userProvider;
     this.pluginName = pluginName;
@@ -78,8 +78,7 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
         ServiceUserInfo info;
         try {
           ServiceUserResource serviceUserResource =
-              serviceUsers.get().parse(new ConfigResource(),
-                  IdString.fromDecoded(username));
+              serviceUsers.get().parse(new ConfigResource(), IdString.fromDecoded(username));
           info = getServiceUser.get().apply(serviceUserResource);
           info.username = null;
           accounts.put(username, info);

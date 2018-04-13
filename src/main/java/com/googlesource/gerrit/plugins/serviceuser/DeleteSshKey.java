@@ -23,28 +23,25 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
+import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
-import java.io.IOException;
-
 @Singleton
-class DeleteSshKey
-    implements RestModifyView<ServiceUserResource.SshKey, Input> {
+class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> {
   private final Provider<com.google.gerrit.server.account.DeleteSshKey> deleteSshKey;
 
   @Inject
-  DeleteSshKey(
-      Provider<com.google.gerrit.server.account.DeleteSshKey> deleteSshKey) {
+  DeleteSshKey(Provider<com.google.gerrit.server.account.DeleteSshKey> deleteSshKey) {
     this.deleteSshKey = deleteSshKey;
   }
 
   @Override
   public Response<?> apply(ServiceUserResource.SshKey rsrc, Input input)
-      throws OrmException, AuthException, RepositoryNotFoundException,
-      IOException, ConfigInvalidException {
-    return deleteSshKey.get().apply(
-        new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
+      throws OrmException, AuthException, RepositoryNotFoundException, IOException,
+          ConfigInvalidException {
+    return deleteSshKey
+        .get()
+        .apply(new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
   }
 }

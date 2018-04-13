@@ -28,14 +28,12 @@ import com.google.gerrit.server.group.GroupJson;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 class GetConfig implements RestReadView<ConfigResource> {
@@ -47,8 +45,11 @@ class GetConfig implements RestReadView<ConfigResource> {
   private final GroupJson groupJson;
 
   @Inject
-  public GetConfig(PluginConfigFactory cfgFactory,
-      @PluginName String pluginName, GroupCache groupCache, GroupJson groupJson) {
+  public GetConfig(
+      PluginConfigFactory cfgFactory,
+      @PluginName String pluginName,
+      GroupCache groupCache,
+      GroupJson groupJson) {
     this.cfgFactory = cfgFactory;
     this.pluginName = pluginName;
     this.groupCache = groupCache;

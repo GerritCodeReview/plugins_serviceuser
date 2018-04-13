@@ -40,19 +40,15 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
 import com.googlesource.gerrit.plugins.serviceuser.PutOwner.Input;
-
+import java.io.IOException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Config;
-
-import java.io.IOException;
 
 @Singleton
 class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   public static class Input {
-    @DefaultInput
-    public String group;
+    @DefaultInput public String group;
   }
 
   private final Provider<GetConfig> getConfig;
@@ -65,9 +61,13 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<CurrentUser> self;
 
   @Inject
-  PutOwner(Provider<GetConfig> getConfig, GroupsCollection groups,
-      @PluginName String pluginName, ProjectCache projectCache,
-      MetaDataUpdate.User metaDataUpdateFactory, GroupJson json,
+  PutOwner(
+      Provider<GetConfig> getConfig,
+      GroupsCollection groups,
+      @PluginName String pluginName,
+      ProjectCache projectCache,
+      MetaDataUpdate.User metaDataUpdateFactory,
+      GroupJson json,
       Provider<CurrentUser> self) {
     this.getConfig = getConfig;
     this.groups = groups;
@@ -81,8 +81,8 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
-      throws UnprocessableEntityException, RepositoryNotFoundException,
-      MethodNotAllowedException, IOException, OrmException, ResourceConflictException {
+      throws UnprocessableEntityException, RepositoryNotFoundException, MethodNotAllowedException,
+          IOException, OrmException, ResourceConflictException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     Boolean ownerAllowed = getConfig.get().apply(new ConfigResource()).allowOwner;
     if ((ownerAllowed == null || !ownerAllowed)
@@ -92,7 +92,6 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
 
     if (input == null) {
       input = new Input();
-
     }
     Config db = storage.get();
     String oldGroup = db.getString(USER, rsrc.getUser().getUserName(), KEY_OWNER);
@@ -104,14 +103,15 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       if (GroupDescriptions.toAccountGroup(group) == null) {
         throw new MethodNotAllowedException();
       }
-      db.setString(USER, rsrc.getUser().getUserName(), KEY_OWNER,
-          group.getGroupUUID().get());
+      db.setString(USER, rsrc.getUser().getUserName(), KEY_OWNER, group.getGroupUUID().get());
     }
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
     md.setMessage("Set owner for service user '" + rsrc.getUser().getUserName() + "'\n");
     storage.commit(md);
     return group != null
-        ? (oldGroup != null ? Response.ok(json.format(group)) : Response.created(json.format(group)))
-        : Response.<GroupInfo> none();
+        ? (oldGroup != null
+            ? Response.ok(json.format(group))
+            : Response.created(json.format(group)))
+        : Response.<GroupInfo>none();
   }
 }

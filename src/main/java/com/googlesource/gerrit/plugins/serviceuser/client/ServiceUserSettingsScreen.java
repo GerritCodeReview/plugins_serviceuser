@@ -57,18 +57,21 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
   ServiceUserSettingsScreen() {
     setStyleName("serviceuser-panel");
 
-    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
-        .get(new AsyncCallback<ConfigInfo>() {
-          @Override
-          public void onSuccess(ConfigInfo info) {
-            display(info);
-          }
+    new RestApi("config")
+        .id("server")
+        .view(Plugin.get().getPluginName(), "config")
+        .get(
+            new AsyncCallback<ConfigInfo>() {
+              @Override
+              public void onSuccess(ConfigInfo info) {
+                display(info);
+              }
 
-          @Override
-          public void onFailure(Throwable caught) {
-            // never invoked
-          }
-        });
+              @Override
+              public void onFailure(Throwable caught) {
+                // never invoked
+              }
+            });
   }
 
   private void display(ConfigInfo info) {
@@ -76,19 +79,21 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     Panel infoMsgTitelPanel = new HorizontalPanel();
     infoMsgTitelPanel.add(new Label("Info Message"));
     Image infoMsgInfo = new Image(ServiceUserPlugin.RESOURCES.info());
-    infoMsgInfo.setTitle("HTML formatted message that should be"
-        + " displayed on the service user creation screen.");
+    infoMsgInfo.setTitle(
+        "HTML formatted message that should be"
+            + " displayed on the service user creation screen.");
     infoMsgTitelPanel.add(infoMsgInfo);
     infoMsgTitelPanel.add(new Label(":"));
     infoMsgPanel.add(infoMsgTitelPanel);
     infoMsgTxt = new TextArea();
     infoMsgTxt.setValue(info.getInfoMessage());
-    infoMsgTxt.addKeyPressHandler(new KeyPressHandler() {
-      @Override
-      public void onKeyPress(final KeyPressEvent event) {
-        event.stopPropagation();
-      }
-    });
+    infoMsgTxt.addKeyPressHandler(
+        new KeyPressHandler() {
+          @Override
+          public void onKeyPress(final KeyPressEvent event) {
+            event.stopPropagation();
+          }
+        });
     infoMsgTxt.setVisibleLines(12);
     infoMsgTxt.setCharacterWidth(80);
     infoMsgTxt.getElement().setPropertyBoolean("spellcheck", false);
@@ -99,19 +104,21 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     Panel onSuccessMsgTitelPanel = new HorizontalPanel();
     onSuccessMsgTitelPanel.add(new Label("On Success Message"));
     Image onSuccessMsgInfo = new Image(ServiceUserPlugin.RESOURCES.info());
-    onSuccessMsgInfo.setTitle("HTML formatted message that should be"
-        + " displayed after a service user was successfully created.");
+    onSuccessMsgInfo.setTitle(
+        "HTML formatted message that should be"
+            + " displayed after a service user was successfully created.");
     onSuccessMsgTitelPanel.add(onSuccessMsgInfo);
     onSuccessMsgTitelPanel.add(new Label(":"));
     onSuccessMsgPanel.add(onSuccessMsgTitelPanel);
     onSuccessMsgTxt = new TextArea();
     onSuccessMsgTxt.setValue(info.getOnSuccessMessage());
-    onSuccessMsgTxt.addKeyPressHandler(new KeyPressHandler() {
-      @Override
-      public void onKeyPress(final KeyPressEvent event) {
-        event.stopPropagation();
-      }
-    });
+    onSuccessMsgTxt.addKeyPressHandler(
+        new KeyPressHandler() {
+          @Override
+          public void onKeyPress(final KeyPressEvent event) {
+            event.stopPropagation();
+          }
+        });
     onSuccessMsgTxt.setVisibleLines(12);
     onSuccessMsgTxt.setCharacterWidth(80);
     onSuccessMsgTxt.getElement().setPropertyBoolean("spellcheck", false);
@@ -123,9 +130,10 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     allowEmailCheckBox.setValue(info.getAllowEmail());
     allowEmailPanel.add(allowEmailCheckBox);
     Image allowEmailInfo = new Image(ServiceUserPlugin.RESOURCES.info());
-    allowEmailInfo.setTitle("Whether it is allowed to provide an email address "
-        + "for a service user. E.g. having an email address allows a service user "
-        + "to push commits and tags.");
+    allowEmailInfo.setTitle(
+        "Whether it is allowed to provide an email address "
+            + "for a service user. E.g. having an email address allows a service user "
+            + "to push commits and tags.");
     allowEmailPanel.add(allowEmailInfo);
     add(allowEmailPanel);
 
@@ -134,9 +142,10 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     allowHttpPasswordCheckBox.setValue(info.getAllowHttpPassword());
     allowHttpPasswordPanel.add(allowHttpPasswordCheckBox);
     Image allowHttpPasswordInfo = new Image(ServiceUserPlugin.RESOURCES.info());
-    allowHttpPasswordInfo.setTitle("Whether it is allowed to generate an HTTP password "
-        + "for a service user. E.g. having an HTTP password allows a service user "
-        + "to use the Gerrit REST API.");
+    allowHttpPasswordInfo.setTitle(
+        "Whether it is allowed to generate an HTTP password "
+            + "for a service user. E.g. having an HTTP password allows a service user "
+            + "to use the Gerrit REST API.");
     allowHttpPasswordPanel.add(allowHttpPasswordInfo);
     add(allowHttpPasswordPanel);
 
@@ -145,8 +154,7 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     allowOwnerCheckBox.setValue(info.getAllowOwner());
     allowOwnerPanel.add(allowOwnerCheckBox);
     Image allowOwnerInfo = new Image(ServiceUserPlugin.RESOURCES.info());
-    allowOwnerInfo.setTitle("Whether it is allowed to set an owner group "
-        + "for a service user.");
+    allowOwnerInfo.setTitle("Whether it is allowed to set an owner group " + "for a service user.");
     allowOwnerPanel.add(allowOwnerInfo);
     add(allowOwnerPanel);
 
@@ -155,12 +163,13 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     createNotesCheckBox.setValue(info.getCreateNotes());
     createNotesPanel.add(createNotesCheckBox);
     Image createNotesInfo = new Image(ServiceUserPlugin.RESOURCES.info());
-    createNotesInfo.setTitle("Whether commits of a service user should be "
-        + "annotated by a Git note that contains information about the current "
-        + "owners of the service user. This allows to find a real person that "
-        + "is responsible for this commit. To get such a Git note for each commit "
-        + "of a service user the 'Forge Committer' access right must be blocked "
-        + "for service users.");
+    createNotesInfo.setTitle(
+        "Whether commits of a service user should be "
+            + "annotated by a Git note that contains information about the current "
+            + "owners of the service user. This allows to find a real person that "
+            + "is responsible for this commit. To get such a Git note for each commit "
+            + "of a service user the 'Forge Committer' access right must be blocked "
+            + "for service users.");
     createNotesPanel.add(createNotesInfo);
     add(createNotesPanel);
 
@@ -170,40 +179,42 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     createNotesAsyncCheckBox.setEnabled(info.getCreateNotes());
     createNotesAsyncPanel.add(createNotesAsyncCheckBox);
     Image createNotesAsyncInfo = new Image(ServiceUserPlugin.RESOURCES.info());
-    createNotesAsyncInfo.setTitle("Whether the Git notes on commits that are "
-        + "pushed by a service user should be created asynchronously.");
+    createNotesAsyncInfo.setTitle(
+        "Whether the Git notes on commits that are "
+            + "pushed by a service user should be created asynchronously.");
     createNotesAsyncPanel.add(createNotesAsyncInfo);
     add(createNotesAsyncPanel);
 
-    createNotesCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-      @Override
-      public void onValueChange(ValueChangeEvent<Boolean> event) {
-        createNotesAsyncCheckBox.setEnabled(event.getValue());
-      }
-    });
+    createNotesCheckBox.addValueChangeHandler(
+        new ValueChangeHandler<Boolean>() {
+          @Override
+          public void onValueChange(ValueChangeEvent<Boolean> event) {
+            createNotesAsyncCheckBox.setEnabled(event.getValue());
+          }
+        });
 
     saveButton = new Button("Save");
     saveButton.addStyleName("serviceuser-saveButton");
-    saveButton.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(final ClickEvent event) {
-        doSave();
-      }
-    });
+    saveButton.addClickHandler(
+        new ClickHandler() {
+          @Override
+          public void onClick(final ClickEvent event) {
+            doSave();
+          }
+        });
 
     blockedUsernamesPanel =
-        new StringListPanel("Blocked Usernames", "Username",
-            info.getBlockedNames(), saveButton);
-    blockedUsernamesPanel.setInfo("List of usernames which are "
-        + "forbidden to be used as name for a service user. "
-        + "The blocked usernames are case insensitive.");
+        new StringListPanel("Blocked Usernames", "Username", info.getBlockedNames(), saveButton);
+    blockedUsernamesPanel.setInfo(
+        "List of usernames which are "
+            + "forbidden to be used as name for a service user. "
+            + "The blocked usernames are case insensitive.");
     add(blockedUsernamesPanel);
 
     groupsPanel =
-        new StringListPanel("Groups", "Group Name",
-            info.getGroups().keySet(), saveButton);
-    groupsPanel.setInfo("Names of groups to which newly created "
-        + "service users should be added automatically.");
+        new StringListPanel("Groups", "Group Name", info.getGroups().keySet(), saveButton);
+    groupsPanel.setInfo(
+        "Names of groups to which newly created " + "service users should be added automatically.");
     add(groupsPanel);
 
     HorizontalPanel buttons = new HorizontalPanel();
@@ -236,18 +247,22 @@ public class ServiceUserSettingsScreen extends VerticalPanel {
     }
     in.setBlockedNames(blockedUsernamesPanel.getValues());
     in.setGroups(groupsPanel.getValues());
-    new RestApi("config").id("server").view(Plugin.get().getPluginName(), "config")
-        .put(in, new AsyncCallback<JavaScriptObject>() {
+    new RestApi("config")
+        .id("server")
+        .view(Plugin.get().getPluginName(), "config")
+        .put(
+            in,
+            new AsyncCallback<JavaScriptObject>() {
 
-          @Override
-          public void onSuccess(JavaScriptObject result) {
-            saveButton.setEnabled(false);
-          }
+              @Override
+              public void onSuccess(JavaScriptObject result) {
+                saveButton.setEnabled(false);
+              }
 
-          @Override
-          public void onFailure(Throwable caught) {
-            // never invoked
-          }
-        });
+              @Override
+              public void onFailure(Throwable caught) {
+                // never invoked
+              }
+            });
   }
 }

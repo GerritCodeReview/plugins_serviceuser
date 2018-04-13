@@ -25,17 +25,12 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
 import com.googlesource.gerrit.plugins.serviceuser.PutHttpPassword.Input;
-
-import org.apache.commons.codec.binary.Base64;
-
-import org.eclipse.jgit.errors.ConfigInvalidException;
-
 import java.io.IOException;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import org.apache.commons.codec.binary.Base64;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 public class PutHttpPassword implements RestModifyView<ServiceUserResource, Input> {
@@ -60,7 +55,8 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
   private final Provider<CurrentUser> self;
 
   @Inject
-  PutHttpPassword(Provider<GetConfig> getConfig,
+  PutHttpPassword(
+      Provider<GetConfig> getConfig,
       com.google.gerrit.server.account.PutHttpPassword putHttpPassword,
       Provider<CurrentUser> self) {
     this.getConfig = getConfig;
@@ -71,7 +67,7 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
   @Override
   public Response<String> apply(ServiceUserResource rsrc, Input input)
       throws AuthException, ResourceConflictException, ConfigInvalidException,
-      ResourceNotFoundException, OrmException, IOException {
+          ResourceNotFoundException, OrmException, IOException {
     if (input == null) {
       input = new Input();
     }
@@ -85,8 +81,9 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
       }
     } else {
       if (!self.get().getCapabilities().canAdministrateServer()) {
-        throw new AuthException("not allowed to set HTTP password directly, "
-            + "requires the Administrate Server permission");
+        throw new AuthException(
+            "not allowed to set HTTP password directly, "
+                + "requires the Administrate Server permission");
       }
     }
 

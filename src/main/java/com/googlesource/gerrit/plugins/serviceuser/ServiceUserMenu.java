@@ -25,7 +25,6 @@ import com.google.gerrit.server.config.ConfigResource;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
 import java.util.List;
 
 class ServiceUserMenu implements TopMenu {
@@ -35,7 +34,8 @@ class ServiceUserMenu implements TopMenu {
   private final Provider<ListServiceUsers> listServiceUsers;
 
   @Inject
-  ServiceUserMenu(@PluginName String pluginName,
+  ServiceUserMenu(
+      @PluginName String pluginName,
       Provider<CurrentUser> userProvider,
       Provider<ListServiceUsers> listServiceUsers) {
     this.pluginName = pluginName;
