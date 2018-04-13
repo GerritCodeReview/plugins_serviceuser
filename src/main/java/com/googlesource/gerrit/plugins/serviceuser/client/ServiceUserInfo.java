@@ -20,13 +20,11 @@ public class ServiceUserInfo extends JavaScriptObject {
   public final String getDisplayName() {
     if (created_by().username() != null) {
       return created_by().username();
-    } else {
-      if (created_by()._account_id() != -1) {
-        return Integer.toString(created_by()._account_id());
-      } else {
-        return "N/A";
-      }
     }
+    if (created_by()._account_id() != -1) {
+      return Integer.toString(created_by()._account_id());
+    }
+    return "N/A";
   }
 
   public final native int _account_id() /*-{ return this._account_id || 0; }-*/;

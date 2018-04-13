@@ -59,16 +59,15 @@ class ValidateServiceUserCommits implements CommitValidationListener {
               + "all service user owner accounts are inactive.",
               receiveEvent.commit.getId().getName(), committer.getName(),
               committer.getEmailAddress()));
-        } else {
-          AccountState creator = accountCache.get(
-              new Account.Id(serviceUser.createdBy._accountId));
-          if (creator == null || !creator.getAccount().isActive()) {
-            throw new CommitValidationException(String.format(
-                "Commit %s of service user %s (%s) is rejected because "
-                + "the account of the service creator is inactive.",
-                receiveEvent.commit.getId().getName(), committer.getName(),
-                committer.getEmailAddress()));
-          }
+        }
+        AccountState creator = accountCache.get(
+            new Account.Id(serviceUser.createdBy._accountId));
+        if (creator == null || !creator.getAccount().isActive()) {
+          throw new CommitValidationException(String.format(
+              "Commit %s of service user %s (%s) is rejected because "
+              + "the account of the service creator is inactive.",
+              receiveEvent.commit.getId().getName(), committer.getName(),
+              committer.getEmailAddress()));
         }
       }
     } catch (OrmException e) {

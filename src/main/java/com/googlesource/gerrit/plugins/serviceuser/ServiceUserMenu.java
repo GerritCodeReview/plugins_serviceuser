@@ -60,9 +60,8 @@ class ServiceUserMenu implements TopMenu {
       CapabilityControl ctl = userProvider.get().getCapabilities();
       return ctl.canPerform(pluginName + "-" + CreateServiceUserCapability.ID)
           || ctl.canAdministrateServer();
-    } else {
-      return false;
     }
+    return false;
   }
 
   private boolean hasServiceUser() {
