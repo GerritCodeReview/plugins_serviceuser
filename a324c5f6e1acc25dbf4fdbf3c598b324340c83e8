@@ -34,6 +34,24 @@
       "revId": "a324c5f6e1acc25dbf4fdbf3c598b324340c83e8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b10a3dcd_d0ae8fef",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUserNotes.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1011842
+      },
+      "writtenOn": "2018-05-08T23:35:53Z",
+      "side": 1,
+      "message": "You can do `rw.peel(rw.parseAny(newObjectId))` to handle them.",
+      "parentUuid": "1c377d34_2deb7a7b",
+      "revId": "a324c5f6e1acc25dbf4fdbf3c598b324340c83e8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
