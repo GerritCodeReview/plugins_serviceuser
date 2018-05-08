@@ -26,7 +26,6 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
@@ -107,7 +106,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
           ObjectId.fromString(e.getOldObjectId()),
           ObjectId.fromString(e.getNewObjectId()));
       crn.commitNotes();
-    } catch (IOException | OrmException | ConfigInvalidException | ConcurrentRefUpdateException x) {
+    } catch (IOException | OrmException | ConfigInvalidException x) {
       log.error(x.getMessage(), x);
     }
   }
