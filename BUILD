@@ -12,6 +12,6 @@ gerrit_plugin(
         "Gerrit-SshModule: com.googlesource.gerrit.plugins.serviceuser.SshModule",
     ],
     provided_deps = [
-        "@commons_codec//jar:neverlink",
+        "@commons-codec//jar:neverlink",
     ],
 )
