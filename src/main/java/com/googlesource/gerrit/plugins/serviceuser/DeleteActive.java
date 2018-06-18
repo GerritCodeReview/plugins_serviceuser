@@ -17,7 +17,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gerrit.server.account.DeleteActive.Input;
+import com.google.gerrit.extensions.common.Input;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -27,10 +27,10 @@ import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class DeleteActive implements RestModifyView<ServiceUserResource, Input> {
-  private final Provider<com.google.gerrit.server.account.DeleteActive> deleteActive;
+  private final Provider<com.google.gerrit.server.restapi.account.DeleteActive> deleteActive;
 
   @Inject
-  DeleteActive(Provider<com.google.gerrit.server.account.DeleteActive> deleteActive) {
+  DeleteActive(Provider<com.google.gerrit.server.restapi.account.DeleteActive> deleteActive) {
     this.deleteActive = deleteActive;
   }
 

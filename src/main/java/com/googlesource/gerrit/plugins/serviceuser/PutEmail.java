@@ -28,9 +28,9 @@ import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.CurrentUser;
-import com.google.gerrit.server.account.CreateEmail;
-import com.google.gerrit.server.account.DeleteEmail;
-import com.google.gerrit.server.account.PutPreferred;
+import com.google.gerrit.server.restapi.account.CreateEmail;
+import com.google.gerrit.server.restapi.account.DeleteEmail;
+import com.google.gerrit.server.restapi.account.PutPreferred;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
@@ -81,7 +81,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
           EmailException, IOException, PermissionBackendException {
     Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
     if ((emailAllowed == null || !emailAllowed)) {
-      permissionBackend.user(self).check(ADMINISTRATE_SERVER);
+      permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
     }
 
     String email = getEmail.get().apply(rsrc);

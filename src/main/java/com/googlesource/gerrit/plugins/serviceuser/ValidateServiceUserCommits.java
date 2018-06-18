@@ -28,6 +28,8 @@ import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInf
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.PersonIdent;
 
@@ -59,8 +61,8 @@ class ValidateServiceUserCommits implements CommitValidationListener {
                   committer.getName(),
                   committer.getEmailAddress()));
         }
-        AccountState creator = accountCache.get(new Account.Id(serviceUser.createdBy._accountId));
-        if (creator == null || !creator.getAccount().isActive()) {
+        Optional<AccountState> creator = accountCache.get(new Account.Id(serviceUser.createdBy._accountId));
+        if (!creator.isPresent() || !creator.get().getAccount().isActive()) {
           throw new CommitValidationException(
               String.format(
                   "Commit %s of service user %s (%s) is rejected because "

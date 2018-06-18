@@ -23,7 +23,7 @@ import com.google.gerrit.server.account.GroupCache;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
-import com.google.gerrit.server.group.GroupJson;
+import com.google.gerrit.server.restapi.group.GroupJson;
 import com.google.gerrit.server.group.InternalGroup;
 import com.google.gerrit.server.group.InternalGroupDescription;
 import com.google.gwtorm.server.OrmException;

@@ -27,8 +27,8 @@ import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountLoader;
-import com.google.gerrit.server.account.GetAccount;
-import com.google.gerrit.server.git.ProjectLevelConfig;
+import com.google.gerrit.server.restapi.account.GetAccount;
+import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -62,7 +62,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   public ServiceUserInfo apply(ServiceUserResource rsrc)
       throws ResourceNotFoundException, OrmException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    String username = rsrc.getUser().getUserName();
+    String username = rsrc.getUser().getUserName().get();
     Config db = storage.get();
     if (!db.getSubsections(USER).contains(username)) {
       throw new ResourceNotFoundException(username);

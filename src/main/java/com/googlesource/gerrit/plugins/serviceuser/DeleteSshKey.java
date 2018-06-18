@@ -18,7 +18,7 @@ import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.account.AccountResource;
-import com.google.gerrit.server.account.DeleteSshKey.Input;
+import com.google.gerrit.extensions.common.Input;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
@@ -30,10 +30,10 @@ import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
 @Singleton
 class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> {
-  private final Provider<com.google.gerrit.server.account.DeleteSshKey> deleteSshKey;
+  private final Provider<com.google.gerrit.server.restapi.account.DeleteSshKey> deleteSshKey;
 
   @Inject
-  DeleteSshKey(Provider<com.google.gerrit.server.account.DeleteSshKey> deleteSshKey) {
+  DeleteSshKey(Provider<com.google.gerrit.server.restapi.account.DeleteSshKey> deleteSshKey) {
     this.deleteSshKey = deleteSshKey;
   }
 

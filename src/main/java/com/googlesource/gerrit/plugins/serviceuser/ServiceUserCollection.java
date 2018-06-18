@@ -32,10 +32,10 @@ import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.account.AccountsCollection;
+import com.google.gerrit.server.restapi.account.AccountsCollection;
 import com.google.gerrit.server.config.ConfigResource;
-import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.GroupsCollection;
+import com.google.gerrit.server.project.ProjectLevelConfig;
+import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
@@ -89,14 +89,14 @@ class ServiceUserCollection
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     IdentifiedUser serviceUser = accounts.get().parseId(id.get());
     if (serviceUser == null
-        || !storage.get().getSubsections(USER).contains(serviceUser.getUserName())) {
+        || !storage.get().getSubsections(USER).contains(serviceUser.getUserName().get())) {
       throw new ResourceNotFoundException(id);
     }
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("Authentication required");
     }
-    if (!permissionBackend.user(userProvider).testOrFalse(ADMINISTRATE_SERVER)) {
+    if (!permissionBackend.user(user).testOrFalse(ADMINISTRATE_SERVER)) {
       String owner = storage.get().getString(USER, id.get(), KEY_OWNER);
       if (owner != null) {
         try {

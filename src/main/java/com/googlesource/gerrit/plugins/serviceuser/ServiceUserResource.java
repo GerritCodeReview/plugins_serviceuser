@@ -15,7 +15,7 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.gerrit.extensions.restapi.RestView;
-import com.google.gerrit.reviewdb.client.AccountSshKey;
+import com.google.gerrit.server.account.AccountSshKey;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.inject.TypeLiteral;

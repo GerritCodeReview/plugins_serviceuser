@@ -40,13 +40,13 @@ import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountLoader;
-import com.google.gerrit.server.account.CreateAccount;
+import com.google.gerrit.server.restapi.account.CreateAccount;
 import com.google.gerrit.server.account.GroupCache;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
-import com.google.gerrit.server.git.MetaDataUpdate;
-import com.google.gerrit.server.git.ProjectLevelConfig;
+import com.google.gerrit.server.git.meta.MetaDataUpdate;
+import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.group.InternalGroup;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gwtorm.server.OrmException;
@@ -188,7 +188,7 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
 
     addToGroups(new Account.Id(response.value()._accountId), cfg.getStringList("group"));
 
-    String creator = user.getUserName();
+    String creator = user.getUserName().get();
     Account.Id creatorId = ((IdentifiedUser) user).getAccountId();
     String creationDate = rfc2822DateFormatter.format(new Date());
 
