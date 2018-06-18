@@ -19,10 +19,13 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
 import com.google.gerrit.extensions.common.AccountInfo;
+import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.config.AnonymousCowardName;
 import com.google.gerrit.server.git.NotesBranchUtil;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -79,7 +82,8 @@ class CreateServiceUserNotes {
   }
 
   void createNotes(String branch, ObjectId oldObjectId, ObjectId newObjectId)
-      throws IOException, OrmException, ConfigInvalidException {
+      throws IOException, OrmException, ConfigInvalidException, PermissionBackendException,
+          RestApiException {
     if (ObjectId.zeroId().equals(newObjectId)) {
       return;
     }
@@ -151,13 +155,13 @@ class CreateServiceUserNotes {
   }
 
   private ObjectId createNoteContent(String branch, ServiceUserInfo serviceUser)
-      throws IOException, OrmException {
+      throws IOException, OrmException, MethodNotAllowedException, PermissionBackendException {
     return getInserter()
         .insert(Constants.OBJ_BLOB, createServiceUserNote(branch, serviceUser).getBytes("UTF-8"));
   }
 
   private String createServiceUserNote(String branch, ServiceUserInfo serviceUser)
-      throws OrmException {
+      throws OrmException, MethodNotAllowedException, PermissionBackendException {
     HeaderFormatter fmt = new HeaderFormatter(gerritServerIdent.getTimeZone(), anonymousCowardName);
     fmt.appendDate();
     fmt.append("Project", project.get());

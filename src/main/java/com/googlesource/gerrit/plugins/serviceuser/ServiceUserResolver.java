@@ -14,8 +14,11 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.extensions.common.AccountInfo;
+import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.reviewdb.server.ReviewDb;
@@ -24,8 +27,12 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountState;
+import com.google.gerrit.server.account.GroupControl;
 import com.google.gerrit.server.account.GroupMembership;
-import com.google.gerrit.server.group.ListMembers;
+import com.google.gerrit.server.group.GroupResolver;
+import com.google.gerrit.server.group.GroupResource;
+import com.google.gerrit.server.permissions.PermissionBackendException;
+import com.google.gerrit.server.restapi.group.ListMembers;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.gwtorm.server.OrmException;
@@ -38,6 +45,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.PersonIdent;
@@ -51,6 +59,8 @@ class ServiceUserResolver {
   private final SchemaFactory<ReviewDb> schema;
   private final ThreadLocalRequestContext tl;
   private final AccountCache accountCache;
+  private final GroupControl.Factory groupControlFactory;
+  private final GroupResolver groupResolver;
 
   @Inject
   ServiceUserResolver(
@@ -60,7 +70,9 @@ class ServiceUserResolver {
       Provider<ListMembers> listMembers,
       SchemaFactory<ReviewDb> schema,
       ThreadLocalRequestContext tl,
-      AccountCache accountCache) {
+      AccountCache accountCache,
+      GroupControl.Factory groupControlFactory,
+      GroupResolver groupResolver) {
     this.resolver = resolver;
     this.genericUserFactory = genericUserFactory;
     this.getServiceUser = getServiceUser;
@@ -68,10 +80,13 @@ class ServiceUserResolver {
     this.schema = schema;
     this.tl = tl;
     this.accountCache = accountCache;
+    this.groupControlFactory = groupControlFactory;
+    this.groupResolver = groupResolver;
   }
 
   ServiceUserInfo getAsServiceUser(PersonIdent committerIdent)
-      throws ConfigInvalidException, IOException, OrmException {
+      throws ConfigInvalidException, IOException, OrmException, PermissionBackendException,
+          RestApiException {
     StringBuilder committer = new StringBuilder();
     committer.append(committerIdent.getName());
     committer.append(" <");
@@ -91,7 +106,8 @@ class ServiceUserResolver {
     }
   }
 
-  List<AccountInfo> listOwners(ServiceUserInfo serviceUser) throws OrmException {
+  List<AccountInfo> listOwners(ServiceUserInfo serviceUser)
+      throws OrmException, MethodNotAllowedException, PermissionBackendException {
     if (serviceUser.owner == null) {
       return Collections.emptyList();
     }
@@ -128,6 +144,11 @@ class ServiceUserResolver {
                     }
                   };
                 }
+
+                @Override
+                public Object getCacheKey() {
+                  return null;
+                }
               };
             }
 
@@ -143,10 +164,13 @@ class ServiceUserResolver {
           };
       RequestContext old = tl.setContext(context);
       try {
+        GroupDescription.Basic group = groupResolver.parseId(serviceUser.owner.id);
+        GroupControl ctl = groupControlFactory.controlFor(group);
         ListMembers lm = listMembers.get();
+        GroupResource rsrc = new GroupResource(ctl);
         lm.setRecursive(true);
         List<AccountInfo> owners = new ArrayList<>();
-        for (AccountInfo a : lm.apply(new AccountGroup.UUID(serviceUser.owner.id))) {
+        for (AccountInfo a : lm.apply(rsrc)) {
           owners.add(a);
         }
         return owners;
@@ -156,11 +180,12 @@ class ServiceUserResolver {
     }
   }
 
-  List<AccountInfo> listActiveOwners(ServiceUserInfo serviceUser) throws OrmException {
+  List<AccountInfo> listActiveOwners(ServiceUserInfo serviceUser)
+      throws OrmException, MethodNotAllowedException, PermissionBackendException {
     List<AccountInfo> activeOwners = new ArrayList<>();
     for (AccountInfo owner : listOwners(serviceUser)) {
-      AccountState accountState = accountCache.get(new Account.Id(owner._accountId));
-      if (accountState != null && accountState.getAccount().isActive()) {
+      Optional<AccountState> accountState = accountCache.get(new Account.Id(owner._accountId));
+      if (accountState.isPresent() && accountState.get().getAccount().isActive()) {
         activeOwners.add(owner);
       }
     }

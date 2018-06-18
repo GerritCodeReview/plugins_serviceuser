@@ -19,21 +19,18 @@ import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE
 import com.google.common.base.Strings;
 import com.google.gerrit.common.errors.EmailException;
 import com.google.gerrit.extensions.api.accounts.EmailInput;
-import com.google.gerrit.extensions.restapi.AuthException;
-import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.DefaultInput;
-import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
-import com.google.gerrit.extensions.restapi.ResourceConflictException;
-import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.Response;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.CurrentUser;
-import com.google.gerrit.server.account.CreateEmail;
-import com.google.gerrit.server.account.DeleteEmail;
-import com.google.gerrit.server.account.PutPreferred;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
+import com.google.gerrit.server.restapi.account.CreateEmail;
+import com.google.gerrit.server.restapi.account.DeleteEmail;
+import com.google.gerrit.server.restapi.account.PutPreferred;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -50,7 +47,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
 
   private final Provider<GetConfig> getConfig;
   private final Provider<GetEmail> getEmail;
-  private final Provider<CreateEmail.Factory> createEmailFactory;
+  private final Provider<CreateEmail> createEmail;
   private final Provider<DeleteEmail> deleteEmail;
   private final Provider<PutPreferred> putPreferred;
   private final Provider<CurrentUser> self;
@@ -60,14 +57,14 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
   PutEmail(
       Provider<GetConfig> getConfig,
       Provider<GetEmail> getEmail,
-      Provider<CreateEmail.Factory> createEmailFactory,
+      Provider<CreateEmail> createEmail,
       Provider<DeleteEmail> deleteEmail,
       Provider<PutPreferred> putPreferred,
       Provider<CurrentUser> self,
       PermissionBackend permissionBackend) {
     this.getConfig = getConfig;
     this.getEmail = getEmail;
-    this.createEmailFactory = createEmailFactory;
+    this.createEmail = createEmail;
     this.deleteEmail = deleteEmail;
     this.putPreferred = putPreferred;
     this.self = self;
@@ -76,12 +73,11 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<?> apply(ServiceUserResource rsrc, Input input)
-      throws AuthException, ResourceNotFoundException, ResourceConflictException,
-          MethodNotAllowedException, OrmException, BadRequestException, ConfigInvalidException,
-          EmailException, IOException, PermissionBackendException {
+      throws OrmException, ConfigInvalidException, EmailException, IOException,
+          PermissionBackendException, RestApiException {
     Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
     if ((emailAllowed == null || !emailAllowed)) {
-      permissionBackend.user(self).check(ADMINISTRATE_SERVER);
+      permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
     }
 
     String email = getEmail.get().apply(rsrc);
@@ -99,7 +95,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       EmailInput in = new EmailInput();
       in.email = input.email;
       in.noConfirmation = true;
-      createEmailFactory.get().create(input.email).apply(rsrc.getUser(), in);
+      createEmail.get().apply(rsrc.getUser(), IdString.fromDecoded(email), in);
       putPreferred.get().apply(rsrc.getUser(), input.email);
       return Response.ok(input.email);
     }

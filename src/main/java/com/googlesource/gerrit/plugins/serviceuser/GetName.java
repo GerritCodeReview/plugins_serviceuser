@@ -21,10 +21,10 @@ import com.google.inject.Singleton;
 
 @Singleton
 class GetName implements RestReadView<ServiceUserResource> {
-  private final Provider<com.google.gerrit.server.account.GetName> getName;
+  private final Provider<com.google.gerrit.server.restapi.account.GetName> getName;
 
   @Inject
-  GetName(Provider<com.google.gerrit.server.account.GetName> getName) {
+  GetName(Provider<com.google.gerrit.server.restapi.account.GetName> getName) {
     this.getName = getName;
   }
 

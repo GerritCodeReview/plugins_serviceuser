@@ -24,12 +24,14 @@ import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountLoader;
-import com.google.gerrit.server.account.GetAccount;
-import com.google.gerrit.server.git.ProjectLevelConfig;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.project.ProjectLevelConfig;
+import com.google.gerrit.server.restapi.account.GetAccount;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -60,9 +62,9 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
 
   @Override
   public ServiceUserInfo apply(ServiceUserResource rsrc)
-      throws ResourceNotFoundException, OrmException {
+      throws RestApiException, OrmException, PermissionBackendException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    String username = rsrc.getUser().getUserName();
+    String username = rsrc.getUser().getUserName().get();
     Config db = storage.get();
     if (!db.getSubsections(USER).contains(username)) {
       throw new ResourceNotFoundException(username);

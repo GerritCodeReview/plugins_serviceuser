@@ -21,24 +21,26 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER
 
 import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.common.Input;
 import com.google.gerrit.extensions.registration.DynamicMap;
-import com.google.gerrit.extensions.restapi.AcceptsCreate;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ChildCollection;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.RestCollectionCreateView;
 import com.google.gerrit.extensions.restapi.RestView;
+import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.account.AccountsCollection;
 import com.google.gerrit.server.config.ConfigResource;
-import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.GroupsCollection;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.project.ProjectLevelConfig;
+import com.google.gerrit.server.restapi.account.AccountsCollection;
+import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -48,7 +50,8 @@ import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class ServiceUserCollection
-    implements ChildCollection<ConfigResource, ServiceUserResource>, AcceptsCreate<ConfigResource> {
+    implements ChildCollection<ConfigResource, ServiceUserResource>,
+        RestCollectionCreateView<ConfigResource, ServiceUserResource, Input> {
 
   private final DynamicMap<RestView<ServiceUserResource>> views;
   private final CreateServiceUser.Factory createServiceUserFactory;
@@ -87,20 +90,21 @@ class ServiceUserCollection
       throws ResourceNotFoundException, AuthException, IOException, OrmException,
           PermissionBackendException, ConfigInvalidException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    IdentifiedUser serviceUser = accounts.get().parseId(id.get());
+    IdentifiedUser serviceUser = accounts.get().parse(TopLevelResource.INSTANCE, id).getUser();
     if (serviceUser == null
-        || !storage.get().getSubsections(USER).contains(serviceUser.getUserName())) {
+        || !storage.get().getSubsections(USER).contains(serviceUser.getUserName().get())) {
       throw new ResourceNotFoundException(id);
     }
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("Authentication required");
     }
-    if (!permissionBackend.user(userProvider).testOrFalse(ADMINISTRATE_SERVER)) {
+    if (!permissionBackend.user(user).testOrFalse(ADMINISTRATE_SERVER)) {
       String owner = storage.get().getString(USER, id.get(), KEY_OWNER);
       if (owner != null) {
         try {
-          GroupDescription.Basic group = groups.parse(owner);
+          GroupDescription.Basic group =
+              groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(owner)).getGroup();
           if (!user.getEffectiveGroups().contains(group.getGroupUUID())) {
             throw new ResourceNotFoundException(id);
           }

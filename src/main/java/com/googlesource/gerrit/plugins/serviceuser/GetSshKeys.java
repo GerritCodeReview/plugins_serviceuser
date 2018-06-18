@@ -28,10 +28,10 @@ import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
 @Singleton
 class GetSshKeys implements RestReadView<ServiceUserResource> {
-  private final Provider<com.google.gerrit.server.account.GetSshKeys> getSshKeys;
+  private final Provider<com.google.gerrit.server.restapi.account.GetSshKeys> getSshKeys;
 
   @Inject
-  GetSshKeys(Provider<com.google.gerrit.server.account.GetSshKeys> getSshKeys) {
+  GetSshKeys(Provider<com.google.gerrit.server.restapi.account.GetSshKeys> getSshKeys) {
     this.getSshKeys = getSshKeys;
   }
 
