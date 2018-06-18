@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.server.config.ConfigResource;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
 import com.google.gwtorm.server.OrmException;
@@ -37,17 +38,18 @@ class CreateServiceUserCommand extends SshCommand {
   private String username;
 
   @Option(
-    name = "--ssh-key",
-    required = true,
-    metaVar = "-|KEY",
-    usage = "public key for SSH authentication"
-  )
+      name = "--ssh-key",
+      required = true,
+      metaVar = "-|KEY",
+      usage = "public key for SSH authentication")
   private String sshKey;
 
   @Inject private CreateServiceUser.Factory createServiceUser;
 
   @Override
-  protected void run() throws OrmException, IOException, UnloggedFailure, ConfigInvalidException {
+  protected void run()
+      throws OrmException, IOException, UnloggedFailure, ConfigInvalidException,
+          PermissionBackendException {
     CreateServiceUser.Input input = new CreateServiceUser.Input();
     input.sshKey = readSshKey();
 

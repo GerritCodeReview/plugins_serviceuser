@@ -22,6 +22,7 @@ import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.ProjectRunnable;
 import com.google.gerrit.server.git.WorkQueue;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -106,7 +107,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
           ObjectId.fromString(e.getOldObjectId()),
           ObjectId.fromString(e.getNewObjectId()));
       crn.commitNotes();
-    } catch (IOException | OrmException | ConfigInvalidException x) {
+    } catch (IOException | OrmException | ConfigInvalidException | PermissionBackendException x) {
       log.error(x.getMessage(), x);
     }
   }

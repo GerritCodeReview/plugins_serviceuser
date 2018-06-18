@@ -23,6 +23,7 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.config.AnonymousCowardName;
 import com.google.gerrit.server.git.NotesBranchUtil;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -79,7 +80,7 @@ class CreateServiceUserNotes {
   }
 
   void createNotes(String branch, ObjectId oldObjectId, ObjectId newObjectId)
-      throws IOException, OrmException, ConfigInvalidException {
+      throws IOException, OrmException, ConfigInvalidException, PermissionBackendException {
     if (ObjectId.zeroId().equals(newObjectId)) {
       return;
     }

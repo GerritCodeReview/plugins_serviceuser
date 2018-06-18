@@ -33,13 +33,13 @@ import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.ConfigResource;
-import com.google.gerrit.server.git.MetaDataUpdate;
-import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.GroupJson;
-import com.google.gerrit.server.group.GroupsCollection;
+import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.project.ProjectLevelConfig;
+import com.google.gerrit.server.restapi.group.GroupJson;
+import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -94,23 +94,23 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     Boolean ownerAllowed = getConfig.get().apply(new ConfigResource()).allowOwner;
     if ((ownerAllowed == null || !ownerAllowed)) {
-      permissionBackend.user(self).check(ADMINISTRATE_SERVER);
+      permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
     }
 
     if (input == null) {
       input = new Input();
     }
     Config db = storage.get();
-    String oldGroup = db.getString(USER, rsrc.getUser().getUserName(), KEY_OWNER);
+    String oldGroup = db.getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
     GroupDescription.Basic group = null;
     if (Strings.isNullOrEmpty(input.group)) {
-      db.unset(USER, rsrc.getUser().getUserName(), KEY_OWNER);
+      db.unset(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
     } else {
       group = groups.parse(input.group);
       if (!AccountGroup.isInternalGroup(group.getGroupUUID())) {
         throw new MethodNotAllowedException();
       }
-      db.setString(USER, rsrc.getUser().getUserName(), KEY_OWNER, group.getGroupUUID().get());
+      db.setString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER, group.getGroupUUID().get());
     }
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
     md.setMessage("Set owner for service user '" + rsrc.getUser().getUserName() + "'\n");

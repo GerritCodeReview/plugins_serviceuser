@@ -26,9 +26,9 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.config.ConfigResource;
-import com.google.gerrit.server.git.ProjectLevelConfig;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -36,6 +36,7 @@ import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 
@@ -77,8 +78,8 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
     Map<String, ServiceUserInfo> accounts = Maps.newTreeMap();
     Config db = storage.get();
     for (String username : db.getSubsections(USER)) {
-      AccountState account = accountCache.getByUsername(username);
-      if (account != null) {
+      Optional<AccountState> account = accountCache.getByUsername(username);
+      if (account.isPresent()) {
         ServiceUserInfo info;
         try {
           ServiceUserResource serviceUserResource =

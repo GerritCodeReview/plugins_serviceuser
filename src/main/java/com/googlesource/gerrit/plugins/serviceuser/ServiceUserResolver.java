@@ -25,7 +25,8 @@ import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.GroupMembership;
-import com.google.gerrit.server.group.ListMembers;
+import com.google.gerrit.server.permissions.PermissionBackendException;
+import com.google.gerrit.server.restapi.group.ListMembers;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.gwtorm.server.OrmException;
@@ -38,6 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.PersonIdent;
@@ -71,7 +73,7 @@ class ServiceUserResolver {
   }
 
   ServiceUserInfo getAsServiceUser(PersonIdent committerIdent)
-      throws ConfigInvalidException, IOException, OrmException {
+      throws ConfigInvalidException, IOException, OrmException, PermissionBackendException {
     StringBuilder committer = new StringBuilder();
     committer.append(committerIdent.getName());
     committer.append(" <");
@@ -128,6 +130,11 @@ class ServiceUserResolver {
                     }
                   };
                 }
+
+                @Override
+                public Object getCacheKey() {
+                  return null;
+                }
               };
             }
 
@@ -159,8 +166,8 @@ class ServiceUserResolver {
   List<AccountInfo> listActiveOwners(ServiceUserInfo serviceUser) throws OrmException {
     List<AccountInfo> activeOwners = new ArrayList<>();
     for (AccountInfo owner : listOwners(serviceUser)) {
-      AccountState accountState = accountCache.get(new Account.Id(owner._accountId));
-      if (accountState != null && accountState.getAccount().isActive()) {
+      Optional<AccountState> accountState = accountCache.get(new Account.Id(owner._accountId));
+      if (accountState.isPresent() && accountState.get().getAccount().isActive()) {
         activeOwners.add(owner);
       }
     }
