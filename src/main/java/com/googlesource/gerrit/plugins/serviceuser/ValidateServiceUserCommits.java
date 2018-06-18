@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
@@ -21,6 +22,7 @@ import com.google.gerrit.server.events.CommitReceivedEvent;
 import com.google.gerrit.server.git.validators.CommitValidationException;
 import com.google.gerrit.server.git.validators.CommitValidationListener;
 import com.google.gerrit.server.git.validators.CommitValidationMessage;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -28,6 +30,7 @@ import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInf
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.PersonIdent;
 
@@ -59,8 +62,9 @@ class ValidateServiceUserCommits implements CommitValidationListener {
                   committer.getName(),
                   committer.getEmailAddress()));
         }
-        AccountState creator = accountCache.get(new Account.Id(serviceUser.createdBy._accountId));
-        if (creator == null || !creator.getAccount().isActive()) {
+        Optional<AccountState> creator =
+            accountCache.get(new Account.Id(serviceUser.createdBy._accountId));
+        if (!creator.isPresent() || !creator.get().getAccount().isActive()) {
           throw new CommitValidationException(
               String.format(
                   "Commit %s of service user %s (%s) is rejected because "
@@ -70,7 +74,11 @@ class ValidateServiceUserCommits implements CommitValidationListener {
                   committer.getEmailAddress()));
         }
       }
-    } catch (IOException | OrmException | ConfigInvalidException e) {
+    } catch (IOException
+        | OrmException
+        | ConfigInvalidException
+        | PermissionBackendException
+        | RestApiException e) {
       throw new CommitValidationException(
           "Internal error while checking for service user commits.", e);
     }

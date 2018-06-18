@@ -21,8 +21,10 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.client.MenuItem;
 import com.google.gerrit.extensions.restapi.AuthException;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.webui.TopMenu;
 import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
@@ -46,7 +48,7 @@ class ServiceUserMenu implements TopMenu {
       Provider<CurrentUser> userProvider,
       Provider<ListServiceUsers> listServiceUsers,
       PermissionBackend permissionBackend)
-      throws IOException, PermissionBackendException, ConfigInvalidException {
+      throws IOException, PermissionBackendException, ConfigInvalidException, RestApiException {
     this.pluginName = pluginName;
     this.userProvider = userProvider;
     this.listServiceUsers = listServiceUsers;
@@ -67,16 +69,17 @@ class ServiceUserMenu implements TopMenu {
 
   private boolean canCreateServiceUser() {
     if (userProvider.get().isIdentifiedUser()) {
+      IdentifiedUser user = userProvider.get().asIdentifiedUser();
       return permissionBackend
-              .user(userProvider)
+              .user(user)
               .testOrFalse(new PluginPermission(pluginName, CreateServiceUserCapability.ID))
-          || permissionBackend.user(userProvider).testOrFalse(ADMINISTRATE_SERVER);
+          || permissionBackend.user(user).testOrFalse(ADMINISTRATE_SERVER);
     }
     return false;
   }
 
   private boolean hasServiceUser()
-      throws PermissionBackendException, IOException, ConfigInvalidException {
+      throws PermissionBackendException, IOException, ConfigInvalidException, RestApiException {
     try {
       return !listServiceUsers.get().apply(new ConfigResource()).isEmpty();
     } catch (AuthException | OrmException e) {
