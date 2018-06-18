@@ -17,42 +17,35 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.api.accounts.AccountInput;
 import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
+import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceConflictException;
 import com.google.gerrit.extensions.restapi.Response;
-import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gerrit.extensions.restapi.TopLevelResource;
-import com.google.gerrit.extensions.restapi.UnprocessableEntityException;
+import com.google.gerrit.extensions.restapi.RestApiException;
+import com.google.gerrit.extensions.restapi.RestCollectionCreateView;
 import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.reviewdb.client.AccountGroup;
-import com.google.gerrit.reviewdb.client.AccountGroupMember;
-import com.google.gerrit.reviewdb.client.AccountGroupMemberAudit;
 import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.IdentifiedUser;
-import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountLoader;
-import com.google.gerrit.server.account.CreateAccount;
-import com.google.gerrit.server.account.GroupCache;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
-import com.google.gerrit.server.git.MetaDataUpdate;
-import com.google.gerrit.server.git.ProjectLevelConfig;
-import com.google.gerrit.server.group.InternalGroup;
+import com.google.gerrit.server.git.meta.MetaDataUpdate;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.project.ProjectLevelConfig;
+import com.google.gerrit.server.restapi.account.CreateAccount;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.assistedinject.Assisted;
+import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.Input;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 import java.io.IOException;
@@ -60,21 +53,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.PersonIdent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RequiresCapability(CreateServiceUserCapability.ID)
-class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
-  private static final Logger log = LoggerFactory.getLogger(CreateServiceUser.class);
-
+@Singleton
+class CreateServiceUser
+    implements RestCollectionCreateView<ConfigResource, ServiceUserResource, Input> {
   public static final String USER = "user";
   public static final String KEY_CREATED_BY = "createdBy";
   public static final String KEY_CREATED_AT = "createdAt";
@@ -87,17 +76,8 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
     String email;
   }
 
-  interface Factory {
-    CreateServiceUser create(String username);
-  }
-
   private final PluginConfig cfg;
-  private final CreateAccount.Factory createAccountFactory;
-  private final GroupCache groupCache;
-  private final AccountCache accountCache;
-  private final Provider<IdentifiedUser> currentUser;
-  private final Provider<ReviewDb> db;
-  private final String username;
+  private final CreateAccount createAccount;
   private final List<String> blockedNames;
   private final Provider<CurrentUser> userProvider;
   private final MetaDataUpdate.User metaDataUpdateFactory;
@@ -111,25 +91,15 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   CreateServiceUser(
       PluginConfigFactory cfgFactory,
       @PluginName String pluginName,
-      CreateAccount.Factory createAccountFactory,
-      GroupCache groupCache,
-      AccountCache accountCache,
-      Provider<IdentifiedUser> currentUser,
-      Provider<ReviewDb> db,
+      CreateAccount createAccount,
       Provider<CurrentUser> userProvider,
       @GerritPersonIdent PersonIdent gerritIdent,
       MetaDataUpdate.User metaDataUpdateFactory,
       ProjectCache projectCache,
-      @Assisted String username,
       Provider<GetConfig> getConfig,
       AccountLoader.Factory accountLoader) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
-    this.createAccountFactory = createAccountFactory;
-    this.groupCache = groupCache;
-    this.accountCache = accountCache;
-    this.currentUser = currentUser;
-    this.db = db;
-    this.username = username;
+    this.createAccount = createAccount;
     this.blockedNames =
         Lists.transform(
             Arrays.asList(cfg.getStringList("block")),
@@ -151,9 +121,10 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
   }
 
   @Override
-  public Response<ServiceUserInfo> apply(ConfigResource resource, Input input)
-      throws AuthException, BadRequestException, ResourceConflictException,
-          UnprocessableEntityException, OrmException, IOException, ConfigInvalidException {
+  public Response<ServiceUserInfo> apply(
+      ConfigResource parentResource, IdString id, CreateServiceUser.Input input)
+      throws RestApiException, OrmException, IOException, ConfigInvalidException,
+          PermissionBackendException {
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("authentication required");
@@ -162,6 +133,7 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
     if (input == null) {
       input = new Input();
     }
+    String username = id.get();
     if (input.username != null && !username.equals(input.username)) {
       throw new BadRequestException("username must match URL");
     }
@@ -183,12 +155,10 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
     }
 
     AccountInput in = new ServiceUserInput(username, input.email, input.sshKey);
-    Response<AccountInfo> response =
-        createAccountFactory.create(username).apply(TopLevelResource.INSTANCE, in);
+    in.groups = Arrays.asList(cfg.getStringList("group"));
+    Response<AccountInfo> response = createAccount.apply(IdString.fromDecoded(username), in);
 
-    addToGroups(new Account.Id(response.value()._accountId), cfg.getStringList("group"));
-
-    String creator = user.getUserName();
+    String creator = user.getUserName().get();
     Account.Id creatorId = ((IdentifiedUser) user).getAccountId();
     String creationDate = rfc2822DateFormatter.format(new Date());
 
@@ -209,31 +179,5 @@ class CreateServiceUser implements RestModifyView<ConfigResource, Input> {
     al.fill();
     info.createdAt = creationDate;
     return Response.created(info);
-  }
-
-  private void addToGroups(Account.Id accountId, String[] groupNames)
-      throws OrmException, IOException {
-    for (String groupName : groupNames) {
-      Optional<InternalGroup> group = groupCache.get(new AccountGroup.NameKey(groupName));
-      if (group.isPresent()) {
-        AccountGroupMember m =
-            new AccountGroupMember(new AccountGroupMember.Key(accountId, group.get().getId()));
-        db.get()
-            .accountGroupMembersAudit()
-            .insert(
-                Collections.singleton(
-                    new AccountGroupMemberAudit(
-                        m, currentUser.get().getAccountId(), TimeUtil.nowTs())));
-        db.get().accountGroupMembers().insert(Collections.singleton(m));
-      } else {
-        log.error(
-            String.format(
-                "Could not add new service user %s to group %s: group not found",
-                username, groupName));
-      }
-    }
-    if (groupNames.length > 0) {
-      accountCache.evict(accountId);
-    }
   }
 }

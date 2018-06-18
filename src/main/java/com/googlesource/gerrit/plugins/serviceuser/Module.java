@@ -48,8 +48,8 @@ class Module extends AbstractModule {
             DynamicMap.mapOf(binder(), SERVICE_USER_SSH_KEY_KIND);
             bind(ServiceUserCollection.class);
             child(CONFIG_KIND, "serviceusers").to(ServiceUserCollection.class);
+            create(SERVICE_USER_KIND).to(CreateServiceUser.class);
             get(SERVICE_USER_KIND).to(GetServiceUser.class);
-            install(new FactoryModuleBuilder().build(CreateServiceUser.Factory.class));
             get(CONFIG_KIND, "config").to(GetConfig.class);
             put(CONFIG_KIND, "config").to(PutConfig.class);
             child(SERVICE_USER_KIND, "sshkeys").to(SshKeys.class);
