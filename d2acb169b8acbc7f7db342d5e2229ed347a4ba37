@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b60f3995_788fbfed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-11-06T07:31:49Z",
+      "side": 1,
+      "message": "Even after merging changes from stable-2.15 and rebasing this change on top of it, the code still doesn\u0027t compile against gerrit master: [1].\n\n* [1] http://paste.openstack.org/show/734180",
+      "revId": "d2acb169b8acbc7f7db342d5e2229ed347a4ba37",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
