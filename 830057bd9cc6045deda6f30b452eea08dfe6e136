@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f5412a9_de288e8a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-06T07:22:00Z",
+      "side": 1,
+      "message": "Why not using a map?",
+      "revId": "830057bd9cc6045deda6f30b452eea08dfe6e136",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40437fc4_9730e28f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetOwner.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-06T07:22:00Z",
+      "side": 1,
+      "message": "Again a map would be better IMHO",
+      "revId": "830057bd9cc6045deda6f30b452eea08dfe6e136",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae8f8285_b064c00a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutName.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-06T07:22:00Z",
+      "side": 1,
+      "message": "Import the class instead of using the full package name",
+      "revId": "830057bd9cc6045deda6f30b452eea08dfe6e136",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64443be5_32debf3b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-06T07:22:00Z",
+      "side": 1,
+      "message": "If you have to use so often this pattern, why don’t you DRY out into a helper function?",
+      "revId": "830057bd9cc6045deda6f30b452eea08dfe6e136",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "097bd635_c9761fe5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-06T07:22:00Z",
+      "side": 1,
+      "message": "Same as before, DRY out",
+      "revId": "830057bd9cc6045deda6f30b452eea08dfe6e136",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8ab67d_acc822b3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserResolver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-06T07:22:00Z",
+      "side": 1,
+      "message": "This as well can be expressed with map",
+      "revId": "830057bd9cc6045deda6f30b452eea08dfe6e136",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
