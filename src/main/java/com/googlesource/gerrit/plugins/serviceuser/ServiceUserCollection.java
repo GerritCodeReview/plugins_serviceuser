@@ -127,7 +127,6 @@ class ServiceUserCollection
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public CreateServiceUser create(ConfigResource parent, IdString username) {
     return createServiceUserFactory.create(username.get());
   }

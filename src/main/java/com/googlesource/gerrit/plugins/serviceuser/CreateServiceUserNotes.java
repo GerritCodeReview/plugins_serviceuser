@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
+import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
 import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.reviewdb.client.Project;
@@ -27,7 +28,6 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 import java.io.IOException;
-import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
@@ -37,6 +37,7 @@ import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.notes.NoteMap;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevObject;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,7 +86,11 @@ class CreateServiceUserNotes {
 
     try (RevWalk rw = new RevWalk(git)) {
       try {
-        RevCommit n = rw.parseCommit(newObjectId);
+        RevObject obj = rw.peel(rw.parseAny(newObjectId));
+        if (obj.getType() != OBJ_COMMIT) {
+          return;
+        }
+        RevCommit n = (RevCommit) obj;
         rw.markStart(n);
         if (n.getParentCount() == 1 && n.getParent(0).equals(oldObjectId)) {
           rw.markUninteresting(rw.parseCommit(oldObjectId));
@@ -108,7 +113,7 @@ class CreateServiceUserNotes {
     }
   }
 
-  void commitNotes() throws IOException, ConcurrentRefUpdateException {
+  void commitNotes() throws IOException {
     try {
       if (serviceUserNotes == null) {
         return;
