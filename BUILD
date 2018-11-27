@@ -3,7 +3,6 @@ load("//tools/bzl:plugin.bzl", "gerrit_plugin")
 gerrit_plugin(
     name = "serviceuser",
     srcs = glob(["src/main/java/**/*.java"]),
-    resources = glob(["src/main/**/*"]),
     gwt_module = "com.googlesource.gerrit.plugins.serviceuser.CreateServiceUserForm",
     manifest_entries = [
         "Gerrit-PluginName: serviceuser",
@@ -14,4 +13,5 @@ gerrit_plugin(
     provided_deps = [
         "@commons-codec//jar:neverlink",
     ],
+    resources = glob(["src/main/**/*"]),
 )
