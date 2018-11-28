@@ -63,12 +63,13 @@ class CreateServiceUserCommand extends SshCommand {
       return null;
     }
     if ("-".equals(sshKey)) {
-      sshKey = "";
+      StringBuilder key = new StringBuilder();
       BufferedReader br = new BufferedReader(new InputStreamReader(in, UTF_8));
       String line;
       while ((line = br.readLine()) != null) {
-        sshKey += line + "\n";
+        key.append(line).append("\n");
       }
+      sshKey = key.toString();
     }
     return sshKey;
   }
