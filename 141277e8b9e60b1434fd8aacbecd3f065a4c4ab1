@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8290dc5e_a3f92b0d",
+        "filename": "tools/eclipse/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-11-28T02:25:58Z",
+      "side": 1,
+      "message": "Yeah, this is confusing, but this line is needed for these lines generation:\n\n  \u003cclasspathentry excluding\u003d\"**/BUILD\" kind\u003d\"src\" path\u003d\"src/main/java\"/\u003e\n  \u003cclasspathentry excluding\u003d\"**/BUILD\" kind\u003d\"src\" path\u003d\"src/main/resources\"/\u003e\n  \u003cclasspathentry excluding\u003d\"**/BUILD\" kind\u003d\"src\" output\u003d\"eclipse-out/test\" path\u003d\"src/test/java\"/\u003e",
+      "range": {
+        "startLine": 14,
+        "startChar": 8,
+        "endLine": 14,
+        "endChar": 33
+      },
+      "revId": "141277e8b9e60b1434fd8aacbecd3f065a4c4ab1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
