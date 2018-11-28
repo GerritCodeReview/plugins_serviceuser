@@ -37,11 +37,10 @@ class CreateServiceUserCommand extends SshCommand {
   private String username;
 
   @Option(
-    name = "--ssh-key",
-    required = true,
-    metaVar = "-|KEY",
-    usage = "public key for SSH authentication"
-  )
+      name = "--ssh-key",
+      required = true,
+      metaVar = "-|KEY",
+      usage = "public key for SSH authentication")
   private String sshKey;
 
   @Inject private CreateServiceUser.Factory createServiceUser;
