@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.server.config.ConfigResource;
@@ -24,7 +26,6 @@ import com.google.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
@@ -37,11 +38,10 @@ class CreateServiceUserCommand extends SshCommand {
   private String username;
 
   @Option(
-    name = "--ssh-key",
-    required = true,
-    metaVar = "-|KEY",
-    usage = "public key for SSH authentication"
-  )
+      name = "--ssh-key",
+      required = true,
+      metaVar = "-|KEY",
+      usage = "public key for SSH authentication")
   private String sshKey;
 
   @Inject private CreateServiceUser.Factory createServiceUser;
@@ -58,17 +58,18 @@ class CreateServiceUserCommand extends SshCommand {
     }
   }
 
-  private String readSshKey() throws UnsupportedEncodingException, IOException {
+  private String readSshKey() throws IOException {
     if (sshKey == null) {
       return null;
     }
     if ("-".equals(sshKey)) {
-      sshKey = "";
-      BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+      StringBuilder key = new StringBuilder();
+      BufferedReader br = new BufferedReader(new InputStreamReader(in, UTF_8));
       String line;
       while ((line = br.readLine()) != null) {
-        sshKey += line + "\n";
+        key.append(line).append("\n");
       }
+      sshKey = key.toString();
     }
     return sshKey;
   }

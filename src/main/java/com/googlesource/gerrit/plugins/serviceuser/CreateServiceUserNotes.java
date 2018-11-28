@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
 import com.google.gerrit.extensions.common.AccountInfo;
@@ -153,7 +154,7 @@ class CreateServiceUserNotes {
   private ObjectId createNoteContent(String branch, ServiceUserInfo serviceUser)
       throws IOException, OrmException {
     return getInserter()
-        .insert(Constants.OBJ_BLOB, createServiceUserNote(branch, serviceUser).getBytes("UTF-8"));
+        .insert(Constants.OBJ_BLOB, createServiceUserNote(branch, serviceUser).getBytes(UTF_8));
   }
 
   private String createServiceUserNote(String branch, ServiceUserInfo serviceUser)
