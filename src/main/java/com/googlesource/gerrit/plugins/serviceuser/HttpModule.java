@@ -17,9 +17,9 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.webui.GwtPlugin;
 import com.google.gerrit.extensions.webui.WebUiPlugin;
-import com.google.gerrit.httpd.plugins.HttpPluginModule;
+import com.google.inject.servlet.ServletModule;
 
-class HttpModule extends HttpPluginModule {
+class HttpModule extends ServletModule {
 
   @Override
   protected void configureServlets() {
