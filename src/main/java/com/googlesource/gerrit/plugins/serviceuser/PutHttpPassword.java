@@ -29,7 +29,7 @@ import com.googlesource.gerrit.plugins.serviceuser.PutHttpPassword.Input;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
@@ -95,14 +95,10 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
     byte[] rand = new byte[LEN];
     rng.nextBytes(rand);
 
-    byte[] enc = Base64.encodeBase64(rand, false);
-    StringBuilder r = new StringBuilder(enc.length);
-    for (int i = 0; i < enc.length; i++) {
-      if (enc[i] == '=') {
-        break;
-      }
-      r.append((char) enc[i]);
+    String asBase64 = Base64.getEncoder().encodeToString(rand);
+    if (asBase64.indexOf('=') > 0) {
+      return asBase64.substring(0, asBase64.indexOf('='));
     }
-    return r.toString();
+    return asBase64;
   }
 }
