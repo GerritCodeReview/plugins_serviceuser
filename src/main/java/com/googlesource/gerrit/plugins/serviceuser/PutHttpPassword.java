@@ -14,6 +14,7 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
+import static com.google.gerrit.server.restapi.account.PutHttpPassword.generate;
 
 import com.google.common.base.Strings;
 import com.google.gerrit.extensions.restapi.AuthException;
@@ -31,9 +32,6 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.PutHttpPassword.Input;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import org.apache.commons.codec.binary.Base64;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
@@ -41,17 +39,6 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
   public static class Input {
     public String httpPassword;
     public boolean generate;
-  }
-
-  private static final int LEN = 31;
-  private static final SecureRandom rng;
-
-  static {
-    try {
-      rng = SecureRandom.getInstance("SHA1PRNG");
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException("Cannot create RNG for password generator", e);
-    }
   }
 
   private final Provider<GetConfig> getConfig;
@@ -91,20 +78,5 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
 
     String newPassword = input.generate ? generate() : input.httpPassword;
     return putHttpPassword.apply(rsrc.getUser(), newPassword);
-  }
-
-  private static String generate() {
-    byte[] rand = new byte[LEN];
-    rng.nextBytes(rand);
-
-    byte[] enc = Base64.encodeBase64(rand, false);
-    StringBuilder r = new StringBuilder(enc.length);
-    for (int i = 0; i < enc.length; i++) {
-      if (enc[i] == '=') {
-        break;
-      }
-      r.append((char) enc[i]);
-    }
-    return r.toString();
   }
 }
