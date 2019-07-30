@@ -31,7 +31,6 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.restapi.account.CreateEmail;
 import com.google.gerrit.server.restapi.account.DeleteEmail;
 import com.google.gerrit.server.restapi.account.PutPreferred;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -73,7 +72,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<?> apply(ServiceUserResource rsrc, Input input)
-      throws OrmException, ConfigInvalidException, EmailException, IOException,
+      throws ConfigInvalidException, EmailException, IOException,
           PermissionBackendException, RestApiException {
     Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
     if ((emailAllowed == null || !emailAllowed)) {

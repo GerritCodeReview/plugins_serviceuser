@@ -35,7 +35,6 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.restapi.group.ListMembers;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
-import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -85,7 +84,7 @@ class ServiceUserResolver {
   }
 
   ServiceUserInfo getAsServiceUser(PersonIdent committerIdent)
-      throws ConfigInvalidException, IOException, OrmException, PermissionBackendException,
+      throws ConfigInvalidException, IOException, PermissionBackendException,
           RestApiException {
     StringBuilder committer = new StringBuilder();
     committer.append(committerIdent.getName());
@@ -107,7 +106,7 @@ class ServiceUserResolver {
   }
 
   List<AccountInfo> listOwners(ServiceUserInfo serviceUser)
-      throws OrmException, MethodNotAllowedException, PermissionBackendException {
+      throws MethodNotAllowedException, PermissionBackendException {
     if (serviceUser.owner == null) {
       return Collections.emptyList();
     }
@@ -181,7 +180,7 @@ class ServiceUserResolver {
   }
 
   List<AccountInfo> listActiveOwners(ServiceUserInfo serviceUser)
-      throws OrmException, MethodNotAllowedException, PermissionBackendException {
+      throws MethodNotAllowedException, PermissionBackendException {
     List<AccountInfo> activeOwners = new ArrayList<>();
     for (AccountInfo owner : listOwners(serviceUser)) {
       Optional<AccountState> accountState = accountCache.get(new Account.Id(owner._accountId));

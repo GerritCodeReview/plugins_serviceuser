@@ -26,7 +26,6 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -61,7 +60,7 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
   @Override
   public Response<String> apply(ServiceUserResource rsrc, Input input)
       throws AuthException, ResourceConflictException, ConfigInvalidException,
-          ResourceNotFoundException, OrmException, IOException, PermissionBackendException {
+          ResourceNotFoundException, IOException, PermissionBackendException {
     if (input == null) {
       input = new Input();
     }

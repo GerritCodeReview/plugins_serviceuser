@@ -23,7 +23,6 @@ import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.sshd.CommandMetaData;
 import com.google.gerrit.sshd.SshCommand;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,7 +49,7 @@ class CreateServiceUserCommand extends SshCommand {
 
   @Override
   protected void run()
-      throws OrmException, IOException, UnloggedFailure, ConfigInvalidException,
+      throws IOException, UnloggedFailure, ConfigInvalidException,
           PermissionBackendException {
     CreateServiceUser.Input input = new CreateServiceUser.Input();
     input.sshKey = readSshKey();

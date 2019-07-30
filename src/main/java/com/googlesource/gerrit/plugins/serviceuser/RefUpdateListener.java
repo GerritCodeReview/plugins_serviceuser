@@ -24,7 +24,6 @@ import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.ProjectRunnable;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -109,7 +108,6 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
           ObjectId.fromString(e.getNewObjectId()));
       crn.commitNotes();
     } catch (IOException
-        | OrmException
         | ConfigInvalidException
         | PermissionBackendException
         | RestApiException x) {

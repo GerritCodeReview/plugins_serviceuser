@@ -27,7 +27,6 @@ import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.config.AnonymousCowardName;
 import com.google.gerrit.server.git.NotesBranchUtil;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
@@ -83,7 +82,7 @@ class CreateServiceUserNotes {
   }
 
   void createNotes(String branch, ObjectId oldObjectId, ObjectId newObjectId)
-      throws IOException, OrmException, ConfigInvalidException, PermissionBackendException,
+      throws IOException, ConfigInvalidException, PermissionBackendException,
           RestApiException {
     if (ObjectId.zeroId().equals(newObjectId)) {
       return;
@@ -156,13 +155,13 @@ class CreateServiceUserNotes {
   }
 
   private ObjectId createNoteContent(String branch, ServiceUserInfo serviceUser)
-      throws IOException, OrmException, MethodNotAllowedException, PermissionBackendException {
+      throws IOException, MethodNotAllowedException, PermissionBackendException {
     return getInserter()
         .insert(Constants.OBJ_BLOB, createServiceUserNote(branch, serviceUser).getBytes(UTF_8));
   }
 
   private String createServiceUserNote(String branch, ServiceUserInfo serviceUser)
-      throws OrmException, MethodNotAllowedException, PermissionBackendException {
+      throws MethodNotAllowedException, PermissionBackendException {
     HeaderFormatter fmt = new HeaderFormatter(gerritServerIdent.getTimeZone(), anonymousCowardName);
     fmt.appendDate();
     fmt.append("Project", project.get());

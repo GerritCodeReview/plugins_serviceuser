@@ -18,7 +18,6 @@ import com.google.gerrit.extensions.common.Input;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -36,7 +35,7 @@ class PutActive implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<String> apply(ServiceUserResource rsrc, Input input)
-      throws OrmException, IOException, ConfigInvalidException, RestApiException {
+      throws IOException, ConfigInvalidException, RestApiException {
     return putActive.get().apply(rsrc, input);
   }
 }

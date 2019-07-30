@@ -42,7 +42,6 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.account.CreateAccount;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -123,7 +122,7 @@ class CreateServiceUser
   @Override
   public Response<ServiceUserInfo> apply(
       ConfigResource parentResource, IdString id, CreateServiceUser.Input input)
-      throws RestApiException, OrmException, IOException, ConfigInvalidException,
+      throws RestApiException, IOException, ConfigInvalidException,
           PermissionBackendException {
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {

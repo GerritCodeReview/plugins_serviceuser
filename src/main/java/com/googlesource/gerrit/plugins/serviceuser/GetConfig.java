@@ -26,7 +26,6 @@ import com.google.gerrit.server.group.InternalGroup;
 import com.google.gerrit.server.group.InternalGroupDescription;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.restapi.group.GroupJson;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.Arrays;
@@ -59,7 +58,7 @@ class GetConfig implements RestReadView<ConfigResource> {
   }
 
   @Override
-  public ConfigInfo apply(ConfigResource rsrc) throws OrmException, PermissionBackendException {
+  public ConfigInfo apply(ConfigResource rsrc) throws PermissionBackendException {
     PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
     ConfigInfo info = new ConfigInfo();
     info.allowEmail = toBoolean(cfg.getBoolean("allowEmail", false));

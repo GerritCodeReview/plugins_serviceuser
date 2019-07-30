@@ -30,7 +30,6 @@ import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -68,7 +67,7 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
 
   @Override
   public Map<String, ServiceUserInfo> apply(ConfigResource rscr)
-      throws OrmException, IOException, RestApiException, PermissionBackendException,
+      throws IOException, RestApiException, PermissionBackendException,
           ConfigInvalidException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     CurrentUser user = userProvider.get();

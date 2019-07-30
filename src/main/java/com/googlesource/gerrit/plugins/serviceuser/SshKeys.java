@@ -19,7 +19,6 @@ import com.google.gerrit.extensions.restapi.ChildCollection;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestView;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -49,7 +48,7 @@ class SshKeys implements ChildCollection<ServiceUserResource, ServiceUserResourc
 
   @Override
   public ServiceUserResource.SshKey parse(ServiceUserResource parent, IdString id)
-      throws ResourceNotFoundException, OrmException, IOException, ConfigInvalidException {
+      throws ResourceNotFoundException, IOException, ConfigInvalidException {
     return new ServiceUserResource.SshKey(sshKeys.get().parse(parent.getUser(), id));
   }
 

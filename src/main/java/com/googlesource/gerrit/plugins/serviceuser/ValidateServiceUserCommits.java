@@ -23,7 +23,6 @@ import com.google.gerrit.server.git.validators.CommitValidationException;
 import com.google.gerrit.server.git.validators.CommitValidationListener;
 import com.google.gerrit.server.git.validators.CommitValidationMessage;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
@@ -75,7 +74,6 @@ class ValidateServiceUserCommits implements CommitValidationListener {
         }
       }
     } catch (IOException
-        | OrmException
         | ConfigInvalidException
         | PermissionBackendException
         | RestApiException e) {

@@ -17,7 +17,6 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import com.google.gerrit.extensions.common.SshKeyInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.RestReadView;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -37,7 +36,7 @@ class GetSshKeys implements RestReadView<ServiceUserResource> {
 
   @Override
   public List<SshKeyInfo> apply(ServiceUserResource rsrc)
-      throws AuthException, OrmException, RepositoryNotFoundException, IOException,
+      throws AuthException, RepositoryNotFoundException, IOException,
           ConfigInvalidException {
     return getSshKeys.get().apply(rsrc.getUser());
   }

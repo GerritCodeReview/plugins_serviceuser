@@ -30,7 +30,6 @@ import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.group.GroupJson;
 import com.google.gerrit.server.restapi.group.GroupsCollection;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -55,7 +54,7 @@ class GetOwner implements RestReadView<ServiceUserResource> {
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc)
-      throws RestApiException, OrmException, PermissionBackendException {
+      throws RestApiException, PermissionBackendException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     String owner = storage.get().getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
     if (owner != null) {

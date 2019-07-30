@@ -32,7 +32,6 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.account.GetAccount;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -62,7 +61,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
 
   @Override
   public ServiceUserInfo apply(ServiceUserResource rsrc)
-      throws RestApiException, OrmException, PermissionBackendException {
+      throws RestApiException, PermissionBackendException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     String username = rsrc.getUser().getUserName().get();
     Config db = storage.get();

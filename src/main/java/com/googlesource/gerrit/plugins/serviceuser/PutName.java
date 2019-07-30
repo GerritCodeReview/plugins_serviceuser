@@ -19,7 +19,6 @@ import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -37,7 +36,7 @@ class PutName implements RestModifyView<ServiceUserResource, NameInput> {
 
   @Override
   public Response<String> apply(ServiceUserResource rsrc, NameInput input)
-      throws MethodNotAllowedException, ResourceNotFoundException, OrmException, IOException,
+      throws MethodNotAllowedException, ResourceNotFoundException, IOException,
           ConfigInvalidException {
     return putName.get().apply(rsrc.getUser(), input);
   }

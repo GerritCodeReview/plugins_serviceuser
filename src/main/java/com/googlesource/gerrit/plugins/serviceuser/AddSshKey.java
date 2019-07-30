@@ -20,7 +20,6 @@ import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -38,7 +37,7 @@ class AddSshKey implements RestModifyView<ServiceUserResource, SshKeyInput> {
 
   @Override
   public Response<SshKeyInfo> apply(ServiceUserResource rsrc, SshKeyInput input)
-      throws AuthException, BadRequestException, OrmException, IOException, ConfigInvalidException {
+      throws AuthException, BadRequestException, IOException, ConfigInvalidException {
     return addSshKey.get().apply(rsrc.getUser(), input);
   }
 }

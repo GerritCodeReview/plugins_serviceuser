@@ -40,7 +40,6 @@ import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.group.GroupJson;
 import com.google.gerrit.server.restapi.group.GroupsCollection;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -87,7 +86,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
-      throws RestApiException, IOException, OrmException, PermissionBackendException {
+      throws RestApiException, IOException, PermissionBackendException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     Boolean ownerAllowed = getConfig.get().apply(new ConfigResource()).allowOwner;
     if ((ownerAllowed == null || !ownerAllowed)) {

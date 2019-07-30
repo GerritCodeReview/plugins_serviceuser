@@ -38,7 +38,6 @@ import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.account.AccountsCollection;
 import com.google.gerrit.server.restapi.group.GroupsCollection;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -79,7 +78,7 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
 
   @Override
   public ServiceUserResource parse(ConfigResource parent, IdString id)
-      throws ResourceNotFoundException, AuthException, IOException, OrmException,
+      throws ResourceNotFoundException, AuthException, IOException,
           PermissionBackendException, ConfigInvalidException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     IdentifiedUser serviceUser = accounts.get().parse(TopLevelResource.INSTANCE, id).getUser();
