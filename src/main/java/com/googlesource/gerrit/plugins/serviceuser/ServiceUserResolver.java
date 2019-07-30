@@ -21,11 +21,11 @@ import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountResolver;
+import com.google.gerrit.server.account.AccountResolver.UnresolvableAccountException;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.GroupControl;
 import com.google.gerrit.server.account.GroupMembership;
@@ -35,7 +35,6 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.restapi.group.ListMembers;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -55,7 +54,6 @@ class ServiceUserResolver {
   private final IdentifiedUser.GenericFactory genericUserFactory;
   private final Provider<GetServiceUser> getServiceUser;
   private final Provider<ListMembers> listMembers;
-  private final SchemaFactory<ReviewDb> schema;
   private final ThreadLocalRequestContext tl;
   private final AccountCache accountCache;
   private final GroupControl.Factory groupControlFactory;
@@ -67,7 +65,6 @@ class ServiceUserResolver {
       IdentifiedUser.GenericFactory genericUserFactory,
       Provider<GetServiceUser> getServiceUser,
       Provider<ListMembers> listMembers,
-      SchemaFactory<ReviewDb> schema,
       ThreadLocalRequestContext tl,
       AccountCache accountCache,
       GroupControl.Factory groupControlFactory,
@@ -76,7 +73,6 @@ class ServiceUserResolver {
     this.genericUserFactory = genericUserFactory;
     this.getServiceUser = getServiceUser;
     this.listMembers = listMembers;
-    this.schema = schema;
     this.tl = tl;
     this.accountCache = accountCache;
     this.groupControlFactory = groupControlFactory;
@@ -84,23 +80,19 @@ class ServiceUserResolver {
   }
 
   ServiceUserInfo getAsServiceUser(PersonIdent committerIdent)
-      throws ConfigInvalidException, IOException, PermissionBackendException,
-          RestApiException {
+      throws ConfigInvalidException, IOException, PermissionBackendException, RestApiException {
     StringBuilder committer = new StringBuilder();
     committer.append(committerIdent.getName());
     committer.append(" <");
     committer.append(committerIdent.getEmailAddress());
     committer.append("> ");
 
-    Account account = resolver.find(committer.toString());
-    if (account == null) {
-      return null;
-    }
     try {
+      Account account = resolver.resolve(committer.toString()).asUnique().getAccount();
       return getServiceUser
           .get()
           .apply(new ServiceUserResource(genericUserFactory.create(account.getId())));
-    } catch (ResourceNotFoundException e) {
+    } catch (ResourceNotFoundException | UnresolvableAccountException e) {
       return null;
     }
   }
@@ -111,71 +103,58 @@ class ServiceUserResolver {
       return Collections.emptyList();
     }
 
-    try (ReviewDb db = schema.open()) {
-      RequestContext context =
-          new RequestContext() {
-            @Override
-            public CurrentUser getUser() {
-              return new CurrentUser() {
+    RequestContext context =
+        new RequestContext() {
+          @Override
+          public CurrentUser getUser() {
+            return new CurrentUser() {
 
-                @Override
-                public GroupMembership getEffectiveGroups() {
-                  return new GroupMembership() {
-                    @Override
-                    public Set<AccountGroup.UUID> intersection(
-                        Iterable<AccountGroup.UUID> groupIds) {
-                      return null;
-                    }
+              @Override
+              public GroupMembership getEffectiveGroups() {
+                return new GroupMembership() {
+                  @Override
+                  public Set<AccountGroup.UUID> intersection(Iterable<AccountGroup.UUID> groupIds) {
+                    return null;
+                  }
 
-                    @Override
-                    public Set<AccountGroup.UUID> getKnownGroups() {
-                      return null;
-                    }
+                  @Override
+                  public Set<AccountGroup.UUID> getKnownGroups() {
+                    return null;
+                  }
 
-                    @Override
-                    public boolean containsAnyOf(Iterable<AccountGroup.UUID> groupIds) {
-                      return true;
-                    }
+                  @Override
+                  public boolean containsAnyOf(Iterable<AccountGroup.UUID> groupIds) {
+                    return true;
+                  }
 
-                    @Override
-                    public boolean contains(AccountGroup.UUID groupId) {
-                      return true;
-                    }
-                  };
-                }
+                  @Override
+                  public boolean contains(AccountGroup.UUID groupId) {
+                    return true;
+                  }
+                };
+              }
 
-                @Override
-                public Object getCacheKey() {
-                  return null;
-                }
-              };
-            }
-
-            @Override
-            public Provider<ReviewDb> getReviewDbProvider() {
-              return new Provider<ReviewDb>() {
-                @Override
-                public ReviewDb get() {
-                  return db;
-                }
-              };
-            }
-          };
-      RequestContext old = tl.setContext(context);
-      try {
-        GroupDescription.Basic group = groupResolver.parseId(serviceUser.owner.id);
-        GroupControl ctl = groupControlFactory.controlFor(group);
-        ListMembers lm = listMembers.get();
-        GroupResource rsrc = new GroupResource(ctl);
-        lm.setRecursive(true);
-        List<AccountInfo> owners = new ArrayList<>();
-        for (AccountInfo a : lm.apply(rsrc)) {
-          owners.add(a);
-        }
-        return owners;
-      } finally {
-        tl.setContext(old);
+              @Override
+              public Object getCacheKey() {
+                return null;
+              }
+            };
+          }
+        };
+    RequestContext old = tl.setContext(context);
+    try {
+      GroupDescription.Basic group = groupResolver.parseId(serviceUser.owner.id);
+      GroupControl ctl = groupControlFactory.controlFor(group);
+      ListMembers lm = listMembers.get();
+      GroupResource rsrc = new GroupResource(ctl);
+      lm.setRecursive(true);
+      List<AccountInfo> owners = new ArrayList<>();
+      for (AccountInfo a : lm.apply(rsrc)) {
+        owners.add(a);
       }
+      return owners;
+    } finally {
+      tl.setContext(old);
     }
   }
 
