@@ -14,34 +14,28 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gerrit.extensions.common.AccountInfo;
+import com.google.gerrit.extensions.common.GroupInfo;
 
-public class ServiceUserInfo extends JavaScriptObject {
+public class ServiceUserInfo {
   public final String getDisplayName() {
-    if (created_by().username() != null) {
-      return created_by().username();
+    if (created_by.username != null) {
+      return created_by.username;
     }
-    if (created_by()._account_id() != -1) {
-      return Integer.toString(created_by()._account_id());
+    if (created_by._accountId != -1) {
+      return Integer.toString(created_by._accountId);
     }
     return "N/A";
   }
 
-  public final native int _account_id() /*-{ return this._account_id || 0; }-*/;
-
-  public final native String name() /*-{ return this.name; }-*/;
-
-  public final native String username() /*-{ return this.username; }-*/;
-
-  public final native String email() /*-{ return this.email; }-*/;
-
-  public final native AccountInfo created_by() /*-{ return this.created_by; }-*/;
-
-  public final native String created_at() /*-{ return this.created_at; }-*/;
-
-  public final native boolean active() /*-{ return this.inactive ? false : true; }-*/;
-
-  public final native GroupInfo owner() /*-{ return this.owner; }-*/;
+  public int _account_id;
+  public String name;
+  public String username;
+  public String email;
+  public AccountInfo created_by;
+  public String created_at;
+  public boolean active;
+  public GroupInfo owner;
 
   protected ServiceUserInfo() {}
 }

@@ -36,7 +36,6 @@ class Module extends AbstractModule {
     bind(CapabilityDefinition.class)
         .annotatedWith(Exports.named(CreateServiceUserCapability.ID))
         .to(CreateServiceUserCapability.class);
-    DynamicSet.bind(binder(), TopMenu.class).to(ServiceUserMenu.class);
     DynamicSet.bind(binder(), GitReferenceUpdatedListener.class).to(RefUpdateListener.class);
     DynamicSet.bind(binder(), CommitValidationListener.class).to(ValidateServiceUserCommits.class);
     install(new FactoryModuleBuilder().build(CreateServiceUserNotes.Factory.class));

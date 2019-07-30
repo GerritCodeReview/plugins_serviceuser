@@ -24,10 +24,3 @@ load(
 
 # Load release Plugin API
 gerrit_api()
-
-load(
-    "@com_googlesource_gerrit_bazlets//:gerrit_gwt.bzl",
-    "gerrit_gwt",
-)
-
-gerrit_gwt()
