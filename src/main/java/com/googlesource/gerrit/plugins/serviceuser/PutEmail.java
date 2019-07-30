@@ -17,7 +17,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 
 import com.google.common.base.Strings;
-import com.google.gerrit.common.errors.EmailException;
+import com.google.gerrit.exceptions.EmailException;
 import com.google.gerrit.extensions.api.accounts.EmailInput;
 import com.google.gerrit.extensions.restapi.DefaultInput;
 import com.google.gerrit.extensions.restapi.IdString;
