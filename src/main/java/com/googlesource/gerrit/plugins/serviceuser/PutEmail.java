@@ -95,7 +95,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       EmailInput in = new EmailInput();
       in.email = input.email;
       in.noConfirmation = true;
-      createEmail.get().apply(rsrc.getUser(), IdString.fromDecoded(email), in);
+      createEmail.get().apply(rsrc.getUser(), IdString.fromDecoded(in.email), in);
       putPreferred.get().apply(rsrc.getUser(), input.email);
       return Response.ok(input.email);
     }
