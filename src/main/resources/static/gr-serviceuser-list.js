@@ -90,5 +90,9 @@
 
       return notFoundMessage;
     },
+
+    _computeServiceUserUrl(id) {
+      return `${this.plugin.screenUrl()}/user/${id}`
+    }
   })
 })();
