@@ -16,6 +16,24 @@
       "revId": "d5e4fe8337fd71c01601834331bbd9f5d694cc2e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9c26218_e003b755",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:31Z",
+      "side": 0,
+      "message": "It at least works for me. It builds standalone and in-tree and both versions load correctly for me. Maybe because I keep the UI source files in the resources/static directory, other than e.g. the checks-plugin? Also I only use screens and do not use the registerCustomComponent-API.",
+      "parentUuid": "a7a72ec8_08019556",
+      "revId": "d5e4fe8337fd71c01601834331bbd9f5d694cc2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }

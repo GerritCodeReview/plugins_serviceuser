@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "09d136f1_7fd4707f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserMenu.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:31Z",
+      "side": 1,
+      "message": "I noticed, that after logging in, the new menu entry did only appear after refreshing the page in Chrome. In Firefox it did not appear at all, probably due to the caching behaviour. Is there a way to enforce the recreation of this menu?",
+      "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3c07508_34c94275",
         "filename": "src/main/resources/static/gr-serviceuser-list.js",
         "patchSetId": 4
@@ -25,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "eb0b59f7_8763842f",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c07508_34c94275",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 42
+      },
+      "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5fc50dd_f3eddf24",
         "filename": "src/main/resources/static/gr-serviceuser-list.js",
         "patchSetId": 4
@@ -39,6 +80,24 @@
       "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca66ba15_fcd879a3",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5fc50dd_f3eddf24",
+      "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "57796a46_df710e9b",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d89e3bdf_29e8e4f2",
+      "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81c81d40_64c75c21",
         "filename": "src/main/resources/static/gr-serviceuser-list.js",
         "patchSetId": 4
@@ -73,6 +150,24 @@
       "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bf69ac6_71375ecf",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81c81d40_64c75c21",
+      "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
