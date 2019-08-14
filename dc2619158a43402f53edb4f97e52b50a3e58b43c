@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab72261b_3f87a4f4",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T13:02:37Z",
+      "side": 1,
+      "message": "Same here, would be better if ti was:\n\nbehaviors: [\n  Gerrit.ListViewBehavior,\n],\n\nor behaviors: [Gerrit.ListViewBehavior],",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 42
+      },
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94c87dfe_8ebdeb83",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T13:02:37Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be getBaseUrl()?",
+      "range": {
+        "startLine": 52,
+        "startChar": 33,
+        "endLine": 52,
+        "endChar": 40
+      },
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "350980ba_49fafa08",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T13:02:37Z",
+      "side": 1,
+      "message": "Need undefined check.",
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af04045e_c45c3b35",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T13:02:37Z",
+      "side": 1,
+      "message": "Need undefined check.",
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "880cb167_811aa44a",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T13:02:37Z",
+      "side": 1,
+      "message": "Need undefined check.",
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c31aa15c_68d9a4da",
+        "filename": "src/main/resources/static/gr-serviceuser-ssh-panel.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T13:02:37Z",
+      "side": 1,
+      "message": "Should have an undefined check.",
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
