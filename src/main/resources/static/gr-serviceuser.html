@@ -18,6 +18,8 @@ limitations under the License.
 
 <link rel="import"
       href="./gr-serviceuser-list.html">
+<link rel="import"
+      href="./gr-serviceuser-detail.html">
 
 <dom-module id="gr-serviceuser">
   <script>
@@ -28,6 +30,7 @@ limitations under the License.
                 && (capabilities.administrateServer
                     || capabilities['serviceuser-createServiceUser'])) {
               plugin.screen('list', 'gr-serviceuser-list');
+              plugin.screen('user', 'gr-serviceuser-detail');
             }
             plugin.admin()
               .addMenuLink(
