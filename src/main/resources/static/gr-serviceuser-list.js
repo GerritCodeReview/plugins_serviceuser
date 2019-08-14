@@ -82,5 +82,9 @@
     _getOwnerGroup(item) {
       return item && item.owner ? item.owner.name : NOT_FOUND_MESSAGE;
     },
+
+    _computeServiceUserUrl(id) {
+      return `${this.plugin.screenUrl()}/user/${id}`
+    }
   })
 })();
