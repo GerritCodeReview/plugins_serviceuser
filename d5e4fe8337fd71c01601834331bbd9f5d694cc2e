@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7a72ec8_08019556",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T12:55:55Z",
+      "side": 0,
+      "message": "Doin\u0027t you need to do something like:\n\n\npolygerrit_plugin(\n    name \u003d \"\u003cname\u003e\",\n    srcs \u003d glob([\n        \"\u003cpath\u003e/*.html\",\n        \"\u003cpath\u003e/*.js\",\n    ]),\n    app \u003d \"\u003cpath-to-index-containing-gerrit-install-plugin\u003e\",\n)",
+      "revId": "d5e4fe8337fd71c01601834331bbd9f5d694cc2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}

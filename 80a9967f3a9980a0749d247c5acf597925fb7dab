@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3c07508_34c94275",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T12:55:55Z",
+      "side": 1,
+      "message": "Looks better if this was either:\n\nbehaviors: [\n  Gerrit.ListViewBehavior,\n],\n\nor it dropped the comma at the end of \u0027Gerrit.ListViewBehavior\u0027.",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 42
+      },
+      "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5fc50dd_f3eddf24",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T12:55:55Z",
+      "side": 1,
+      "message": "Should add an undefined check or make this:\n\nreturn item \u0026\u0026 item.inactive \u003d\u003d\u003d true ? \u0027Inactive\u0027 : \u0027Active\u0027;",
+      "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d89e3bdf_29e8e4f2",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T12:55:55Z",
+      "side": 1,
+      "message": "Same here, needs an undefined check (so you can either do item \u0026\u0026 ... or if (!item) { return ....}",
+      "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81c81d40_64c75c21",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-08-14T12:55:55Z",
+      "side": 1,
+      "message": "Same here, needs an undefined check.",
+      "revId": "80a9967f3a9980a0749d247c5acf597925fb7dab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
