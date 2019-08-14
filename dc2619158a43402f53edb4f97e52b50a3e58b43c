@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "be62ce7e_5b33db35",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:48:04Z",
+      "side": 1,
+      "message": "I guess, that this is just this: https://www.w3schools.com/jsref/prop_doc_baseuri.asp",
+      "parentUuid": "eb938c2f_cfb5df82",
+      "range": {
+        "startLine": 52,
+        "startChar": 33,
+        "endLine": 52,
+        "endChar": 40
+      },
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "350980ba_49fafa08",
         "filename": "src/main/resources/static/gr-serviceuser-detail.js",
         "patchSetId": 1
