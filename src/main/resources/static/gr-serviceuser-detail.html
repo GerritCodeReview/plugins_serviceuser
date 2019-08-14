@@ -1,0 +1,113 @@
+<!--
+@license
+Copyright (C) 2019 The Android Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<link rel="import" href="./gr-serviceuser-ssh-panel.html">
+
+<dom-module id="gr-serviceuser-detail">
+  <template>
+    <style include="shared-styles"></style>
+    <style include="gr-subpage-styles"></style>
+    <style include="gr-form-styles"></style>
+    <style>
+      div.serviceuser-detail {
+        margin: 2em auto;
+        max-width: 50em;
+      }
+
+      h1#Title {
+        margin-bottom: 1em;
+      }
+
+      span#gr_serviceuser_activity {
+        border-radius: 1em;
+        width: 10em;
+        padding: 0.3em;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      span.Active {
+        background-color: #9fcc6b;
+      }
+
+      span.Inactive {
+        background-color: #f7a1ad;
+      }
+    </style>
+    <div class="serviceuser-detail">
+      <main class="gr-form-styles read-only">
+        <div id="loading" class$="[[_computeLoadingClass(_loading)]]">
+          Loading...
+        </div>
+        <div id="loadedContent" class$="[[_computeLoadingClass(_loading)]]">
+          <h1 id="Title">Service User "[[_serviceUser.name]]"</h1>
+          <div id="form">
+            <fieldset>
+              <fieldset>
+                <h2 id="accountState">Account State</h2>
+                <section>
+                  <span class="title">Current State</span>
+                  <span id="gr_serviceuser_activity" class$="value [[_active(_serviceUser)]]">
+                    [[_active(_serviceUser)]]
+                  </span>
+                </section>
+              </fieldset>
+              <fieldset>
+                <h2 id="userDataHeader">User Data</h2>
+                <section>
+                  <span class="title">Username</span>
+                  <span class="value">[[_serviceUser.username]]</span>
+                </section>
+                <section>
+                  <span class="title">Full Name</span>
+                  <span class="value">[[_serviceUser.name]]</span>
+                </section>
+                <section>
+                  <span class="title">Email Address</span>
+                  <span class="value">[[_serviceUser.email]]</span>
+                </section>
+                <section>
+                  <span class="title">Owner Group</span>
+                  <span class="value">[[_getOwnerGroup(_serviceUser)]]</span>
+                </section>
+              </fieldset>
+              <fieldset>
+                <h2 id="creationHeader">Creation</h2>
+                <section>
+                  <span class="title">Created By</span>
+                  <span class="value">[[_getCreator(_serviceUser)]]</span>
+                </section>
+                <section>
+                  <span class="title">Created At</span>
+                  <span class="value">[[_serviceUser.created_at]]</span>
+                </section>
+              </fieldset>
+              <fieldset>
+                <h2 id="credentialsHeader">Credentials</h2>
+                <fieldset>
+                  <h3 id="SSHKeys">SSH keys</h3>
+                  <gr-serviceuser-ssh-panel id="sshEditor"></gr-serviceuser-ssh-panel>
+                </fieldset>
+              </fieldset>
+            </fieldset>
+          </div>
+        </div>
+      </main>
+    </div>
+  </template>
+  <script src="gr-serviceuser-detail.js"></script>
+</dom-module>
