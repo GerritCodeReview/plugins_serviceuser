@@ -71,5 +71,9 @@
         return item.owner.name;
       }
     },
+
+    _computeServiceUserUrl(id) {
+      return `${this.plugin.screenUrl()}/user/${id}`
+    }
   })
 })();
