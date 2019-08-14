@@ -43,7 +43,9 @@ limitations under the License.
       <tbody class$="[[computeLoadingClass(_loading)]]">
         <template is="dom-repeat" items="[[_serviceUsers]]">
           <tr class="table">
-            <td class="name">[[item.username]]</td>
+            <td class="name">
+              <a href$="[[_computeServiceUserUrl(item._account_id)]]">[[item.username]]</a>
+            </td>
             <td class="fullName">[[item.name]]</td>
             <td class="email">[[item.email]]</td>
             <td class="owner">[[_getOwnerGroup(item)]]</td>
