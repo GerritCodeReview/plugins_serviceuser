@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c55bd1a4_f588c48f",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab72261b_3f87a4f4",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 42
+      },
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94c87dfe_8ebdeb83",
         "filename": "src/main/resources/static/gr-serviceuser-detail.js",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-08-14T13:02:37Z",
       "side": 1,
       "message": "Shouldn\u0027t this be getBaseUrl()?",
+      "range": {
+        "startLine": 52,
+        "startChar": 33,
+        "endLine": 52,
+        "endChar": 40
+      },
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ddfc3a_39e7a02b",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:41Z",
+      "side": 1,
+      "message": "`this.getBaseUrl()` returns an empty String. I would guess this is due to how the plugins.screen()-API works.",
+      "parentUuid": "94c87dfe_8ebdeb83",
       "range": {
         "startLine": 52,
         "startChar": 33,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "9f1a9f57_e4440dde",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:41Z",
+      "side": 1,
+      "message": "Done\n\nBut since a lot of methods here are identical to the ones in gr-serviceuser-list.js, I will have a look, whether I can reduce the code duplication.",
+      "parentUuid": "350980ba_49fafa08",
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af04045e_c45c3b35",
         "filename": "src/main/resources/static/gr-serviceuser-detail.js",
         "patchSetId": 1
@@ -79,6 +145,24 @@
       "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e731ad6_12d39d1f",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af04045e_c45c3b35",
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "2439afe3_43c03ee1",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "880cb167_811aa44a",
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c31aa15c_68d9a4da",
         "filename": "src/main/resources/static/gr-serviceuser-ssh-panel.js",
         "patchSetId": 1
@@ -113,6 +215,24 @@
       "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c29252fd_f562c1ed",
+        "filename": "src/main/resources/static/gr-serviceuser-ssh-panel.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-14T14:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c31aa15c_68d9a4da",
+      "revId": "dc2619158a43402f53edb4f97e52b50a3e58b43c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
