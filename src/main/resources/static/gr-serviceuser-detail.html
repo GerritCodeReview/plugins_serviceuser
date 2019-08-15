@@ -15,8 +15,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<link rel="import"
-      href="./gr-serviceuser-ssh-panel.html">
+<link rel="import" href="./gr-serviceuser-ssh-panel.html">
+<link rel="import" href="./gr-serviceuser-http-password.html">
 
 <dom-module id="gr-serviceuser-detail">
   <template>
@@ -30,6 +30,11 @@ limitations under the License.
       }
 
       h1#Title {
+        margin-bottom: 1em;
+      }
+
+      p#ownerChangeWarning {
+        margin-top: 1em;
         margin-bottom: 1em;
       }
 
@@ -69,6 +74,8 @@ limitations under the License.
                     [[_active(_serviceUser)]]
                   </span>
                 </section>
+                <gr-button id="statusToggleButton" on-tap="_toggleStatus" disabled="[[_loading]]">
+                  [[_statusButtonText]]</gr-button>
               </fieldset>
               <fieldset>
                 <h2 id="userDataHeader">User Data</h2>
@@ -78,16 +85,34 @@ limitations under the License.
                 </section>
                 <section>
                   <span class="title">Full Name</span>
-                  <span class="value">[[_serviceUser.name]]</span>
+                  <span class="value">
+                    <input id="serviceUserFullNameInput" bind-value="{{_newFullName}}" is="iron-input" type="text"
+                      disabled="[[_changingPrefs]]" placeholder$="[[_serviceUser.name]]"
+                      on-keyup="_computePrefsChanged">
+                  </span>
                 </section>
                 <section>
                   <span class="title">Email Address</span>
-                  <span class="value">[[_serviceUser.email]]</span>
+                  <input id="serviceUserEmailInput" bind-value="{{_newEmail}}" is="iron-input" type="text"
+                    disabled="[[_changingPrefs]]" placeholder="[[_serviceUser.email]]" on-keyup="_computePrefsChanged"
+                    hidden$="[[!_allowEmail]]">
+                  <span class="value" hidden$="[[_allowEmail]]">[[_serviceUser.email]]</span>
                 </section>
                 <section>
                   <span class="title">Owner Group</span>
-                  <span class="value">[[_getOwnerGroup(_serviceUser)]]</span>
+                  <gr-autocomplete id="serviceUserOwnerInput" text="{{_getOwnerGroup(_serviceUser)}}"
+                    value="{{_newOwner}}" query="[[_query]]" disabled="[[_changingPrefs]]"
+                    on-commit="_computePrefsChanged" on-keyup="_computePrefsChanged" hidden$="[[!_allowOwner]]">
+                    [[_getOwnerGroup(_serviceUser)]]
+                  </gr-autocomplete>
+                  <span class="value" hidden$="[[_allowOwner]]">[[_getOwnerGroup(_serviceUser)]]</span>
                 </section>
+                <p id="ownerChangeWarning" class="style-scope gr-settings-view" hidden$="[[!_newOwner]]">
+                  [[_ownerChangeWarning]]
+                </p>
+                <gr-button id="savePrefs" on-tap="_handleSavePreferences" disabled="[[!_prefsChanged]]">
+                  Save changes
+                </gr-button>
               </fieldset>
               <fieldset>
                 <h2 id="creationHeader">Creation</h2>
@@ -101,7 +126,16 @@ limitations under the License.
                 </section>
               </fieldset>
               <fieldset>
-                <h2 id="credentialsHeader">Credentials</h2>
+                <fieldset>
+                  <h2 id="credentialsHeader">Credentials</h2>
+                </fieldset>
+                <fieldset hidden$="[[!_allowHttpPassword]]">∏
+                  <h3 id="HTTPCredentials">HTTP Credentials</h3>
+                  <fieldset>
+                    <gr-serviceuser-http-password id="httpPass">
+                      </gr-http-password>
+                  </fieldset>
+                </fieldset>
                 <fieldset>
                   <h3 id="SSHKeys">SSH keys</h3>
                   <gr-serviceuser-ssh-panel id="sshEditor"></gr-serviceuser-ssh-panel>
