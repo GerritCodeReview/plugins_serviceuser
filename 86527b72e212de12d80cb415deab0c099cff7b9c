@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c08ceaa_a816e2d1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/HttpModule.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2019-08-15T13:14:51Z",
+      "side": 1,
+      "message": "consider renaming the file from index.html to service-user.html",
+      "range": {
+        "startLine": 25,
+        "startChar": 82,
+        "endLine": 25,
+        "endChar": 87
+      },
+      "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37a430e5_8a588059",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2019-08-15T13:14:51Z",
+      "side": 1,
+      "message": "maybe rename to NOT_FOUND_MESSAGE",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65ec0636_0b09ef13",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2019-08-15T13:14:51Z",
+      "side": 1,
+      "message": "May also guard against !item.created_by",
+      "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35397f08_e405a282",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1013302
+      },
+      "writtenOn": "2019-08-15T13:14:51Z",
+      "side": 1,
+      "message": "Could be replaced by\n\n  return item \u0026\u0026 item.owner ? item.owner.name : notFoundMessage;",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 29
+      },
+      "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
