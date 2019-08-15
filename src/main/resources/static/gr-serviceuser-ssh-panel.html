@@ -62,6 +62,7 @@ limitations under the License.
               <th class="commentColumn">Comment</th>
               <th class="statusHeader">Status</th>
               <th class="keyHeader">Public key</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -76,6 +77,11 @@ limitations under the License.
                              on-tap="_showKey"
                              data-index$="[[index]]"
                              link>Click to View</gr-button>
+                </td>
+                <td>
+                  <gr-button link
+                             data-index$="[[index]]"
+                             on-tap="_handleDeleteKey">Delete</gr-button>
                 </td>
               </tr>
             </template>
@@ -101,7 +107,26 @@ limitations under the License.
                      on-tap="_closeOverlay">Close</gr-button>
         </gr-overlay>
       </fieldset>
+      <fieldset>
+        <section>
+          <span class="title">New SSH key</span>
+          <span class="value">
+            <iron-autogrow-textarea id="newKey"
+                                    autocomplete="on"
+                                    bind-value="{{_newKey}}"
+                                    placeholder="New SSH Key">
+            </iron-autogrow-textarea>
+          </span>
+        </section>
+        <gr-button id="addButton"
+                   link
+                   disabled$="[[_computeAddButtonDisabled(_newKey)]]"
+                   on-tap="_handleAddKey">
+          Add new SSH key
+        </gr-button>
+      </fieldset>
     </div>
+    <gr-rest-api-interface id="restAPI"></gr-rest-api-interface>
   </template>
   <script src="gr-serviceuser-ssh-panel.js"></script>
 </dom-module>
