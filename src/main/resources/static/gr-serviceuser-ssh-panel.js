@@ -17,6 +17,8 @@
 (function () {
   'use strict';
 
+  const JSON_PREFIX = ')]}\'';
+
   Polymer({
     is: 'gr-serviceuser-ssh-panel',
     _legacyUndefinedCheck: true,
@@ -27,6 +29,14 @@
       _keys: Array,
       /** @type {?} */
       _keyToView: Object,
+      _newKey: {
+        type: String,
+        value: '',
+      },
+      _keysToRemove: {
+        type: Array,
+        value() { return []; },
+      },
     },
 
     loadData(restApi, serviceUser) {
@@ -55,6 +65,38 @@
 
     _closeOverlay() {
       this.$.viewKeyOverlay.close();
+    },
+
+    _handleDeleteKey(e) {
+      const el = Polymer.dom(e).localTarget;
+      const index = parseInt(el.getAttribute('data-index'), 10);
+      this.push('_keysToRemove', this._keys[index]);
+
+      const promises = this._keysToRemove.map(key => {
+        this._restApi.delete(`${this._serviceUser._account_id}/sshkeys/${key.seq}`);
+      });
+
+      return Promise.all(promises).then(() => {
+        this.splice('_keys', index, 1);
+        this._keysToRemove = [];
+      });
+    },
+
+    _handleAddKey() {
+      this.$.addButton.disabled = true;
+      this.$.newKey.disabled = true;
+      return this._restApi.post(`${this._serviceUser._account_id}/sshkeys`,
+          this._newKey.trim(), 'plain/text')
+        .then(key => {
+          this.push('_keys', key);
+        }).catch(() => {
+          this.$.addButton.disabled = false;
+          this.$.newKey.disabled = false;
+        });
+    },
+
+    _computeAddButtonDisabled(newKey) {
+      return !newKey.length;
     },
   });
 })();

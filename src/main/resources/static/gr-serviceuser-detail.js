@@ -29,6 +29,28 @@
         type: Boolean,
         value: true,
       },
+      _statusButtonText: {
+        type: String,
+        value: "Activate",
+      },
+      _prefsChanged: {
+        type: Boolean,
+        value: false,
+      },
+      _changingPrefs: {
+        type: Boolean,
+        value: false,
+      },
+      _newFullName: String,
+      _newEmail: String,
+      _availableOwners: Array,
+      _newOwner: String,
+      _query: {
+        type: Function,
+        value() {
+          return this._getGroupSuggestions.bind(this);
+        },
+      },
     },
 
     behaviors: [
@@ -37,13 +59,18 @@
 
     attached() {
       this._extractUserId();
+      this._loadServiceUser();
+    },
 
+    _loadServiceUser() {
       if (!this._serviceUserId) { return; }
 
       Promise.resolve(this._getServiceUser()).then(() => {
         this.$.sshEditor.loadData(this._restApi, this._serviceUser)
+        this.$.httpPass.loadData(this._restApi, this._serviceUser)
 
         this.fire('title-change', { title: this._serviceUser.name });
+        this._computeStatusButtonText()
         this._loading = false;
       });
     },
@@ -76,6 +103,28 @@
       return serviceUser.inactive === true ? 'Inactive' : 'Active';
     },
 
+    _computeStatusButtonText() {
+      if (!this._serviceUser) {
+        return;
+      }
+
+      this._statusButtonText = this._serviceUser.inactive === true ? 'Activate' : 'Deactivate';
+    },
+
+    _toggleStatus() {
+      if (this._serviceUser.inactive === true) {
+        this._restApi.put(`${this._serviceUser._account_id}/active`)
+          .then(() => {
+            this._loadServiceUser()
+          })
+      } else {
+        this._restApi.delete(`${this._serviceUser._account_id}/active`)
+          .then(() => {
+            this._loadServiceUser()
+          })
+      }
+    },
+
     _getCreator(serviceUser) {
       if (!serviceUser || !serviceUser.created_by) {
         return NOT_FOUND_MESSAGE;
@@ -94,6 +143,124 @@
 
     _getOwnerGroup(serviceUser) {
       return serviceUser && serviceUser.owner ? serviceUser.owner.name : NOT_FOUND_MESSAGE;
+    },
+
+    _isEmailValid(email) {
+      if (!email) {
+        return false;
+      }
+      return email.includes('@');
+    },
+
+    _getGroupSuggestions(input) {
+      let query;
+      if (!input || input === this._getOwnerGroup(this._serviceUser)) {
+        query = '';
+      } else {
+        query = `?suggest=${input}`;
+      }
+
+      return this.plugin.restApi('/a/groups/').get(query)
+        .then(response => {
+          const groups = [];
+          for (const key in response) {
+            if (!response.hasOwnProperty(key)) { continue; }
+            groups.push({
+              name: key,
+              value: decodeURIComponent(response[key].id),
+            });
+          }
+          this._availableOwners = groups;
+          return groups;
+        });
+    },
+
+    _isOwnerValid(owner) {
+      if (!owner) {
+        return false;
+      }
+
+      return this._getOwnerName(owner);
+    },
+
+    _getOwnerName(id) {
+      return this._availableOwners.find((o) => { return o.value === id; }).name;
+    },
+
+    _computePrefsChanged() {
+      if (this.loading || this._changingPrefs) {
+        return;
+      }
+
+      if (!this._newOwner && !this._newEmail && !this._newFullName) {
+        this._prefsChanged = false;
+        return;
+      }
+
+      if (this._newEmail && !this._isEmailValid(this._newEmail)) {
+        this._prefsChanged = false;
+        return;
+      }
+
+      if (this._newOwner
+        && (this._getOwnerName(this._newOwner) === this._getOwnerGroup(this._serviceUser)
+          || !this._isOwnerValid(this._newOwner))) {
+        this._prefsChanged = false;
+        return;
+      }
+
+      this._prefsChanged = true;
+    },
+
+    _applyNewFullName() {
+      return this._restApi.put(`${this._serviceUser._account_id}/name`, { 'name': this._newFullName })
+        .then(() => {
+          this.$.serviceUserFullNameInput.value = '';
+        });
+    },
+
+    _applyNewEmail(email) {
+      if (!this._isEmailValid(email)) {
+        return
+      }
+      return this._restApi.put(`${this._serviceUser._account_id}/email`, { 'email': email })
+        .then(() => {
+          this.$.serviceUserEmailInput.value = '';
+        });
+    },
+
+    _applyNewOwner(owner) {
+      if (this._getOwnerName(this._newOwner) === this._getOwnerGroup(this._serviceUser)
+          || !this._isOwnerValid(this._newOwner)) {
+        return
+      }
+      return this._restApi.put(`${this._serviceUser._account_id}/owner`, { 'group': owner })
+        .then(() => {
+          this.$.serviceUserOwnerInput.text = this._getOwnerGroup(_serviceUser);
+        });
+    },
+
+    _handleSavePreferences() {
+      let promises = [];
+      this._changingPrefs = true;
+
+      if (this._newFullName) {
+        promises.push(this._applyNewFullName());
+      }
+
+      if (this._newEmail) {
+        promises.push(this._applyNewEmail(this._newEmail));
+      }
+
+      if (this._newOwner) {
+        promises.push(this._applyNewOwner(this._newOwner));
+      }
+
+      Promise.all(promises).then(() => {
+        this._changingPrefs = false;
+        this._prefsChanged = false;
+        this._loadServiceUser();
+      });
     },
   })
 })();
