@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "79955dbe_93311afe",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/HttpModule.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-16T09:45:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c08ceaa_a816e2d1",
+      "range": {
+        "startLine": 25,
+        "startChar": 82,
+        "endLine": 25,
+        "endChar": 87
+      },
+      "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37a430e5_8a588059",
         "filename": "src/main/resources/static/gr-serviceuser-list.js",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "eec60bb7_c0de05b2",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-16T09:45:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37a430e5_8a588059",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65ec0636_0b09ef13",
         "filename": "src/main/resources/static/gr-serviceuser-list.js",
         "patchSetId": 5
@@ -62,6 +110,24 @@
       "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be387d2c_5e5795d9",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-16T09:45:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65ec0636_0b09ef13",
+      "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -85,6 +151,30 @@
       "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c86cf75_54e6fac4",
+        "filename": "src/main/resources/static/gr-serviceuser-list.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-08-16T09:45:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35397f08_e405a282",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 29
+      },
+      "revId": "86527b72e212de12d80cb415deab0c099cff7b9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
