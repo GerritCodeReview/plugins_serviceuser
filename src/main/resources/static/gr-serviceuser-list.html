@@ -23,9 +23,29 @@ limitations under the License.
       .topHeader {
         padding: 8px;
       }
+
+      #topContainer {
+        align-items: center;
+        display: flex;
+        height: 3rem;
+        justify-content: space-between;
+        margin: 0 1em;
+      }
     </style>
     <div class="topHeader">
       <h2>Service Users</h2>
+    </div>
+    <div id="topContainer">
+      <div></div>
+      <div id="createNewContainer"
+           class$="[[_computeCreateClass(createNew)]]">
+        <gr-button primary
+                   link
+                   id="createNew"
+                   on-tap="_createNewServiceUser">
+          Create New
+        </gr-button>
+      </div>
     </div>
     <table id="list"
            class="genericList">
