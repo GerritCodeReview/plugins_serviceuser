@@ -40,6 +40,8 @@ import org.eclipse.jgit.util.FS;
 @Singleton
 class PutConfig implements RestModifyView<ConfigResource, Input> {
   public static class Input {
+    public String info;
+    public String onSuccess;
     public Boolean allowEmail;
     public Boolean allowHttpPassword;
     public Boolean allowOwner;
@@ -71,6 +73,12 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
       throws IOException, ConfigInvalidException, UnprocessableEntityException {
     FileBasedConfig cfg = new FileBasedConfig(sitePaths.gerrit_config.toFile(), FS.DETECTED);
     cfg.load();
+    if (input.info != null) {
+      cfg.setString("plugin", pluginName, "infoMessage", Strings.emptyToNull(input.info));
+    }
+    if (input.onSuccess != null) {
+      cfg.setString("plugin", pluginName, "onSuccessMessage", Strings.emptyToNull(input.onSuccess));
+    }
     if (input.allowEmail != null) {
       setBoolean(cfg, "allowEmail", input.allowEmail);
     }
