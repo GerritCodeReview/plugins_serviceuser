@@ -22,6 +22,16 @@ file.
 	should be automatically added. Multiple groups can be specified by
 	having multiple `plugin.@PLUGIN@.group` entries.
 
+<a id="infoMessage">
+`plugin.@PLUGIN@.infoMessage`
+:	HTML formatted message that should be displayed on the service user
+	creation screen.
+
+<a id="onSuccessMessage">
+`plugin.@PLUGIN@.onSuccessMessage`
+:	Message that should be displayed after a service user was
+  successfully created.
+
 <a id="allowEmail">
 `plugin.@PLUGIN@.allowEmail`
 :	Whether it is allowed for service user owners to set email
