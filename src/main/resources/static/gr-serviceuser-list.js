@@ -87,5 +87,9 @@
     _computeServiceUserUrl(id) {
       return `${this.plugin.screenUrl()}/user/${id}`;
     },
+
+    _createNewServiceUser() {
+      page.show(this.plugin.screenUrl() + '/create');
+    },
   });
 })();

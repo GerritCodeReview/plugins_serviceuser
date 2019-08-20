@@ -20,12 +20,15 @@ limitations under the License.
       href="./gr-serviceuser-list.html">
 <link rel="import"
       href="./gr-serviceuser-detail.html">
+<link rel="import"
+      href="./gr-serviceuser-create.html">
 
 <dom-module id="gr-serviceuser">
   <script>
     Gerrit.install(plugin => {
       plugin.screen('list', 'gr-serviceuser-list');
       plugin.screen('user', 'gr-serviceuser-detail');
+      plugin.screen('create', 'gr-serviceuser-create');
     });
   </script>
 </dom-module>
