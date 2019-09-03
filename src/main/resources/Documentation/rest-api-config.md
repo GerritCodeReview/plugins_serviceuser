@@ -704,6 +704,10 @@ unchanged.
 The `ConfigInfo` entity contains the configuration of the @PLUGIN@
 plugin.
 
+* _info_: HTML formatted message that should be displayed on the
+  service user creation screen.
+* _on\_success_: Message that should be displayed after a service user
+  was successfully created.
 * _allow\_email_: Whether it is allowed to provide an email address for
   a service user (not set if `false`).
 * _allow\_http\_password_: Whether it is allowed to generate an HTTP
@@ -727,6 +731,10 @@ plugin.
 The `ConfigInput` entity contains updates for the configuration of the
 @PLUGIN@ plugin.
 
+* _info_: HTML formatted message that should be displayed on the
+  service user creation screen.
+* _on\_success_: Message that should be displayed after a service user
+  was successfully created.
 * _allow\_email_: Whether it is allowed to provide an email address for
   a service user (not set if `false`).
 * _allow\_http\_password_: Whether it is allowed to generate an HTTP

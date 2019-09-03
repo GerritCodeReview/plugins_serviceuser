@@ -24,7 +24,6 @@ import com.google.gerrit.extensions.events.GitReferenceUpdatedListener;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
-import com.google.gerrit.extensions.webui.TopMenu;
 import com.google.gerrit.server.git.validators.CommitValidationListener;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
@@ -71,5 +70,6 @@ class Module extends AbstractModule {
             delete(SERVICE_USER_KIND, "owner").to(PutOwner.class);
           }
         });
+    install(new HttpModule());
   }
 }
