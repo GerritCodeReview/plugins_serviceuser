@@ -91,7 +91,7 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
       throw new AuthException("Authentication required");
     }
     if (!permissionBackend.user(user).testOrFalse(ADMINISTRATE_SERVER)) {
-      String owner = storage.get().getString(USER, id.get(), KEY_OWNER);
+      String owner = storage.get().getString(USER, serviceUser.getUserName().get(), KEY_OWNER);
       if (owner != null) {
         GroupDescription.Basic group =
             groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(owner)).getGroup();
