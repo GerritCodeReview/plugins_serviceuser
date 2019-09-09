@@ -312,7 +312,7 @@
           .put(`${this._serviceUser._account_id}/owner`, {group: owner})
           .then(() => {
             this.$.serviceUserOwnerInput.text = this._getOwnerGroup(
-                _serviceUser);
+                this._serviceUser);
           });
     },
 
