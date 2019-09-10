@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ad3c85d_4f4f153b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1045122
+      },
+      "writtenOn": "2019-09-10T09:46:14Z",
+      "side": 1,
+      "message": "Why only accept RSA keys here? Gerrit supports many more formats.\n\n(sorry for the late review)",
+      "range": {
+        "startLine": 148,
+        "startChar": 80,
+        "endLine": 148,
+        "endChar": 87
+      },
+      "revId": "91f52309426a49ee1f60ba46fa8dda34473fa333",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
