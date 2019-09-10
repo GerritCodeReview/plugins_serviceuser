@@ -70,6 +70,30 @@
       "revId": "91f52309426a49ee1f60ba46fa8dda34473fa333",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3204a8f4_417068e5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-10T14:33:48Z",
+      "side": 1,
+      "message": "I tried to solve this in change 236453 [1].\n\n[1] https://gerrit-review.googlesource.com/c/plugins/serviceuser/+/236453",
+      "parentUuid": "4be01b8d_7d90b04e",
+      "range": {
+        "startLine": 148,
+        "startChar": 80,
+        "endLine": 148,
+        "endChar": 87
+      },
+      "revId": "91f52309426a49ee1f60ba46fa8dda34473fa333",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
