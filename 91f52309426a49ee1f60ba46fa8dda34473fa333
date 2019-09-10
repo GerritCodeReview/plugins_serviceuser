@@ -46,6 +46,30 @@
       "revId": "91f52309426a49ee1f60ba46fa8dda34473fa333",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4be01b8d_7d90b04e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1045122
+      },
+      "writtenOn": "2019-09-10T11:40:52Z",
+      "side": 1,
+      "message": "Try to run \n\n $ ssh -Q key\n\nBut this list what OpenSSH can do on your system. Gerrit\u0027s capabilities may be different.\n\nFor me this lists:\n\n $ ssh -Q key\n ssh-ed25519\n ssh-ed25519-cert-v01@openssh.com\n ssh-rsa\n ssh-dss\n ecdsa-sha2-nistp256\n ecdsa-sha2-nistp384\n ecdsa-sha2-nistp521\n ssh-rsa-cert-v01@openssh.com\n ssh-dss-cert-v01@openssh.com\n ecdsa-sha2-nistp256-cert-v01@openssh.com\n ecdsa-sha2-nistp384-cert-v01@openssh.com\n ecdsa-sha2-nistp521-cert-v01@openssh.com\n\n(Yes, those ecdsa* ones do not start with \u0027ssh-\u0027...)\n\nI don\u0027t really have a bright idea on how to *properly* validate an SSH authorized key if you can\u0027t do that by the library involved, but stopping other-than RSA like this seems really breaking current installations.",
+      "parentUuid": "03623036_ca9ecfc4",
+      "range": {
+        "startLine": 148,
+        "startChar": 80,
+        "endLine": 148,
+        "endChar": 87
+      },
+      "revId": "91f52309426a49ee1f60ba46fa8dda34473fa333",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
