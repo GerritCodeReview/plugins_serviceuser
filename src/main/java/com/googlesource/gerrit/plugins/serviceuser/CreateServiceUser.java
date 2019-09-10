@@ -122,8 +122,7 @@ class CreateServiceUser
   @Override
   public Response<ServiceUserInfo> apply(
       ConfigResource parentResource, IdString id, CreateServiceUser.Input input)
-      throws RestApiException, IOException, ConfigInvalidException,
-          PermissionBackendException {
+      throws RestApiException, IOException, ConfigInvalidException, PermissionBackendException {
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("authentication required");

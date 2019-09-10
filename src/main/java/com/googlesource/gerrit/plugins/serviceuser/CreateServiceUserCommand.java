@@ -49,8 +49,7 @@ class CreateServiceUserCommand extends SshCommand {
 
   @Override
   protected void run()
-      throws IOException, UnloggedFailure, ConfigInvalidException,
-          PermissionBackendException {
+      throws IOException, UnloggedFailure, ConfigInvalidException, PermissionBackendException {
     CreateServiceUser.Input input = new CreateServiceUser.Input();
     input.sshKey = readSshKey();
     input.username = username;

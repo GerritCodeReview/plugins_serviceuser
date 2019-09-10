@@ -78,8 +78,8 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
 
   @Override
   public ServiceUserResource parse(ConfigResource parent, IdString id)
-      throws ResourceNotFoundException, AuthException, IOException,
-          PermissionBackendException, ConfigInvalidException {
+      throws ResourceNotFoundException, AuthException, IOException, PermissionBackendException,
+          ConfigInvalidException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     IdentifiedUser serviceUser = accounts.get().parse(TopLevelResource.INSTANCE, id).getUser();
     if (serviceUser == null
