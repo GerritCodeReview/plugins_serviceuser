@@ -22,6 +22,30 @@
       "revId": "91f52309426a49ee1f60ba46fa8dda34473fa333",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03623036_ca9ecfc4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-10T11:24:07Z",
+      "side": 1,
+      "message": "Yes, supporting other formats would definitely make sense. Do you know a comprehensive list of formats or a way to efficiently check all of them?\n\nIn the end this should be done by Gerrit (core) itself. Currently, there is only the issue that Gerrit creates the account before adding the SSH key, which leads to stub accounts blocking usernames, if an invalid key is given. The fix for that issue probably requires a quite heavy refactoring, so I added this check here.",
+      "parentUuid": "7ad3c85d_4f4f153b",
+      "range": {
+        "startLine": 148,
+        "startChar": 80,
+        "endLine": 148,
+        "endChar": 87
+      },
+      "revId": "91f52309426a49ee1f60ba46fa8dda34473fa333",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
