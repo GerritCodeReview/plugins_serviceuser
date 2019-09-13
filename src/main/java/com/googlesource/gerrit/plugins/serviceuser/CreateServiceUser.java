@@ -47,7 +47,9 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.Input;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -122,8 +124,7 @@ class CreateServiceUser
   @Override
   public Response<ServiceUserInfo> apply(
       ConfigResource parentResource, IdString id, CreateServiceUser.Input input)
-      throws RestApiException, IOException, ConfigInvalidException,
-          PermissionBackendException {
+      throws RestApiException, IOException, ConfigInvalidException, PermissionBackendException {
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("authentication required");
@@ -136,8 +137,16 @@ class CreateServiceUser
     if (input.username != null && !username.equals(input.username)) {
       throw new BadRequestException("username must match URL");
     }
+
     if (Strings.isNullOrEmpty(input.sshKey)) {
       throw new BadRequestException("sshKey not set");
+    }
+
+    final BufferedReader br = new BufferedReader(new StringReader(input.sshKey));
+    String line = br.readLine();
+    if (line == null
+        || !(line.equals("---- BEGIN SSH2 PUBLIC KEY ----") || line.startsWith("ssh-rsa"))) {
+      throw new BadRequestException("sshKey invalid.");
     }
 
     if (blockedNames.contains(username.toLowerCase())) {

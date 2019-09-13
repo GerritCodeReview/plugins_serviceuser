@@ -36,8 +36,7 @@ class GetSshKeys implements RestReadView<ServiceUserResource> {
 
   @Override
   public List<SshKeyInfo> apply(ServiceUserResource rsrc)
-      throws AuthException, RepositoryNotFoundException, IOException,
-          ConfigInvalidException {
+      throws AuthException, RepositoryNotFoundException, IOException, ConfigInvalidException {
     return getSshKeys.get().apply(rsrc.getUser());
   }
 }

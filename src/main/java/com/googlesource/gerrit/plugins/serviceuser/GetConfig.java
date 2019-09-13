@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.common.base.Strings;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.RestReadView;
@@ -61,6 +62,8 @@ class GetConfig implements RestReadView<ConfigResource> {
   public ConfigInfo apply(ConfigResource rsrc) throws PermissionBackendException {
     PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
     ConfigInfo info = new ConfigInfo();
+    info.info = Strings.emptyToNull(cfg.getString("infoMessage"));
+    info.onSuccess = Strings.emptyToNull(cfg.getString("onSuccessMessage"));
     info.allowEmail = toBoolean(cfg.getBoolean("allowEmail", false));
     info.allowHttpPassword = toBoolean(cfg.getBoolean("allowHttpPassword", false));
     info.allowOwner = toBoolean(cfg.getBoolean("allowOwner", false));
@@ -92,6 +95,8 @@ class GetConfig implements RestReadView<ConfigResource> {
   }
 
   public class ConfigInfo {
+    public String info;
+    public String onSuccess;
     public Boolean allowEmail;
     public Boolean allowHttpPassword;
     public Boolean allowOwner;
