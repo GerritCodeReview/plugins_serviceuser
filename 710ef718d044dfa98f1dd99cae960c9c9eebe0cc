@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "388749c9_5a8a988a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2d1c570_3e3a3b90",
+      "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "769e01d8_2d09a298",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "07c277d9_bb1799d6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "769e01d8_2d09a298",
+      "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d813c893_00a04df2",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9310166_204a43c4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d813c893_00a04df2",
+      "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -73,6 +127,30 @@
       "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77928b29_a66c78c5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done.\n\nA null-check is anyway done in the caller (CreateServiceUser).",
+      "parentUuid": "9ed5d4e7_b2d94355",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 5
+      },
+      "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }

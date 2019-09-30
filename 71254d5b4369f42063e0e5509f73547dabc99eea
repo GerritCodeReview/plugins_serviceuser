@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "896200fb_40ac9c32",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "068d9ccb_9ae4b3bb",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7b19b28_00a4a0ce",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9f12f9b_828834c7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7b19b28_00a4a0ce",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "21a0c5f1_50516078",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKeyTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63a5faa7_ddb6aa3f",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "555d6cbe_c6ebffd0",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKeyTest.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44bfe705_ff4d0e95",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKeyTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "555d6cbe_c6ebffd0",
+      "range": {
+        "startLine": 23,
+        "startChar": 25,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "70a94df1_a259765f",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKeyTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c760e328_6d76c392",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9675ebbb_2f6e3ac7",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKeyTest.java",
         "patchSetId": 3
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "bc0a1ea4_43a6fce5",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKeyTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9675ebbb_2f6e3ac7",
+      "range": {
+        "startLine": 51,
+        "startChar": 17,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85bddb4a_36c9d5fc",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKeyTest.java",
         "patchSetId": 3
@@ -160,6 +304,30 @@
       "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "925be9b1_09d80557",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKeyTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-09-30T15:46:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85bddb4a_36c9d5fc",
+      "range": {
+        "startLine": 59,
+        "startChar": 17,
+        "endLine": 59,
+        "endChar": 23
+      },
+      "revId": "71254d5b4369f42063e0e5509f73547dabc99eea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
