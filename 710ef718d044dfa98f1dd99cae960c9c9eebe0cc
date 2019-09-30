@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2d1c570_3e3a3b90",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2019-09-30T12:54:22Z",
+      "side": 1,
+      "message": "Please provide unit tests which test this regex.",
+      "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "769e01d8_2d09a298",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2019-09-30T12:54:22Z",
+      "side": 1,
+      "message": "nit: private methods are usually declared after public or package private i.e. methods are usually declared in the order of visibility",
+      "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d813c893_00a04df2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2019-09-30T12:54:22Z",
+      "side": 1,
+      "message": "Compiling regex is an expensive operation, we shouldn\u0027t do it for each validation.\nCompile the regex once and store the resulting Pattern object in static field.\nPatter instances are immutable and thread safe.",
+      "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ed5d4e7_b2d94355",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2019-09-30T12:54:22Z",
+      "side": 1,
+      "message": "nit: this case belongs rather to the caller.\n\nIMHO, validator is responsible for validating non-null strings and the caller should\ndecide what to do if SSH key is not given.\n\nI would rather throw an exception here (NullPointerException) if the sshKey parameter is null.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 5
+      },
+      "revId": "710ef718d044dfa98f1dd99cae960c9c9eebe0cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
