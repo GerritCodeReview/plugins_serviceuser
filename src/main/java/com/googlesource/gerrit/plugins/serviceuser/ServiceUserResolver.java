@@ -88,10 +88,10 @@ class ServiceUserResolver {
     committer.append("> ");
 
     try {
-      Account account = resolver.resolve(committer.toString()).asUnique().getAccount();
+      Account account = resolver.resolve(committer.toString()).asUnique().account();
       return getServiceUser
           .get()
-          .apply(new ServiceUserResource(genericUserFactory.create(account.getId())));
+          .apply(new ServiceUserResource(genericUserFactory.create(account.id())));
     } catch (ResourceNotFoundException | UnresolvableAccountException e) {
       return null;
     }
@@ -162,8 +162,8 @@ class ServiceUserResolver {
       throws MethodNotAllowedException, PermissionBackendException {
     List<AccountInfo> activeOwners = new ArrayList<>();
     for (AccountInfo owner : listOwners(serviceUser)) {
-      Optional<AccountState> accountState = accountCache.get(new Account.Id(owner._accountId));
-      if (accountState.isPresent() && accountState.get().getAccount().isActive()) {
+      Optional<AccountState> accountState = accountCache.get(Account.id(owner._accountId));
+      if (accountState.isPresent() && accountState.get().account().isActive()) {
         activeOwners.add(owner);
       }
     }

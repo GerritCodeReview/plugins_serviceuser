@@ -86,8 +86,7 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
                   .get()
                   .parse(
                       new ConfigResource(),
-                      IdString.fromDecoded(
-                          String.valueOf(account.get().getAccount().getId().get())));
+                      IdString.fromDecoded(String.valueOf(account.get().account().id().get())));
           info = getServiceUser.get().apply(serviceUserResource);
           info.username = null;
           accounts.put(username, info);

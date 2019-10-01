@@ -77,7 +77,7 @@ class GetConfig implements RestReadView<ConfigResource> {
     String[] groups = cfg.getStringList("group");
     info.groups = new TreeMap<>();
     for (String g : groups) {
-      Optional<InternalGroup> group = groupCache.get(new AccountGroup.NameKey(g));
+      Optional<InternalGroup> group = groupCache.get(AccountGroup.nameKey(g));
       if (group.isPresent()) {
         GroupInfo groupInfo = groupJson.format(new InternalGroupDescription(group.get()));
         groupInfo.name = null;
