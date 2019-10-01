@@ -82,8 +82,7 @@ class CreateServiceUserNotes {
   }
 
   void createNotes(String branch, ObjectId oldObjectId, ObjectId newObjectId)
-      throws IOException, ConfigInvalidException, PermissionBackendException,
-          RestApiException {
+      throws IOException, ConfigInvalidException, PermissionBackendException, RestApiException {
     if (ObjectId.zeroId().equals(newObjectId)) {
       return;
     }
