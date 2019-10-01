@@ -73,7 +73,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
 
           @Override
           public Project.NameKey getProjectNameKey() {
-            return new Project.NameKey(event.getProjectName());
+            return Project.nameKey(event.getProjectName());
           }
 
           @Override
@@ -99,7 +99,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
   }
 
   private void createServiceUserNotes(Event e) {
-    Project.NameKey projectName = new Project.NameKey(e.getProjectName());
+    Project.NameKey projectName = Project.nameKey(e.getProjectName());
     try (Repository git = repoManager.openRepository(projectName)) {
       CreateServiceUserNotes crn = serviceUserNotesFactory.create(projectName, git);
       crn.createNotes(

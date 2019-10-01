@@ -62,8 +62,8 @@ class ValidateServiceUserCommits implements CommitValidationListener {
                   committer.getEmailAddress()));
         }
         Optional<AccountState> creator =
-            accountCache.get(new Account.Id(serviceUser.createdBy._accountId));
-        if (!creator.isPresent() || !creator.get().getAccount().isActive()) {
+            accountCache.get(Account.id(serviceUser.createdBy._accountId));
+        if (!creator.isPresent() || !creator.get().account().isActive()) {
           throw new CommitValidationException(
               String.format(
                   "Commit %s of service user %s (%s) is rejected because "

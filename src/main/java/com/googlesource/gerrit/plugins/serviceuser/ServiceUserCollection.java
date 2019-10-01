@@ -101,7 +101,7 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
         }
       } else if (!((IdentifiedUser) user)
           .getAccountId()
-          .equals(new Account.Id(storage.get().getInt(USER, username, KEY_CREATOR_ID, -1)))) {
+          .equals(Account.id(storage.get().getInt(USER, username, KEY_CREATOR_ID, -1)))) {
         throw new ResourceNotFoundException(id);
       }
     }
