@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_AT;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATOR_ID;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
@@ -60,7 +61,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   }
 
   @Override
-  public ServiceUserInfo apply(ServiceUserResource rsrc)
+  public Response<ServiceUserInfo> apply(ServiceUserResource rsrc)
       throws RestApiException, PermissionBackendException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     String username = rsrc.getUser().getUserName().get();
@@ -69,19 +70,24 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
       throw new ResourceNotFoundException(username);
     }
 
-    ServiceUserInfo info = new ServiceUserInfo(getAccount.get().apply(rsrc));
-    AccountLoader al = accountLoader.create(true);
-    info.createdBy = al.get(Account.id(db.getInt(USER, username, KEY_CREATOR_ID, -1)));
-    al.fill();
-    info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
-    info.inactive = !rsrc.getUser().getAccount().isActive() ? true : null;
+    try {
 
-    Response<GroupInfo> response = getOwner.apply(rsrc);
-    if (response.statusCode() == SC_OK) {
-      info.owner = response.value();
+      ServiceUserInfo info = new ServiceUserInfo(getAccount.get().apply(rsrc).value());
+      AccountLoader al = accountLoader.create(true);
+      info.createdBy = al.get(Account.id(db.getInt(USER, username, KEY_CREATOR_ID, -1)));
+      al.fill();
+      info.createdAt = db.getString(USER, username, KEY_CREATED_AT);
+      info.inactive = !rsrc.getUser().getAccount().isActive() ? true : null;
+
+      Response<GroupInfo> response = getOwner.apply(rsrc);
+      if (response.statusCode() == SC_OK) {
+        info.owner = response.value();
+      }
+
+      return Response.ok(info);
+    } catch (Exception e) {
+      throw asRestApiException("Cannot get service user", e);
     }
-
-    return info;
   }
 
   public static class ServiceUserInfo extends AccountInfo {

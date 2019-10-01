@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 
 import com.google.common.base.Strings;
@@ -74,12 +75,23 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
   public Response<?> apply(ServiceUserResource rsrc, Input input)
       throws ConfigInvalidException, EmailException, IOException, PermissionBackendException,
           RestApiException {
-    Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
+    Boolean emailAllowed;
+    try {
+      emailAllowed = getConfig.get().apply(new ConfigResource()).value().allowEmail;
+    } catch (Exception e) {
+      throw asRestApiException("Cannot get configuration", e);
+    }
     if ((emailAllowed == null || !emailAllowed)) {
       permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
     }
 
-    String email = getEmail.get().apply(rsrc);
+    String email;
+    try {
+      email = getEmail.get().apply(rsrc).value();
+    } catch (Exception e) {
+      throw asRestApiException("Cannot get email", e);
+    }
+
     if (Strings.emptyToNull(input.email) == null) {
       if (Strings.emptyToNull(email) == null) {
         return Response.none();

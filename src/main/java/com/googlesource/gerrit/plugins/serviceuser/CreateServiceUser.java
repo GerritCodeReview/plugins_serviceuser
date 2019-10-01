@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
+
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -151,7 +153,12 @@ class CreateServiceUser
 
     input.email = Strings.emptyToNull(input.email);
     if (input.email != null) {
-      Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
+      Boolean emailAllowed;
+      try {
+        emailAllowed = getConfig.get().apply(new ConfigResource()).value().allowEmail;
+      } catch (Exception e) {
+        throw asRestApiException("Cannot get configuration", e);
+      }
       if (emailAllowed == null || !emailAllowed) {
         throw new ResourceConflictException("email not allowed");
       }
@@ -159,7 +166,13 @@ class CreateServiceUser
 
     AccountInput in = new ServiceUserInput(username, input.email, input.sshKey);
     in.groups = Arrays.asList(cfg.getStringList("group"));
-    Response<AccountInfo> response = createAccount.apply(IdString.fromDecoded(username), in);
+
+    AccountInfo response;
+    try {
+      response = createAccount.apply(IdString.fromDecoded(username), in).value();
+    } catch (Exception e) {
+      throw asRestApiException("Cannot create account", e);
+    }
 
     String creator = user.getUserName().get();
     Account.Id creatorId = ((IdentifiedUser) user).getAccountId();
@@ -175,8 +188,7 @@ class CreateServiceUser
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
     md.setMessage("Create service user '" + username + "'\n");
     storage.commit(md);
-
-    ServiceUserInfo info = new ServiceUserInfo(response.value());
+    ServiceUserInfo info = new ServiceUserInfo(response);
     AccountLoader al = accountLoader.create(true);
     info.createdBy = al.get(creatorId);
     al.fill();

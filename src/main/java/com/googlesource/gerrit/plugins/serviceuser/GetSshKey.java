@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import com.google.gerrit.extensions.common.SshKeyInfo;
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.inject.Inject;
@@ -31,7 +32,7 @@ class GetSshKey implements RestReadView<ServiceUserResource.SshKey> {
   }
 
   @Override
-  public SshKeyInfo apply(ServiceUserResource.SshKey rsrc) {
+  public Response<SshKeyInfo> apply(ServiceUserResource.SshKey rsrc) {
     return getSshKey.get().apply(new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()));
   }
 }

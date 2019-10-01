@@ -20,7 +20,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
 
 import com.google.gerrit.extensions.common.AccountInfo;
-import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.GerritPersonIdent;
@@ -154,13 +153,13 @@ class CreateServiceUserNotes {
   }
 
   private ObjectId createNoteContent(String branch, ServiceUserInfo serviceUser)
-      throws IOException, MethodNotAllowedException, PermissionBackendException {
+      throws IOException, PermissionBackendException, RestApiException, RuntimeException {
     return getInserter()
         .insert(Constants.OBJ_BLOB, createServiceUserNote(branch, serviceUser).getBytes(UTF_8));
   }
 
   private String createServiceUserNote(String branch, ServiceUserInfo serviceUser)
-      throws MethodNotAllowedException, PermissionBackendException {
+      throws PermissionBackendException, RestApiException, RuntimeException {
     HeaderFormatter fmt = new HeaderFormatter(gerritServerIdent.getTimeZone(), anonymousCowardName);
     fmt.appendDate();
     fmt.append("Project", project.get());

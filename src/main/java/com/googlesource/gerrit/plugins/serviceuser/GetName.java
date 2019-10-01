@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -29,7 +30,7 @@ class GetName implements RestReadView<ServiceUserResource> {
   }
 
   @Override
-  public String apply(ServiceUserResource rsrc) {
+  public Response<String> apply(ServiceUserResource rsrc) {
     return getName.get().apply(rsrc);
   }
 }

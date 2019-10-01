@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.inject.Singleton;
 
@@ -21,7 +22,7 @@ import com.google.inject.Singleton;
 class GetEmail implements RestReadView<ServiceUserResource> {
 
   @Override
-  public String apply(ServiceUserResource rsrc) {
-    return rsrc.getUser().getAccount().getPreferredEmail();
+  public Response<String> apply(ServiceUserResource rsrc) {
+    return Response.ok(rsrc.getUser().getAccount().preferredEmail());
   }
 }

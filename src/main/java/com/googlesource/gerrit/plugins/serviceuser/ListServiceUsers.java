@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.common.collect.Maps;
@@ -21,6 +22,7 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.CurrentUser;
@@ -66,7 +68,7 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
   }
 
   @Override
-  public Map<String, ServiceUserInfo> apply(ConfigResource rscr)
+  public Response<Map<String, ServiceUserInfo>> apply(ConfigResource rscr)
       throws IOException, RestApiException, PermissionBackendException, ConfigInvalidException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     CurrentUser user = userProvider.get();
@@ -87,14 +89,16 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
                   .parse(
                       new ConfigResource(),
                       IdString.fromDecoded(String.valueOf(account.get().account().id().get())));
-          info = getServiceUser.get().apply(serviceUserResource);
+          info = getServiceUser.get().apply(serviceUserResource).value();
           info.username = null;
           accounts.put(username, info);
         } catch (ResourceNotFoundException e) {
           // this service user is not visible to the caller -> ignore it
+        } catch (Exception e) {
+          throw asRestApiException("Cannot list service users", e);
         }
       }
     }
-    return accounts;
+    return Response.ok(accounts);
   }
 }

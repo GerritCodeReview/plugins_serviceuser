@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import com.google.common.base.Strings;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.account.GroupCache;
@@ -59,7 +60,7 @@ class GetConfig implements RestReadView<ConfigResource> {
   }
 
   @Override
-  public ConfigInfo apply(ConfigResource rsrc) throws PermissionBackendException {
+  public Response<ConfigInfo> apply(ConfigResource rsrc) throws PermissionBackendException {
     PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
     ConfigInfo info = new ConfigInfo();
     info.info = Strings.emptyToNull(cfg.getString("infoMessage"));
@@ -87,7 +88,7 @@ class GetConfig implements RestReadView<ConfigResource> {
       }
     }
 
-    return info;
+    return Response.ok(info);
   }
 
   private static Boolean toBoolean(boolean v) {

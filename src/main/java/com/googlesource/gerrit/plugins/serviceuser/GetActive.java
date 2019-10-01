@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -29,7 +30,7 @@ class GetActive implements RestReadView<ServiceUserResource> {
   }
 
   @Override
-  public Object apply(ServiceUserResource rsrc) {
-    return getActive.get().apply(rsrc);
+  public Response<Object> apply(ServiceUserResource rsrc) {
+    return Response.ok(getActive.get().apply(rsrc));
   }
 }

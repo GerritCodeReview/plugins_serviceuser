@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
@@ -88,7 +89,12 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
       throws RestApiException, IOException, PermissionBackendException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    Boolean ownerAllowed = getConfig.get().apply(new ConfigResource()).allowOwner;
+    Boolean ownerAllowed;
+    try {
+      ownerAllowed = getConfig.get().apply(new ConfigResource()).value().allowOwner;
+    } catch (Exception e) {
+      throw asRestApiException("Cannot get configuration", e);
+    }
     if ((ownerAllowed == null || !ownerAllowed)) {
       permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
     }
