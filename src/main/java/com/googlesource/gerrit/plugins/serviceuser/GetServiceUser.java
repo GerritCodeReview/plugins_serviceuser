@@ -87,7 +87,6 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   public static class ServiceUserInfo extends AccountInfo {
     public AccountInfo createdBy;
     public String createdAt;
-    public Boolean inactive;
     public GroupInfo owner;
 
     public ServiceUserInfo(AccountInfo info) {
@@ -97,6 +96,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
       email = info.email;
       username = info.username;
       avatars = info.avatars;
+      inactive = info.inactive;
     }
   }
 }
