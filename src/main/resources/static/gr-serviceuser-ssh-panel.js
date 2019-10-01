@@ -87,7 +87,7 @@
       this.$.addButton.disabled = true;
       this.$.newKey.disabled = true;
       return this._restApi.post(`${this._serviceUser._account_id}/sshkeys`,
-          this._newKey.trim(), 'plain/text')
+          this._newKey.trim(), null, 'plain/text')
         .then(key => {
           this.push('_keys', key);
         }).catch(() => {
