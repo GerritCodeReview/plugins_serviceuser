@@ -18,8 +18,6 @@
 (function() {
   'use strict';
 
-  const JSON_PREFIX = ')]}\'';
-
   Polymer({
     is: 'gr-serviceuser-ssh-panel',
     _legacyUndefinedCheck: true,
