@@ -13,14 +13,13 @@
 // limitations under the License.
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.google.gerrit.server.restapi.account.PutHttpPassword.generate;
 
 import com.google.common.base.Strings;
-import com.google.gerrit.extensions.restapi.AuthException;
-import com.google.gerrit.extensions.restapi.ResourceConflictException;
-import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.Response;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.ConfigResource;
@@ -59,14 +58,20 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
 
   @Override
   public Response<String> apply(ServiceUserResource rsrc, Input input)
-      throws AuthException, ResourceConflictException, ConfigInvalidException,
-          ResourceNotFoundException, IOException, PermissionBackendException {
+      throws ConfigInvalidException, IOException, PermissionBackendException, RestApiException,
+          RuntimeException {
     if (input == null) {
       input = new Input();
     }
     input.httpPassword = Strings.emptyToNull(input.httpPassword);
 
-    Boolean httpPasswordAllowed = getConfig.get().apply(new ConfigResource()).allowHttpPassword;
+    Boolean httpPasswordAllowed;
+    try {
+      httpPasswordAllowed = getConfig.get().apply(new ConfigResource()).value().allowHttpPassword;
+    } catch (Exception e) {
+      throw asRestApiException("Cannot get configuration", e);
+    }
+
     if (input.generate || input.httpPassword == null) {
       if ((httpPasswordAllowed == null || !httpPasswordAllowed)) {
         permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);

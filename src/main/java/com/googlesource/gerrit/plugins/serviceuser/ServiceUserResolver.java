@@ -14,9 +14,10 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
+
 import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.extensions.common.AccountInfo;
-import com.google.gerrit.extensions.restapi.MethodNotAllowedException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.reviewdb.client.Account;
@@ -31,7 +32,6 @@ import com.google.gerrit.server.account.GroupControl;
 import com.google.gerrit.server.account.GroupMembership;
 import com.google.gerrit.server.group.GroupResolver;
 import com.google.gerrit.server.group.GroupResource;
-import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.restapi.group.ListMembers;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
@@ -39,13 +39,11 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.PersonIdent;
 
 @Singleton
@@ -79,8 +77,7 @@ class ServiceUserResolver {
     this.groupResolver = groupResolver;
   }
 
-  ServiceUserInfo getAsServiceUser(PersonIdent committerIdent)
-      throws ConfigInvalidException, IOException, PermissionBackendException, RestApiException {
+  ServiceUserInfo getAsServiceUser(PersonIdent committerIdent) throws RestApiException {
     StringBuilder committer = new StringBuilder();
     committer.append(committerIdent.getName());
     committer.append(" <");
@@ -91,14 +88,17 @@ class ServiceUserResolver {
       Account account = resolver.resolve(committer.toString()).asUnique().account();
       return getServiceUser
           .get()
-          .apply(new ServiceUserResource(genericUserFactory.create(account.id())));
+          .apply(new ServiceUserResource(genericUserFactory.create(account.id())))
+          .value();
     } catch (ResourceNotFoundException | UnresolvableAccountException e) {
       return null;
+    } catch (Exception e) {
+      throw asRestApiException("Cannot get service user", e);
     }
   }
 
   List<AccountInfo> listOwners(ServiceUserInfo serviceUser)
-      throws MethodNotAllowedException, PermissionBackendException {
+      throws RestApiException, RuntimeException {
     if (serviceUser.owner == null) {
       return Collections.emptyList();
     }
@@ -149,8 +149,12 @@ class ServiceUserResolver {
       GroupResource rsrc = new GroupResource(ctl);
       lm.setRecursive(true);
       List<AccountInfo> owners = new ArrayList<>();
-      for (AccountInfo a : lm.apply(rsrc)) {
-        owners.add(a);
+      try {
+        for (AccountInfo a : lm.apply(rsrc).value()) {
+          owners.add(a);
+        }
+      } catch (Exception e) {
+        throw asRestApiException("Cannot list group members", e);
       }
       return owners;
     } finally {
@@ -159,7 +163,7 @@ class ServiceUserResolver {
   }
 
   List<AccountInfo> listActiveOwners(ServiceUserInfo serviceUser)
-      throws MethodNotAllowedException, PermissionBackendException {
+      throws RestApiException, RuntimeException {
     List<AccountInfo> activeOwners = new ArrayList<>();
     for (AccountInfo owner : listOwners(serviceUser)) {
       Optional<AccountState> accountState = accountCache.get(Account.id(owner._accountId));

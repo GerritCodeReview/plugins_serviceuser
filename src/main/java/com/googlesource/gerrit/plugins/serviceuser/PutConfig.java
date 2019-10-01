@@ -99,7 +99,7 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
     }
     if (input.groups != null) {
       for (String g : input.groups) {
-        if (groupCache.get(new AccountGroup.NameKey(g)) == null) {
+        if (groupCache.get(AccountGroup.nameKey(g)) == null) {
           throw new UnprocessableEntityException(String.format("Group %s does not exist.", g));
         }
       }
