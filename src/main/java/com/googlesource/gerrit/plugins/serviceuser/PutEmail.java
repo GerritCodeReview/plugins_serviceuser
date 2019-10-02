@@ -72,8 +72,8 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<?> apply(ServiceUserResource rsrc, Input input)
-      throws ConfigInvalidException, EmailException, IOException,
-          PermissionBackendException, RestApiException {
+      throws ConfigInvalidException, EmailException, IOException, PermissionBackendException,
+          RestApiException {
     Boolean emailAllowed = getConfig.get().apply(new ConfigResource()).allowEmail;
     if ((emailAllowed == null || !emailAllowed)) {
       permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);

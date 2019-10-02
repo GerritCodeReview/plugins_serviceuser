@@ -67,8 +67,7 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
 
   @Override
   public Map<String, ServiceUserInfo> apply(ConfigResource rscr)
-      throws IOException, RestApiException, PermissionBackendException,
-          ConfigInvalidException {
+      throws IOException, RestApiException, PermissionBackendException, ConfigInvalidException {
     ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {

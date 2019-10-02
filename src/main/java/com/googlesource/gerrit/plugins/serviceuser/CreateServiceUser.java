@@ -122,8 +122,7 @@ class CreateServiceUser
   @Override
   public Response<ServiceUserInfo> apply(
       ConfigResource parentResource, IdString id, CreateServiceUser.Input input)
-      throws RestApiException, IOException, ConfigInvalidException,
-          PermissionBackendException {
+      throws RestApiException, IOException, ConfigInvalidException, PermissionBackendException {
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("authentication required");
@@ -136,8 +135,13 @@ class CreateServiceUser
     if (input.username != null && !username.equals(input.username)) {
       throw new BadRequestException("username must match URL");
     }
+
     if (Strings.isNullOrEmpty(input.sshKey)) {
       throw new BadRequestException("sshKey not set");
+    }
+
+    if (!SshKeyValidator.validateFormat(input.sshKey)) {
+      throw new BadRequestException("sshKey invalid.");
     }
 
     if (blockedNames.contains(username.toLowerCase())) {
