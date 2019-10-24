@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7693d8f8_dd376f36",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-10-24T15:01:10Z",
+      "side": 1,
+      "message": "https://polymer-library.polymer-project.org/2.0/docs/upgrade#remove-type-extension-elements\n\nMaybe also change to use `\u003ciron-input\u003e` so it can work with polymer 2 ?",
+      "range": {
+        "startLine": 97,
+        "startChar": 20,
+        "endLine": 97,
+        "endChar": 74
+      },
+      "revId": "ff8da1aa53ab542ce27e596df31b61b1101c1087",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
