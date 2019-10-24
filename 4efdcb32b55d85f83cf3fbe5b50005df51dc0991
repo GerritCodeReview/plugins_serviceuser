@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e8d28fc_7a12af9d",
+        "filename": "src/main/resources/static/gr-serviceuser-create.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-10-24T15:59:27Z",
+      "side": 1,
+      "message": "maybe instead of making it a property, just pass it to `_forwardToDetails` ? as you only use it in that function",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 16
+      },
+      "revId": "4efdcb32b55d85f83cf3fbe5b50005df51dc0991",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
