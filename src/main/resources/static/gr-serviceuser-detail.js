@@ -94,6 +94,8 @@
         this.fire('title-change', {title: this._serviceUser.name});
         this._computeStatusButtonText();
         this._loading = false;
+        this._newFullName = this._serviceUser.name;
+        this._newEmail = this._serviceUser.email;
       });
     },
 
