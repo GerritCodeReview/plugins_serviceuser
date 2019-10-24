@@ -110,11 +110,13 @@ limitations under the License.
                 </section>
                 <section>
                   <span class="title">Owner Group</span>
-                  <gr-autocomplete id="serviceUserOwnerInput" text="{{_getOwnerGroup(_serviceUser)}}"
-                    value="{{_newOwner}}" query="[[_query]]" disabled="[[_changingPrefs]]"
-                    on-commit="_computePrefsChanged" on-keyup="_computePrefsChanged" hidden$="[[!_allowOwner]]">
-                    [[_getOwnerGroup(_serviceUser)]]
-                  </gr-autocomplete>
+                  <span class="value" hidden$="[[!_allowOwner]]">
+                    <gr-autocomplete id="serviceUserOwnerInput" text="{{_getOwnerGroup(_serviceUser)}}"
+                      value="{{_newOwner}}" query="[[_query]]" disabled="[[_changingPrefs]]"
+                      on-commit="_computePrefsChanged" on-keyup="_computePrefsChanged">
+                        [[_getOwnerGroup(_serviceUser)]]
+                    </gr-autocomplete>
+                  </span>
                   <span class="value" hidden$="[[_allowOwner]]">[[_getOwnerGroup(_serviceUser)]]</span>
                 </section>
                 <p id="ownerChangeWarning" class="style-scope gr-settings-view" hidden$="[[!_newOwner]]">
