@@ -74,7 +74,7 @@ limitations under the License.
                     [[_active(_serviceUser)]]
                   </span>
                 </section>
-                <gr-button id="statusToggleButton" on-tap="_toggleStatus" disabled="[[_loading]]">
+                <gr-button id="statusToggleButton" on-click="_toggleStatus" disabled="[[_loading]]">
                   [[_statusButtonText]]</gr-button>
               </fieldset>
               <fieldset>
@@ -110,7 +110,7 @@ limitations under the License.
                 <p id="ownerChangeWarning" class="style-scope gr-settings-view" hidden$="[[!_newOwner]]">
                   [[_ownerChangeWarning]]
                 </p>
-                <gr-button id="savePrefs" on-tap="_handleSavePreferences" disabled="[[!_prefsChanged]]">
+                <gr-button id="savePrefs" on-click="_handleSavePreferences" disabled="[[!_prefsChanged]]">
                   Save changes
                 </gr-button>
               </fieldset>
