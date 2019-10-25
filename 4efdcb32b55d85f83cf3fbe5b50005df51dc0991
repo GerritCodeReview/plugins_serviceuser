@@ -22,6 +22,30 @@
       "revId": "4efdcb32b55d85f83cf3fbe5b50005df51dc0991",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12f9ed79_89406eea",
+        "filename": "src/main/resources/static/gr-serviceuser-create.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-10-25T07:22:11Z",
+      "side": 1,
+      "message": "I also use it the function for on-confirm in the dialog. There I won\u0027t have the accountId, or do I?",
+      "parentUuid": "7e8d28fc_7a12af9d",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 16
+      },
+      "revId": "4efdcb32b55d85f83cf3fbe5b50005df51dc0991",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
