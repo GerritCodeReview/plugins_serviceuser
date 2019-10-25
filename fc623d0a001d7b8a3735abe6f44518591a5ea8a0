@@ -22,6 +22,30 @@
       "revId": "fc623d0a001d7b8a3735abe6f44518591a5ea8a0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5a52b59_53d956c4",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-10-25T07:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c845cd1e_f6f47e62",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 21
+      },
+      "revId": "fc623d0a001d7b8a3735abe6f44518591a5ea8a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
