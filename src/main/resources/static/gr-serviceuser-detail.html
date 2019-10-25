@@ -86,16 +86,22 @@ limitations under the License.
                 <section>
                   <span class="title">Full Name</span>
                   <span class="value">
-                    <input id="serviceUserFullNameInput" bind-value="{{_newFullName}}" is="iron-input" type="text"
-                      disabled="[[_changingPrefs]]" placeholder$="[[_serviceUser.name]]"
-                      on-keyup="_computePrefsChanged">
+                    <iron-input bind-value="{{_newFullName}}">
+                      <input id="serviceUserFullNameInput" value="{{_newFullName::input}}"
+                             type="text" disabled="[[_changingPrefs]]"
+                             placeholder$="[[_serviceUser.name]]"
+                             on-keyup="_computePrefsChanged">
+                    </iron-input>
                   </span>
                 </section>
                 <section>
                   <span class="title">Email Address</span>
-                  <input id="serviceUserEmailInput" bind-value="{{_newEmail}}" is="iron-input" type="text"
-                    disabled="[[_changingPrefs]]" placeholder="[[_serviceUser.email]]" on-keyup="_computePrefsChanged"
-                    hidden$="[[!_allowEmail]]">
+                  <iron-input bind-value="{{_newEmail}}">
+                    <input id="serviceUserEmailInput" value="{{_newEmail::input}}"
+                           type="text" disabled="[[_changingPrefs]]"
+                           placeholder="[[_serviceUser.email]]" on-keyup="_computePrefsChanged"
+                           hidden$="[[!_allowEmail]]">
+                  </iron-input>
                   <span class="value" hidden$="[[_allowEmail]]">[[_serviceUser.email]]</span>
                 </section>
                 <section>

@@ -37,21 +37,23 @@ limitations under the License.
         <section>
           <span class="title">Username</span>
           <span class="value">
-            <input id="serviceUserNameInput"
-                   bind-value="{{_newUsername}}"
-                   is="iron-input"
-                   type="text"
-                   on-keyup="_validateData">
+            <iron-input bind-value="{{_newUsername}}">
+              <input id="serviceUserNameInput"
+                     value="{{_newUsername::input}}"
+                     type="text"
+                     on-keyup="_validateData">
+            </iron-input>
           </span>
         </section>
         <section hidden$="[[!_emailEnabled]]">
           <span class="title">Email</span>
           <span class="value">
-            <input id="serviceUserEmailInput"
-                   bind-value="{{_newEmail}}"
-                   is="iron-input"
-                   type="text"
-                   on-keyup="_validateData">
+            <iron-input bind-value="{{_newEmail}}">
+              <input id="serviceUserEmailInput"
+                     value="{{_newEmail::input}}"
+                     type="text"
+                     on-keyup="_validateData">
+            </iron-input>
           </span>
         </section>
       </fieldset>
