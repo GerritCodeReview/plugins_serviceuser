@@ -72,6 +72,20 @@ limitations under the License.
                  disabled="[[!_enableButton]]">
         Create
       </gr-button>
+      <gr-overlay id="successDialogOverlay" with-backdrop>
+        <gr-dialog id="successDialog"
+                   confirm-label="OK"
+                   cancel-label=""
+                   on-confirm="_forwardToDetails"
+                   confirm-on-enter>
+          <div class="header" slot="header">
+            Success
+          </div>
+          <div class="main" slot="main">
+            [[_successMessage]]
+          </div>
+        </gr-dialog>
+      </gr-overlay>
     </main>
   </template>
   <script src="gr-serviceuser-create.js"></script>
