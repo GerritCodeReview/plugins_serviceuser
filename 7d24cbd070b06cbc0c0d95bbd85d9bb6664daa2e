@@ -46,6 +46,30 @@
       "revId": "7d24cbd070b06cbc0c0d95bbd85d9bb6664daa2e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d4ea2aa_b0abe827",
+        "filename": "src/main/resources/static/gr-serviceuser-create.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-11-06T17:18:15Z",
+      "side": 1,
+      "message": "oh i guess you will need `bind-value\u003d\"{{_newUsername}}\"` on `input` as well, to support both p1 and p2",
+      "parentUuid": "1c2c1944_78b20b2f",
+      "range": {
+        "startLine": 42,
+        "startChar": 30,
+        "endLine": 42,
+        "endChar": 49
+      },
+      "revId": "7d24cbd070b06cbc0c0d95bbd85d9bb6664daa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
