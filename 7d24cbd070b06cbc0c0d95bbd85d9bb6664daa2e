@@ -22,6 +22,30 @@
       "revId": "7d24cbd070b06cbc0c0d95bbd85d9bb6664daa2e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c2c1944_78b20b2f",
+        "filename": "src/main/resources/static/gr-serviceuser-create.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-11-06T16:54:57Z",
+      "side": 1,
+      "message": "If I remove the `::input` the binding does not work anymore. I guess, this is needed to notify the component about changes to the property.",
+      "parentUuid": "845796fa_60aa55dd",
+      "range": {
+        "startLine": 42,
+        "startChar": 30,
+        "endLine": 42,
+        "endChar": 49
+      },
+      "revId": "7d24cbd070b06cbc0c0d95bbd85d9bb6664daa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
