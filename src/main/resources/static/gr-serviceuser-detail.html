@@ -93,11 +93,12 @@ limitations under the License.
                 </section>
                 <section>
                   <span class="title">Full Name</span>
-                  <span class="value">
+                  <span class="value" hidden$="[[!_allowFullName]]">
                     <input id="serviceUserFullNameInput" class="wide" bind-value="{{_newFullName}}"
                       is="iron-input" type="text" disabled="[[_changingPrefs]]"
                       placeholder$="[[_serviceUser.name]]" on-keyup="_computePrefsChanged">
                   </span>
+                  <span class="value" hidden$="[[_allowFullName]]">[[_serviceUser.name]]</span>
                 </section>
                 <section>
                   <span class="title">Email Address</span>
