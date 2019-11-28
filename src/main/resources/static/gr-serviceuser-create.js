@@ -82,6 +82,7 @@
             if (config.on_success && config.on_success != '') {
               this._successMessageEnabled = true;
               this._successMessage = config.on_success;
+              this.$.successMessage.innerHTML = this._successMessage;
             }
 
             this._emailEnabled = config.allow_email;

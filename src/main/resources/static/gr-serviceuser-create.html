@@ -78,11 +78,10 @@ limitations under the License.
                    cancel-label=""
                    on-confirm="_forwardToDetails"
                    confirm-on-enter>
-          <div class="header" slot="header">
+          <div slot="header">
             Success
           </div>
-          <div class="main" slot="main">
-            [[_successMessage]]
+          <div id="successMessage" slot="main">
           </div>
         </gr-dialog>
       </gr-overlay>
