@@ -22,6 +22,30 @@
       "revId": "c642486b74da1aec95e3a2062636110185fc92be",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c69a1f2_5ca55a09",
+        "filename": "src/main/resources/static/gr-serviceuser-create.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-11-29T08:05:59Z",
+      "side": 1,
+      "message": "This success message is only set in the config of the Gerrit site and can only be changed by the administrator and not by a user. Thus, if I understand XSS-attacks correctly it should not be possible for malicious users to use the success message to execute scripts in other user\u0027s browsers, since the malicious user would not be able to change the gerrit.config without access to the underlying VM/container etc. Am I wrong in that?\nIf there would be another convenient way to do this, I would happily implement that of course. FYI, the old GWT-UI supported that using GWT-means [1].\n\n[1] https://gerrit.googlesource.com/plugins/serviceuser/+/refs/heads/stable-2.14/src/main/java/com/googlesource/gerrit/plugins/serviceuser/client/CreateServiceUserScreen.java#224",
+      "parentUuid": "9d14186b_0e50030b",
+      "range": {
+        "startLine": 85,
+        "startChar": 53,
+        "endLine": 85,
+        "endChar": 68
+      },
+      "revId": "c642486b74da1aec95e3a2062636110185fc92be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
