@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f7ab8607_076bde88",
+        "filename": "src/main/resources/static/gr-serviceuser-create.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-12-05T14:11:55Z",
+      "side": 1,
+      "message": "Honestly, that was just copy\u0026paste from some place in Gerrit core, where such a dialog was used as well. I was assuming that the class is used to style the body of the dialog and that these styles are part of the shared styles. Let me try, if removing the class breaks the styling.",
+      "parentUuid": "56d676fb_cbfc9c7d",
+      "revId": "c642486b74da1aec95e3a2062636110185fc92be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d14186b_0e50030b",
         "filename": "src/main/resources/static/gr-serviceuser-create.js",
         "patchSetId": 1
