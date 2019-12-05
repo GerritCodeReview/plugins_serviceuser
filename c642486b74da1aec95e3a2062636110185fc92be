@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "81820681_ed1d0ccc",
+        "filename": "src/main/resources/static/gr-serviceuser-create.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-12-05T15:47:17Z",
+      "side": 1,
+      "message": "ah i see. just checked the gr-dialog.html, seems no usage on `main` class at all, i think its ok to remove it. But ya, please verify if removing it breaks anything.",
+      "parentUuid": "f7ab8607_076bde88",
+      "revId": "c642486b74da1aec95e3a2062636110185fc92be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d14186b_0e50030b",
         "filename": "src/main/resources/static/gr-serviceuser-create.js",
         "patchSetId": 1
