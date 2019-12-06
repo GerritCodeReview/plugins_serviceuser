@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "2087e8f9_50a77256",
+        "filename": "src/main/resources/static/gr-serviceuser-create.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-12-06T09:00:41Z",
+      "side": 1,
+      "message": "I removed the classes, since I couldn\u0027t see any change.",
+      "parentUuid": "81820681_ed1d0ccc",
+      "revId": "c642486b74da1aec95e3a2062636110185fc92be",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d14186b_0e50030b",
         "filename": "src/main/resources/static/gr-serviceuser-create.js",
         "patchSetId": 1
