@@ -14,8 +14,8 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.gerrit.entities.Account;
 import com.google.gerrit.extensions.restapi.RestApiException;
-import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.events.CommitReceivedEvent;
