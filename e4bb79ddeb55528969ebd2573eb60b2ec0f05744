@@ -16,6 +16,24 @@
       "revId": "e4bb79ddeb55528969ebd2573eb60b2ec0f05744",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d03bb3_a5176426",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-12-11T15:29:41Z",
+      "side": 1,
+      "message": "Done.\nI anyway had a regression in the commit message, which I hadn\u0027t noticed :-(.",
+      "parentUuid": "f3982883_ad5c54be",
+      "revId": "e4bb79ddeb55528969ebd2573eb60b2ec0f05744",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
