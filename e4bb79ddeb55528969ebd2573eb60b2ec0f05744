@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3982883_ad5c54be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-12-11T15:23:34Z",
+      "side": 1,
+      "message": "you can refer to the polymer 2 upgrade guide: https://polymer-library.polymer-project.org/2.0/docs/upgrade#remove-type-extension-elements",
+      "revId": "e4bb79ddeb55528969ebd2573eb60b2ec0f05744",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
