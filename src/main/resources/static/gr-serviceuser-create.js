@@ -52,10 +52,18 @@
         type: Boolean,
         value: false,
       },
+      _accountId: String,
     },
 
     attached() {
       this._getConfig();
+    },
+
+    _forwardToDetails() {
+      page.show(
+          this.plugin.screenUrl()
+          + '/user/'
+          + this._accountId);
     },
 
     _getConfig() {
@@ -74,6 +82,7 @@
             if (config.on_success && config.on_success != '') {
               this._successMessageEnabled = true;
               this._successMessage = config.on_success;
+              this.$.successMessage.innerHTML = this._successMessage;
             }
 
             this._emailEnabled = config.allow_email;
@@ -125,13 +134,12 @@
       return this.plugin.restApi('/config/server/serviceuser~serviceusers/')
           .post(this._newUsername, body)
           .then(response => {
+            this._accountId = response._account_id;
             if (this._successMessage) {
-              this.fire('show-alert', {message: this._successMessage});
+              this.$.successDialogOverlay.open();
+            } else {
+              this._forwardToDetails();
             }
-            page.show(
-                this.plugin.screenUrl()
-              + '/user/'
-              + response._account_id);
           }).catch(response => {
             this.fire('show-error', {message: response});
             this._isAdding = false;
