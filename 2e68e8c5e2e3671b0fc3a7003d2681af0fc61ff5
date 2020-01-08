@@ -52,6 +52,24 @@
       "revId": "2e68e8c5e2e3671b0fc3a7003d2681af0fc61ff5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77f48770_17685356",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-01-08T19:44:27Z",
+      "side": 1,
+      "message": "\u003e The question if this can be done in its own change and not in merge commit?\n\nSorry, I misread your comment. This is necessary for this merge commit to build. -Similar to other adaptations done recently for such merge commits to pass verification.\n\nThese adaptations can be done in a base commit instead, so the merge commit builds. However I\u0027ve been doing them in the merge commit straight, as that is when they became exposed. And if we do them in follow-up commits, then we cannot build or Verify the merge commit alone.",
+      "parentUuid": "a1d379c4_8b9a42ee",
+      "revId": "2e68e8c5e2e3671b0fc3a7003d2681af0fc61ff5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
