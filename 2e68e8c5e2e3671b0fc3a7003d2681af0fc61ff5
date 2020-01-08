@@ -16,6 +16,24 @@
       "revId": "2e68e8c5e2e3671b0fc3a7003d2681af0fc61ff5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61474d83_046ef075",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-01-08T19:25:35Z",
+      "side": 1,
+      "message": "\u003e We really need to put this in the merge commit?\n\nNot absolutely necessary, however for better clarity -I think. Would you prefer that I remove this whole paragraph?",
+      "parentUuid": "062d8023_2935d9c9",
+      "revId": "2e68e8c5e2e3671b0fc3a7003d2681af0fc61ff5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
