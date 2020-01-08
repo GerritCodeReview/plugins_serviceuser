@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "062d8023_2935d9c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-01-08T19:19:37Z",
+      "side": 1,
+      "message": "We really need to put this in the merge commit?",
+      "revId": "2e68e8c5e2e3671b0fc3a7003d2681af0fc61ff5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
