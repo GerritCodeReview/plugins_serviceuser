@@ -22,6 +22,7 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER
 import com.google.common.base.Strings;
 import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.entities.AccountGroup;
+import com.google.gerrit.entities.AccountGroup.UUID;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;
@@ -109,10 +110,11 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       db.unset(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
     } else {
       group = groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(input.group)).getGroup();
-      if (!AccountGroup.isInternalGroup(group.getGroupUUID())) {
-        throw new MethodNotAllowedException();
+      UUID groupUUID = group.getGroupUUID();
+  if (!AccountGroup.isInternalGroup(groupUUID)) {
+        throw new MethodNotAllowedException("Group with UUID '" + groupUUID + "' is external");
       }
-      db.setString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER, group.getGroupUUID().get());
+      db.setString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER, groupUUID.get());
     }
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
     md.setMessage("Set owner for service user '" + rsrc.getUser().getUserName() + "'\n");
