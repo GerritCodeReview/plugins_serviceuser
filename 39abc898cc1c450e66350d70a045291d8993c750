@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f954f3fe_c57bd62d",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1017568
+      },
+      "writtenOn": "2020-01-09T16:03:39Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct: service users are not actually part of the realm, so their field may be modified even if this is not possible for realm-users.\n\nAt least in our case: we use LDAP for auth, but serviceusers are *not* present in LDAP directory. These users exist only in Gerrit, not in LDAP, and it is therefore quite appropriate to change their name and email.",
+      "revId": "39abc898cc1c450e66350d70a045291d8993c750",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
