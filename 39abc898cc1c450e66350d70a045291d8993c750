@@ -16,6 +16,24 @@
       "revId": "39abc898cc1c450e66350d70a045291d8993c750",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "971a622e_ffcb98f4",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-01-10T17:54:25Z",
+      "side": 1,
+      "message": "You are right. That is a valid scenario.\nWe could just add an additional configuration option for the service user plugin that allows to change the full name. To make it not too confusing, we could leave the defaults as it is, meaning as the realm that is used is configured. WDYT?",
+      "parentUuid": "f954f3fe_c57bd62d",
+      "revId": "39abc898cc1c450e66350d70a045291d8993c750",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
