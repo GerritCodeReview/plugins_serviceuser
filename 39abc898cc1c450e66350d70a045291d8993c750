@@ -34,6 +34,24 @@
       "revId": "39abc898cc1c450e66350d70a045291d8993c750",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0eec5ba_5774c4d0",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1017568
+      },
+      "writtenOn": "2020-01-15T14:13:45Z",
+      "side": 1,
+      "message": "We may indeed add an option to enable name editing (and we may indeed set it to FALSE by default), but this is not my point.\n\nMy point is that since service users are never actually part of the realm, I believe we should not check the status of the realm at all : neither for the full name nor for the email.\n\nI will create a change to fix this, esp. to fix the issue with changing email (which is the one I am facing).\n\nNOTE: looking at the documentation of the plugin, editing email should always be enabled for administrators...",
+      "parentUuid": "971a622e_ffcb98f4",
+      "revId": "39abc898cc1c450e66350d70a045291d8993c750",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
