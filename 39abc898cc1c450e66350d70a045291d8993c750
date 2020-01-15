@@ -52,6 +52,24 @@
       "revId": "39abc898cc1c450e66350d70a045291d8993c750",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb3ef421_defa4d39",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-01-15T14:39:37Z",
+      "side": 1,
+      "message": "Indeed, it seems that this change was premature. To fix this, it can be just reverted.\n\nHowever, I did not create this change without reason. I faced the issue that, when I tried to change the full name, which isn\u0027t allowed in the realm we use, I got an error from Gerrit. Back then I thought this was the way it was designed and that I had just missed checking that in the UI. So I changed the UI accordingly. Thus, it might be that we have to fix another bug a well, if it is reproducible again after the revert.",
+      "parentUuid": "f0eec5ba_5774c4d0",
+      "revId": "39abc898cc1c450e66350d70a045291d8993c750",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
