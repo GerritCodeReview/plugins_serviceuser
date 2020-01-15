@@ -70,6 +70,24 @@
       "revId": "39abc898cc1c450e66350d70a045291d8993c750",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b927c28_51c34b52",
+        "filename": "src/main/resources/static/gr-serviceuser-detail.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1017568
+      },
+      "writtenOn": "2020-01-15T14:42:28Z",
+      "side": 1,
+      "message": "No need to revert, there is indeed also an issue on server side (that is actually how I found the issue in UI) : we\u0027ll just need to fix both :-)\n\nI\u0027ll upload patches for both issues.",
+      "parentUuid": "cb3ef421_defa4d39",
+      "revId": "39abc898cc1c450e66350d70a045291d8993c750",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
