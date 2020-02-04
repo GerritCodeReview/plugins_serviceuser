@@ -111,7 +111,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     } else {
       group = groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(input.group)).getGroup();
       UUID groupUUID = group.getGroupUUID();
-      if (!AccountGroup.isInternalGroup(groupUUID)) {
+      if (!AccountGroup.uuid(groupUUID.get()).isInternalGroup()) {
         throw new MethodNotAllowedException("Group with UUID '" + groupUUID + "' is external");
       }
       db.setString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER, groupUUID.get());

@@ -23,11 +23,9 @@ import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.ProjectRunnable;
 import com.google.gerrit.server.git.WorkQueue;
-import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.slf4j.Logger;
@@ -107,10 +105,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
           ObjectId.fromString(e.getOldObjectId()),
           ObjectId.fromString(e.getNewObjectId()));
       crn.commitNotes();
-    } catch (IOException
-        | ConfigInvalidException
-        | PermissionBackendException
-        | RestApiException x) {
+    } catch (IOException | RestApiException x) {
       log.error(x.getMessage(), x);
     }
   }
