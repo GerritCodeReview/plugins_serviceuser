@@ -25,12 +25,10 @@ import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.config.AnonymousCowardName;
 import com.google.gerrit.server.git.NotesBranchUtil;
-import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.googlesource.gerrit.plugins.serviceuser.GetServiceUser.ServiceUserInfo;
 import java.io.IOException;
-import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectInserter;
@@ -81,7 +79,7 @@ class CreateServiceUserNotes {
   }
 
   void createNotes(String branch, ObjectId oldObjectId, ObjectId newObjectId)
-      throws IOException, ConfigInvalidException, PermissionBackendException, RestApiException {
+      throws IOException, RestApiException {
     if (ObjectId.zeroId().equals(newObjectId)) {
       return;
     }
@@ -153,13 +151,13 @@ class CreateServiceUserNotes {
   }
 
   private ObjectId createNoteContent(String branch, ServiceUserInfo serviceUser)
-      throws IOException, PermissionBackendException, RestApiException, RuntimeException {
+      throws IOException, RestApiException, RuntimeException {
     return getInserter()
         .insert(Constants.OBJ_BLOB, createServiceUserNote(branch, serviceUser).getBytes(UTF_8));
   }
 
   private String createServiceUserNote(String branch, ServiceUserInfo serviceUser)
-      throws PermissionBackendException, RestApiException, RuntimeException {
+      throws RestApiException, RuntimeException {
     HeaderFormatter fmt = new HeaderFormatter(gerritServerIdent.getTimeZone(), anonymousCowardName);
     fmt.appendDate();
     fmt.append("Project", project.get());
