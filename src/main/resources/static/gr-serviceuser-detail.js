@@ -25,7 +25,6 @@
       _restApi: Object,
       _serviceUserId: String,
       _serviceUser: Object,
-      _serverConfig: Object,
       _loading: {
         type: Boolean,
         value: true,
@@ -47,10 +46,6 @@
         value: false,
       },
       _allowEmail: {
-        type: Boolean,
-        value: false,
-      },
-      _allowFullName: {
         type: Boolean,
         value: false,
       },
@@ -80,10 +75,8 @@
     ],
 
     attached() {
-      this._getPermissions().then(() => {
-        this._extractUserId();
-        this._loadServiceUser();
-      });
+      this._extractUserId();
+      this._loadServiceUser();
     },
 
     _loadServiceUser() {
@@ -93,7 +86,6 @@
 
       promises.push(this._getPluginConfig());
       promises.push(this._getServiceUser());
-      promises.push(this._getServerConfig());
 
       Promise.all(promises).then(() => {
         this.$.sshEditor.loadData(this._restApi, this._serviceUser);
@@ -104,11 +96,6 @@
         this._loading = false;
         this._newFullName = this._serviceUser.name;
         this._newEmail = this._serviceUser.email;
-        this._allowFullName = this._serverConfig.auth.editable_account_fields
-          .includes('FULL_NAME');
-        this._allowEmail = this._allowEmail &&
-          this._serverConfig.auth.editable_account_fields
-            .includes('REGISTER_NEW_EMAIL');
       });
     },
 
@@ -128,25 +115,17 @@
     },
 
     _getPluginConfig() {
-      return this.plugin.restApi('/config/server/serviceuser~config/').get('')
-          .then(config => {
-            if (!config) {
-              return;
-            }
-            this._allowEmail = config.allow_email || this._isAdmin;
-            this._allowOwner = config.allow_owner || this._isAdmin;
-            this._allowHttpPassword = config.allow_http_password
-              || this._isAdmin;
-          });
-    },
-
-    _getServerConfig() {
-      return this.plugin.restApi().getConfig().then(cfg => {
-        if (!cfg) {
-          return;
-        }
-
-        this._serverConfig = cfg;
+      return Promise.resolve(this._getPermissions()).then(() => {
+        this.plugin.restApi('/config/server/serviceuser~config/').get('')
+            .then(config => {
+              if (!config) {
+                return;
+              }
+              this._allowEmail = config.allow_email || this._isAdmin;
+              this._allowOwner = config.allow_owner || this._isAdmin;
+              this._allowHttpPassword = config.allow_http_password
+                || this._isAdmin;
+            });
       });
     },
 
