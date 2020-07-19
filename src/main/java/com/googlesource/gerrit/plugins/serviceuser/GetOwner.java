@@ -17,7 +17,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
-import com.google.gerrit.common.data.GroupDescription;
+import com.google.gerrit.entities.GroupDescription;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.IdString;

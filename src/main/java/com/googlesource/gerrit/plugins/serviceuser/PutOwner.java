@@ -20,9 +20,9 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.common.base.Strings;
-import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.AccountGroup.UUID;
+import com.google.gerrit.entities.GroupDescription;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;

@@ -16,9 +16,9 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 
-import com.google.gerrit.common.data.GroupDescription;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
+import com.google.gerrit.entities.GroupDescription;
 import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
 import com.google.gerrit.extensions.restapi.RestApiException;
