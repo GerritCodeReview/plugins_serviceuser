@@ -16,6 +16,23 @@
       "revId": "4e570e352d68d8115b225148a100a03bf78f5778",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b375ba0_0a3ad68c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-19T12:29:07Z",
+      "side": 1,
+      "message": "I created stable-3.2 branch, and adapted the code to recent master, so that this merge should be re-done now.",
+      "revId": "4e570e352d68d8115b225148a100a03bf78f5778",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
