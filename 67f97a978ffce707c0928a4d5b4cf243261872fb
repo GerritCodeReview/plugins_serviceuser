@@ -16,6 +16,24 @@
       "revId": "67f97a978ffce707c0928a4d5b4cf243261872fb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6e0dae6_d5ce2daa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-30T20:58:21Z",
+      "side": 1,
+      "message": "\u003e Saša, this doesn\u0027t build locally using bazel standalone mode either.\n\u003e -Do you think you could help fixing this here as well?\n\nDone. Now passes standalone locally.",
+      "parentUuid": "c991fd81_b168156f",
+      "revId": "67f97a978ffce707c0928a4d5b4cf243261872fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
