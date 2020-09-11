@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08a62287_5da6b241",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-09-11T07:00:44Z",
+      "side": 1,
+      "message": "since I am not familiar with the plugin, just focus on setup and generic migration part :) ",
+      "revId": "293a9703b38d1084d08a4e660177a410cf498570",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f54824c3_dd1c280c",
+        "filename": "gr-serviceuser/gr-serviceuser-create.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-09-11T07:00:44Z",
+      "side": 1,
+      "message": "nit: it might make sense to export this and always use `GrServiceUserCreate.is` when you refer to `gr-serviceuser-create`, so you don\u0027t need worry about renaming it in the future but forgot to change all the usages",
+      "revId": "293a9703b38d1084d08a4e660177a410cf498570",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d8af2f9_6a6db6b6",
+        "filename": "gr-serviceuser/gr-serviceuser-create.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-09-11T07:00:44Z",
+      "side": 1,
+      "message": "I would recommend to get rid of the LegacyElementMixin, we will remove it eventually in the Gerrit core.\n\nyou can just replace attached with `connectedCallback`: https://polymer-library.polymer-project.org/3.0/docs/devguide/custom-elements",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "293a9703b38d1084d08a4e660177a410cf498570",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9afab7c4_139f0255",
+        "filename": "gr-serviceuser/gr-serviceuser-ssh-panel_html.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-09-11T07:00:44Z",
+      "side": 1,
+      "message": "should not this keep as 2019 ?",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 21
+      },
+      "revId": "293a9703b38d1084d08a4e660177a410cf498570",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
