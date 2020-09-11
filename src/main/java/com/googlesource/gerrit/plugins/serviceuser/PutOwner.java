@@ -47,6 +47,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.PutOwner.Input;
 import java.io.IOException;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 
 @Singleton
@@ -58,7 +59,6 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<GetConfig> getConfig;
   private final GroupsCollection groups;
   private final String pluginName;
-  private final ProjectCache projectCache;
   private final Project.NameKey allProjects;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final GroupJson json;
@@ -78,7 +78,6 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     this.getConfig = getConfig;
     this.groups = groups;
     this.pluginName = pluginName;
-    this.projectCache = projectCache;
     this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.json = json;
@@ -88,8 +87,8 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
-      throws RestApiException, IOException, PermissionBackendException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".config");
+      throws RestApiException, IOException, PermissionBackendException, ConfigInvalidException {
+    ProjectLevelConfig.Bare storage = new ProjectLevelConfig.Bare(pluginName + ".config");
     Boolean ownerAllowed;
     try {
       ownerAllowed = getConfig.get().apply(new ConfigResource()).value().allowOwner;
@@ -103,7 +102,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     if (input == null) {
       input = new Input();
     }
-    Config db = storage.get();
+    Config db = storage.getConfig();
     String oldGroup = db.getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
     GroupDescription.Basic group = null;
     if (Strings.isNullOrEmpty(input.group)) {
@@ -118,6 +117,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     }
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
     md.setMessage("Set owner for service user '" + rsrc.getUser().getUserName() + "'\n");
+    storage.load(md);
     storage.commit(md);
     return group != null
         ? (oldGroup != null
