@@ -83,7 +83,7 @@ class CreateServiceUser
   private final Provider<CurrentUser> userProvider;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final Project.NameKey allProjects;
-  private final ProjectLevelConfig storage;
+  private final ProjectLevelConfig.Bare storage;
   private final DateFormat rfc2822DateFormatter;
   private final Provider<GetConfig> getConfig;
   private final AccountLoader.Factory accountLoader;
@@ -112,7 +112,7 @@ class CreateServiceUser
             });
     this.userProvider = userProvider;
     this.metaDataUpdateFactory = metaDataUpdateFactory;
-    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.storage = new ProjectLevelConfig.Bare(pluginName + ".db");
     this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
     this.rfc2822DateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
     this.rfc2822DateFormatter.setCalendar(
@@ -178,7 +178,7 @@ class CreateServiceUser
     Account.Id creatorId = ((IdentifiedUser) user).getAccountId();
     String creationDate = rfc2822DateFormatter.format(new Date());
 
-    Config db = storage.get();
+    Config db = storage.getConfig();
     db.setInt(USER, username, KEY_CREATOR_ID, creatorId.get());
     if (creator != null) {
       db.setString(USER, username, KEY_CREATED_BY, creator);
