@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccf1ba2d_dd51c78c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-09-15T11:32:22Z",
+      "side": 1,
+      "message": "you want me to +2 or you still waiting for someone else to review the logic ?",
+      "revId": "0f3fa15e76ccef704eaf6aeb215b286921fa9679",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b61e13_bda0273a",
+        "filename": "gr-serviceuser/gr-serviceuser-detail.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2020-09-15T11:32:22Z",
+      "side": 1,
+      "message": "you probably don\u0027t need this for all of them as well, but its fine to keep it.",
+      "range": {
+        "startLine": 24,
+        "startChar": 49,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "0f3fa15e76ccef704eaf6aeb215b286921fa9679",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
