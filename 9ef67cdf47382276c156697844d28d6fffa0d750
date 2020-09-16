@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d17f27d_6bcf1796",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-09-16T16:17:24Z",
+      "side": 1,
+      "message": "The check failure is addressed in the follow-up I3b6435244. Locally with the latter, this very change fixes its related issue.",
+      "revId": "9ef67cdf47382276c156697844d28d6fffa0d750",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
