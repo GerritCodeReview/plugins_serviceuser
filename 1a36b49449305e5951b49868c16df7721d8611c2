@@ -16,6 +16,23 @@
       "revId": "1a36b49449305e5951b49868c16df7721d8611c2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e52d6222_d6e3931c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-09-16T14:24:10Z",
+      "side": 1,
+      "message": "My manual testing of this change locally leads to an NPE in core\u0027s VersionedMetaData. It is caused by projectName not being initialized in this flow, caused by the lack of calling VersionedMetaData::load.",
+      "revId": "1a36b49449305e5951b49868c16df7721d8611c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
