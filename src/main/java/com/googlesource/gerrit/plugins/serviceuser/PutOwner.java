@@ -89,7 +89,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc, Input input)
       throws RestApiException, IOException, PermissionBackendException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".config");
     Boolean ownerAllowed;
     try {
       ownerAllowed = getConfig.get().apply(new ConfigResource()).value().allowOwner;

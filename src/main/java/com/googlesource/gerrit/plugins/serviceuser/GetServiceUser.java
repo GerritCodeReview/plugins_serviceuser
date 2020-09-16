@@ -63,7 +63,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   @Override
   public Response<ServiceUserInfo> apply(ServiceUserResource rsrc)
       throws RestApiException, PermissionBackendException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".config");
     String username = rsrc.getUser().getUserName().get();
     Config db = storage.get();
     if (!db.getSubsections(USER).contains(username)) {

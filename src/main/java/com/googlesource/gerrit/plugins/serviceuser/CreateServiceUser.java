@@ -112,7 +112,7 @@ class CreateServiceUser
             });
     this.userProvider = userProvider;
     this.metaDataUpdateFactory = metaDataUpdateFactory;
-    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    this.storage = projectCache.getAllProjects().getConfig(pluginName + ".config");
     this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
     this.rfc2822DateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
     this.rfc2822DateFormatter.setCalendar(
