@@ -16,6 +16,52 @@
       "revId": "44918a058b0284794054d7e59407e38945ef37bc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "003f9b14_b70c03b0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-09-25T18:20:07Z",
+      "side": 1,
+      "message": "Replacing this with that below (locally) didn\u0027t help address the issue I previously commented about.\n\ntry (BatchMetaDataUpdate update \u003d storage.openUpdate(md)) {\n  md.setMessage(\"Create service user \u0027\" + username + \"\u0027\\n\");\n  update.commit();\n}",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 23
+      },
+      "revId": "44918a058b0284794054d7e59407e38945ef37bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa644381_0cd21666",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-09-25T18:20:07Z",
+      "side": 1,
+      "message": "(Referring to my other comment here as well.)",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 23
+      },
+      "revId": "44918a058b0284794054d7e59407e38945ef37bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
