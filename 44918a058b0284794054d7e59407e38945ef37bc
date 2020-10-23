@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "a9d73e7f_f503180c",
         "filename": "/PATCHSET_LEVEL",
@@ -14,10 +15,27 @@
       "side": 1,
       "message": "With this latest patch, using [1], the user gets created in core but remains unlisted as a service user [2]. It lands into core because running [1] twice lends [3]. However the plugin storage file stated in [4] doesn\u0027t get created, thus the empty listing [2]. I didn\u0027t test the PutOwner part of this change yet given this issue.\n\n[1] https://gerrit.googlesource.com/plugins/serviceuser/+/refs/heads/master/src/main/resources/Documentation/cmd-create.md\n\n[2] http://localhost:8080/x/serviceuser/list\n[3] fatal: username \u0027JenkinsVoter\u0027 already exists\n[4] https://gerrit.googlesource.com/plugins/serviceuser/+/refs/heads/master/src/main/resources/Documentation/about.md",
       "revId": "44918a058b0284794054d7e59407e38945ef37bc",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": false
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d7366e_37b37525",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-10-23T15:07:13Z",
+      "side": 1,
+      "message": "The similar WIP change I1940e436 has a hint from Patrick, about how to fix this kind of adaptation.",
+      "revId": "44918a058b0284794054d7e59407e38945ef37bc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "003f9b14_b70c03b0",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
@@ -37,10 +55,10 @@
         "endChar": 23
       },
       "revId": "44918a058b0284794054d7e59407e38945ef37bc",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fa644381_0cd21666",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
@@ -60,8 +78,7 @@
         "endChar": 23
       },
       "revId": "44918a058b0284794054d7e59407e38945ef37bc",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
