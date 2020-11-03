@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d094cbe_c4f90a44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T22:58:43Z",
+      "side": 1,
+      "message": "-Will likely require [1]\u0027s WIP to pass.\n\n[1] https://gerrit-review.googlesource.com/c/plugins/serviceuser/+/281356",
+      "revId": "90e270ef4f5a0f0bb0c12f9983d0ec244f22ddf7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
