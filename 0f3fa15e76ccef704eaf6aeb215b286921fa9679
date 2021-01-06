@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "ccf1ba2d_dd51c78c",
         "filename": "/PATCHSET_LEVEL",
@@ -14,10 +15,27 @@
       "side": 1,
       "message": "you want me to +2 or you still waiting for someone else to review the logic ?",
       "revId": "0f3fa15e76ccef704eaf6aeb215b286921fa9679",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "874530f2_b8a713ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-06T11:17:55Z",
+      "side": 1,
+      "message": "Ping. What is the status here?",
+      "revId": "0f3fa15e76ccef704eaf6aeb215b286921fa9679",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "18b61e13_bda0273a",
         "filename": "gr-serviceuser/gr-serviceuser-detail.js",
@@ -37,8 +55,7 @@
         "endChar": 70
       },
       "revId": "0f3fa15e76ccef704eaf6aeb215b286921fa9679",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
