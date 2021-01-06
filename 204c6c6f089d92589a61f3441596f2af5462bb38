@@ -16,6 +16,23 @@
       "message": "David,\n\nI\u0027m terribly sorry to ask this,\n\n```\n2021-01-06 07:12:04.022693 | testnode | ERROR: /home/zuul/src/gerrit.googlesource.com/gerrit/plugins/serviceuser/BUILD:4:14: Building plugins/serviceuser/libserviceuser__plugin-class.jar (35 source files) and running annotation processors (AutoAnnotationProcessor, AutoValueProcessor, AutoOneOfProcessor) failed (Exit 1): java failed: error executing command external/remotejdk11_linux/bin/java \u0027--add-exports\u003djdk.compiler/com.sun.tools.javac.api\u003dALL-UNNAMED\u0027 \u0027--add-exports\u003djdk.compiler/com.sun.tools.javac.code\u003dALL-UNNAMED\u0027 ... (remaining 14 argument(s) skipped)\n```\n\nIs the error that I got from this. I reran it to see if the error persisted and it seems to be real. `bazel test //...` is passing on my local machine. Is there any way to crank up the logging in the zuul test runner, or a way to make my local builds more like the zuul builds?\n\nLooking at my change I didn\u0027t change any annotations, which means that it must have been the change to the WORKSPACE. Darn dependencies. Do you have any tips on bisecting this?",
       "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1734217_2e8830bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-06T07:43:10Z",
+      "side": 1,
+      "message": "I will look into it later today.",
+      "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
