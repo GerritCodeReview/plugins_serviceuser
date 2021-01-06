@@ -35,6 +35,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "699f61da_b4663180",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2021-01-06T11:25:24Z",
+      "side": 1,
+      "message": "Thomas is on parental leave and I think Tao doesn\u0027t work on Gerrit anymore.\nMy client side foo is too limited to feel ready for reviewing this.",
+      "parentUuid": "874530f2_b8a713ce",
+      "revId": "0f3fa15e76ccef704eaf6aeb215b286921fa9679",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18b61e13_bda0273a",
