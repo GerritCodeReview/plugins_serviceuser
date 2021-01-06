@@ -33,6 +33,24 @@
       "message": "I will look into it later today.",
       "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45d1ea57_9c78ad61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-06T08:13:04Z",
+      "side": 1,
+      "message": "Strange, that we don\u0027t see the whole error message in Zuul-CI.\n\nI see this error message if I build on gerrit@HEAD with this change:\n\n  $ bazelisk build plugins/serviceuser\n\n  \nplugins/serviceuser/src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserResolver.java:110: error: \u003canonymous com.googlesource.gerrit.plugins.serviceuser.ServiceUserResolver$1$1\u003e is not abstract and does not override abstract method getCacheKey() in CurrentUser\n            return new CurrentUser() {\n                                     ^\nTarget //plugins/serviceuser:serviceuser failed to build\nUse --verbose_failures to see the command lines of failed build steps.\nINFO: Elapsed time: 51.547s, Critical Path: 12.89s\nINFO: 107 processes: 86 remote cache hit, 17 internal, 3 linux-sandbox, 1 worker.\nFAILED: Build did NOT complete successfully\n\nCan it be, that you are using standalone build mode against Gerrit 3.3 plugin API? That\u0027s not what this change is doing. It\u0027s uploaded to master branch ans is building in gerrit tree mode against Gerrit master.\n\nWe would probably need to create stable-3.3 branch for that plugin.",
+      "parentUuid": "9cc4c964_d399c0b7",
+      "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
