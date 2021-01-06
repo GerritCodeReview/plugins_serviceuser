@@ -133,12 +133,12 @@ class ServiceUserResolver {
                   }
                 };
               }
-
-              @Override
-              public Object getCacheKey() {
-                return null;
-              }
             };
+
+            @Override
+            public Object getCacheKey() {
+              return null;
+            }
           }
         };
     RequestContext old = tl.setContext(context);

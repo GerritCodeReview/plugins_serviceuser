@@ -47,6 +47,8 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.PutOwner.Input;
 import java.io.IOException;
+
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 
 @Singleton
@@ -103,22 +105,31 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     if (input == null) {
       input = new Input();
     }
-    Config db = storage.get();
-    String oldGroup = db.getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
+
     GroupDescription.Basic group = null;
-    if (Strings.isNullOrEmpty(input.group)) {
-      db.unset(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
-    } else {
-      group = groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(input.group)).getGroup();
-      UUID groupUUID = group.getGroupUUID();
-      if (!AccountGroup.uuid(groupUUID.get()).isInternalGroup()) {
-        throw new MethodNotAllowedException("Group with UUID '" + groupUUID + "' is external");
+    String oldGroup;
+    try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjects)) {
+      ProjectLevelConfig.Bare update = new ProjectLevelConfig.Bare(pluginName + ".db");
+      update.load(md);
+
+      Config db = update.getConfig();
+      oldGroup = db.getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
+      if (Strings.isNullOrEmpty(input.group)) {
+        db.unset(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
+      } else {
+        group = groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(input.group)).getGroup();
+        UUID groupUUID = group.getGroupUUID();
+        if (!AccountGroup.uuid(groupUUID.get()).isInternalGroup()) {
+          throw new MethodNotAllowedException("Group with UUID '" + groupUUID + "' is external");
+        }
+        db.setString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER, groupUUID.get());
       }
-      db.setString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER, groupUUID.get());
+      md.setMessage("Set owner for service user '" + rsrc.getUser().getUserName() + "'\n");
+      update.commit(md);
+    } catch (ConfigInvalidException e) {
+      throw asRestApiException("Invalid configuration", e);
     }
-    MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
-    md.setMessage("Set owner for service user '" + rsrc.getUser().getUserName() + "'\n");
-    storage.commit(md);
+
     return group != null
         ? (oldGroup != null
             ? Response.ok(json.format(group))
