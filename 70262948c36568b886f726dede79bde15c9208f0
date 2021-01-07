@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7f5b88f_47121226",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-07T14:16:58Z",
+      "side": 1,
+      "message": "Unused and should be removed.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 43
+      },
+      "revId": "70262948c36568b886f726dede79bde15c9208f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3cf4b47e_4a38f56e",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
         "patchSetId": 7
