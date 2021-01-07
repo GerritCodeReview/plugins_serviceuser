@@ -189,6 +189,30 @@
       },
       "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de854086_48eb4cc3",
+        "filename": "WORKSPACE",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-01-07T16:08:01Z",
+      "side": 1,
+      "message": "\u003e \u003e I am referring to in-tree build inside the stable-3.3 tree of the Gerrit core.\n\u003e \n\u003e Ah, that\u0027s very unexpected then :-O I see your point.\n\nThe Zuul build output is at:\nhttps://ci.gerritcodereview.com/t/gerrit/build/18d2770cb0764fbd841f26d4cb6f2b42/console",
+      "parentUuid": "c2f4cf6a_9d61b1af",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
