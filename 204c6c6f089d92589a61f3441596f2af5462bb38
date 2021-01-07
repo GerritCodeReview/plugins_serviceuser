@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "203c6439_f3f0481a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011722
+      },
+      "writtenOn": "2021-01-07T06:02:28Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s actually where I got the inspiration for this fix. Thanks for the inspiration!",
+      "parentUuid": "fc96f20d_ae891a49",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9cc4c964_d399c0b7",
@@ -106,6 +130,24 @@
       "writtenOn": "2021-01-06T11:09:22Z",
       "side": 1,
       "message": "invited Sasa maintaining this plugin for code review\nand created the missing stable-3.3 branch based on master",
+      "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfff5b82_ad64af99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011722
+      },
+      "writtenOn": "2021-01-07T06:02:28Z",
+      "side": 1,
+      "message": "Thank you. Really fast debugging work. Great job! Lemme rebase past that and see what the log looks like now.",
+      "parentUuid": "29ae714f_ccd544b5",
       "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
