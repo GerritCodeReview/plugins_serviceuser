@@ -133,11 +133,6 @@ class ServiceUserResolver {
                   }
                 };
               }
-
-              @Override
-              public Object getCacheKey() {
-                return null;
-              }
             };
           }
         };
