@@ -213,6 +213,30 @@
       },
       "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0fe06a2_c18a6913",
+        "filename": "WORKSPACE",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-07T16:10:44Z",
+      "side": 1,
+      "message": "I found what causes the difference but I don\u0027t know if this is a bug or a feature of the build toolchain.\n\nInitially, after cloning the serviceuser plugin inside the plugins/ directory the build works. However, when I added the plugin to the release build the error started occurring. But it was my mistake that I also added it in the tools/BUILD:error_prone_packages. After removing it from there the issue is gone.\n\n\n  diff --git a/tools/BUILD b/tools/BUILD\n  index 545a20607b..4ff340093e 100644\n  --- a/tools/BUILD\n  +++ b/tools/BUILD\n  @@ -157,6 +157,7 @@ package_group(\n           \"//plugins/plugin-manager/...\",\n           \"//plugins/replication/...\",\n           \"//plugins/reviewnotes/...\",\n  +        \"//plugins/serviceuser/...\",\n           \"//plugins/singleusergroup/...\",\n           \"//plugins/webhooks/...\",\n       ],\n  diff --git a/tools/bzl/plugins.bzl b/tools/bzl/plugins.bzl\n  index adde59efb7..37eb11b8b0 100644\n  --- a/tools/bzl/plugins.bzl\n  +++ b/tools/bzl/plugins.bzl\n  @@ -8,6 +8,7 @@ CORE_PLUGINS \u003d [\n       \"plugin-manager\",\n       \"replication\",\n       \"reviewnotes\",\n  +    \"serviceuser\",\n       \"singleusergroup\",\n       \"webhooks\",\n   ]",
+      "parentUuid": "d54c24c4_4ce54443",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
