@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b5865ce_742a4964",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011722
+      },
+      "writtenOn": "2021-01-07T07:54:23Z",
+      "side": 1,
+      "message": "David,\n\nWhat are next steps here for getting this merged. Is there any action on my part?",
+      "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
