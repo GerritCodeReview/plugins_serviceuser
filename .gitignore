@@ -1,4 +1,3 @@
-/bazel-*
 /eclipse-out
 /target
 /.classpath
