@@ -22,6 +22,30 @@
       },
       "revId": "a73cd8b35122d4d78204e737f779c916162b45ee",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "155fd80a_cd1fe231",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-07T13:24:25Z",
+      "side": 1,
+      "message": "I agree on the proposal but it should be done in a new change. The reason is that the same\nthing can also be optimized in the PutOwner class but there we already have stored the pluginName,\nso this proposal would be more intrusive there.\n\nIn a new change we can then also consider going one step further and make ProjectLevelConfig.Bare\ninjectable so that we don\u0027t need to repeat ourselves in two places.",
+      "parentUuid": "506ebbac_8a1b599c",
+      "range": {
+        "startLine": 117,
+        "startChar": 59,
+        "endLine": 117,
+        "endChar": 77
+      },
+      "revId": "a73cd8b35122d4d78204e737f779c916162b45ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
