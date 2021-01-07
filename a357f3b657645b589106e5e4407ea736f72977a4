@@ -51,6 +51,46 @@
       "message": "Giving my consent as non-maintainer of this plugin.",
       "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c47acfa2_cef53527",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-01-07T08:02:43Z",
+      "side": 1,
+      "message": "nit: extra space. Please run formatting with GJF",
+      "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8819089e_e8c6b919",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-01-07T08:02:43Z",
+      "side": 1,
+      "message": "nit: wrap long line, needs GJF formatting",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 102
+      },
+      "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
