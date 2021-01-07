@@ -24,7 +24,6 @@ import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.AccountGroup.UUID;
 import com.google.gerrit.entities.GroupDescription;
 import com.google.gerrit.entities.Project;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.DefaultInput;
 import com.google.gerrit.extensions.restapi.IdString;
@@ -58,7 +57,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
 
   private final Provider<GetConfig> getConfig;
   private final GroupsCollection groups;
-  private final String pluginName;
+  private final Provider<ProjectLevelConfig.Bare> configProvider;
   private final Project.NameKey allProjects;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final GroupJson json;
@@ -69,7 +68,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   PutOwner(
       Provider<GetConfig> getConfig,
       GroupsCollection groups,
-      @PluginName String pluginName,
+      Provider<ProjectLevelConfig.Bare> configProvider,
       ProjectCache projectCache,
       MetaDataUpdate.User metaDataUpdateFactory,
       GroupJson json,
@@ -77,7 +76,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       PermissionBackend permissionBackend) {
     this.getConfig = getConfig;
     this.groups = groups;
-    this.pluginName = pluginName;
+    this.configProvider = configProvider;
     this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.json = json;
@@ -105,7 +104,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     GroupDescription.Basic group = null;
     String oldGroup;
     try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjects)) {
-      ProjectLevelConfig.Bare update = new ProjectLevelConfig.Bare(pluginName + ".db");
+      ProjectLevelConfig.Bare update = configProvider.get();
       update.load(md);
 
       Config db = update.getConfig();
