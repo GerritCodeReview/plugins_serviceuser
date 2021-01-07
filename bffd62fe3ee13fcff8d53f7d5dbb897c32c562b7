@@ -117,6 +117,30 @@
       },
       "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb7c7060_32ac3915",
+        "filename": "WORKSPACE",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-01-07T15:57:21Z",
+      "side": 1,
+      "message": "\u003e \u003e That\u0027s up to you, as you are the maintainer :-)\n\u003e \n\u003e Then DavidO needs to remove his Verified-1 :-)\n\u003e \n\u003e \u003e From a CI\u0027s perspective, it doesn\u0027t block the change because the CI uses the in-tree build only.\n\u003e \n\u003e Interestingly, I started getting some errorprone errors when building in-tree with stable-3.3 branch of Gerrit core. I wonder why the CI build doesn\u0027t produce the same errors?\n\nThe CI does the in-tree build, which uses the errorprone configuration of Gerrit itself. The standalone build may have a different errorprone configuration settings coming from the Bazlets imported.\n\n@Davido is that a correct explanation?",
+      "parentUuid": "54605e38_2bffd05e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
