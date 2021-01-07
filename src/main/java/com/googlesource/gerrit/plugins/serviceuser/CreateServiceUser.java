@@ -78,7 +78,7 @@ class CreateServiceUser
   }
 
   private final PluginConfig cfg;
-  private final String pluginName;
+  private final Provider<ProjectLevelConfig.Bare> configProvider;
   private final CreateAccount createAccount;
   private final List<String> blockedNames;
   private final Provider<CurrentUser> userProvider;
@@ -91,6 +91,7 @@ class CreateServiceUser
   @Inject
   CreateServiceUser(
       PluginConfigFactory cfgFactory,
+      Provider<ProjectLevelConfig.Bare> configProvider,
       @PluginName String pluginName,
       CreateAccount createAccount,
       Provider<CurrentUser> userProvider,
@@ -100,7 +101,7 @@ class CreateServiceUser
       Provider<GetConfig> getConfig,
       AccountLoader.Factory accountLoader) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
-    this.pluginName = pluginName;
+    this.configProvider = configProvider;
     this.createAccount = createAccount;
     this.blockedNames =
         Lists.transform(
@@ -179,7 +180,7 @@ class CreateServiceUser
     String creationDate = rfc2822DateFormatter.format(new Date());
 
     try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjects)) {
-      ProjectLevelConfig.Bare update = new ProjectLevelConfig.Bare(pluginName + ".db");
+      ProjectLevelConfig.Bare update = configProvider.get();
       update.load(md);
 
       Config db = update.getConfig();
