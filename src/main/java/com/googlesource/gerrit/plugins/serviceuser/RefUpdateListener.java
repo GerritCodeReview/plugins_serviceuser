@@ -26,6 +26,8 @@ import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.util.concurrent.Future;
+
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.slf4j.Logger;
@@ -90,7 +92,8 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
           }
         };
     if (cfg.getBoolean("createNotesAsync", false)) {
-      workQueue.getDefaultQueue().submit(task);
+      @SuppressWarnings("unused")
+      Future<?> possiblyIgnoredError = workQueue.getDefaultQueue().submit(task);
     } else {
       task.run();
     }
