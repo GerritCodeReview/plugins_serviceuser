@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8fbfbc39_1c46170e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-07T07:37:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "203c6439_f3f0481a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9cc4c964_d399c0b7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -148,6 +172,24 @@
       "side": 1,
       "message": "Thank you. Really fast debugging work. Great job! Lemme rebase past that and see what the log looks like now.",
       "parentUuid": "29ae714f_ccd544b5",
+      "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c603e93f_dc61518e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-07T07:37:18Z",
+      "side": 1,
+      "message": "Zuul-CI fixed was effective, as the error in patch set 2 was correctly reported.",
+      "parentUuid": "dfff5b82_ad64af99",
       "revId": "204c6c6f089d92589a61f3441596f2af5462bb38",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
