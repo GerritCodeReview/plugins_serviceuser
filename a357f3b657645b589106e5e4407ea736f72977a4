@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25d7f9e_511a97ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-07T09:20:05Z",
+      "side": 1,
+      "message": "nit: remove the leading space",
+      "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88f47af8_45b16a72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-07T09:20:05Z",
+      "side": 1,
+      "message": "We usually refer to other change(s) using their Change-Id. In this case that would be I2379e28b484550b2372b7f530ffda7639ed1a9d6.\nUsing a (shorter) prefix of the change-id is usually unique enough: I2379e28b4.",
+      "range": {
+        "startLine": 9,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3b5865ce_742a4964",
@@ -84,6 +124,23 @@
       "side": 1,
       "message": "+1.",
       "parentUuid": "5b6fef3a_908255da",
+      "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92eb86d9_a307a46a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-07T09:20:05Z",
+      "side": 1,
+      "message": "The change LGTM except a few minor nits. Can you fix them?",
       "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
