@@ -141,6 +141,30 @@
       },
       "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d54c24c4_4ce54443",
+        "filename": "WORKSPACE",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-07T15:59:56Z",
+      "side": 1,
+      "message": "I am referring to in-tree build inside the stable-3.3 tree of the Gerrit core.",
+      "parentUuid": "eb7c7060_32ac3915",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
