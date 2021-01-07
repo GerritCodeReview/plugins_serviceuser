@@ -34,6 +34,23 @@
       "parentUuid": "3b5865ce_742a4964",
       "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc442972_90da72ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-01-07T08:01:18Z",
+      "side": 1,
+      "message": "Giving my consent as non-maintainer of this plugin.",
+      "revId": "a357f3b657645b589106e5e4407ea736f72977a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
