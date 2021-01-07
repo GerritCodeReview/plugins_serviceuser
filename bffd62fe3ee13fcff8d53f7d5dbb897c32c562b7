@@ -261,6 +261,30 @@
       },
       "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "261d9778_ab4221d7",
+        "filename": "WORKSPACE",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-07T16:18:59Z",
+      "side": 1,
+      "message": "\u003e I have nothing against providing the standalone build but should the lack of it\nblock this change?\n\nI\u0027m not talking about providing or removing of standalone build mode. This change makes assumption in the commit message and in WORKSPACE file about 3.3.0 tag, but in reality it\u0027s targeting stable-3.3 branch and upcoming 3.3.2 release. I will upload new patch with one liner fix in a moment.",
+      "parentUuid": "ef0d6efa_a4c646ba",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
