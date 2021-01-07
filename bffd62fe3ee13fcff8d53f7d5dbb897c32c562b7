@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d6ba156_82e60511",
+        "filename": "WORKSPACE",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-07T15:13:04Z",
+      "side": 1,
+      "message": "It doesn\u0027t build in standalone build mode with this plugin API version:\n\n  $ bazel build serviceuser\n  ServiceUserResolver.java:137: error: method does not override or implement a method from a supertype\n              @Override\n              ^\n  Target //:serviceuser failed to build\n  Use --verbose_failures to see the command lines of failed build steps.\n\nThe should be changed to: 3.3.2-SNAPSHOT and publish the API on the latest commit in gerrit tree, on stable-3.3 brach:\n\n  $ tools/maven/api.sh install\n\nThat should fix the standalone build mode if the version is changed to \"3.3.2-SNAPSHOT\".",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
