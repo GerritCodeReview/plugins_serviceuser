@@ -46,6 +46,29 @@
       },
       "revId": "a73cd8b35122d4d78204e737f779c916162b45ee",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa0b35f5_76fe2ffa",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-07T14:12:35Z",
+      "side": 1,
+      "message": "This variable is now unused",
+      "range": {
+        "startLine": 93,
+        "startChar": 23,
+        "endLine": 93,
+        "endChar": 30
+      },
+      "revId": "a73cd8b35122d4d78204e737f779c916162b45ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
