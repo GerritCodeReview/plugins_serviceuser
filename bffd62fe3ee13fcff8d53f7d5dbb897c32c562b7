@@ -45,6 +45,30 @@
       },
       "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce47d475_5dea27a0",
+        "filename": "WORKSPACE",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-07T15:33:32Z",
+      "side": 1,
+      "message": "\u003e It doesn\u0027t build in standalone build mode with this plugin API version:\n\nCurrently the plugin\u0027s documentation [1] doesn\u0027t even mention standalone build.\nI have nothing against providing the standalone build but should the lack of it\nblock this change?\n\n[1] https://gerrit.googlesource.com/plugins/serviceuser/+/bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7/src/main/resources/Documentation/build.md",
+      "parentUuid": "6d6ba156_82e60511",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "bffd62fe3ee13fcff8d53f7d5dbb897c32c562b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
