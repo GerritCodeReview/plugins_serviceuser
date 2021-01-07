@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd078422_6fc4ebb7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-07T16:14:55Z",
+      "side": 1,
+      "message": "Done in I854b8f8722c1cc25d1334b256d4ae201ffb11e3f",
+      "parentUuid": "155fd80a_cd1fe231",
+      "range": {
+        "startLine": 117,
+        "startChar": 59,
+        "endLine": 117,
+        "endChar": 77
+      },
+      "revId": "a73cd8b35122d4d78204e737f779c916162b45ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aa0b35f5_76fe2ffa",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutOwner.java",
         "patchSetId": 6
