@@ -78,6 +78,7 @@ class CreateServiceUser
   }
 
   private final PluginConfig cfg;
+  private final String pluginName;
   private final CreateAccount createAccount;
   private final List<String> blockedNames;
   private final Provider<CurrentUser> userProvider;
@@ -100,6 +101,7 @@ class CreateServiceUser
       Provider<GetConfig> getConfig,
       AccountLoader.Factory accountLoader) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
+    this.pluginName = pluginName;
     this.createAccount = createAccount;
     this.blockedNames =
         Lists.transform(
@@ -178,16 +180,20 @@ class CreateServiceUser
     Account.Id creatorId = ((IdentifiedUser) user).getAccountId();
     String creationDate = rfc2822DateFormatter.format(new Date());
 
-    Config db = storage.get();
-    db.setInt(USER, username, KEY_CREATOR_ID, creatorId.get());
-    if (creator != null) {
-      db.setString(USER, username, KEY_CREATED_BY, creator);
-    }
-    db.setString(USER, username, KEY_CREATED_AT, creationDate);
+    try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjects)) {
+      ProjectLevelConfig.Bare update = new ProjectLevelConfig.Bare(pluginName + ".db");
+      update.load(md);
 
-    MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
-    md.setMessage("Create service user '" + username + "'\n");
-    storage.commit(md);
+      Config db = update.getConfig();
+      db.setInt(USER, username, KEY_CREATOR_ID, creatorId.get());
+      if (creator != null) {
+        db.setString(USER, username, KEY_CREATED_BY, creator);
+      }
+      db.setString(USER, username, KEY_CREATED_AT, creationDate);
+
+      md.setMessage("Create service user '" + username + "'\n");
+      update.commit(md);
+    }
     ServiceUserInfo info = new ServiceUserInfo(response);
     AccountLoader al = accountLoader.create(true);
     info.createdBy = al.get(creatorId);
