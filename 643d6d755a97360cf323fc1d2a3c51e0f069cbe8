@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec2c1c9_54a24423",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserResolver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-01-07T12:50:31Z",
+      "side": 0,
+      "message": "This change was reverted on master for performance reason, but this revert was missed to be cherry-picked to stable-3.3. I did it in change 292745.",
+      "range": {
+        "startLine": 137,
+        "startChar": 14,
+        "endLine": 140,
+        "endChar": 15
+      },
+      "revId": "643d6d755a97360cf323fc1d2a3c51e0f069cbe8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
