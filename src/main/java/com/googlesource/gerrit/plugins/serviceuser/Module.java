@@ -19,13 +19,16 @@ import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SE
 import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SERVICE_USER_SSH_KEY_KIND;
 
 import com.google.gerrit.extensions.annotations.Exports;
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.config.CapabilityDefinition;
 import com.google.gerrit.extensions.events.GitReferenceUpdatedListener;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.server.git.validators.CommitValidationListener;
+import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 class Module extends AbstractModule {
@@ -71,5 +74,10 @@ class Module extends AbstractModule {
           }
         });
     install(new HttpModule());
+  }
+
+  @Provides
+  ProjectLevelConfig.Bare createProjectLevelConfig(@PluginName String pluginName) {
+    return new ProjectLevelConfig.Bare(pluginName + ".db");
   }
 }

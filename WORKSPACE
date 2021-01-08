@@ -3,7 +3,7 @@ workspace(name = "serviceuser")
 load("//:bazlets.bzl", "load_bazlets")
 
 load_bazlets(
-    commit = "0f81174e3d1b892a1342ebc75bb4bbb158ae0efe",
+    commit = "a511f3c90129d7de7ae67c0637001162980c08d5",
     #local_path = "/home/<user>/projects/bazlets",
 )
 
@@ -12,4 +12,4 @@ load(
     "gerrit_api",
 )
 
-gerrit_api(version = "3.3.0-SNAPSHOT")
+gerrit_api(version = "3.3.2-SNAPSHOT")
