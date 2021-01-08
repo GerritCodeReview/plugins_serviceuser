@@ -95,7 +95,7 @@ class GetConfig implements RestReadView<ConfigResource> {
     return v ? v : null;
   }
 
-  public class ConfigInfo {
+  static class ConfigInfo {
     public String info;
     public String onSuccess;
     public Boolean allowEmail;
