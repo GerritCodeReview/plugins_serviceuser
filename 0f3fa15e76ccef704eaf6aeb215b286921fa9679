@@ -87,6 +87,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2b81c7_45cd3489",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-11T16:28:18Z",
+      "side": 1,
+      "message": "I would give CR+2 based on:\n* Ben not finding any obvious issues with the code\n* Thomas confirming that the UI works with this change",
+      "parentUuid": "ec8e54b0_bd566d18",
+      "revId": "0f3fa15e76ccef704eaf6aeb215b286921fa9679",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18b61e13_bda0273a",
