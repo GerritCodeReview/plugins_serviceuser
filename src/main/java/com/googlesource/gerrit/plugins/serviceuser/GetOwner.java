@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
+import static com.googlesource.gerrit.plugins.serviceuser.Module.DB_SUFFIX;
 
 import com.google.gerrit.entities.GroupDescription;
 import com.google.gerrit.extensions.annotations.PluginName;
@@ -55,7 +56,7 @@ class GetOwner implements RestReadView<ServiceUserResource> {
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc)
       throws RestApiException, PermissionBackendException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + DB_SUFFIX);
     String owner = storage.get().getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
     if (owner != null) {
       GroupDescription.Basic group =

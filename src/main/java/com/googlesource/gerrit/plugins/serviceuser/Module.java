@@ -32,6 +32,7 @@ import com.google.inject.Provides;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 class Module extends AbstractModule {
+  public static final String DB_SUFFIX = ".config";
 
   @Override
   protected void configure() {
@@ -78,6 +79,6 @@ class Module extends AbstractModule {
 
   @Provides
   ProjectLevelConfig.Bare createProjectLevelConfig(@PluginName String pluginName) {
-    return new ProjectLevelConfig.Bare(pluginName + ".db");
+    return new ProjectLevelConfig.Bare(pluginName + DB_SUFFIX);
   }
 }

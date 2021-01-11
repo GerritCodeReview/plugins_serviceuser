@@ -24,7 +24,7 @@ For each created service user the plugin stores some
 Service User Properties
 -----------------------
 The service user properties are stored in the `refs/meta/config` branch
-of the `All-Projects` project in the file `@PLUGIN@.db`, which is a
+of the `All-Projects` project in the file `@PLUGIN@.config`, which is a
 Git config file:
 
 ```
