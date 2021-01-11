@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
+import static com.googlesource.gerrit.plugins.serviceuser.Module.DB_SUFFIX;
 
 import com.google.common.collect.Maps;
 import com.google.gerrit.extensions.annotations.PluginName;
@@ -70,7 +71,7 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
   @Override
   public Response<Map<String, ServiceUserInfo>> apply(ConfigResource rscr)
       throws IOException, RestApiException, PermissionBackendException, ConfigInvalidException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + DB_SUFFIX);
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("Authentication required");

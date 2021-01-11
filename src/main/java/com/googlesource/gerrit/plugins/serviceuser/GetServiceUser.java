@@ -18,6 +18,7 @@ import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_AT;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATOR_ID;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
+import static com.googlesource.gerrit.plugins.serviceuser.Module.DB_SUFFIX;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.gerrit.entities.Account;
@@ -63,7 +64,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   @Override
   public Response<ServiceUserInfo> apply(ServiceUserResource rsrc)
       throws RestApiException, PermissionBackendException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + DB_SUFFIX);
     String username = rsrc.getUser().getUserName().get();
     Config db = storage.get();
     if (!db.getSubsections(USER).contains(username)) {

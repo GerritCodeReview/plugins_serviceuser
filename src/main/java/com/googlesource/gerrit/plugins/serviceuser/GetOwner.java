@@ -55,7 +55,7 @@ class GetOwner implements RestReadView<ServiceUserResource> {
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc)
       throws RestApiException, PermissionBackendException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".confi");
     String owner = storage.get().getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
     if (owner != null) {
       GroupDescription.Basic group =
