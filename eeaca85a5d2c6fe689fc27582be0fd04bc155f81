@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc0706e6_465db96b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-11T09:27:20Z",
+      "side": 1,
+      "message": "-1 because we first need to clarify how to fix the issue.",
+      "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63398654_7e3eacc6",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-11T09:27:20Z",
+      "side": 1,
+      "message": "I don\u0027t think we can just change that file name without taking care to migrate the existing .db file... because\nthis would mean that all existing service users (in the .db) file are gone after the plugin upgrade.\n\nI would rather try to support the .db file name.",
+      "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
