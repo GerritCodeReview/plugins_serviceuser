@@ -51,6 +51,24 @@
       "parentUuid": "63398654_7e3eacc6",
       "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c620212_1982537c",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-14T23:33:55Z",
+      "side": 1,
+      "message": "This is what I proposed in my comments on the change you referred to in the commit message. Since Patrick didn\u0027t disagree we can proceed that way.",
+      "parentUuid": "aea7fe07_80c397a1",
+      "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
