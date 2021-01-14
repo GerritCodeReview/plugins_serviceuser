@@ -33,6 +33,24 @@
       "message": "I don\u0027t think we can just change that file name without taking care to migrate the existing .db file... because\nthis would mean that all existing service users (in the .db) file are gone after the plugin upgrade.\n\nI would rather try to support the .db file name.",
       "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aea7fe07_80c397a1",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1104126
+      },
+      "writtenOn": "2021-01-14T16:54:51Z",
+      "side": 1,
+      "message": "To be clear you\u0027re asking that I patch Gerrit\u0027s core upstream to support having a filename extension other than \".db\"?",
+      "parentUuid": "63398654_7e3eacc6",
+      "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
