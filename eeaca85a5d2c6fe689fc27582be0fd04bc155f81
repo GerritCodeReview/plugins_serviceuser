@@ -69,6 +69,24 @@
       "parentUuid": "aea7fe07_80c397a1",
       "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "796af04d_eb7593c6",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1017568
+      },
+      "writtenOn": "2021-01-25T10:04:58Z",
+      "side": 1,
+      "message": "Maybe migration could be handled automatically via an InitStep [1].\nAnd/or implement a fallback to load from db file (with error in logs) when the file cannot be retrieved from cache.\n\n[1] https://gerrit-review.googlesource.com/Documentation/dev-plugins.html#init_step",
+      "parentUuid": "6c620212_1982537c",
+      "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
