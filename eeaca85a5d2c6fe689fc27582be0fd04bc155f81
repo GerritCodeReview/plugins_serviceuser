@@ -87,6 +87,24 @@
       "parentUuid": "6c620212_1982537c",
       "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7793253d_d7712037",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-25T11:37:22Z",
+      "side": 1,
+      "message": "Let\u0027s keep the .db extension and, as suggested in the discussion on the referenced Gerrit core change, load the .db file using code a la:\n\n  try (MetaDataUpdate md \u003d metaDataUpdateFactory.create(rsrc.getNameKey())) {\n    ProjectLevelConfig.Bare foo \u003d new ProjectLevelConfig.Bare(\"serviceuser.db\");\n    foo.load(md);\n  }\n\nThis way we break the dependency towards using the getAllProjects().getConfig(...) from Gerrit core.\n\nOnce we do that we have to also add a cache in the serviceuser plugin and cache the loaded ProjectLevelConfig in order to avoid loading it on every request. Introducing the cache should be done in a new change.\n\n@Francois: do you want to proceed with implementing these changes?",
+      "parentUuid": "796af04d_eb7593c6",
+      "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
