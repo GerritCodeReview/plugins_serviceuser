@@ -105,6 +105,24 @@
       "parentUuid": "796af04d_eb7593c6",
       "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe629af_6c305b4a",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-01-25T11:39:00Z",
+      "side": 1,
+      "message": "Sorry, now I see that actually Andrew is the owner of this change. So my previous question is actually for Andrew :-)",
+      "parentUuid": "7793253d_d7712037",
+      "revId": "eeaca85a5d2c6fe689fc27582be0fd04bc155f81",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
