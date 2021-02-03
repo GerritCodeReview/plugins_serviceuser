@@ -34,6 +34,29 @@
       "parentUuid": "87f9c83a_7d3f8bf7",
       "revId": "2a1dabd93b04a830bbe3e30f9f2967448e50e322",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d0659de_70e3e74c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-02-03T15:20:36Z",
+      "side": 1,
+      "message": "Can you run google-java-format?",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 89
+      },
+      "revId": "2a1dabd93b04a830bbe3e30f9f2967448e50e322",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
