@@ -18,7 +18,6 @@ import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.common.collect.Maps;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
@@ -28,9 +27,10 @@ import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
+import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.ConfigResource;
+import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -45,23 +45,26 @@ import org.eclipse.jgit.lib.Config;
 @Singleton
 class ListServiceUsers implements RestReadView<ConfigResource> {
   private final Provider<CurrentUser> userProvider;
-  private final String pluginName;
-  private final ProjectCache projectCache;
   private final AccountCache accountCache;
   private final Provider<ServiceUserCollection> serviceUsers;
   private final Provider<GetServiceUser> getServiceUser;
+  private final Provider<ProjectLevelConfig.Bare> configProvider;
+  private final MetaDataUpdate.User metaDataUpdateFactory;
+  private final AllProjectsName allProjectsName;
 
   @Inject
   ListServiceUsers(
       Provider<CurrentUser> userProvider,
-      @PluginName String pluginName,
-      ProjectCache projectCache,
+      Provider<ProjectLevelConfig.Bare> configProvider,
+      AllProjectsName allProjectsName,
+      MetaDataUpdate.User metaDataUpdateFactory,
       AccountCache accountCache,
       Provider<ServiceUserCollection> serviceUsers,
       Provider<GetServiceUser> getServiceUser) {
     this.userProvider = userProvider;
-    this.pluginName = pluginName;
-    this.projectCache = projectCache;
+    this.configProvider = configProvider;
+    this.allProjectsName = allProjectsName;
+    this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.accountCache = accountCache;
     this.serviceUsers = serviceUsers;
     this.getServiceUser = getServiceUser;
@@ -70,14 +73,19 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
   @Override
   public Response<Map<String, ServiceUserInfo>> apply(ConfigResource rscr)
       throws IOException, RestApiException, PermissionBackendException, ConfigInvalidException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+    ProjectLevelConfig.Bare storage = configProvider.get();
+    try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjectsName)) {
+      storage.load(md);
+    } catch (ConfigInvalidException e) {
+      throw asRestApiException("Invalid configuration", e);
+    }
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("Authentication required");
     }
 
     Map<String, ServiceUserInfo> accounts = Maps.newTreeMap();
-    Config db = storage.get();
+    Config db = storage.getConfig();
     for (String username : db.getSubsections(USER)) {
       Optional<AccountState> account = accountCache.getByUsername(username);
       if (account.isPresent()) {
