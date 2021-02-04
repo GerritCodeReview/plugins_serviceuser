@@ -50,6 +50,24 @@
       "message": "This code fragment is repeat at 3 places. Consider having a dedicated Provider which encapsulates\nthis code. If you need further help let me know.",
       "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d48cd8f_46a680ae",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ListServiceUsers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1017568
+      },
+      "writtenOn": "2021-02-04T10:12:51Z",
+      "side": 1,
+      "message": "Yes, I noticed the issue with duplication, but was not confident enough in the proper solution to go for it :-/\n(and it should probably be removed soon anyway, when a cache is introduced)\n\nThere is already a provider for ProjectLevelConfig.Bare (in Module), which is used also when modifying the configuration ; thus, I would need to introduce a dedicated wrapper class to return the \"loaded\" configuration?\n\nOr should I simply replace the existing ProjectLevelConfig.Bare provider method, and duplicate that (shorter) code instead?\n\nA hint would be nice indeed :-)",
+      "parentUuid": "97a49051_7ed2201f",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
