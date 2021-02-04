@@ -16,6 +16,40 @@
       "message": "This seems like a reasonable path forward. Sorry, I\u0027ve been too busy with trying to launch at work to fix up the other cl and this got back burnered",
       "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7dec7f5_23ac0116",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-04T09:57:30Z",
+      "side": 1,
+      "message": "The change looks OK, except that there is some code repetition which could be factored out.",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97a49051_7ed2201f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ListServiceUsers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-04T09:57:30Z",
+      "side": 1,
+      "message": "This code fragment is repeat at 3 places. Consider having a dedicated Provider which encapsulates\nthis code. If you need further help let me know.",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
