@@ -35,6 +35,125 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7555f22_0ddd388e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "Please address the minor findings which you will find in my comments.\n\nThis change doesn\u0027t need to address the code refactoring proposal. I will do it in a follow-up change.\n\nAll my findings require trivial fixes from your side. Would be nice if you could push a new\npatch set today so that we can submit this change today.",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e8a715a_b2c90fbc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetOwner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "This is now unused, remove.",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "891aa6d3_30c84b95",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetOwner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "A better way is to inject the AllProjectsName",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369f6ab4_9a549538",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetServiceUser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "This is now unused",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4976d48d_7070f030",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetServiceUser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "Inject the AllProjectsName",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca4c1523_de56bc16",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ListServiceUsers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "Unused, remove",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d05f674_c66d5631",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ListServiceUsers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "Inject AllProjectsName",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97a49051_7ed2201f",
@@ -84,6 +203,58 @@
       "side": 1,
       "message": "Will try today afternoon",
       "parentUuid": "4d48cd8f_46a680ae",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dec46fd_55169092",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ListServiceUsers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "I will push a couple of new changes on top of this change to address the code refactoring and maybe also caching of the the serviceuser.db.\nThis doesn\u0027t need to be addressed in this change.",
+      "parentUuid": "c74f0016_0c5b2ae9",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c41524b_96edf303",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "Unused, remove",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ba749d6_c0de9625",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T15:11:30Z",
+      "side": 1,
+      "message": "Inject AllProjectsName",
       "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
