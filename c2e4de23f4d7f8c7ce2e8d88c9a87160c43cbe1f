@@ -68,6 +68,24 @@
       "parentUuid": "97a49051_7ed2201f",
       "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c74f0016_0c5b2ae9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ListServiceUsers.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-05T09:48:21Z",
+      "side": 1,
+      "message": "Will try today afternoon",
+      "parentUuid": "4d48cd8f_46a680ae",
+      "revId": "c2e4de23f4d7f8c7ce2e8d88c9a87160c43cbe1f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
