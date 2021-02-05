@@ -28,16 +28,12 @@ import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.account.AccountLoader;
-import com.google.gerrit.server.config.AllProjectsName;
-import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.account.GetAccount;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 
 @Singleton
@@ -45,37 +41,25 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   private final Provider<GetAccount> getAccount;
   private final GetOwner getOwner;
   private final AccountLoader.Factory accountLoader;
-  private final Provider<ProjectLevelConfig.Bare> configProvider;
-  private final MetaDataUpdate.User metaDataUpdateFactory;
-  private final AllProjectsName allProjectsName;
+  private final StorageCache storageCache;
 
   @Inject
   GetServiceUser(
       Provider<GetAccount> getAccount,
-      Provider<ProjectLevelConfig.Bare> configProvider,
-      AllProjectsName allProjectsName,
-      MetaDataUpdate.User metaDataUpdateFactory,
       GetOwner getOwner,
-      AccountLoader.Factory accountLoader) {
+      AccountLoader.Factory accountLoader,
+      StorageCache storageCache) {
     this.getAccount = getAccount;
-    this.configProvider = configProvider;
-    this.allProjectsName = allProjectsName;
-    this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.getOwner = getOwner;
     this.accountLoader = accountLoader;
+    this.storageCache = storageCache;
   }
 
   @Override
   public Response<ServiceUserInfo> apply(ServiceUserResource rsrc)
       throws IOException, RestApiException, PermissionBackendException {
-    ProjectLevelConfig.Bare storage = configProvider.get();
-    try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjectsName)) {
-      storage.load(md);
-    } catch (ConfigInvalidException e) {
-      throw asRestApiException("Invalid configuration", e);
-    }
     String username = rsrc.getUser().getUserName().get();
-    Config db = storage.getConfig();
+    Config db = storageCache.get();
     if (!db.getSubsections(USER).contains(username)) {
       throw new ResourceNotFoundException(username);
     }

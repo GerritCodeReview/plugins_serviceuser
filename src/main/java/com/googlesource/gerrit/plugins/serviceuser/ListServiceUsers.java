@@ -27,11 +27,8 @@ import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
-import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.ConfigResource;
-import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -48,44 +45,32 @@ class ListServiceUsers implements RestReadView<ConfigResource> {
   private final AccountCache accountCache;
   private final Provider<ServiceUserCollection> serviceUsers;
   private final Provider<GetServiceUser> getServiceUser;
-  private final Provider<ProjectLevelConfig.Bare> configProvider;
-  private final MetaDataUpdate.User metaDataUpdateFactory;
-  private final AllProjectsName allProjectsName;
+  private final StorageCache storageCache;
 
   @Inject
   ListServiceUsers(
       Provider<CurrentUser> userProvider,
-      Provider<ProjectLevelConfig.Bare> configProvider,
-      AllProjectsName allProjectsName,
-      MetaDataUpdate.User metaDataUpdateFactory,
       AccountCache accountCache,
       Provider<ServiceUserCollection> serviceUsers,
-      Provider<GetServiceUser> getServiceUser) {
+      Provider<GetServiceUser> getServiceUser,
+      StorageCache storageCache) {
     this.userProvider = userProvider;
-    this.configProvider = configProvider;
-    this.allProjectsName = allProjectsName;
-    this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.accountCache = accountCache;
     this.serviceUsers = serviceUsers;
     this.getServiceUser = getServiceUser;
+    this.storageCache = storageCache;
   }
 
   @Override
   public Response<Map<String, ServiceUserInfo>> apply(ConfigResource rscr)
       throws IOException, RestApiException, PermissionBackendException, ConfigInvalidException {
-    ProjectLevelConfig.Bare storage = configProvider.get();
-    try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjectsName)) {
-      storage.load(md);
-    } catch (ConfigInvalidException e) {
-      throw asRestApiException("Invalid configuration", e);
-    }
     CurrentUser user = userProvider.get();
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("Authentication required");
     }
 
     Map<String, ServiceUserInfo> accounts = Maps.newTreeMap();
-    Config db = storage.getConfig();
+    Config db = storageCache.get();
     for (String username : db.getSubsections(USER)) {
       Optional<AccountState> account = accountCache.getByUsername(username);
       if (account.isPresent()) {

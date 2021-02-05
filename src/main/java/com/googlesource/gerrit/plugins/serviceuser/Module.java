@@ -74,6 +74,7 @@ class Module extends AbstractModule {
           }
         });
     install(new HttpModule());
+    install(StorageCache.module());
   }
 
   @Provides

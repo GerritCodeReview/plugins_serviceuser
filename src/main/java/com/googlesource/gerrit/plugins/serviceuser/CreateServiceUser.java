@@ -87,6 +87,7 @@ class CreateServiceUser
   private final DateFormat rfc2822DateFormatter;
   private final Provider<GetConfig> getConfig;
   private final AccountLoader.Factory accountLoader;
+  private final StorageCache storageCache;
 
   @Inject
   CreateServiceUser(
@@ -99,7 +100,8 @@ class CreateServiceUser
       MetaDataUpdate.User metaDataUpdateFactory,
       ProjectCache projectCache,
       Provider<GetConfig> getConfig,
-      AccountLoader.Factory accountLoader) {
+      AccountLoader.Factory accountLoader,
+      StorageCache storageCache) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
     this.configProvider = configProvider;
     this.createAccount = createAccount;
@@ -120,6 +122,7 @@ class CreateServiceUser
         Calendar.getInstance(gerritIdent.getTimeZone(), Locale.US));
     this.getConfig = getConfig;
     this.accountLoader = accountLoader;
+    this.storageCache = storageCache;
   }
 
   @Override
@@ -192,6 +195,7 @@ class CreateServiceUser
 
       md.setMessage("Create service user '" + username + "'\n");
       update.commit(md);
+      storageCache.invalidate();
     }
     ServiceUserInfo info = new ServiceUserInfo(response);
     AccountLoader al = accountLoader.create(true);
