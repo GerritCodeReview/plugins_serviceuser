@@ -22,6 +22,30 @@
       },
       "revId": "cfeeddf0a7e5c02ee51126722cf34d165db99a9a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "028f8cc2_19030d59",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/StorageCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-08T09:34:31Z",
+      "side": 1,
+      "message": "Each cache defined in a plugin will automatically get plugins name prefixed to the name.\nTherefore, when using Gerrit\u0027s show-caches command this cache will be shown as \"serviceuser-storage\" in the output.",
+      "parentUuid": "a23ad8c1_4facf435",
+      "range": {
+        "startLine": 36,
+        "startChar": 44,
+        "endLine": 36,
+        "endChar": 51
+      },
+      "revId": "cfeeddf0a7e5c02ee51126722cf34d165db99a9a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
