@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db86390f_50a4e245",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1017568
+      },
+      "writtenOn": "2021-02-10T14:41:10Z",
+      "side": 1,
+      "message": "This is actually causing an issue now. As far as `serviceuser`, it works fine indeed : service users can be managed from UI, create via SSH and so on.\n\nHowever, it prevents regular push via HTTPS. When pushing,  ValidateServiceUserCommits.onCommitReceived() gets called, which ends up calling GetServiceUser.apply() to find if the user is a service user; it seems to work fine via SSH, but when called via HTTPS there is no `IdentifiedUser` to setup the MetadataUserUpdate, and push is rejected with a exception:\n\n git-receive-pack ERROR com.google.gerrit.server.git.receive.AsyncReceiveCommits : error while processing push\n java.util.concurrent.ExecutionException: com.google.common.util.concurrent.UncheckedExecutionException: com.google.inject.ProvisionException: Unable to provision, see the following errors:\n\n 1) Not Signed In\n   at com.google.gerrit.server.util.ThreadLocalRequestContext$1.provideCurrentUser(Unknown Source) (via modules: com.google.gerrit.server.config.GerritGlobalModule -\u003e com.google.gerrit.server.util.ThreadLocalRequestContext$1)\n   while locating com.google.gerrit.server.IdentifiedUser\n   at com.google.gerrit.server.plugins.PluginGuiceEnvironment$2.configure(PluginGuiceEnvironment.java:551) (via modules: com.google.gerrit.server.plugins.PluginGuiceEnvironment$1 -\u003e com.google.gerrit.server.plugins.PluginGuiceEnvironment$2)\n   while locating com.google.gerrit.server.IdentifiedUser\n\nAny hint where/how to get/set the current user?",
+      "revId": "cfeeddf0a7e5c02ee51126722cf34d165db99a9a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a23ad8c1_4facf435",
