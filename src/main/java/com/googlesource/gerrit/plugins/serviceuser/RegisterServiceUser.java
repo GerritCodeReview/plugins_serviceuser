@@ -16,9 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 
-import com.google.common.base.Function;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.annotations.PluginName;
@@ -53,10 +51,8 @@ import com.googlesource.gerrit.plugins.serviceuser.RegisterServiceUser.Input;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
@@ -81,7 +77,6 @@ class RegisterServiceUser
   private final AccountResolver accountResolver;
   private final GroupResolver groupResolver;
   private final PluginConfig cfg;
-  private final List<String> blockedNames;
   private final Provider<CurrentUser> userProvider;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final Project.NameKey allProjects;
@@ -89,6 +84,7 @@ class RegisterServiceUser
   private final DateFormat rfc2822DateFormatter;
   private final AccountLoader.Factory accountLoader;
   private final PermissionBackend permissionBackend;
+  private final BlockedNameFilter blockedNameFilter;
 
   @Inject
   RegisterServiceUser(
@@ -101,19 +97,11 @@ class RegisterServiceUser
       MetaDataUpdate.User metaDataUpdateFactory,
       ProjectCache projectCache,
       AccountLoader.Factory accountLoader,
-      PermissionBackend permissionBackend) {
+      PermissionBackend permissionBackend,
+      BlockedNameFilter blockedNameFilter) {
     this.accountResolver = accountResolver;
     this.groupResolver = groupResolver;
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
-    this.blockedNames =
-        Lists.transform(
-            Arrays.asList(cfg.getStringList("block")),
-            new Function<String, String>() {
-              @Override
-              public String apply(String blockedName) {
-                return blockedName.toLowerCase();
-              }
-            });
     this.userProvider = userProvider;
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
@@ -123,6 +111,7 @@ class RegisterServiceUser
         Calendar.getInstance(gerritIdent.getTimeZone(), Locale.US));
     this.accountLoader = accountLoader;
     this.permissionBackend = permissionBackend;
+    this.blockedNameFilter = blockedNameFilter;
   }
 
   @Override
@@ -159,7 +148,7 @@ class RegisterServiceUser
       throw new BadRequestException("The user already is a serviceuser.");
     }
 
-    if (blockedNames.contains(input.username.toLowerCase())) {
+    if (blockedNameFilter.apply(input.username.toLowerCase())) {
       throw new BadRequestException(
           "The username '" + input.username + "' is not allowed as name for service users.");
     }
