@@ -1,0 +1,262 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d2cc716_9492ca1e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "It would be good to add junit test for this clas.",
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "143161bb_c5e1312c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "This should rather be Set with the concrete type as HashSet. This is because the Set.contains(...) is in general much faster than List.contains(...).",
+      "range": {
+        "startLine": 30,
+        "startChar": 16,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ca46a7d_c3ebefd7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "\"apply\" is a bad name for a method which returns boolean. A best practice for naming method with boolean result is to use isXXX or hasXXX.\nIn this case we could use: isBlocked",
+      "range": {
+        "startLine": 40,
+        "startChar": 17,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41db9f98_113be6f5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "This can be written as:\n\n  return filterExactlName(username) || filterWildcardName(username) || filterRegexName(username);\n\nNote that in most languages (Java included) the evaluation of the expressions in an or-operator will stop as soon as the result is known.\nSince \"true || X\" is true regardless of X, the evaluation will stop when the first of the filterXXX methods return true.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 17
+      },
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11031aed_a9a3ec6d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "This is not necessary, for-loop can also iterate over an array. This would also work:\n\n  for (String s : cfg.getStringList(\"block\")) {\n   ...",
+      "range": {
+        "startLine": 57,
+        "startChar": 32,
+        "endLine": 57,
+        "endChar": 46
+      },
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6c66911_74eacc83",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "Missing toLowerCase for this case. A better approach would be to convert to lowercase before starting this if-command.",
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ad4aaac_07f4db07",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "This is also not a good name for a method returning boolean. We don\u0027t know from the method name what does it mean when it returns true or false.\nMaybe name it like: isBlockedByExactName",
+      "range": {
+        "startLine": 69,
+        "startChar": 18,
+        "endLine": 69,
+        "endChar": 33
+      },
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a90bb02_b1edf4dd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "This is not necessary and also not consistent with the code in parseConfig which doesn\u0027t use \"this.\" for accessing instance members.\n\nFix also in several other places.",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 16
+      },
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e870233_0c59559c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "isBlockedByWildcard",
+      "range": {
+        "startLine": 73,
+        "startChar": 18,
+        "endLine": 73,
+        "endChar": 36
+      },
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69c86ef5_456c7020",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "isBlockedByRegex",
+      "range": {
+        "startLine": 82,
+        "startChar": 18,
+        "endLine": 82,
+        "endChar": 33
+      },
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acbf7078_4cd2bc16",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateServiceUser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "This should rather be done in the BlockedNameFilter, so that the whole logic is encapsulated in that class.\nBlockedNameFilter shouldn\u0027t depend on the caller to convert username to lowercase.",
+      "range": {
+        "startLine": 139,
+        "startChar": 32,
+        "endLine": 139,
+        "endChar": 55
+      },
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc8f26c3_626544bc",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-12T12:00:07Z",
+      "side": 1,
+      "message": "Now that there are multiple options to block usernames it would help if some examples are\nadded in the fragment at the lines 7-10.",
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
