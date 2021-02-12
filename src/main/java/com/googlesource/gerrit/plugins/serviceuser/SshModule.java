@@ -21,5 +21,6 @@ class SshModule extends PluginCommandModule {
   @Override
   protected void configureCommands() {
     command(CreateServiceUserCommand.class);
+    command(RegisterServiceUserCommand.class);
   }
 }
