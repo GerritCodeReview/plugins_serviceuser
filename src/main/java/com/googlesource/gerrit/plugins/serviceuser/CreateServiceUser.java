@@ -79,7 +79,6 @@ class CreateServiceUser
 
   private final PluginConfig cfg;
   private final CreateAccount createAccount;
-  private final List<String> blockedNames;
   private final Provider<CurrentUser> userProvider;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final Project.NameKey allProjects;
@@ -87,6 +86,7 @@ class CreateServiceUser
   private final DateFormat rfc2822DateFormatter;
   private final Provider<GetConfig> getConfig;
   private final AccountLoader.Factory accountLoader;
+  private final BlockedNameFilter blockedNameFilter;
 
   @Inject
   CreateServiceUser(
@@ -98,18 +98,10 @@ class CreateServiceUser
       MetaDataUpdate.User metaDataUpdateFactory,
       ProjectCache projectCache,
       Provider<GetConfig> getConfig,
-      AccountLoader.Factory accountLoader) {
+      AccountLoader.Factory accountLoader,
+      BlockedNameFilter blockedNameFilter) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
     this.createAccount = createAccount;
-    this.blockedNames =
-        Lists.transform(
-            Arrays.asList(cfg.getStringList("block")),
-            new Function<String, String>() {
-              @Override
-              public String apply(String blockedName) {
-                return blockedName.toLowerCase();
-              }
-            });
     this.userProvider = userProvider;
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
@@ -119,6 +111,7 @@ class CreateServiceUser
         Calendar.getInstance(gerritIdent.getTimeZone(), Locale.US));
     this.getConfig = getConfig;
     this.accountLoader = accountLoader;
+    this.blockedNameFilter = blockedNameFilter;
   }
 
   @Override
@@ -146,7 +139,7 @@ class CreateServiceUser
       throw new BadRequestException("sshKey invalid.");
     }
 
-    if (blockedNames.contains(username.toLowerCase())) {
+    if (blockedNameFilter.apply(username.toLowerCase())) {
       throw new BadRequestException(
           "The username '" + username + "' is not allowed as name for service users.");
     }
