@@ -1,4 +1,4 @@
-// Copyright (C) 2013 The Android Open Source Project
+// Copyright (C) 2014 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,13 +14,16 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import com.google.gerrit.sshd.PluginCommandModule;
+import com.google.gerrit.extensions.restapi.RestView;
+import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.account.AccountResource;
+import com.google.inject.TypeLiteral;
 
-class SshModule extends PluginCommandModule {
+class RegisteredServiceUserResource extends AccountResource {
+  static final TypeLiteral<RestView<RegisteredServiceUserResource>> REGISTERED_SERVICE_USER_KIND =
+      new TypeLiteral<RestView<RegisteredServiceUserResource>>() {};
 
-  @Override
-  protected void configureCommands() {
-    command(CreateServiceUserCommand.class);
-    command(RegisterServiceUserCommand.class);
+  RegisteredServiceUserResource(IdentifiedUser user) {
+    super(user);
   }
 }
