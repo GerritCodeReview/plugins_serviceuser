@@ -16,9 +16,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 
-import com.google.common.base.Function;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.annotations.PluginName;
@@ -55,7 +53,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
@@ -79,7 +76,6 @@ class CreateServiceUser
 
   private final PluginConfig cfg;
   private final CreateAccount createAccount;
-  private final List<String> blockedNames;
   private final Provider<CurrentUser> userProvider;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final Project.NameKey allProjects;
@@ -87,6 +83,7 @@ class CreateServiceUser
   private final DateFormat rfc2822DateFormatter;
   private final Provider<GetConfig> getConfig;
   private final AccountLoader.Factory accountLoader;
+  private final BlockedNameFilter blockedNameFilter;
 
   @Inject
   CreateServiceUser(
@@ -98,18 +95,10 @@ class CreateServiceUser
       MetaDataUpdate.User metaDataUpdateFactory,
       ProjectCache projectCache,
       Provider<GetConfig> getConfig,
-      AccountLoader.Factory accountLoader) {
+      AccountLoader.Factory accountLoader,
+      BlockedNameFilter blockedNameFilter) {
     this.cfg = cfgFactory.getFromGerritConfig(pluginName);
     this.createAccount = createAccount;
-    this.blockedNames =
-        Lists.transform(
-            Arrays.asList(cfg.getStringList("block")),
-            new Function<String, String>() {
-              @Override
-              public String apply(String blockedName) {
-                return blockedName.toLowerCase();
-              }
-            });
     this.userProvider = userProvider;
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
@@ -119,6 +108,7 @@ class CreateServiceUser
         Calendar.getInstance(gerritIdent.getTimeZone(), Locale.US));
     this.getConfig = getConfig;
     this.accountLoader = accountLoader;
+    this.blockedNameFilter = blockedNameFilter;
   }
 
   @Override
@@ -146,7 +136,7 @@ class CreateServiceUser
       throw new BadRequestException("sshKey invalid.");
     }
 
-    if (blockedNames.contains(username.toLowerCase())) {
+    if (blockedNameFilter.apply(username)) {
       throw new BadRequestException(
           "The username '" + username + "' is not allowed as name for service users.");
     }
