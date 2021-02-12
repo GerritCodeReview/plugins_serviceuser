@@ -12,9 +12,17 @@ file.
 <a id="block">
 `plugin.@PLUGIN@.block`
 :	A username which is forbidden to be used as name for a service
-	user. The blocked username is case insensitive. Multiple
-	usernames can be blocked by specifying multiple
+	user. The blocked username is case insensitive. The match can
+	either be exact, have a wildcard ('*') at the end or use regular
+	expressions, which have to start with '^'. If the regex pattern is not
+	ending with '$', every username starting with a matching prefix will be
+	blocked. Multiple usernames can be blocked by specifying multiple
 	`plugin.@PLUGIN@.block` entries.
+	Examples:
+	   [plugin "serviceuser"]
+            block = johndoe
+            block = jane*
+            block = ^gerrit[0-9]*
 
 <a id="group">
 `plugin.@PLUGIN@.group`
