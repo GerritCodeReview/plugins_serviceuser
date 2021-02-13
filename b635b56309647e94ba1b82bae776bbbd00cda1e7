@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a71ee3a8_ef3b148a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0607f8ee_35977030",
+      "range": {
+        "startLine": 10,
+        "startChar": 7,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1eb9eea7_f69cd869",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -64,6 +88,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61cdf40e_b8ff844c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e43ec29_9b93360a",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 49
+      },
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65883fff_6041114d",
@@ -83,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39b6d7c2_d024d034",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "It is not duplicated. CreateServiceUser.Input looks like this:\n\n  static class Input {\n    String username;\n    String sshKey;\n    String email;\n  }",
+      "parentUuid": "65883fff_6041114d",
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48e992f5_25983815",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
         "patchSetId": 4
@@ -94,6 +160,30 @@
       "writtenOn": "2021-02-12T12:43:21Z",
       "side": 1,
       "message": "Just compare account IDs:\n\n  if (!requestingUser.getAccountId().equals(user.getAccountId()) \u0026\u0026 ... )",
+      "range": {
+        "startLine": 147,
+        "startChar": 9,
+        "endLine": 151,
+        "endChar": 50
+      },
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37cdd6cd_0347973d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48e992f5_25983815",
       "range": {
         "startLine": 147,
         "startChar": 9,
@@ -151,6 +241,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c079ea71_4c96cfd8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f0251ed_aa919722",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 96
+      },
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c403321_fa8843be",
@@ -168,6 +282,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab5cf4b8_778f481a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c403321_fa8843be",
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8eb9c10_62c9f61f",
@@ -181,6 +313,24 @@
       "writtenOn": "2021-02-12T12:43:21Z",
       "side": 1,
       "message": "Note that Optional.get() will throw NoSuchElementException if a value is not present. Since in this case you really want null a correct coding would be:\n\n  creator \u003d requestingUser.getUserName().orElse(null);",
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "237d540f_acc82cfd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8eb9c10_62c9f61f",
       "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -208,6 +358,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f69ad181_488fff4e",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe19631f_9a983c0e",
+      "range": {
+        "startLine": 171,
+        "startChar": 18,
+        "endLine": 171,
+        "endChar": 51
+      },
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16531fd0_895b69a4",
@@ -221,6 +395,24 @@
       "writtenOn": "2021-02-12T12:43:21Z",
       "side": 1,
       "message": "Use null instead, see the next comment.\n\nOptional: use AccountGroup.UUID as the type and only resolve it to string when necessary (line 192).",
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b383a7d_122119b1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16531fd0_895b69a4",
       "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -242,6 +434,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc77128c_40b9eda5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0613a29_2a185399",
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b34526b2_a9d4a180",
@@ -255,6 +465,24 @@
       "writtenOn": "2021-02-12T12:56:11Z",
       "side": 1,
       "message": "this command misses the actual \u003cUSERNAME\u003e at the end of the argument list",
+      "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45e6d50a_d212bde5",
+        "filename": "src/main/resources/Documentation/cmd-register.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-13T07:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b34526b2_a9d4a180",
       "revId": "b635b56309647e94ba1b82bae776bbbd00cda1e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
