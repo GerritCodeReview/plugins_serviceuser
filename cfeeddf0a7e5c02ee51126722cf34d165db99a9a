@@ -108,6 +108,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f70a897f_a694b1e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1017568
+      },
+      "writtenOn": "2021-02-15T13:41:18Z",
+      "side": 1,
+      "message": "OK, great.\nI reproduced the issue by pushing with *any* user over HTTPS, not just servieuser, and i worked around it by disabling `RefUpdateListener` and `ValidateServiceUserCommits` :\n\n +++ b/src/main/java/com/googlesource/gerrit/plugins/serviceuser/Module.java\n @@ -38,8 +38,6 @@ class Module extends AbstractModule {\n      bind(CapabilityDefinition.class)\n          .annotatedWith(Exports.named(CreateServiceUserCapability.ID))\n          .to(CreateServiceUserCapability.class);\n -    DynamicSet.bind(binder(), GitReferenceUpdatedListener.class).to(RefUpdateListener.class);\n -    DynamicSet.bind(binder(), CommitValidationListener.class).to(ValidateServiceUserCommits.class);\n      install(new FactoryModuleBuilder().build(CreateServiceUserNotes.Factory.class));",
+      "parentUuid": "697f976d_15e0db4e",
+      "revId": "cfeeddf0a7e5c02ee51126722cf34d165db99a9a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a23ad8c1_4facf435",
