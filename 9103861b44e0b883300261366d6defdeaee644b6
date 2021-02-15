@@ -261,6 +261,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a296dd5_1e57b5fd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T10:26:52Z",
+      "side": 1,
+      "message": "Good question: for case-insensitive regex based matching we should use the Pattern.CASE_INSENSITIVE and maybe also the Pattern.UNICODE_CASE flags when creating Pattern:\n\n  Pattern.compile(s, CASE_INSENSITIVE)\n\nor:\n\n  Pattern.compile(s, CASE_INSENSITIVE | UNICODE_CASE)",
+      "parentUuid": "e18bea92_5d04f32e",
+      "revId": "9103861b44e0b883300261366d6defdeaee644b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ad4aaac_07f4db07",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
         "patchSetId": 2
