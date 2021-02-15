@@ -54,6 +54,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "350c6c90_08bb7f90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T13:00:23Z",
+      "side": 1,
+      "message": "Hmm.. on my first test I couldn\u0027t reproduce the issue. A push (for review) from a service user succeeded...\n\nCan you please describe step-by-step how to reproduce the issue?\n\n\u003e This is actually causing an issue now.\n\nCould you actually confirm that it is exactly *this* change that is causing the issue? Have you tried building the service user plugin without this change? Is the issue then gone?",
+      "parentUuid": "e75ffb60_0651b753",
+      "revId": "cfeeddf0a7e5c02ee51126722cf34d165db99a9a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a23ad8c1_4facf435",
