@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66cc0113_04bfb26c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-15T14:01:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63e57617_1b26556b",
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5a149f8_2b4c50fd",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-02-15T13:22:50Z",
       "side": 1,
       "message": "In the reply in PS-2 you marked the proposal about (re)naming this method as Done but this is still\nthe same name.",
+      "range": {
+        "startLine": 39,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0807cadc_7782c8ab",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-15T14:01:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5a149f8_2b4c50fd",
       "range": {
         "startLine": 39,
         "startChar": 17,
@@ -64,6 +106,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ddf9c2_a73b883d",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-15T14:01:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f535b143_eca32480",
+      "range": {
+        "startLine": 16,
+        "startChar": 58,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3dadfc1_02d344db",
@@ -81,6 +147,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1562d90_1c9904b7",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-15T14:01:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3dadfc1_02d344db",
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d49961a_82b23f5c",
@@ -94,6 +178,30 @@
       "writtenOn": "2021-02-15T13:22:50Z",
       "side": 1,
       "message": "[optional Using a more phony names in the examples would probably be better:\n\n  [plugin \"serviceuser\"]\n    block \u003d johndoe\n    block \u003d jane*\n    block \u003d ^gerrit[0-9]*",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 22
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e07e3339_67f2befd",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-15T14:01:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d49961a_82b23f5c",
       "range": {
         "startLine": 20,
         "startChar": 0,
@@ -127,6 +235,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc3eacfa_8423ea45",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilterTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-15T14:01:56Z",
+      "side": 1,
+      "message": "Only wanted to use some unicode chars. It\u0027s pretty random. I selected a more common one now.",
+      "parentUuid": "a902b85c_a4c8b7cb",
+      "range": {
+        "startLine": 33,
+        "startChar": 82,
+        "endLine": 33,
+        "endChar": 85
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2df9de16_7edc5f08",
@@ -150,6 +282,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "798ebb84_2850c838",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilterTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-15T14:01:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2df9de16_7edc5f08",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdff56dc_55980b88",
@@ -163,6 +319,24 @@
       "writtenOn": "2021-02-15T13:22:50Z",
       "side": 1,
       "message": "For the regex case it should also be tested and documented what happens if the regex matches only a part of the username. Looking at the implementation, which uses Matcher.find(), it is enough to match\na substring of the username in order to block it. There should be a test for that and this should also\nbe documented.",
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "886cf63d_060b108c",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilterTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-15T14:01:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdff56dc_55980b88",
       "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
