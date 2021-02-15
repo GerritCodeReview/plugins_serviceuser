@@ -16,6 +16,24 @@
       "message": "1. We shouldn\u0027t combine response 204 with a response body, because 204 means \"No Content\"\n\n2. Use Response.none() for a 204 No Content response.",
       "revId": "3fd93770a589d4ca68b66dbb75010a6f018a3b09",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5533160_9fd44325",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-15T14:02:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1de488fd_87fd3b2f",
+      "revId": "3fd93770a589d4ca68b66dbb75010a6f018a3b09",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
