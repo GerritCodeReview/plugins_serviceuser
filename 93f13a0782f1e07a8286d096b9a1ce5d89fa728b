@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63e57617_1b26556b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T13:22:50Z",
+      "side": 1,
+      "message": "1. These two shouldn\u0027t be changed to Set. The \"contains\" method is only used on the blockedExactNames.\nFor the blockedRegexNames and blockedNamePrefixes we iterate over the collection. In that case a List is cheaper than a set.\n\n2. Please keep the order of variables here like: exact, prefix, regex to keep it consistent with the\norder they are used in the code below (lines 41-43) and the method declarations order.",
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5a149f8_2b4c50fd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T13:22:50Z",
+      "side": 1,
+      "message": "In the reply in PS-2 you marked the proposal about (re)naming this method as Done but this is still\nthe same name.",
+      "range": {
+        "startLine": 39,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f535b143_eca32480",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T13:22:50Z",
+      "side": 1,
+      "message": "Please also documented if the regex has to match the complete username or only a substring of it in order to block it.",
+      "range": {
+        "startLine": 16,
+        "startChar": 58,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3dadfc1_02d344db",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T13:22:50Z",
+      "side": 1,
+      "message": "Missing the section line:\n\n  [plugin \"serviceuser\"]",
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d49961a_82b23f5c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T13:22:50Z",
+      "side": 1,
+      "message": "[optional Using a more phony names in the examples would probably be better:\n\n  [plugin \"serviceuser\"]\n    block \u003d johndoe\n    block \u003d jane*\n    block \u003d ^gerrit[0-9]*",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 22
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a902b85c_a4c8b7cb",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilterTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T13:22:50Z",
+      "side": 1,
+      "message": "Looks cool, but I am not sure many of us can read that :-)",
+      "range": {
+        "startLine": 33,
+        "startChar": 82,
+        "endLine": 33,
+        "endChar": 85
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2df9de16_7edc5f08",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilterTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T13:22:50Z",
+      "side": 1,
+      "message": "Prefer to use the google truth library for unit test asserts:\n\n  assertThat(blockedNameFilter.apply(\"exact\")).isTrue();",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdff56dc_55980b88",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilterTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T13:22:50Z",
+      "side": 1,
+      "message": "For the regex case it should also be tested and documented what happens if the regex matches only a part of the username. Looking at the implementation, which uses Matcher.find(), it is enough to match\na substring of the username in order to block it. There should be a test for that and this should also\nbe documented.",
+      "revId": "93f13a0782f1e07a8286d096b9a1ce5d89fa728b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
