@@ -68,13 +68,13 @@ public class StorageCache {
 
   static class Loader extends CacheLoader<Object, Config> {
     private final Provider<Bare> configProvider;
-    private final MetaDataUpdate.User metaDataUpdateFactory;
+    private final MetaDataUpdate.Server metaDataUpdateFactory;
     private final AllProjectsName allProjects;
 
     @Inject
     Loader(
         Provider<ProjectLevelConfig.Bare> configProvider,
-        MetaDataUpdate.User metaDataUpdateFactory,
+        MetaDataUpdate.Server metaDataUpdateFactory,
         AllProjectsName allProjects) {
       this.configProvider = configProvider;
       this.metaDataUpdateFactory = metaDataUpdateFactory;
