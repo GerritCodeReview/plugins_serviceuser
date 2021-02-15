@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f99e74b_80303fb4",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilterTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T15:13:27Z",
+      "side": 1,
+      "message": "Remove $ because 01234abcd anyway doesn\u0027t match ^abc$. What we want to check is that ^abc will only\nblock if the username starts with abc but not if abc appears somewhere further in the string.",
+      "range": {
+        "startLine": 32,
+        "startChar": 69,
+        "endLine": 32,
+        "endChar": 70
+      },
+      "revId": "a097de7cb6cae8ad1d6fac259770a60d63159565",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
