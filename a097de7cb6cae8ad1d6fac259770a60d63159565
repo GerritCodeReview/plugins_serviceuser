@@ -22,6 +22,30 @@
       },
       "revId": "a097de7cb6cae8ad1d6fac259770a60d63159565",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfa39fa9_b53dc3b7",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilterTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-16T06:19:39Z",
+      "side": 1,
+      "message": "Looks like I forgot to commit the latest changes, where I actually test the case insensitivity. But still the $ could be removed.",
+      "parentUuid": "5f99e74b_80303fb4",
+      "range": {
+        "startLine": 32,
+        "startChar": 69,
+        "endLine": 32,
+        "endChar": 70
+      },
+      "revId": "a097de7cb6cae8ad1d6fac259770a60d63159565",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
