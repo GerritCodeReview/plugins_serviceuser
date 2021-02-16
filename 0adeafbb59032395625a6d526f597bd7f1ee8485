@@ -16,6 +16,24 @@
       "message": "We should also test that \"foo-regex1\" is not blocked as, per documentation, the matching is done on a prefix of the username.",
       "revId": "0adeafbb59032395625a6d526f597bd7f1ee8485",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc40c99_5beef527",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/serviceuser/BlockedNameFilterTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-16T06:19:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38d37642_933accec",
+      "revId": "0adeafbb59032395625a6d526f597bd7f1ee8485",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
