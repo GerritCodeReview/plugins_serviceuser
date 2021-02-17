@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5868859b_f6f076d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-02-17T12:23:14Z",
+      "side": 1,
+      "message": "Zuul plugin verification is still broken. I confirmed that this change works locally.",
+      "revId": "b25f29acb8de1e04a23595d55154871502c06677",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
