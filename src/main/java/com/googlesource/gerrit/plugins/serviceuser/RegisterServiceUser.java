@@ -41,8 +41,6 @@ import com.google.gerrit.server.account.AccountLoader;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResolver.UnresolvableAccountException;
 import com.google.gerrit.server.config.ConfigResource;
-import com.google.gerrit.server.config.PluginConfig;
-import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.group.GroupResolver;
 import com.google.gerrit.server.permissions.PermissionBackend;
@@ -77,7 +75,6 @@ class RegisterServiceUser
 
   private final AccountResolver accountResolver;
   private final GroupResolver groupResolver;
-  private final PluginConfig cfg;
   private final Provider<CurrentUser> userProvider;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final Project.NameKey allProjects;
@@ -91,7 +88,6 @@ class RegisterServiceUser
   RegisterServiceUser(
       AccountResolver accountResolver,
       GroupResolver groupResolver,
-      PluginConfigFactory cfgFactory,
       @PluginName String pluginName,
       Provider<CurrentUser> userProvider,
       @GerritPersonIdent PersonIdent gerritIdent,
@@ -102,7 +98,6 @@ class RegisterServiceUser
       BlockedNameFilter blockedNameFilter) {
     this.accountResolver = accountResolver;
     this.groupResolver = groupResolver;
-    this.cfg = cfgFactory.getFromGerritConfig(pluginName);
     this.userProvider = userProvider;
     this.metaDataUpdateFactory = metaDataUpdateFactory;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
