@@ -40,6 +40,7 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountLoader;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResolver.UnresolvableAccountException;
+import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.group.GroupResolver;
@@ -83,6 +84,7 @@ class RegisterServiceUser
   private final AccountLoader.Factory accountLoader;
   private final PermissionBackend permissionBackend;
   private final BlockedNameFilter blockedNameFilter;
+  private final ProjectCache projectCache;
 
   @Inject
   RegisterServiceUser(
@@ -93,6 +95,7 @@ class RegisterServiceUser
       @GerritPersonIdent PersonIdent gerritIdent,
       MetaDataUpdate.User metaDataUpdateFactory,
       ProjectCache projectCache,
+      AllProjectsName allProjects,
       AccountLoader.Factory accountLoader,
       PermissionBackend permissionBackend,
       BlockedNameFilter blockedNameFilter) {
@@ -100,8 +103,9 @@ class RegisterServiceUser
     this.groupResolver = groupResolver;
     this.userProvider = userProvider;
     this.metaDataUpdateFactory = metaDataUpdateFactory;
+    this.projectCache = projectCache;
     this.storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
+    this.allProjects = allProjects;
     this.rfc2822DateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
     this.rfc2822DateFormatter.setCalendar(
         Calendar.getInstance(gerritIdent.getTimeZone(), Locale.US));
@@ -164,19 +168,22 @@ class RegisterServiceUser
       }
     }
 
-    db.setInt(USER, input.username, KEY_CREATOR_ID, creatorId.get());
-    if (creator != null) {
-      db.setString(USER, input.username, KEY_CREATED_BY, creator);
-    }
-    if (owner != null) {
-      db.setString(USER, input.username, KEY_OWNER, owner);
-    }
-    db.setString(USER, input.username, KEY_CREATED_AT, creationDate);
+    try {
+      db.setInt(USER, input.username, KEY_CREATOR_ID, creatorId.get());
+      if (creator != null) {
+        db.setString(USER, input.username, KEY_CREATED_BY, creator);
+      }
+      if (owner != null) {
+        db.setString(USER, input.username, KEY_OWNER, owner);
+      }
+      db.setString(USER, input.username, KEY_CREATED_AT, creationDate);
 
-    MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
-    md.setMessage("Create service user '" + input.username + "'\n");
-    storage.commit(md);
-
+      MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
+      md.setMessage("Create service user '" + input.username + "'\n");
+      storage.commit(md);
+    } finally {
+      projectCache.evict(allProjects);
+    }
     ServiceUserInfo info = new ServiceUserInfo(new AccountInfo(user.getAccountId().get()));
     AccountLoader al = accountLoader.create(true);
     info.createdBy = al.get(creatorId);
