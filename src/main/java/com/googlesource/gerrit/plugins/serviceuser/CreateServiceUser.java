@@ -34,12 +34,12 @@ import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountLoader;
+import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.account.CreateAccount;
 import com.google.inject.Inject;
@@ -95,7 +95,7 @@ class CreateServiceUser
       Provider<CurrentUser> userProvider,
       @GerritPersonIdent PersonIdent gerritIdent,
       MetaDataUpdate.User metaDataUpdateFactory,
-      ProjectCache projectCache,
+      AllProjectsName allProjects,
       Provider<GetConfig> getConfig,
       AccountLoader.Factory accountLoader,
       StorageCache storageCache,
@@ -105,7 +105,7 @@ class CreateServiceUser
     this.createAccount = createAccount;
     this.userProvider = userProvider;
     this.metaDataUpdateFactory = metaDataUpdateFactory;
-    this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
+    this.allProjects = allProjects;
     this.rfc2822DateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
     this.rfc2822DateFormatter.setCalendar(
         Calendar.getInstance(gerritIdent.getTimeZone(), Locale.US));
