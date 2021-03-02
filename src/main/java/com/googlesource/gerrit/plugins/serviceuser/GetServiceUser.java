@@ -21,7 +21,6 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.google.gerrit.entities.Account;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
@@ -30,42 +29,37 @@ import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.server.account.AccountLoader;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectCache;
-import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.account.GetAccount;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import java.io.IOException;
 import org.eclipse.jgit.lib.Config;
 
 @Singleton
 class GetServiceUser implements RestReadView<ServiceUserResource> {
   private final Provider<GetAccount> getAccount;
-  private final String pluginName;
-  private final ProjectCache projectCache;
   private final GetOwner getOwner;
   private final AccountLoader.Factory accountLoader;
+  private final StorageCache storageCache;
 
   @Inject
   GetServiceUser(
       Provider<GetAccount> getAccount,
-      @PluginName String pluginName,
-      ProjectCache projectCache,
       GetOwner getOwner,
-      AccountLoader.Factory accountLoader) {
+      AccountLoader.Factory accountLoader,
+      StorageCache storageCache) {
     this.getAccount = getAccount;
-    this.pluginName = pluginName;
-    this.projectCache = projectCache;
     this.getOwner = getOwner;
     this.accountLoader = accountLoader;
+    this.storageCache = storageCache;
   }
 
   @Override
   public Response<ServiceUserInfo> apply(ServiceUserResource rsrc)
-      throws RestApiException, PermissionBackendException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+      throws IOException, RestApiException, PermissionBackendException {
     String username = rsrc.getUser().getUserName().get();
-    Config db = storage.get();
+    Config db = storageCache.get();
     if (!db.getSubsections(USER).contains(username)) {
       throw new ResourceNotFoundException(username);
     }

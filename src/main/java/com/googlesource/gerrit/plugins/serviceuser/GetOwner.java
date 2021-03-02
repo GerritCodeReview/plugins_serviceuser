@@ -18,7 +18,6 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.gerrit.entities.GroupDescription;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.Response;
@@ -26,37 +25,30 @@ import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestReadView;
 import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectCache;
-import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.group.GroupJson;
 import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.io.IOException;
 
 @Singleton
 class GetOwner implements RestReadView<ServiceUserResource> {
   private final GroupsCollection groups;
-  private final String pluginName;
-  private final ProjectCache projectCache;
   private final GroupJson json;
+  private final StorageCache storageCache;
 
   @Inject
-  GetOwner(
-      GroupsCollection groups,
-      @PluginName String pluginName,
-      ProjectCache projectCache,
-      GroupJson json) {
+  GetOwner(GroupsCollection groups, GroupJson json, StorageCache storageCache) {
     this.groups = groups;
-    this.pluginName = pluginName;
-    this.projectCache = projectCache;
     this.json = json;
+    this.storageCache = storageCache;
   }
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc)
-      throws RestApiException, PermissionBackendException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    String owner = storage.get().getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
+      throws IOException, RestApiException, PermissionBackendException {
+    String owner =
+        storageCache.get().getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
     if (owner != null) {
       GroupDescription.Basic group =
           groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(owner)).getGroup();

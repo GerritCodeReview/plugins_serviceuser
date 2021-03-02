@@ -9,30 +9,41 @@ file.
     group = Service Users
 ```
 
-<a id="block">
+<a id="block"></a>
 `plugin.@PLUGIN@.block`
 :	A username which is forbidden to be used as name for a service
-	user. The blocked username is case insensitive. Multiple
-	usernames can be blocked by specifying multiple
+	user. The blocked username is case insensitive. The match can
+	either be exact, have a wildcard ('*') at the end or use regular
+	expressions, which have to start with '^'. If the regex pattern is not
+	ending with '$', every username starting with a matching prefix will be
+	blocked. Multiple usernames can be blocked by specifying multiple
 	`plugin.@PLUGIN@.block` entries.
+	Examples:
 
-<a id="group">
+```
+   [plugin "serviceuser"]
+        block = johndoe
+        block = jane*
+        block = ^gerrit[0-9]*
+```
+
+<a id="group"></a>
 `plugin.@PLUGIN@.group`
 :	The name of an internal group to which newly created service users
 	should be automatically added. Multiple groups can be specified by
 	having multiple `plugin.@PLUGIN@.group` entries.
 
-<a id="infoMessage">
+<a id="infoMessage"></a>
 `plugin.@PLUGIN@.infoMessage`
 :	HTML formatted message that should be displayed on the service user
 	creation screen.
 
-<a id="onSuccessMessage">
+<a id="onSuccessMessage"></a>
 `plugin.@PLUGIN@.onSuccessMessage`
 :	Message that should be displayed after a service user was
 	successfully created.
 
-<a id="allowEmail">
+<a id="allowEmail"></a>
 `plugin.@PLUGIN@.allowEmail`
 :	Whether it is allowed for service user owners to set email
 	addresses for their service users. Independent of this setting
@@ -40,7 +51,7 @@ file.
 	any service user.
 	By default false.
 
-<a id="allowHttpPassword">
+<a id="allowHttpPassword"></a>
 `plugin.@PLUGIN@.allowHttpPassword`
 :	Whether it is allowed for service user owners to generate HTTP
     passwords for their service users. Independent of this setting
@@ -48,12 +59,12 @@ file.
     passwords for any service user.
     By default false.
 
-<a id="allowOwner">
+<a id="allowOwner"></a>
 `plugin.@PLUGIN@.allowOwner`
 :	Whether it is allowed to set an owner group for a service user.
 	By default false.
 
-<a id="createNotes">
+<a id="createNotes"></a>
 `plugin.@PLUGIN@.createNotes`
 :	Whether commits of a service user should be annotated by a Git note
 	that contains information about the current owners of the service
@@ -62,7 +73,7 @@ file.
 	user the 'Forge Committer' access right must be blocked for service
 	users. By default true.
 
-<a id="createNotes">
+<a id="createNotes"></a>
 `plugin.@PLUGIN@.createNotesAsync`
 :	Whether the Git notes on commits that are pushed by a service user
 	should be created asynchronously. By default false.
