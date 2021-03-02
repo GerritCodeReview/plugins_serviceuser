@@ -39,12 +39,12 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountLoader;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResolver.UnresolvableAccountException;
+import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.group.GroupResolver;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -92,7 +92,7 @@ class RegisterServiceUser
       Provider<CurrentUser> userProvider,
       @GerritPersonIdent PersonIdent gerritIdent,
       MetaDataUpdate.User metaDataUpdateFactory,
-      ProjectCache projectCache,
+      AllProjectsName allProjects,
       AccountLoader.Factory accountLoader,
       StorageCache storageCache,
       PermissionBackend permissionBackend,
@@ -102,7 +102,7 @@ class RegisterServiceUser
     this.groupResolver = groupResolver;
     this.userProvider = userProvider;
     this.metaDataUpdateFactory = metaDataUpdateFactory;
-    this.allProjects = projectCache.getAllProjects().getProject().getNameKey();
+    this.allProjects = allProjects;
     this.rfc2822DateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
     this.rfc2822DateFormatter.setCalendar(
         Calendar.getInstance(gerritIdent.getTimeZone(), Locale.US));
