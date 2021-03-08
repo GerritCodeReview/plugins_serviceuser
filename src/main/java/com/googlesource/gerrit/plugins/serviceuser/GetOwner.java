@@ -30,6 +30,8 @@ import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.group.GroupJson;
 import com.google.gerrit.server.restapi.group.GroupsCollection;
+import com.google.gerrit.server.util.ManualRequestContext;
+import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -39,28 +41,33 @@ class GetOwner implements RestReadView<ServiceUserResource> {
   private final String pluginName;
   private final ProjectCache projectCache;
   private final GroupJson json;
+  private final OneOffRequestContext requestContext;
 
   @Inject
   GetOwner(
       GroupsCollection groups,
       @PluginName String pluginName,
       ProjectCache projectCache,
-      GroupJson json) {
+      GroupJson json,
+      OneOffRequestContext requestContext) {
     this.groups = groups;
     this.pluginName = pluginName;
     this.projectCache = projectCache;
     this.json = json;
+    this.requestContext = requestContext;
   }
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc)
       throws RestApiException, PermissionBackendException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
-    String owner = storage.get().getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
-    if (owner != null) {
-      GroupDescription.Basic group =
-          groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(owner)).getGroup();
-      return Response.<GroupInfo>ok(json.format(group));
+    try (ManualRequestContext ctx = requestContext.open()) {
+      ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+      String owner = storage.get().getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
+      if (owner != null) {
+        GroupDescription.Basic group =
+            groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(owner)).getGroup();
+        return Response.<GroupInfo>ok(json.format(group));
+      }
     }
     return Response.none();
   }
