@@ -179,11 +179,11 @@ class CreateServiceUser
     String creationDate = rfc2822DateFormatter.format(new Date());
 
     Config db = storage.get();
-    db.setInt(USER, username, KEY_CREATOR_ID, creatorId.get());
+    db.setInt(USER, response.username, KEY_CREATOR_ID, creatorId.get());
     if (creator != null) {
-      db.setString(USER, username, KEY_CREATED_BY, creator);
+      db.setString(USER, response.username, KEY_CREATED_BY, creator);
     }
-    db.setString(USER, username, KEY_CREATED_AT, creationDate);
+    db.setString(USER, response.username, KEY_CREATED_AT, creationDate);
 
     MetaDataUpdate md = metaDataUpdateFactory.create(allProjects);
     md.setMessage("Create service user '" + username + "'\n");
