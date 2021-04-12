@@ -21,12 +21,12 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER
 
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.GroupDescription;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ChildCollection;
 import com.google.gerrit.extensions.restapi.IdString;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestView;
 import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.server.CurrentUser;
@@ -34,8 +34,6 @@ import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectCache;
-import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.account.AccountsCollection;
 import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.inject.Inject;
@@ -43,6 +41,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.eclipse.jgit.lib.Config;
 
 @Singleton
 class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUserResource> {
@@ -50,40 +49,36 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
   private final DynamicMap<RestView<ServiceUserResource>> views;
   private final Provider<ListServiceUsers> list;
   private final Provider<AccountsCollection> accounts;
-  private final String pluginName;
-  private final ProjectCache projectCache;
   private final Provider<CurrentUser> userProvider;
   private final GroupsCollection groups;
   private final PermissionBackend permissionBackend;
+  private final StorageCache storageCache;
 
   @Inject
   ServiceUserCollection(
       DynamicMap<RestView<ServiceUserResource>> views,
       Provider<ListServiceUsers> list,
       Provider<AccountsCollection> accounts,
-      @PluginName String pluginName,
-      ProjectCache projectCache,
       Provider<CurrentUser> userProvider,
       GroupsCollection groups,
-      PermissionBackend permissionBackend) {
+      PermissionBackend permissionBackend,
+      StorageCache storageCache) {
     this.views = views;
     this.list = list;
     this.accounts = accounts;
-    this.pluginName = pluginName;
-    this.projectCache = projectCache;
     this.userProvider = userProvider;
     this.groups = groups;
     this.permissionBackend = permissionBackend;
+    this.storageCache = storageCache;
   }
 
   @Override
   public ServiceUserResource parse(ConfigResource parent, IdString id)
       throws ResourceNotFoundException, AuthException, IOException, PermissionBackendException,
-          ConfigInvalidException {
-    ProjectLevelConfig storage = projectCache.getAllProjects().getConfig(pluginName + ".db");
+          ConfigInvalidException, RestApiException {
     IdentifiedUser serviceUser = accounts.get().parse(TopLevelResource.INSTANCE, id).getUser();
-    if (serviceUser == null
-        || !storage.get().getSubsections(USER).contains(serviceUser.getUserName().get())) {
+    Config db = storageCache.get();
+    if (serviceUser == null || !db.getSubsections(USER).contains(serviceUser.getUserName().get())) {
       throw new ResourceNotFoundException(id);
     }
     CurrentUser user = userProvider.get();
@@ -92,7 +87,7 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
     }
     if (!permissionBackend.user(user).testOrFalse(ADMINISTRATE_SERVER)) {
       String username = serviceUser.getUserName().get();
-      String owner = storage.get().getString(USER, username, KEY_OWNER);
+      String owner = db.getString(USER, username, KEY_OWNER);
       if (owner != null) {
         GroupDescription.Basic group =
             groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(owner)).getGroup();
@@ -101,7 +96,7 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
         }
       } else if (!((IdentifiedUser) user)
           .getAccountId()
-          .equals(Account.id(storage.get().getInt(USER, username, KEY_CREATOR_ID, -1)))) {
+          .equals(Account.id(db.getInt(USER, username, KEY_CREATOR_ID, -1)))) {
         throw new ResourceNotFoundException(id);
       }
     }

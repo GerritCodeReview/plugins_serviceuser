@@ -63,6 +63,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   private final GroupJson json;
   private final Provider<CurrentUser> self;
   private final PermissionBackend permissionBackend;
+  private final StorageCache storageCache;
 
   @Inject
   PutOwner(
@@ -73,7 +74,8 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       MetaDataUpdate.User metaDataUpdateFactory,
       GroupJson json,
       Provider<CurrentUser> self,
-      PermissionBackend permissionBackend) {
+      PermissionBackend permissionBackend,
+      StorageCache storageCache) {
     this.getConfig = getConfig;
     this.groups = groups;
     this.configProvider = configProvider;
@@ -82,6 +84,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     this.json = json;
     this.self = self;
     this.permissionBackend = permissionBackend;
+    this.storageCache = storageCache;
   }
 
   @Override
@@ -122,6 +125,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       }
       md.setMessage("Set owner for service user '" + rsrc.getUser().getUserName() + "'\n");
       update.commit(md);
+      storageCache.invalidate();
     } catch (ConfigInvalidException e) {
       throw asRestApiException("Invalid configuration", e);
     }

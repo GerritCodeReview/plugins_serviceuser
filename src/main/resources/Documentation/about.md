@@ -36,11 +36,11 @@ Git config file:
     createdAt = Wed, 13 Nov 2013 14:45:00 +0100
 ```
 
-<a id="createdBy">
+<a id="createdBy"></a>
 `user.<service-user-name>.createdBy`
 : The username of the user who created the service user.
 
-<a id="createdAt">
+<a id="createdAt"></a>
 `user.<service-user-name>.createdAt`
 : The date when the service user was created.
 
