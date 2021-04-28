@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "840fcdcc_eaa205ab",
+        "filename": "/MERGE_LIST",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-04-28T07:00:27Z",
+      "side": 1,
+      "message": "Is this fix not required any longer with StorageCache instead of ProjectCache?",
+      "revId": "3101ca74a93f8ce6eea34f4ee606f3e83186d60e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
