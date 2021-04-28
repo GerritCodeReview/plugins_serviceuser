@@ -125,6 +125,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd0269e7_f0ffdb19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1108915
+      },
+      "writtenOn": "2021-04-28T05:54:54Z",
+      "side": 1,
+      "message": "Hi everyone!\n\nI\u0027ve just updated my test instance of Gerrit to 3.4.0 release and serviceuser plugin fails due to removal of legacy html/polymer plugin support.\nI\u0027ve build rebased version of this review (with minor change to BUILD file, which I\u0027m happy to share) and it seems to work just fine.\n\nCan we go ahead with merging this change?",
+      "revId": "0f3fa15e76ccef704eaf6aeb215b286921fa9679",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18b61e13_bda0273a",
         "filename": "gr-serviceuser/gr-serviceuser-detail.js",
         "patchSetId": 2
