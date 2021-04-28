@@ -14,8 +14,8 @@ gerrit_plugin(
         "Gerrit-HttpModule: com.googlesource.gerrit.plugins.serviceuser.HttpModule",
         "Gerrit-SshModule: com.googlesource.gerrit.plugins.serviceuser.SshModule",
     ],
-    resources = glob(["src/main/resources/**/*"]),
     resource_jars = [":gr-serviceuser-static"],
+    resources = glob(["src/main/resources/**/*"]),
 )
 
 junit_tests(
@@ -29,6 +29,7 @@ junit_tests(
         ":serviceuser__plugin",
     ],
 )
+
 genrule2(
     name = "gr-serviceuser-static",
     srcs = [":gr-serviceuser"],
@@ -45,9 +46,9 @@ rollup_bundle(
     name = "serviceuser-bundle",
     srcs = glob(["gr-serviceuser/*.js"]),
     entry_point = "gr-serviceuser/gr-serviceuser.js",
+    format = "iife",
     rollup_bin = "//tools/node_tools:rollup-bin",
     sourcemap = "hidden",
-    format = 'iife',
     deps = [
         "@tools_npm//rollup-plugin-node-resolve",
     ],
