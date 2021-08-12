@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80ffff04_8abdd670",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetOwner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-08-12T07:25:47Z",
+      "side": 0,
+      "message": "Is this really not required anymore?",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 60
+      },
+      "revId": "721fb62530b2b1107d800fe12f91c7bbf8155e66",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}

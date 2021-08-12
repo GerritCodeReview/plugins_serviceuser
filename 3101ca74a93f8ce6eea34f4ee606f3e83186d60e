@@ -16,6 +16,24 @@
       "message": "Is this fix not required any longer with StorageCache instead of ProjectCache?",
       "revId": "3101ca74a93f8ce6eea34f4ee606f3e83186d60e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24c0feea_aee014cb",
+        "filename": "/MERGE_LIST",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-08-12T07:25:47Z",
+      "side": 1,
+      "message": "ping\nSince a user requests to make the plugin to work with Gerrit 3.4, it would be nice to get this in.",
+      "parentUuid": "840fcdcc_eaa205ab",
+      "revId": "3101ca74a93f8ce6eea34f4ee606f3e83186d60e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
