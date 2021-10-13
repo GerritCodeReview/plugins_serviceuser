@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e89fb2a_66ee5c0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-10-13T14:05:33Z",
+      "side": 1,
+      "message": "Loading the UI throws an error: \n\n  Plugin install error: TypeError: e.restApi(...).getAccountCapabilities is not a function from http://localhost:8080/plugins/serviceuser/static/serviceuser.js",
+      "revId": "64b4fb8c819d886aa5f925ecf4097c49d7dfa0d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
