@@ -29,9 +29,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.eclipse.jgit.lib.PersonIdent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 class ValidateServiceUserCommits implements CommitValidationListener {
+  private static final Logger log = LoggerFactory.getLogger(ValidateServiceUserCommits.class);
   private final ServiceUserResolver serviceUserResolver;
   private final AccountCache accountCache;
 
@@ -71,6 +74,7 @@ class ValidateServiceUserCommits implements CommitValidationListener {
         }
       }
     } catch (RestApiException e) {
+      log.error(e.getMessage(), e);
       throw new CommitValidationException(
           "Internal error while checking for service user commits.", e);
     }

@@ -27,6 +27,8 @@ import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.restapi.group.GroupJson;
 import com.google.gerrit.server.restapi.group.GroupsCollection;
+import com.google.gerrit.server.util.ManualRequestContext;
+import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -36,23 +38,31 @@ class GetOwner implements RestReadView<ServiceUserResource> {
   private final GroupsCollection groups;
   private final GroupJson json;
   private final StorageCache storageCache;
+  private final OneOffRequestContext requestContext;
 
   @Inject
-  GetOwner(GroupsCollection groups, GroupJson json, StorageCache storageCache) {
+  GetOwner(
+      GroupsCollection groups,
+      GroupJson json,
+      StorageCache storageCache,
+      OneOffRequestContext requestContext) {
     this.groups = groups;
     this.json = json;
     this.storageCache = storageCache;
+    this.requestContext = requestContext;
   }
 
   @Override
   public Response<GroupInfo> apply(ServiceUserResource rsrc)
       throws IOException, RestApiException, PermissionBackendException {
-    String owner =
-        storageCache.get().getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
-    if (owner != null) {
-      GroupDescription.Basic group =
-          groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(owner)).getGroup();
-      return Response.<GroupInfo>ok(json.format(group));
+    try (ManualRequestContext ctx = requestContext.open()) {
+      String owner =
+          storageCache.get().getString(USER, rsrc.getUser().getUserName().get(), KEY_OWNER);
+      if (owner != null) {
+        GroupDescription.Basic group =
+            groups.parse(TopLevelResource.INSTANCE, IdString.fromDecoded(owner)).getGroup();
+        return Response.<GroupInfo>ok(json.format(group));
+      }
     }
     return Response.none();
   }
