@@ -18,6 +18,7 @@
 export const htmlTemplate = Polymer.html`
     <style include="shared-styles"></style>
     <style include="gr-subpage-styles"></style>
+    <style include="gr-font-styles"></style>
     <style include="gr-form-styles"></style>
     <style>
       div.serviceuser-detail {
