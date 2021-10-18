@@ -28,6 +28,7 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.googlesource.gerrit.plugins.serviceuser.GetConfig.ConfigInfo;
 import com.googlesource.gerrit.plugins.serviceuser.PutHttpPassword.Input;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
@@ -65,19 +66,19 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
     }
     input.httpPassword = Strings.emptyToNull(input.httpPassword);
 
-    Boolean httpPasswordAllowed;
+    ConfigInfo config;
     try {
-      httpPasswordAllowed = getConfig.get().apply(new ConfigResource()).value().allowHttpPassword;
+      config = getConfig.get().apply(new ConfigResource()).value();
     } catch (Exception e) {
       throw asRestApiException("Cannot get configuration", e);
     }
 
-    if (input.generate || input.httpPassword == null) {
-      if ((httpPasswordAllowed == null || !httpPasswordAllowed)) {
+    if ((config.allowHttpPassword == null || !config.allowHttpPassword)) {
+      permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
+    } else if (!input.generate && input.httpPassword != null) {
+      if ((config.allowCustomHttpPassword == null || !config.allowCustomHttpPassword)) {
         permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
       }
-    } else {
-      permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
     }
 
     String newPassword = input.generate ? generate() : input.httpPassword;

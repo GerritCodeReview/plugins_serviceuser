@@ -59,6 +59,15 @@ file.
     passwords for any service user.
     By default false.
 
+<a id="allowCustomHttpPassword"></a>
+`plugin.@PLUGIN@.allowCustomHttpPassword`
+:	Whether it is allowed for service user owners to set custom HTTP
+	passwords for their service users. This option requires
+	`plugin.@PLUGIN@.allowHttpPassword` to be true. Independent of this
+	setting Gerrit administrators are always able to set custom HTTP
+	passwords for any service user.
+	By default false.
+
 <a id="allowOwner"></a>
 `plugin.@PLUGIN@.allowOwner`
 :	Whether it is allowed to set an owner group for a service user.
