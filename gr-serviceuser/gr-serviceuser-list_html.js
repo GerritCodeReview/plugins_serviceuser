@@ -17,6 +17,7 @@
 
 export const htmlTemplate = Polymer.html`
     <style include="shared-styles"></style>
+    <style include="gr-font-styles"></style>
     <style include="gr-table-styles"></style>
     <style>
       .topHeader {
