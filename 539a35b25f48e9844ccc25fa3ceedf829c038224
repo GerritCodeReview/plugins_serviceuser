@@ -16,6 +16,24 @@
       "message": "Documentation missing. Please also document that allowCustom... is only honored if allowHttpPassword is true",
       "revId": "539a35b25f48e9844ccc25fa3ceedf829c038224",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84cc79ce_d196b5c0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutHttpPassword.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-10-28T12:49:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41b4c1ae_99e77c70",
+      "revId": "539a35b25f48e9844ccc25fa3ceedf829c038224",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
