@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0029740_0d5f997f",
+        "filename": "gr-serviceuser/gr-serviceuser-detail.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-10-28T10:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2d94d0e_cf673b3e",
+      "revId": "bc5b10b1ac24f9f7c5a01d7a51305c780dcc7c13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d511e6d_16924300",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-10-21T13:24:57Z",
       "side": 1,
       "message": "This does not work anymore, since .getAccountCapabilities() was removed (see my previous comment). `plugin.restApi(\u0027/accounts/self/capabilities/\u0027).get(\u0027\u0027)` however works.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "revId": "bc5b10b1ac24f9f7c5a01d7a51305c780dcc7c13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f179e88_cb75d007",
+        "filename": "gr-serviceuser/gr-serviceuser.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-10-28T10:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d511e6d_16924300",
       "range": {
         "startLine": 23,
         "startChar": 0,
