@@ -177,11 +177,11 @@ class CreateServiceUser
       update.load(md);
 
       Config db = update.getConfig();
-      db.setInt(USER, username, KEY_CREATOR_ID, creatorId.get());
+      db.setInt(USER, response.username, KEY_CREATOR_ID, creatorId.get());
       if (creator != null) {
-        db.setString(USER, username, KEY_CREATED_BY, creator);
+        db.setString(USER, response.username, KEY_CREATED_BY, creator);
       }
-      db.setString(USER, username, KEY_CREATED_AT, creationDate);
+      db.setString(USER, response.username, KEY_CREATED_AT, creationDate);
 
       md.setMessage("Create service user '" + username + "'\n");
       update.commit(md);
