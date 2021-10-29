@@ -18,10 +18,11 @@ import com.google.gerrit.extensions.common.Input;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gerrit.server.account.AccountResource;
+import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.account.VersionedAuthorizedKeys;
 import com.google.gerrit.server.permissions.PermissionBackendException;
+import com.google.gerrit.server.ssh.SshKeyCache;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
@@ -29,19 +30,23 @@ import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
 @Singleton
 class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> {
-  private final Provider<com.google.gerrit.server.restapi.account.DeleteSshKey> deleteSshKey;
+  private final VersionedAuthorizedKeys.Accessor authorizedKeys;
+  private final SshKeyCache sshKeyCache;
 
   @Inject
-  DeleteSshKey(Provider<com.google.gerrit.server.restapi.account.DeleteSshKey> deleteSshKey) {
-    this.deleteSshKey = deleteSshKey;
+  DeleteSshKey(VersionedAuthorizedKeys.Accessor authorizedKeys, SshKeyCache sshKeyCache) {
+    this.authorizedKeys = authorizedKeys;
+    this.sshKeyCache = sshKeyCache;
   }
 
   @Override
   public Response<?> apply(ServiceUserResource.SshKey rsrc, Input input)
       throws AuthException, RepositoryNotFoundException, IOException, ConfigInvalidException,
           PermissionBackendException {
-    return deleteSshKey
-        .get()
-        .apply(new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
+    IdentifiedUser user = rsrc.getUser();
+    authorizedKeys.deleteKey(user.getAccountId(), rsrc.getSshKey().seq());
+    user.getUserName().ifPresent(sshKeyCache::evict);
+
+    return Response.none();
   }
 }
