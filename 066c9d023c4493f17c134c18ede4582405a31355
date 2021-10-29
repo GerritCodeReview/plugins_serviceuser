@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0033642_007f1bb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-10-29T14:17:33Z",
+      "side": 1,
+      "message": "strange that my CR-1 was copied from PS-2 to PS-3",
+      "revId": "066c9d023c4493f17c134c18ede4582405a31355",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
