@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cba53eab_6c866313",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-10-29T13:32:40Z",
+      "side": 1,
+      "message": "Add more info here about why this needed to be re-implemented here.",
+      "revId": "1321769c19d228d25dd60ec08c00d9c0bdb16204",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b953617a_fbf19c07",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/DeleteSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-10-29T13:32:40Z",
+      "side": 1,
+      "message": "Who is now allowed to delete the SSH keys of a service user? Previously it was only the owner, right? Is this now allowed for all users?",
+      "revId": "1321769c19d228d25dd60ec08c00d9c0bdb16204",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
