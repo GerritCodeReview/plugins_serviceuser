@@ -14,14 +14,18 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.exceptions.EmailException;
 import com.google.gerrit.extensions.common.Input;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gerrit.server.account.AccountResource;
+import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.account.VersionedAuthorizedKeys;
+import com.google.gerrit.server.mail.send.DeleteKeySender;
 import com.google.gerrit.server.permissions.PermissionBackendException;
+import com.google.gerrit.server.ssh.SshKeyCache;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
@@ -29,19 +33,36 @@ import org.eclipse.jgit.errors.RepositoryNotFoundException;
 
 @Singleton
 class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> {
-  private final Provider<com.google.gerrit.server.restapi.account.DeleteSshKey> deleteSshKey;
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
+  private final VersionedAuthorizedKeys.Accessor authorizedKeys;
+  private final DeleteKeySender.Factory deleteKeySenderFactory;
+  private final SshKeyCache sshKeyCache;
 
   @Inject
-  DeleteSshKey(Provider<com.google.gerrit.server.restapi.account.DeleteSshKey> deleteSshKey) {
-    this.deleteSshKey = deleteSshKey;
+  DeleteSshKey(
+      VersionedAuthorizedKeys.Accessor authorizedKeys,
+      DeleteKeySender.Factory deleteKeySenderFactory,
+      SshKeyCache sshKeyCache) {
+    this.authorizedKeys = authorizedKeys;
+    this.deleteKeySenderFactory = deleteKeySenderFactory;
+    this.sshKeyCache = sshKeyCache;
   }
 
   @Override
   public Response<?> apply(ServiceUserResource.SshKey rsrc, Input input)
       throws AuthException, RepositoryNotFoundException, IOException, ConfigInvalidException,
           PermissionBackendException {
-    return deleteSshKey
-        .get()
-        .apply(new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
+    IdentifiedUser user = rsrc.getUser();
+    authorizedKeys.deleteKey(user.getAccountId(), rsrc.getSshKey().seq());
+    try {
+      deleteKeySenderFactory.create(user, rsrc.getSshKey()).send();
+    } catch (EmailException e) {
+      logger.atSevere().withCause(e).log(
+          "Cannot send SSH key deletion message to %s", user.getAccount().preferredEmail());
+    }
+    user.getUserName().ifPresent(sshKeyCache::evict);
+
+    return Response.none();
   }
 }
