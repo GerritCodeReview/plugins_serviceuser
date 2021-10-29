@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9421c2f1_b5b02a17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-10-29T14:03:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cba53eab_6c866313",
+      "revId": "1321769c19d228d25dd60ec08c00d9c0bdb16204",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b953617a_fbf19c07",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-10-29T13:32:40Z",
       "side": 1,
       "message": "Who is now allowed to delete the SSH keys of a service user? Previously it was only the owner, right? Is this now allowed for all users?",
+      "revId": "1321769c19d228d25dd60ec08c00d9c0bdb16204",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "368342e6_f08f8a71",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/DeleteSshKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-10-29T14:03:53Z",
+      "side": 1,
+      "message": "Only owners are allowed to do so. This is ensured by the visibility of the serviceuser account.",
+      "parentUuid": "b953617a_fbf19c07",
       "revId": "1321769c19d228d25dd60ec08c00d9c0bdb16204",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
