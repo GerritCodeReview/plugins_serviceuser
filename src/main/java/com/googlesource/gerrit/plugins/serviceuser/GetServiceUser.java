@@ -58,7 +58,7 @@ class GetServiceUser implements RestReadView<ServiceUserResource> {
   @Override
   public Response<ServiceUserInfo> apply(ServiceUserResource rsrc)
       throws IOException, RestApiException, PermissionBackendException {
-    String username = rsrc.getUser().getUserName().get();
+    String username = rsrc.getUser().getUserName().orElseThrow(ResourceNotFoundException::new);
     Config db = storageCache.get();
     if (!db.getSubsections(USER).contains(username)) {
       throw new ResourceNotFoundException(username);
