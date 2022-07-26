@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "468b752c_60995c4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-07-26T12:56:50Z",
+      "side": 1,
+      "message": "More exact:\n\nThe serviceuser plugin provides a commit validator that checking each pushed commit, whether the committer is a serviceuser.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 67
+      },
+      "revId": "2ba7935d679ab5b9adcdc96a8f5aef337890b946",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64a56993_c27fdd1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-07-26T12:56:50Z",
+      "side": 1,
+      "message": "the validation and with it the push fails, even if the user is no serviceuser.",
+      "range": {
+        "startLine": 10,
+        "startChar": 36,
+        "endLine": 11,
+        "endChar": 55
+      },
+      "revId": "2ba7935d679ab5b9adcdc96a8f5aef337890b946",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
