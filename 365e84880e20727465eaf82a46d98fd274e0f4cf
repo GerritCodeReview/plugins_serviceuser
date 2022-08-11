@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cc88e2c_3ec89149",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-11T09:33:12Z",
+      "side": 1,
+      "message": "Hi,\nIs there anything I can do to push this forward?\nI believed I addressed all the comments.\nThe Zuul error is unrelated.\nThanks!",
+      "revId": "365e84880e20727465eaf82a46d98fd274e0f4cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
