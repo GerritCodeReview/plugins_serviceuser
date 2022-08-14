@@ -65,6 +65,7 @@ class GetConfig implements RestReadView<ConfigResource> {
     ConfigInfo info = new ConfigInfo();
     info.info = Strings.emptyToNull(cfg.getString("infoMessage"));
     info.onSuccess = Strings.emptyToNull(cfg.getString("onSuccessMessage"));
+    info.allowSsh = toBoolean(cfg.getBoolean("allowSsh", false));
     info.allowEmail = toBoolean(cfg.getBoolean("allowEmail", false));
     info.allowHttpPassword = toBoolean(cfg.getBoolean("allowHttpPassword", false));
     info.allowCustomHttpPassword = toBoolean(cfg.getBoolean("allowCustomHttpPassword", false));
@@ -99,6 +100,7 @@ class GetConfig implements RestReadView<ConfigResource> {
   static class ConfigInfo {
     public String info;
     public String onSuccess;
+    public Boolean allowSsh;
     public Boolean allowEmail;
     public Boolean allowHttpPassword;
     public Boolean allowCustomHttpPassword;
