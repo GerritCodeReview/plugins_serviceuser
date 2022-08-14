@@ -96,6 +96,7 @@ export class GrServiceUserCreate extends Polymer.GestureEventListeners(
             this.$.successMessage.innerHTML = this._successMessage;
           }
 
+          this._allowSsh = config._allowSsh;
           this._emailEnabled = config.allow_email;
         });
   }
