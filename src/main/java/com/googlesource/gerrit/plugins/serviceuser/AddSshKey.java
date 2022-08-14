@@ -14,12 +14,21 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
+
+import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.api.accounts.SshKeyInput;
 import com.google.gerrit.extensions.common.SshKeyInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.Response;
+import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.config.ConfigResource;
+import com.google.gerrit.server.permissions.PermissionBackend;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -28,16 +37,43 @@ import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class AddSshKey implements RestModifyView<ServiceUserResource, SshKeyInput> {
+  private final String pluginName;
+  private final Provider<GetConfig> getConfig;
   private final Provider<com.google.gerrit.server.restapi.account.AddSshKey> addSshKey;
+  private final Provider<CurrentUser> self;
+  private final PermissionBackend permissionBackend;
 
   @Inject
-  AddSshKey(Provider<com.google.gerrit.server.restapi.account.AddSshKey> addSshKey) {
+  AddSshKey(
+      @PluginName String pluginName,
+      Provider<GetConfig> getConfig,
+      Provider<com.google.gerrit.server.restapi.account.AddSshKey> addSshKey,
+      Provider<CurrentUser> self,
+      PermissionBackend permissionBackend) {
+    this.pluginName = pluginName;
+    this.getConfig = getConfig;
     this.addSshKey = addSshKey;
+    this.self = self;
+    this.permissionBackend = permissionBackend;
   }
 
   @Override
   public Response<SshKeyInfo> apply(ServiceUserResource rsrc, SshKeyInput input)
-      throws AuthException, BadRequestException, IOException, ConfigInvalidException {
+      throws AuthException, BadRequestException, IOException, ConfigInvalidException,
+          PermissionBackendException, RestApiException {
+
+    Boolean SshAllowed;
+    try {
+      SshAllowed = getConfig.get().apply(new ConfigResource()).value().allowSsh;
+    } catch (Exception e) {
+      throw asRestApiException("Cannot get configuration", e);
+    }
+    if ((SshAllowed == null || !SshAllowed)) {
+      permissionBackend
+          .user(self.get())
+          .check(new PluginPermission(pluginName, CreateServiceUserCapability.ID));
+    }
+
     return addSshKey.get().apply(rsrc.getUser(), input);
   }
 }

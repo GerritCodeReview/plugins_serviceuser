@@ -59,6 +59,10 @@ export class GrServiceUserDetail extends Polymer.GestureEventListeners(
         type: Boolean,
         value: false,
       },
+      _allowSsh: {
+        type: Boolean,
+        value: false,
+      },
       _allowEmail: {
         type: Boolean,
         value: false,
@@ -137,7 +141,9 @@ export class GrServiceUserDetail extends Polymer.GestureEventListeners(
   _getPermissions() {
     return this.plugin.restApi('/accounts/self/capabilities/').get('')
         .then(capabilities => {
-          this._isAdmin = capabilities && capabilities.administrateServer;
+          this._isAdmin = capabilities
+              && (capabilities.administrateServer
+                  || capabilities['serviceuser-createServiceUser']);
         });
   }
 
@@ -148,6 +154,7 @@ export class GrServiceUserDetail extends Polymer.GestureEventListeners(
             if (!config) {
               return;
             }
+            this._allowSsh = config.allow_ssh || this._isAdmin;
             this._allowEmail = config.allow_email || this._isAdmin;
             this._allowOwner = config.allow_owner || this._isAdmin;
             this._allowHttpPassword = config.allow_http_password
