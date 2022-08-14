@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f930cc71_7f53363a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-14T22:58:27Z",
+      "side": 1,
+      "message": "Pending Ia180eaddc111758713133f401c23ce34519b6ab9\n\nDO NOT SUBMIT",
+      "revId": "1c42dd87462683ff9650f0ccaaf26fd7d3709bfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
