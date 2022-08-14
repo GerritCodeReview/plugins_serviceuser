@@ -42,6 +42,7 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
   public static class Input {
     public String info;
     public String onSuccess;
+    public Boolean allowSsh;
     public Boolean allowEmail;
     public Boolean allowHttpPassword;
     public Boolean allowOwner;
@@ -78,6 +79,9 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
     }
     if (input.onSuccess != null) {
       cfg.setString("plugin", pluginName, "onSuccessMessage", Strings.emptyToNull(input.onSuccess));
+    }
+    if (input.allowSsh != null) {
+      setBoolean(cfg, "allowSsh", input.allowSsh);
     }
     if (input.allowEmail != null) {
       setBoolean(cfg, "allowEmail", input.allowEmail);
