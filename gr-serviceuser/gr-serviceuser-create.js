@@ -43,6 +43,10 @@ export class GrServiceUserCreate extends Polymer.GestureEventListeners(
       },
       _successMessage: String,
       _newUsername: String,
+      _allowSsh: {
+        type: Boolean,
+        value: false,
+      },
       _emailEnabled: {
         type: Boolean,
         value: false,
@@ -96,6 +100,7 @@ export class GrServiceUserCreate extends Polymer.GestureEventListeners(
             this.$.successMessage.innerHTML = this._successMessage;
           }
 
+          this._allowSsh = config.allow_ssh;
           this._emailEnabled = config.allow_email;
         });
   }
