@@ -43,6 +43,14 @@ file.
 :	Message that should be displayed after a service user was
 	successfully created.
 
+<a id="allowSsh"></a>
+`plugin.@PLUGIN@.allowSsh`
+:	Whether it is allowed for service user owners to set ssh keys
+	for their service users. Independent of this setting
+	Gerrit administrators are always able to set email addresses for
+	any service user.
+	By default false.
+
 <a id="allowEmail"></a>
 `plugin.@PLUGIN@.allowEmail`
 :	Whether it is allowed for service user owners to set email

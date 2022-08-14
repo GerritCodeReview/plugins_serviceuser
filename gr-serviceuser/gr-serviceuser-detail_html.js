@@ -152,8 +152,8 @@ export const htmlTemplate = Polymer.html`
                   </fieldset>
                 </fieldset>
                 <fieldset>
-                  <h3 id="SSHKeys">SSH keys</h3>
-                  <gr-serviceuser-ssh-panel id="sshEditor"></gr-serviceuser-ssh-panel>
+                  <h3 id="SSHKeys" hidden$="[[!_allowSsh]]">SSH keys</h3>
+                  <gr-serviceuser-ssh-panel id="sshEditor" hidden$="[[!_allowSsh]]"></gr-serviceuser-ssh-panel>
                 </fieldset>
               </fieldset>
             </fieldset>
