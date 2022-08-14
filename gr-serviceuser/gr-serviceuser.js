@@ -25,14 +25,13 @@ Gerrit.install(plugin => {
         if (capabilities
             && (capabilities.administrateServer
                 || capabilities['serviceuser-createServiceUser'])) {
-          plugin.screen('list', GrServiceUserList.is);
-          plugin.screen('user', GrServiceUserDetail.is);
           plugin.screen('create', GrServiceUserCreate.is);
         }
+        plugin.screen('list', GrServiceUserList.is);
+        plugin.screen('user', GrServiceUserDetail.is);
         plugin.admin()
             .addMenuLink(
                 'Service Users',
-                '/x/serviceuser/list',
-                'serviceuser-createServiceUser');
+                '/x/serviceuser/list');
       });
 });
