@@ -99,7 +99,8 @@ class GrServiceUserSshPanel extends Polymer.GestureEventListeners(
         this._newKey.trim(), null, 'plain/text')
         .then(key => {
           this.push('_keys', key);
-        }).catch(() => {
+          this._newKey = '';
+        }).finally(() => {
           this.$.addButton.disabled = false;
           this.$.newKey.disabled = false;
         });
