@@ -38,7 +38,8 @@ export const htmlTemplate = Polymer.html`
     <div id="topContainer">
       <div></div>
       <div id="createNewContainer"
-           class$="[[_computeCreateClass(createNew)]]">
+           class$="[[_computeCreateClass(_createNew)]]"
+           hidden$="[[!_canCreate]]">
         <gr-button primary
                    link
                    id="createNew"

@@ -34,6 +34,10 @@ export class GrServiceUserList extends Polymer.GestureEventListeners(
    */
   static get properties() {
     return {
+      _canCreate: {
+        type: Boolean,
+        value: false,
+      },
       _serviceUsers: Array,
       _loading: {
         type: Boolean,
@@ -54,7 +58,17 @@ export class GrServiceUserList extends Polymer.GestureEventListeners(
         new CustomEvent(
             'title-change',
             {detail: {title: 'Service Users'}, bubbles: true, composed: true}));
+    this._getPermissions();
     this._getServiceUsers();
+  }
+
+  _getPermissions() {
+    return this.plugin.restApi('/accounts/self/capabilities/').get('')
+        .then(capabilities => {
+          this._canCreate = capabilities
+              && (capabilities.administrateServer
+                  || capabilities['serviceuser-createServiceUser']);
+        });
   }
 
   _getServiceUsers() {
