@@ -25,7 +25,6 @@ import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.gerrit.server.CurrentUser;
-import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
@@ -74,8 +73,6 @@ class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> 
           .check(new PluginPermission(pluginName, CreateServiceUserCapability.ID));
     }
 
-    return deleteSshKey
-        .get()
-        .apply(new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
+    return deleteSshKey.get().apply(rsrc.getUser(), rsrc.getSshKey());
   }
 }
