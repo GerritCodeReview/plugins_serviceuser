@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecb9679f_11a0cfbb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-15T06:56:04Z",
+      "side": 1,
+      "message": "No, only the owners of the serviceuser. And IMo this is valid, even required, since during creation of the sreviceuser a SSH key is required to have a way to authenticate it and owners want serviceusers to be able to use SSH for git requests.",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d88132d7_a292c747",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-15T06:56:04Z",
+      "side": 1,
+      "message": "This is already the case. Non-owners/-admins will get Not found, if trying to add an SSH key of a serviceuser.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 57
+      },
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1064a362_1f378336",
+        "filename": "gr-serviceuser/gr-serviceuser-create.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-15T06:56:04Z",
+      "side": 1,
+      "message": "_allowSsh",
+      "range": {
+        "startLine": 99,
+        "startChar": 15,
+        "endLine": 99,
+        "endChar": 24
+      },
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ad90a3c_596decc9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-15T06:56:04Z",
+      "side": 1,
+      "message": "The ServiceUserResource ensures that only owners and admins will be able to retrieve the resource. Thus, if a user is not the owner, a ResourceNotFound exception is thrown and modifying the SSH keys fails.",
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b62dfc96_b87f028e",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-15T06:56:04Z",
+      "side": 1,
+      "message": "ssh keys",
+      "range": {
+        "startLine": 50,
+        "startChar": 46,
+        "endLine": 50,
+        "endChar": 61
+      },
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
