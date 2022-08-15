@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7fabb636_4b1ac0ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-15T07:11:49Z",
+      "side": 1,
+      "message": "Why there is a different between adding SSH credentials and HTTP credentials? Or modifying any attribute?\n\nI prefer to manage all credentials in symmetric way, so that admin or service user creator can create/modify or delegate specific tasks to people.",
+      "parentUuid": "ecb9679f_11a0cfbb",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d88132d7_a292c747",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-15T06:56:04Z",
       "side": 1,
       "message": "This is already the case. Non-owners/-admins will get Not found, if trying to add an SSH key of a serviceuser.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 57
+      },
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62a1d2b4_2afff099",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-15T07:11:49Z",
+      "side": 1,
+      "message": "I will fix my phrase.",
+      "parentUuid": "d88132d7_a292c747",
       "range": {
         "startLine": 12,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "65e19808_d9f84eaf",
+        "filename": "gr-serviceuser/gr-serviceuser-create.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-15T07:11:49Z",
+      "side": 1,
+      "message": "I copied the allow_email all over, I will.",
+      "parentUuid": "1064a362_1f378336",
+      "range": {
+        "startLine": 99,
+        "startChar": 15,
+        "endLine": 99,
+        "endChar": 24
+      },
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9ad90a3c_596decc9",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
         "patchSetId": 1
@@ -89,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a41fb240_d202c03a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-15T07:11:49Z",
+      "side": 1,
+      "message": "The question is if we want to allow owners to modify credentials always, and if we do, why do we limit them managing other credentials (HTTP)?",
+      "parentUuid": "9ad90a3c_596decc9",
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b62dfc96_b87f028e",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 1
@@ -100,6 +190,30 @@
       "writtenOn": "2022-08-15T06:56:04Z",
       "side": 1,
       "message": "ssh keys",
+      "range": {
+        "startLine": 50,
+        "startChar": 46,
+        "endLine": 50,
+        "endChar": 61
+      },
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91162d4b_2f7ebf9f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-15T07:11:49Z",
+      "side": 1,
+      "message": "thanks! sorry for that.",
+      "parentUuid": "b62dfc96_b87f028e",
       "range": {
         "startLine": 50,
         "startChar": 46,
