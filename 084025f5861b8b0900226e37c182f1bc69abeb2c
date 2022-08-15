@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "419a9309_a9b97138",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-15T06:31:29Z",
+      "side": 1,
+      "message": "Please just remove the unrelated change. Otherwise it looks good to me.",
+      "revId": "084025f5861b8b0900226e37c182f1bc69abeb2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48ca2729_62859c5e",
+        "filename": "gr-serviceuser/gr-serviceuser-list_html.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-15T06:31:29Z",
+      "side": 1,
+      "message": "Unrelated change.\nNevertheless, it showed me, that this method does not exist.",
+      "range": {
+        "startLine": 41,
+        "startChar": 41,
+        "endLine": 41,
+        "endChar": 42
+      },
+      "revId": "084025f5861b8b0900226e37c182f1bc69abeb2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
