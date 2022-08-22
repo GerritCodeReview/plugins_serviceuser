@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73386395_d3c8d380",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-22T09:52:35Z",
+      "side": 1,
+      "message": "See my answer in the other comment.",
+      "parentUuid": "7fabb636_4b1ac0ee",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d88132d7_a292c747",
@@ -173,6 +197,24 @@
       "side": 1,
       "message": "The question is if we want to allow owners to modify credentials always, and if we do, why do we limit them managing other credentials (HTTP)?",
       "parentUuid": "9ad90a3c_596decc9",
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ff1252f_efb47ac5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-22T09:52:35Z",
+      "side": 1,
+      "message": "Yes, we want to. Managing serviceusers should be a self service. On large Gerrit instances this is otherwise not manageable, i.e. server admins cannot maintain credentials for hundreds of serviceusers used by hundreds of teams. However, changing credentials has to be strictly limited to the. serviceuser\u0027s owner(s), which then are responsible to secure those credentials (private key, password).\n\nThe `allowHttpPassword` option is a valid point. However, with SSH it is more difficult, since currently a SSH key is required during creation and thus non admin users have to be able to set a SSH key to be able to create a serviceuser. The restriction that a serviceuser has to have a SSH key during creation was put in place, since a serviceuser without any credential does not make sense. IMO, this restriction could also be removed and in case no SSH key is provided a password is generated and shown to the creator after the serviceuser was created. With your change the creator (default owner) would be allowed to set the initial SSH key, but then would not be allowed to change it anymore. I don\u0027t think that this makes sense. It should then not be allowed to set one in the first place, if the creator is not an admin.",
+      "parentUuid": "a41fb240_d202c03a",
       "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
