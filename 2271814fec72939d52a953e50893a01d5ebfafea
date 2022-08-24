@@ -221,6 +221,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95290e5a_24d8c530",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-24T16:02:38Z",
+      "side": 1,
+      "message": "Hi Thomas,\n\nI am confused from your reply.\n\nFor my understanding we have four (4) levels of permissions:\n\n1. \"Administrate Server\" capability\n2. \"Create Service User\" capability\n3. \"Owner Group\" user setting\n4. Any user\n\nThe (1) and (2) can be used to create service users. They can set any setting on this user, including SSH public key and any other setting. These users may set the owner group of a user so that (3) may manage the user.\n\n(3) is used to manage *existing* users, created by (1) or (2). It cannot create new users. The attributes it may set is restricted by the `serviceuser` plugin configuration. The configuration enables (1) to control which attribute may (3) modify, all but the SSH public keys. I am unsure why at first stage there are limitations for the owner group members, however, I believe we should be consistent and allow (1) to control all attributes, especially the sensitive ones such as authentication credentials.\n\n(4) Cannot modify the service users unless part of (3) with limitations, (2) or (1).\n\nFrom what I understand from your reply, you write that (3) can create users so the configuration of what attribute it may modify affect the creation method, this is why the SSH public key must be allowed, as (3) should be able to create users and must specify SSH public key. However, (3) cannot create users, only (1) and (2) can create users, (3) is managing post creation user management so restricting the SSH public key modification does not affect the user creation.\n\nBTW: in my use case I create the service user with dummy SSH key, create HTTP password and remove the SSH key... as it is not required in the use case... We should consider removing this enforcement.\n\nWhat am I missing?\n\nThanks,\nAlon",
+      "parentUuid": "9ff1252f_efb47ac5",
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b62dfc96_b87f028e",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 1
