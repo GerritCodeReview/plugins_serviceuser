@@ -71,10 +71,7 @@ export class GrServiceUserCreate extends Polymer.GestureEventListeners(
   }
 
   _forwardToDetails() {
-    page.show(
-        this.plugin.screenUrl()
-        + '/user/'
-        + this._accountId);
+    window.location.href = `${this.plugin.screenUrl()}/user/${this._accountId}`;
   }
 
   _getConfig() {
