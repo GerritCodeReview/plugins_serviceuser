@@ -237,6 +237,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a71d44ca_d92d20df",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-25T06:29:16Z",
+      "side": 1,
+      "message": "Hi Alon,\nthanks for the explanation. You are right. That makes sense. I got a bit confused, becuase I didn\u0027t take your recent change about owners without createServiceuser capabilities into account and about the permission check you are doing here (see my other comment).",
+      "parentUuid": "95290e5a_24d8c530",
+      "revId": "2271814fec72939d52a953e50893a01d5ebfafea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b62dfc96_b87f028e",
