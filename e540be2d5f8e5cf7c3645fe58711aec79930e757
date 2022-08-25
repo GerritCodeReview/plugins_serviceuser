@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7e9e6bb_ec2d9ac7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-25T09:43:30Z",
+      "side": 1,
+      "message": "Hi Thomas,\n\nI believe[1] broke the access to `page` so I navigate the page manually for now.\n\nI need your help to setup the correct capability check as you requested, I am not an expert in Gerrit and it seems like the manual capability filter is not trivial. I suggest to do this in different patch as it affect all the capability checks, currently this patch is in sync with the other classes.\n\nThanks,\nAlon\n\n[1] https://gerrit-review.googlesource.com/c/gerrit/+/342835",
+      "revId": "e540be2d5f8e5cf7c3645fe58711aec79930e757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}

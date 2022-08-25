@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24b7ad83_37f878e3",
+        "filename": "gr-serviceuser/gr-serviceuser-detail_html.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-25T09:43:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55ab4349_01c5cbf8",
+      "range": {
+        "startLine": 155,
+        "startChar": 35,
+        "endLine": 155,
+        "endChar": 59
+      },
+      "revId": "9a8dc8763e6ac65e8e4cb561fcab2c9bbe2bf60d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c16c7b31_93aca1d0",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-08-25T06:29:16Z",
       "side": 1,
       "message": "Following your explanation, I think you should also check for the createServiceuser capability. Since this capability allows to add a SSH key during creation, it doesn\u0027t make sense to forbid those users adding additional ones later on at this point. This is different to the other `allowXXX` options, which are then never set at all except if the admin does it.\nHowever, I agree that having to set a SSH key, if it is not supposed to be used as in your case doesn\u0027t make sense. I would suggest to make it configurable which authentication methods can be used (HTTP, SSH or both) and only show respective options if available. During user creation, users could then also select to generate or set a password if HTTP as authentication method is enabled, but at least one type of credential has to be set.\nIf that is the case, we could expand the restriction to modify SSH keys to the createServiceuser capability as well, since the most likely usecase will then be to have SSH enabled in principle, but only in cases an admin allows it.",
+      "revId": "9a8dc8763e6ac65e8e4cb561fcab2c9bbe2bf60d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dcef484_fa207a32",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-25T09:43:30Z",
+      "side": 1,
+      "message": "Hi,\n\nSadly, I do not know how to check for the capacity using non-annotation, I could not find any example of how to do that. Need to convert the `CreateServiceUserCapability` which is `CapabilityDefinition` to `GlobalPermission` or `GlobalOrPluginPermission`.\n\nHowever, this pattern currently follows all the pattern of other PutXXX operations, so I suggest to modify the code to check for admin/creator/owner at different patch and sync all operation.\n\nIf you know how to implement that I will love to get a hint, but please do not block this.\n\nThanks!",
+      "parentUuid": "c16c7b31_93aca1d0",
       "revId": "9a8dc8763e6ac65e8e4cb561fcab2c9bbe2bf60d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -71,6 +113,30 @@
       "writtenOn": "2022-08-25T06:29:16Z",
       "side": 1,
       "message": "This default, while good concerning security, is a breaking change. Could you clearly mark that in the commit message, since we don\u0027t have release notes for the plugin?",
+      "range": {
+        "startLine": 68,
+        "startChar": 57,
+        "endLine": 68,
+        "endChar": 62
+      },
+      "revId": "9a8dc8763e6ac65e8e4cb561fcab2c9bbe2bf60d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f4c3b59_c8bf6d97",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/GetConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-25T09:43:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "142aa714_70afff7d",
       "range": {
         "startLine": 68,
         "startChar": 57,
