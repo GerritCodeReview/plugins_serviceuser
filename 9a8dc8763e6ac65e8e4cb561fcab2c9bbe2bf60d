@@ -121,6 +121,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09d3e16e_c5f2f7e7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-30T13:54:36Z",
+      "side": 1,
+      "message": "No, the check will fallback to check for admin rights, if the user does not have the specific capability.",
+      "parentUuid": "a0103122_fb30c5a0",
+      "revId": "9a8dc8763e6ac65e8e4cb561fcab2c9bbe2bf60d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2771d8e_301d5f07",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/DeleteSshKey.java",
         "patchSetId": 3
