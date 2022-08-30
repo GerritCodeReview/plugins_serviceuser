@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0103122_fb30c5a0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AddSshKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-30T13:46:07Z",
+      "side": 1,
+      "message": "Thanks!\n\nWill try, I guess I need to check for both `ADMINISTRATE_SERVER` and `new PluginPermission(pluginName, CreateServiceUserCapability.ID)`",
+      "parentUuid": "fa671ac3_8984a7fb",
+      "revId": "9a8dc8763e6ac65e8e4cb561fcab2c9bbe2bf60d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2771d8e_301d5f07",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/DeleteSshKey.java",
         "patchSetId": 3
