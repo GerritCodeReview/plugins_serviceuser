@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eaac3df_7f9782aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-30T10:46:00Z",
+      "side": 1,
+      "message": "Does this work with older Gerrit versions (3.4, 3.5 and 3.6)? Otherwise, I will create stable-branches for incompatible Gerrit versions.",
+      "revId": "6a3c13b4c8b68803e368a77ff63b425cf4c31692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
