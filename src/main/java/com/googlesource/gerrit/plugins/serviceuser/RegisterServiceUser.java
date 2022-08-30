@@ -14,7 +14,6 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_AT;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATOR_ID;
@@ -24,7 +23,9 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER
 import com.google.common.base.Strings;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
+import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.BadRequestException;
@@ -72,6 +73,7 @@ class RegisterServiceUser
     String owner;
   }
 
+  private final String pluginName;
   private final Provider<ProjectLevelConfig.Bare> configProvider;
   private final AccountResolver accountResolver;
   private final GroupResolver groupResolver;
@@ -86,6 +88,7 @@ class RegisterServiceUser
 
   @Inject
   RegisterServiceUser(
+      @PluginName String pluginName,
       Provider<ProjectLevelConfig.Bare> configProvider,
       AccountResolver accountResolver,
       GroupResolver groupResolver,
@@ -97,6 +100,7 @@ class RegisterServiceUser
       StorageCache storageCache,
       PermissionBackend permissionBackend,
       BlockedNameFilter blockedNameFilter) {
+    this.pluginName = pluginName;
     this.configProvider = configProvider;
     this.accountResolver = accountResolver;
     this.groupResolver = groupResolver;
@@ -132,7 +136,9 @@ class RegisterServiceUser
     }
 
     if (!requestingUser.getAccountId().equals(user.getAccountId())
-        && !permissionBackend.user(requestingUser).testOrFalse(ADMINISTRATE_SERVER)) {
+        && !permissionBackend
+            .user(user)
+            .testOrFalse(new PluginPermission(pluginName, CreateServiceUserCapability.ID))) {
       throw new MethodNotAllowedException("Forbidden");
     }
 

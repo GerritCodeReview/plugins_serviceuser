@@ -15,10 +15,11 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
-import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 
 import com.google.common.base.Strings;
 import com.google.gerrit.exceptions.EmailException;
+import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.api.accounts.EmailInput;
 import com.google.gerrit.extensions.restapi.DefaultInput;
 import com.google.gerrit.extensions.restapi.IdString;
@@ -45,6 +46,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
     @DefaultInput public String email;
   }
 
+  private final String pluginName;
   private final Provider<GetConfig> getConfig;
   private final Provider<GetEmail> getEmail;
   private final Provider<CreateEmail> createEmail;
@@ -55,6 +57,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
 
   @Inject
   PutEmail(
+      @PluginName String pluginName,
       Provider<GetConfig> getConfig,
       Provider<GetEmail> getEmail,
       Provider<CreateEmail> createEmail,
@@ -62,6 +65,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       Provider<PutPreferred> putPreferred,
       Provider<CurrentUser> self,
       PermissionBackend permissionBackend) {
+    this.pluginName = pluginName;
     this.getConfig = getConfig;
     this.getEmail = getEmail;
     this.createEmail = createEmail;
@@ -82,7 +86,9 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       throw asRestApiException("Cannot get configuration", e);
     }
     if ((emailAllowed == null || !emailAllowed)) {
-      permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
+      permissionBackend
+          .user(self.get())
+          .check(new PluginPermission(pluginName, CreateServiceUserCapability.ID));
     }
 
     String email;

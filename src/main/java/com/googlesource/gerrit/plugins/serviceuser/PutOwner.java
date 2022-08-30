@@ -15,7 +15,6 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
-import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
@@ -24,6 +23,8 @@ import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.AccountGroup.UUID;
 import com.google.gerrit.entities.GroupDescription;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.common.GroupInfo;
 import com.google.gerrit.extensions.restapi.DefaultInput;
 import com.google.gerrit.extensions.restapi.IdString;
@@ -55,6 +56,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     @DefaultInput public String group;
   }
 
+  private final String pluginName;
   private final Provider<GetConfig> getConfig;
   private final GroupsCollection groups;
   private final Provider<ProjectLevelConfig.Bare> configProvider;
@@ -67,6 +69,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
 
   @Inject
   PutOwner(
+      @PluginName String pluginName,
       Provider<GetConfig> getConfig,
       GroupsCollection groups,
       Provider<ProjectLevelConfig.Bare> configProvider,
@@ -76,6 +79,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       Provider<CurrentUser> self,
       PermissionBackend permissionBackend,
       StorageCache storageCache) {
+    this.pluginName = pluginName;
     this.getConfig = getConfig;
     this.groups = groups;
     this.configProvider = configProvider;
@@ -97,7 +101,9 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       throw asRestApiException("Cannot get configuration", e);
     }
     if ((ownerAllowed == null || !ownerAllowed)) {
-      permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
+      permissionBackend
+          .user(self.get())
+          .check(new PluginPermission(pluginName, CreateServiceUserCapability.ID));
     }
 
     if (input == null) {

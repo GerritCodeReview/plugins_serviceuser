@@ -14,10 +14,11 @@
 package com.googlesource.gerrit.plugins.serviceuser;
 
 import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
-import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.google.gerrit.server.restapi.account.PutHttpPassword.generate;
 
 import com.google.common.base.Strings;
+import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestModifyView;
@@ -40,6 +41,7 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
     public boolean generate;
   }
 
+  private final String pluginName;
   private final Provider<GetConfig> getConfig;
   private final com.google.gerrit.server.restapi.account.PutHttpPassword putHttpPassword;
   private final Provider<CurrentUser> self;
@@ -47,10 +49,12 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
 
   @Inject
   PutHttpPassword(
+      @PluginName String pluginName,
       Provider<GetConfig> getConfig,
       com.google.gerrit.server.restapi.account.PutHttpPassword putHttpPassword,
       Provider<CurrentUser> self,
       PermissionBackend permissionBackend) {
+    this.pluginName = pluginName;
     this.getConfig = getConfig;
     this.putHttpPassword = putHttpPassword;
     this.self = self;
@@ -74,10 +78,14 @@ public class PutHttpPassword implements RestModifyView<ServiceUserResource, Inpu
     }
 
     if ((config.allowHttpPassword == null || !config.allowHttpPassword)) {
-      permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
+      permissionBackend
+          .user(self.get())
+          .check(new PluginPermission(pluginName, CreateServiceUserCapability.ID));
     } else if (!input.generate && input.httpPassword != null) {
       if ((config.allowCustomHttpPassword == null || !config.allowCustomHttpPassword)) {
-        permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
+        permissionBackend
+            .user(self.get())
+            .check(new PluginPermission(pluginName, CreateServiceUserCapability.ID));
       }
     }
 

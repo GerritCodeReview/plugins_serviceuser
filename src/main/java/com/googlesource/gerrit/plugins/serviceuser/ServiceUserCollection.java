@@ -14,13 +14,14 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
-import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATOR_ID;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.GroupDescription;
+import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.api.access.PluginPermission;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ChildCollection;
@@ -46,6 +47,7 @@ import org.eclipse.jgit.lib.Config;
 @Singleton
 class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUserResource> {
 
+  private final String pluginName;
   private final DynamicMap<RestView<ServiceUserResource>> views;
   private final Provider<ListServiceUsers> list;
   private final Provider<AccountsCollection> accounts;
@@ -56,6 +58,7 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
 
   @Inject
   ServiceUserCollection(
+      @PluginName String pluginName,
       DynamicMap<RestView<ServiceUserResource>> views,
       Provider<ListServiceUsers> list,
       Provider<AccountsCollection> accounts,
@@ -63,6 +66,7 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
       GroupsCollection groups,
       PermissionBackend permissionBackend,
       StorageCache storageCache) {
+    this.pluginName = pluginName;
     this.views = views;
     this.list = list;
     this.accounts = accounts;
@@ -85,7 +89,9 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
     if (user == null || !user.isIdentifiedUser()) {
       throw new AuthException("Authentication required");
     }
-    if (!permissionBackend.user(user).testOrFalse(ADMINISTRATE_SERVER)) {
+    if (!permissionBackend
+        .user(user)
+        .testOrFalse(new PluginPermission(pluginName, CreateServiceUserCapability.ID))) {
       String username = serviceUser.getUserName().get();
       String owner = db.getString(USER, username, KEY_OWNER);
       if (owner != null) {
