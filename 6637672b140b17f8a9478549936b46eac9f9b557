@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80647c2e_fc0a8ff2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutEmail.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-31T06:30:06Z",
+      "side": 1,
+      "message": "With this and with other similar places, I don\u0027t think that every user with createServiceuser capability should be able to change those parameters if it is not allowed. In our case for example every registered user is allowed to create serviceusers, since it is a self service. But we don\u0027t allow to set the email. There are however cases where a user requires an email and we as the admins will set it for them.\nMy suggestion would be to create a new capability administrateServiceusers that has admin rights for serviceusers, while craeteServiceuser remains as is. WDYT?",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01eaa8e7_85f858c4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-31T06:30:06Z",
+      "side": 1,
+      "message": "This would allow every user with the createServiceuser capability to make avery account a serviceuser account setting themselves as owner and this way get access to all projects. This is a big security breach.\nOnly the user itself or an admin should be able to convert an account.",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62683ea1_84fe6703",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-31T06:30:06Z",
+      "side": 1,
+      "message": "This would allow all users with the createServiceuser capability to see all serviceusers. This should not be the case. An admin should be able to see all, but somebody who can create a serviceuser should only see the ones they own.",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
