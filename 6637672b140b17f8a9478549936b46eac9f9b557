@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "252a5cd8_701122fb",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutEmail.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-31T07:45:54Z",
+      "side": 1,
+      "message": "As I mentioned we have exactly that usecase. In our Gerrit instances we use generated email addresses for the serviceusers. This is to allow serviceusers to push (to disable pushing by serviceusers the allowEmail option was originally added: I2dcb4acbd05aea50087cd0b9ab31fc59592d8235), but you can see from the commit that the commit was authored/committed by a serviceuser. Thus, we don\u0027t allow users/owners to set the email address. However, in a few cases we need to have exemptions due to some processes of a few teams and thus the admins still have to be able to change the email address. Since every registered user in our case can create a serviceuser, this capability is not enough to guard email address modification.\nThis is similar for other serviceuser properties. E.g. you might not allow owners to set custom HTTP passwords, e.g. to have enforced standards password strength, but in a case-by-case scenario an admin would like to grant exemptions to that rule.",
+      "parentUuid": "5cbb6822_a13809f4",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01eaa8e7_85f858c4",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
         "patchSetId": 1
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "ok, will revert.\n\nbut are you sure? won\u0027t the below code will limit this to service users only?\n\n      Config db \u003d update.getConfig();\n      if (db.getSubsections(USER).contains(input.username)) {\n        return Response.none();\n      }",
       "parentUuid": "01eaa8e7_85f858c4",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8048eb65_4571ea95",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-08-31T07:45:54Z",
+      "side": 1,
+      "message": "The snippet you mention is checking whether the given user already is a serviceuser and if it is the case, it stops early, since the goal is already achieved.\n\nThe RegisterServiceuser command allows to make an existing account, e.g. created through LDAP, a serviceuser account. This is useful, if you want to migrate technical users managed by an external IDP to become a Gerrit internal serviceuser.",
+      "parentUuid": "5780e385_4cbc4767",
       "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
