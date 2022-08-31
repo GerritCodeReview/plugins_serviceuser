@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cbb6822_a13809f4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutEmail.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-31T07:05:51Z",
+      "side": 1,
+      "message": "I do not think there is much point of allowing create service user with credentials and ability to set owner and not allowing this capability to manage the users as delegation.\n\nI agree that the capability name is confusing, maybe should be renamed to administrateServiceUsers, however and regardless, the delegation of administrator to the capability should be consistent.\n\nThe approval of explicit fields modification is to the owner.\n\nRemember we have four permissions:\n\n1. admin\n2. service user management delegation (via the create service user capability)\n3. owner - limited to what admin allowed owner to set\n4. standard user",
+      "parentUuid": "80647c2e_fc0a8ff2",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01eaa8e7_85f858c4",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
         "patchSetId": 1
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5780e385_4cbc4767",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-31T07:05:51Z",
+      "side": 1,
+      "message": "ok, will revert.\n\nbut are you sure? won\u0027t the below code will limit this to service users only?\n\n      Config db \u003d update.getConfig();\n      if (db.getSubsections(USER).contains(input.username)) {\n        return Response.none();\n      }",
+      "parentUuid": "01eaa8e7_85f858c4",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62683ea1_84fe6703",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
         "patchSetId": 1
@@ -48,6 +84,24 @@
       "writtenOn": "2022-08-31T06:30:06Z",
       "side": 1,
       "message": "This would allow all users with the createServiceuser capability to see all serviceusers. This should not be the case. An admin should be able to see all, but somebody who can create a serviceuser should only see the ones they own.",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55192086_a73b6a92",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-31T07:05:51Z",
+      "side": 1,
+      "message": "As I wrote, I think that create service user capability is actually delegation of managing service users, there is no point in only create user with credentials as we can set any name with any credentials and access.",
+      "parentUuid": "62683ea1_84fe6703",
       "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
