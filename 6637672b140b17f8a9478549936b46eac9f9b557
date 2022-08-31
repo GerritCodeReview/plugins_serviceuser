@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "792c5a64_95bc09b5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutEmail.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-31T08:22:01Z",
+      "side": 1,
+      "message": "I do not follow...\n\nWe have the following permissions:\n\n1. admin\n2. admin delegation (aka create service capability)\n3. owner\n4. regular user\n\nyou refer to level (3), right?\nif you allow a team (2) they can not only modify and set email but create other users with credentials as they like and use these new users. Teams should be owners and then the restrictions of configuration applies.\n\nthe (2) should be provided to IT or user that can manage the service users without having the permission to touch anything else.\n\n\u003e This is similar for other serviceuser properties.\n\u003e E.g. you might not allow owners to set custom HTTP passwords, e.g.\n\u003e to have enforced standards password strength, but in a case-by-case scenario an admin would like to grant exemptions to that rule.\n\nThere is no case-by-case scenario as the configuration supports all-or-nothing, either all owners can set email or none (for example). This get me back to the 4 levels of permissions which is the most consistent approach and does not break anything in your and my use cases.\n\n1. admin - can do everything, and set by configuration what attributes owners can modify.\n2. service user creatorcapability - can manage (create/delete/modify) service users\n3. service user owner - set by (1) or (2), can modify what (1) allows.\n4, regular users - can view service users.\n\nI believe the use case you outlined for your team is (3), and I believe that unlike what you presented the case-by-case is not supported.\n\nI am sorry, but I ask again, what am I amissing.\n\nThanks!",
+      "parentUuid": "252a5cd8_701122fb",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01eaa8e7_85f858c4",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
         "patchSetId": 1
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "The snippet you mention is checking whether the given user already is a serviceuser and if it is the case, it stops early, since the goal is already achieved.\n\nThe RegisterServiceuser command allows to make an existing account, e.g. created through LDAP, a serviceuser account. This is useful, if you want to migrate technical users managed by an external IDP to become a Gerrit internal serviceuser.",
       "parentUuid": "5780e385_4cbc4767",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dba230ea_3f6ca8d5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-08-31T08:22:01Z",
+      "side": 1,
+      "message": "ok, I will revert.",
+      "parentUuid": "8048eb65_4571ea95",
       "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
