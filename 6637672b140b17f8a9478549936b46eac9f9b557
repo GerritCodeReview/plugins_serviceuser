@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4285dc0_8fd14d06",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/PutEmail.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-09-01T07:34:49Z",
+      "side": 1,
+      "message": "No I do not mean level (3). One functionality that the serviceuser plugin provides is that you can make creation of serviceusers a self service. We have more than 10000 users and hundreds of teams using our Gerrit instance. As admins we would not be able to support all those teams which will likely require a serviceuser for their CI in creating a serviceuser for them. Thus, we gave the createServiceuser capability to the Registered Users group. That means all users having an account in our Gerrit can create a serviceuser (level 2). However, they are only allowed to see and manage the serviceusers they themselves own (level 3). However, we don\u0027t want to give all users the permission to set an email address for their serviceusers. Thus, we use `allowEmail\u003dfalse`. With the current state that means only admins (level 1) can set an email for a serviceuser, since this and similar options do not apply for admins, which we only do by a case-by-case basis. Case-by-case here means the admins set the email on request and do not provide the owner group with the permission to do so themselves.\n\nWith this change we would not be able to keep this behaviour, since we would either have to allow all users to set an email for their serviceuser or we would have to remove the self service and make it a managed service, which we can\u0027t provide. The plugin was originally developed with the self service idea in mind and I think we should keep that.\n\nI see your usecase and thats why I propose to add the administrateServiceuser capability. In our usecase this would look like this:\n\n1. admin - Administrators group - can see all serviceusers, can do everything, and set by configuration what attributes owners can modify.\n2. serviceuser admin - Administrators group - can see all serviceusers, can do everything, but not change the configuration\n3. serviceuser creator - Registered Users - can see only serviceusers they own (level 4), can create serviceusers and will be the default owner (ownership can be taken from creator by changing the owner group)\n4. serviceuser owner - group configured for specific serviceuser - set by (1), (2) or (3), can see owned serviceusers and can modify what (1) allows.\n\nIn your case it would look like this:\n\n1. admin - Administrators group - can see all serviceusers, can do everything, and set by configuration what attributes owners can modify.\n2. serviceuser admin - IT - can see all serviceusers, can do everything, but not change the configuration\n3. serviceuser creator - IT - can see only serviceusers they own (level 4), can create serviceusers and will be the default owner (ownership can be taken from creator by changing the owner group)\n4. serviceuser owner - group configured for specific serviceuser - set by (1), (2) or (3), can see owned serviceusers and can modify what (1) allows.\n5. other users - Registered Users - All users that do not own a serviceuser will not be able to create, view or modify any serviceuser.\n\nIf in this case the IT group (or whatever it is called) and the Administrator group are identical, we could skip introducing the administrate Serviceuser capability, since then both of our usecases would already be supported.",
+      "parentUuid": "792c5a64_95bc09b5",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01eaa8e7_85f858c4",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/RegisterServiceUser.java",
         "patchSetId": 1
@@ -174,6 +192,24 @@
       "side": 1,
       "message": "As I wrote, I think that create service user capability is actually delegation of managing service users, there is no point in only create user with credentials as we can set any name with any credentials and access.",
       "parentUuid": "62683ea1_84fe6703",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a610f0_a5c43098",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ServiceUserCollection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-09-01T07:34:49Z",
+      "side": 1,
+      "message": "No as described in my other comment it is no such delegation. The name is to be taken literally. The capability should only allow to create serviceusers. If we would open that up serviceuser creation could not be a self service anymore.",
+      "parentUuid": "55192086_a73b6a92",
       "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
