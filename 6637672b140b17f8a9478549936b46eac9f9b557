@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0f69900_664474c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1040243
+      },
+      "writtenOn": "2022-09-02T05:49:17Z",
+      "side": 1,
+      "message": "Hi Thomas,\n\nI do not fully understand your use case, if I can create a new user with any credentials I want, and I can also modify credentials to whatever I want, and set the owner group to whomever I want, allowing me to specify mail address of my user which is useless anyway as gerrit is not a mail server does not have any added value. I may abuse the system, so I am not sure why admin will allow me that and not trust me to set other properties of the user.\n\nThe filtering of attributes based on the configuration file is foreign to gerrit, I believe it should be entirely removed.\n\nAnyway, let\u0027s drop these patches, keep them inconsistent and not a real delegation nor security and it suites your use case somehow.\n\nHowever, please help me merge [1] into gerrit so that the owner will be able to also remove keys, I would like to assume that you agree with me that current situation in which a user can add new ssh keys but cannot remove/revoke existing key is inconsistent.\n\nThanks,\n\n[1] https://gerrit-review.googlesource.com/c/gerrit/+/343075",
+      "revId": "6637672b140b17f8a9478549936b46eac9f9b557",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80647c2e_fc0a8ff2",
