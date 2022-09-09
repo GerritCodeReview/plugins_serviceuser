@@ -18,7 +18,6 @@ import com.google.gerrit.extensions.common.Input;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestModifyView;
-import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -40,8 +39,6 @@ class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> 
   public Response<?> apply(ServiceUserResource.SshKey rsrc, Input input)
       throws AuthException, RepositoryNotFoundException, IOException, ConfigInvalidException,
           PermissionBackendException {
-    return deleteSshKey
-        .get()
-        .apply(new AccountResource.SshKey(rsrc.getUser(), rsrc.getSshKey()), input);
+    return deleteSshKey.get().apply(rsrc.getUser(), rsrc.getSshKey());
   }
 }
