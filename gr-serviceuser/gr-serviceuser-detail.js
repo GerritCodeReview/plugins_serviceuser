@@ -135,7 +135,7 @@ export class GrServiceUserDetail extends Polymer.GestureEventListeners(
   }
 
   _getPermissions() {
-    return this.plugin.restApi().getAccountCapabilities(['administrateServer'])
+    return this.plugin.restApi('/accounts/self/capabilities/').get('')
         .then(capabilities => {
           this._isAdmin = capabilities && capabilities.administrateServer;
         });
