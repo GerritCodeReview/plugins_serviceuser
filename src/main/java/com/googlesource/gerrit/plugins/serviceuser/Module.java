@@ -25,6 +25,7 @@ import com.google.gerrit.extensions.events.GitReferenceUpdatedListener;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
+import com.google.gerrit.extensions.webui.TopMenu;
 import com.google.gerrit.server.git.validators.CommitValidationListener;
 import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.inject.AbstractModule;
@@ -38,6 +39,7 @@ class Module extends AbstractModule {
     bind(CapabilityDefinition.class)
         .annotatedWith(Exports.named(CreateServiceUserCapability.ID))
         .to(CreateServiceUserCapability.class);
+    DynamicSet.bind(binder(), TopMenu.class).to(ServiceUserTopMenu.class);
     DynamicSet.bind(binder(), GitReferenceUpdatedListener.class).to(RefUpdateListener.class);
     DynamicSet.bind(binder(), CommitValidationListener.class).to(ValidateServiceUserCommits.class);
     install(new FactoryModuleBuilder().build(CreateServiceUserNotes.Factory.class));
