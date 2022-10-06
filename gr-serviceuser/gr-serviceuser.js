@@ -20,10 +20,7 @@ import {GrServiceUserDetail} from './gr-serviceuser-detail.js';
 import {GrServiceUserCreate} from './gr-serviceuser-create.js';
 
 Gerrit.install(plugin => {
-  plugin.restApi()
-      .getAccountCapabilities([
-        'administrateServer',
-        'serviceuser-createServiceUser'])
+  plugin.restApi('/accounts/self/capabilities/').get('')
       .then(capabilities => {
         if (capabilities
             && (capabilities.administrateServer
