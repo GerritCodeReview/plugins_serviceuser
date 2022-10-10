@@ -21,6 +21,11 @@ export const htmlTemplate = Polymer.html`
     <style include="gr-font-styles"></style>
     <style include="gr-form-styles"></style>
     <style>
+      .heading {
+        font-size: x-large;
+        font-weight: 500;
+      }
+
       div.serviceuser-detail {
         margin: 2em auto;
         max-width: 50em;
@@ -67,7 +72,7 @@ export const htmlTemplate = Polymer.html`
         </div>
         <div id="loadedContent"
              class$="[[_computeLoadingClass(_loading)]]">
-          <h1 id="Title" class="heading-1">Service User "[[_serviceUser.name]]"</h1>
+          <h1 id="Title" class="heading">Service User "[[_serviceUser.name]]"</h1>
           <div id="form">
             <fieldset>
               <fieldset>

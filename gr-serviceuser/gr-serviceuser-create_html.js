@@ -25,10 +25,15 @@ export const htmlTemplate = Polymer.html`
         margin: 2em auto;
         max-width: 50em;
       }
+
+      .heading {
+        font-size: x-large;
+        font-weight: 500;
+      }
     </style>
     <main class="gr-form-styles read-only">
       <div class="topHeader">
-        <h1 class="heading-1">Create Service User</h1>
+        <h1 class="heading">Create Service User</h1>
       </div>
       <fieldset id="infoMessage"
            hidden$="[[!_infoMessageEnabled]]">

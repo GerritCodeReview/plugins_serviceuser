@@ -24,6 +24,11 @@ export const htmlTemplate = Polymer.html`
         padding: 8px;
       }
 
+      .heading {
+        font-size: x-large;
+        font-weight: 500;
+      }
+
       #topContainer {
         align-items: center;
         display: flex;
@@ -32,11 +37,10 @@ export const htmlTemplate = Polymer.html`
         margin: 0 1em;
       }
     </style>
-    <div class="topHeader">
-      <h1 class="heading-1">Service Users</h1>
-    </div>
     <div id="topContainer">
-      <div></div>
+      <div>
+        <h1 class="heading">Service Users</h1>
+      </div>
       <div id="createNewContainer"
            class$="[[_computeCreateClass(createNew)]]"
            hidden$="[[!_canCreate]]">
