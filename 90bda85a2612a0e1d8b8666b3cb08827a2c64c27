@@ -46,6 +46,30 @@
       },
       "revId": "90bda85a2612a0e1d8b8666b3cb08827a2c64c27",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a54f628_5d709d93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1026112
+      },
+      "writtenOn": "2022-11-10T16:30:01Z",
+      "side": 1,
+      "message": "Yes. Sorry for the noise!",
+      "parentUuid": "4281661e_8d97a055",
+      "range": {
+        "startLine": 8,
+        "startChar": 30,
+        "endLine": 8,
+        "endChar": 31
+      },
+      "revId": "90bda85a2612a0e1d8b8666b3cb08827a2c64c27",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
