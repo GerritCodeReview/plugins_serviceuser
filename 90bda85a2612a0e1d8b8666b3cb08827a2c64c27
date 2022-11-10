@@ -22,6 +22,30 @@
       },
       "revId": "90bda85a2612a0e1d8b8666b3cb08827a2c64c27",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4281661e_8d97a055",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2022-11-10T16:19:00Z",
+      "side": 1,
+      "message": "@Patrick should we resolve this comment?",
+      "parentUuid": "f2ccbcca_bbbc7c9d",
+      "range": {
+        "startLine": 8,
+        "startChar": 30,
+        "endLine": 8,
+        "endChar": 31
+      },
+      "revId": "90bda85a2612a0e1d8b8666b3cb08827a2c64c27",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
