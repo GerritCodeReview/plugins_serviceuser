@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1940082f_65ccba1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-11-10T16:45:01Z",
+      "side": 1,
+      "message": "OK, I figured why the verification on stable-3.4 branch is failing.\nSee the change 343095 for the details. I uploaded change 351454 to rectify.",
+      "revId": "aa8375265dcdc0f9c314d5d83b516b9106e0fb49",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
