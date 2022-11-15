@@ -16,6 +16,24 @@
       "message": "Are you sure this is is needed on stable-3.4?",
       "revId": "46ebd8e85a9607f63b20055b6769bfd635331482",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "049d0392_a7a07e6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2022-11-15T11:55:35Z",
+      "side": 1,
+      "message": "Strictly speaking it\u0027s not, as tests pass without it too, but we took the approach to go to the most recent change that passed tests in 3.4.\n\nIf we prefer to only cherry-pick up to the oldest change that makes things pass, then we could just merge this branch to the more recent branches.",
+      "parentUuid": "2ccbac6b_b50979d1",
+      "revId": "46ebd8e85a9607f63b20055b6769bfd635331482",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
