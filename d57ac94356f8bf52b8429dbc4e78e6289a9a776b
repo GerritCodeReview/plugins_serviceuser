@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "095fca01_0b4a8896",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-07-28T14:56:55Z",
+      "side": 1,
+      "message": "remove \"if\"",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "d57ac94356f8bf52b8429dbc4e78e6289a9a776b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49ce70ff_a0292cc8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateServiceUserCommits.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-07-28T14:56:55Z",
+      "side": 1,
+      "message": "which created the service user",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 55
+      },
+      "revId": "d57ac94356f8bf52b8429dbc4e78e6289a9a776b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba01003f_0c2847fa",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateServiceUserCommits.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-07-28T14:56:55Z",
+      "side": 1,
+      "message": "accounts in the owner group",
+      "range": {
+        "startLine": 75,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 58
+      },
+      "revId": "d57ac94356f8bf52b8429dbc4e78e6289a9a776b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
