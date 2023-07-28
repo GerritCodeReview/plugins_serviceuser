@@ -51,27 +51,31 @@ class ValidateServiceUserCommits implements CommitValidationListener {
       PersonIdent committer = receiveEvent.commit.getCommitterIdent();
       ServiceUserInfo serviceUser = serviceUserResolver.getAsServiceUser(committer);
       if (serviceUser != null) {
-        if (serviceUser.owner != null
-            && serviceUserResolver.listActiveOwners(serviceUser).isEmpty()) {
-          throw new CommitValidationException(
-              String.format(
-                  "Commit %s of service user %s (%s) is rejected because "
-                      + "all service user owner accounts are inactive.",
-                  receiveEvent.commit.getId().getName(),
-                  committer.getName(),
-                  committer.getEmailAddress()));
-        }
         Optional<AccountState> creator =
             accountCache.get(Account.id(serviceUser.createdBy._accountId));
-        if (!creator.isPresent() || !creator.get().account().isActive()) {
-          throw new CommitValidationException(
-              String.format(
-                  "Commit %s of service user %s (%s) is rejected because "
-                      + "the account of the service creator is inactive.",
-                  receiveEvent.commit.getId().getName(),
-                  committer.getName(),
-                  committer.getEmailAddress()));
+
+        if (creator.isPresent() && creator.get().account().isActive()) {
+          return Collections.emptyList();
         }
+
+        if (!serviceUserResolver.listActiveOwners(serviceUser).isEmpty()) {
+          return Collections.emptyList();
+        }
+
+        StringBuilder msg = new StringBuilder();
+        msg.append(
+            String.format(
+                "Commit %s of service user %s (%s) is rejected because "
+                    + " the account of the service user is inactive",
+                receiveEvent.commit.getId().name(),
+                committer.getName(),
+                committer.getEmailAddress()));
+
+        if (serviceUser.owner != null) {
+          msg.append(" and all service user owner accounts are inactive");
+        }
+
+        throw new CommitValidationException(msg.toString());
       }
     } catch (RestApiException e) {
       log.error(e.getMessage(), e);
