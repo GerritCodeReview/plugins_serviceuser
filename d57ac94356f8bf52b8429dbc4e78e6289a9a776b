@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd0dc94d_c77276d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-07-28T15:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "095fca01_0b4a8896",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "d57ac94356f8bf52b8429dbc4e78e6289a9a776b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49ce70ff_a0292cc8",
@@ -47,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "110cd2ef_4661215b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateServiceUserCommits.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-07-28T15:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49ce70ff_a0292cc8",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 55
+      },
+      "revId": "d57ac94356f8bf52b8429dbc4e78e6289a9a776b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba01003f_0c2847fa",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-07-28T14:56:55Z",
       "side": 1,
       "message": "accounts in the owner group",
+      "range": {
+        "startLine": 75,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 58
+      },
+      "revId": "d57ac94356f8bf52b8429dbc4e78e6289a9a776b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d337ca4_5ca7f502",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/ValidateServiceUserCommits.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-07-28T15:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba01003f_0c2847fa",
       "range": {
         "startLine": 75,
         "startChar": 31,
