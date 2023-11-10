@@ -15,57 +15,130 @@
  * limitations under the License.
  */
 
-import {htmlTemplate} from './gr-serviceuser-http-password_html.js';
+import {customElement, property, query} from 'lit/decorators';
+import {css, CSSResult, html, LitElement} from 'lit';
+import {RestPluginApi} from '@gerritcodereview/typescript-api/rest';
 
-class GrServiceUserHttpPassword extends Polymer.GestureEventListeners(
-    Polymer.Element) {
-  /** @returns {?} template for this component */
-  static get template() { return htmlTemplate; }
+@customElement('gr-serviceuser-http-password')
+export class GrServiceUserHttpPassword extends LitElement {
+  @query('#generatedPasswordModal')
+  generatedPasswordModal?: HTMLDialogElement;
 
-  /** @returns {string} name of the component */
-  static get is() { return 'gr-serviceuser-http-password'; }
+  @property()
+  pluginRestApi!: RestPluginApi;
 
-  /**
-   * Defines properties of the component
-   *
-   * @returns {?}
-   */
-  static get properties() {
-    return {
-      _restApi: Object,
-      _serviceUser: Object,
-      _generatedPassword: String,
-      _passwordUrl: String,
-    };
+  @property({type: String})
+  serviceUserId?: String;
+
+  @property({type: String})
+  generatedPassword?: String;
+
+  loadData(pluginRestApi: RestPluginApi) {
+    this.pluginRestApi = pluginRestApi;
+    this.serviceUserId = this.baseURI.split('/').pop();
   }
 
-  loadData(restApi, serviceUser) {
-    this._restApi = restApi;
-    this._serviceUser = serviceUser;
+  static override get styles() {
+    return [
+      window.Gerrit.styles.font as CSSResult,
+      window.Gerrit.styles.form as CSSResult,
+      window.Gerrit.styles.modal as CSSResult,
+      css`
+        .password {
+          font-family: var(--monospace-font-family);
+          font-size: var(--font-size-mono);
+          line-height: var(--line-height-mono);
+        }
+        #generatedPasswordModal {
+          padding: var(--spacing-xxl);
+          width: 50em;
+        }
+        #generatedPasswordDisplay {
+          margin: var(--spacing-l) 0;
+        }
+        #generatedPasswordDisplay .title {
+          width: unset;
+        }
+        #generatedPasswordDisplay .value {
+          font-family: var(--monospace-font-family);
+          font-size: var(--font-size-mono);
+          line-height: var(--line-height-mono);
+        }
+        #passwordWarning {
+          font-style: italic;
+          text-align: center;
+        }
+        .closeButton {
+          bottom: 2em;
+          position: absolute;
+          right: 2em;
+        }
+      `,
+    ];
   }
 
-  _handleGenerateTap() {
-    this._generatedPassword = 'Generating...';
-    this.$.generatedPasswordOverlay.open();
-    this._restApi
-        .put(`${this._serviceUser._account_id}/password.http`,
-            {generate: true})
-        .then(newPassword => {
-          this._generatedPassword = newPassword;
-        });
+  override render() {
+    return html` <div class="gr-form-styles">
+        <div>
+          <gr-button id="generateButton" @click=${this.handleGenerateTap}
+            >Generate new password</gr-button
+          >
+          <gr-button id="deleteButton" @click="${this.handleDelete}"
+            >Delete password</gr-button
+          >
+        </div>
+      </div>
+      <dialog
+        tabindex="-1"
+        id="generatedPasswordModal"
+        @closed=${this.generatedPasswordModalClosed}
+      >
+        <div class="gr-form-styles">
+          <section id="generatedPasswordDisplay">
+            <span class="title">New Password:</span>
+            <span class="value">${this.generatedPassword}</span>
+            <gr-copy-clipboard
+              hasTooltip=""
+              buttonTitle="Copy password to clipboard"
+              hideInput=""
+              .text=${this.generatedPassword}
+            >
+            </gr-copy-clipboard>
+          </section>
+          <section id="passwordWarning">
+            This password will not be displayed again.<br />
+            If you lose it, you will need to generate a new one.
+          </section>
+          <gr-button link="" class="closeButton" @click=${this.closeModal}
+            >Close</gr-button
+          >
+        </div>
+      </dialog>`;
   }
 
-  _closeOverlay() {
-    this.$.generatedPasswordOverlay.close();
+  private handleGenerateTap() {
+    this.generatedPassword = 'Generating...';
+    this.generatedPasswordModal?.showModal();
+    this.pluginRestApi
+      .put<String>(`/a/accounts/${this.serviceUserId}/password.http`, {
+        generate: true,
+      })
+      .then(newPassword => {
+        this.generatedPassword = newPassword;
+      });
   }
 
-  _generatedPasswordOverlayClosed() {
-    this._generatedPassword = '';
+  private closeModal() {
+    this.generatedPasswordModal?.close();
   }
 
-  _handleDelete() {
-    this._restApi.delete(`${this._serviceUser._account_id}/password.http`);
+  private generatedPasswordModalClosed() {
+    this.generatedPassword = '';
+  }
+
+  private handleDelete() {
+    this.pluginRestApi.delete(
+      `/a/accounts/${this.serviceUserId}/password.http`
+    );
   }
 }
-
-customElements.define(GrServiceUserHttpPassword.is, GrServiceUserHttpPassword);

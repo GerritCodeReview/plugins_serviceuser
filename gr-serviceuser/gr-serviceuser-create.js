@@ -15,154 +15,302 @@
  * limitations under the License.
  */
 
-import {htmlTemplate} from './gr-serviceuser-create_html.js';
+import {customElement, property, query, state} from 'lit/decorators';
+import {css, CSSResult, html, LitElement} from 'lit';
+import {unsafeHTML} from 'lit/directives/unsafe-html';
+import {RestPluginApi} from '@gerritcodereview/typescript-api/rest';
+import {
+  AccountId,
+  AccountInfo,
+  GroupInfo,
+} from '@gerritcodereview/typescript-api/rest-api';
+import {PluginApi} from '@gerritcodereview/typescript-api/plugin';
 
-export class GrServiceUserCreate extends Polymer.GestureEventListeners(
-    Polymer.Element) {
-  /** @returns {?} template for this component */
-  static get template() { return htmlTemplate; }
+export interface ConfigInfo {
+  info: string;
+  on_success: string;
+  allow_email: boolean;
+  allow_owner: boolean;
+  allow_http_password: boolean;
+}
 
-  /** @returns {string} name of the component */
-  static get is() { return 'gr-serviceuser-create'; }
+export interface ServiceUserInfo extends AccountInfo {
+  created_by?: AccountInfo;
+  created_at?: string;
+  owner?: GroupInfo;
+}
 
-  /**
-   * Defines properties of the component
-   *
-   * @returns {?}
-   */
-  static get properties() {
-    return {
-      _infoMessageEnabled: {
-        type: Boolean,
-        value: false,
-      },
-      _infoMessage: String,
-      _successMessageEnabled: {
-        type: Boolean,
-        value: false,
-      },
-      _successMessage: String,
-      _newUsername: String,
-      _emailEnabled: {
-        type: Boolean,
-        value: false,
-      },
-      _newEmail: String,
-      _newKey: String,
-      _dataValid: {
-        type: Boolean,
-        value: false,
-      },
-      _isAdding: {
-        type: Boolean,
-        value: false,
-      },
-      _enableButton: {
-        type: Boolean,
-        value: false,
-      },
-      _accountId: String,
-    };
+declare interface ServiceUserInput {
+  username?: string;
+  name?: string;
+  ssh_key?: string;
+  email?: string;
+}
+
+@customElement('gr-serviceuser-create')
+export class GrServiceUserCreate extends LitElement {
+  @query('#successDialogModal')
+  successDialogModal!: HTMLDialogElement;
+
+  @query('#serviceUserNameInput')
+  serviceUserNameInput!: HTMLInputElement;
+
+  @query('#serviceUserEmailInput')
+  serviceUserEmailInput!: HTMLInputElement;
+
+  @query('#serviceUserKeyInput')
+  serviceUserKeyInput!: HTMLInputElement;
+
+  @property()
+  plugin!: PluginApi;
+
+  @property()
+  pluginRestApi!: RestPluginApi;
+
+  @state()
+  infoMessageEnabled = false;
+
+  @state()
+  successMessageEnabled = false;
+
+  @state()
+  emailAllowed = false;
+
+  @state()
+  dataValid = false;
+
+  @state()
+  isAdding = false;
+
+  @property({type: String})
+  infoMessage = '';
+
+  @property({type: String})
+  successMessage = '';
+
+  @property({type: String})
+  username?: String;
+
+  @property({type: String})
+  email?: String;
+
+  @property({type: String})
+  key?: String;
+
+  @property({type: Object})
+  accountId?: AccountId;
+
+  static override get styles() {
+    return [
+      window.Gerrit.styles.font as CSSResult,
+      window.Gerrit.styles.form as CSSResult,
+      window.Gerrit.styles.modal as CSSResult,
+      window.Gerrit.styles.subPage as CSSResult,
+      css`
+        main {
+          margin: 2em auto;
+          max-width: 50em;
+        }
+
+        .heading {
+          font-size: x-large;
+          font-weight: 500;
+        }
+      `,
+    ];
   }
 
-  connectedCallback() {
+  override render() {
+    return html`
+      <main class="gr-form-styles read-only">
+        <div class="topHeader">
+          <h1 class="heading">Create Service User</h1>
+        </div>
+        ${this.renderInfoMessage()}
+        <fieldset>
+          <section>
+            <span class="title">Username</span>
+            <span class="value">
+              <input
+                id="serviceUserNameInput"
+                value="${this.username}"
+                type="text"
+                @input="${this.validateData}"
+              />
+            </span>
+          </section>
+          ${this.renderEmailInputSection()}
+        </fieldset>
+        <fieldset>
+          <section>
+            <span class="title">Public SSH key</span>
+            <span class="value">
+              <iron-autogrow-textarea
+                id="serviceUserKeyInput"
+                .bind-value="${this.key}"
+                placeholder="New SSH Key"
+                @bind-value-changed=${this.validateData}
+              >
+              </iron-autogrow-textarea>
+            </span>
+          </section>
+        </fieldset>
+        <gr-button
+          id="createButton"
+          @click=${this.handleCreateServiceUser}
+          ?disabled="${!this.dataValid || this.isAdding}"
+        >
+          Create
+        </gr-button>
+        <dialog id="successDialogModal">
+          <gr-dialog
+            id="successDialog"
+            confirm-label="OK"
+            cancel-label=""
+            @confirm="${this.forwardToDetails}"
+            confirm-on-enter
+          >
+            <div slot="header">Success</div>
+            <div id="successMessage" slot="main">
+              ${this.renderSuccessMessage()}
+            </div>
+          </gr-dialog>
+        </dialog>
+      </main>
+    `;
+  }
+
+  private renderSuccessMessage() {
+    return html`${unsafeHTML(this.successMessage)}`;
+  }
+
+  private renderInfoMessage() {
+    if (this.infoMessageEnabled) {
+      return html`
+        <fieldset id="infoMessage">${unsafeHTML(this.infoMessage)}</fieldset>
+      `;
+    }
+
+    return html``;
+  }
+
+  private renderEmailInputSection() {
+    if (this.emailAllowed) {
+      return html`
+        <section>
+          <span class="title">Email</span>
+          <span class="value">
+            <input
+              id="serviceUserEmailInput"
+              value="${this.email}"
+              type="text"
+              @input="${this.validateData}"
+            />
+          </span>
+        </section>
+      `;
+    }
+
+    return html``;
+  }
+
+  override connectedCallback() {
     super.connectedCallback();
-    this._getConfig();
+    this.pluginRestApi = this.plugin.restApi();
+    this.getConfig();
   }
 
-  _forwardToDetails() {
-    window.location.href = `${this.plugin.screenUrl()}/user/${this._accountId}`;
+  private forwardToDetails() {
+    window.location.href = `${
+      window.location.origin
+    }/x/${this.plugin.getPluginName()}/user/${this.accountId}`;
   }
 
-  _getConfig() {
-    return this.plugin.restApi('/config/server/serviceuser~config/').get('')
-        .then(config => {
-          if (!config) {
-            return;
-          }
+  private getConfig() {
+    return this.pluginRestApi
+      .get<ConfigInfo>('/config/server/serviceuser~config/')
+      .then(config => {
+        if (!config) {
+          return;
+        }
 
-          if (config.info && config.info != '') {
-            this._infoMessageEnabled = true;
-            this._infoMessage = config.info;
-            this.$.infoMessage.innerHTML = this._infoMessage;
-          }
+        if (config.info && config.info !== '') {
+          this.infoMessageEnabled = true;
+          this.infoMessage = config.info;
+        }
 
-          if (config.on_success && config.on_success != '') {
-            this._successMessageEnabled = true;
-            this._successMessage = config.on_success;
-            this.$.successMessage.innerHTML = this._successMessage;
-          }
+        if (config.on_success && config.on_success !== '') {
+          this.successMessageEnabled = true;
+          this.successMessage = config.on_success;
+        }
 
-          this._emailEnabled = config.allow_email;
-        });
+        this.emailAllowed = config.allow_email;
+      });
   }
 
-  _validateData() {
-    this._dataValid = this._validateName(this._newUsername)
-      && this._validateEmail(this._newEmail)
-      && this._validateKey(this._newKey);
-    this._computeButtonEnabled();
+  private validateData() {
+    this.dataValid =
+      this.validateName(this.serviceUserNameInput.value) &&
+      this.validateEmail(this.serviceUserEmailInput?.value) &&
+      this.validateKey(this.serviceUserKeyInput.value);
   }
 
-  _validateName(username) {
+  private validateName(username: String | undefined) {
     if (username && username.trim().length > 0) {
+      this.username = username;
       return true;
     }
 
     return false;
   }
 
-  _validateEmail(email) {
-    if (!email || email.trim().length == 0 || email.includes('@')) {
+  private validateEmail(email: String | undefined) {
+    if (!email || email.trim().length === 0 || email.includes('@')) {
+      this.email = email;
       return true;
     }
 
     return false;
   }
 
-  _validateKey(key) {
-    if (!key || !key.trim()) {
+  private validateKey(key: String | undefined) {
+    if (!key?.trim()) {
       return false;
     }
 
+    this.key = key;
     return true;
   }
 
-  _computeButtonEnabled() {
-    this._enableButton = this._dataValid && !this._isAdding;
-  }
-
-  _handleCreateServiceUser() {
-    this._isAdding = true;
-    this._computeButtonEnabled();
-    const body = {
-      ssh_key: this._newKey.trim(),
-      email: this._newEmail ? this._newEmail.trim() : null,
+  private handleCreateServiceUser() {
+    this.isAdding = true;
+    const body: ServiceUserInput = {
+      ssh_key: this.key ? this.key.trim() : '',
+      email: this.email ? this.email.trim() : '',
     };
-    return this.plugin.restApi('/a/config/server/serviceuser~serviceusers/')
-        .post(this._newUsername, body)
-        .then(response => {
-          this._accountId = response._account_id;
-          if (this._successMessage) {
-            this.$.successDialogOverlay.open();
-          } else {
-            this._forwardToDetails();
-          }
-        }).catch(response => {
-          this.dispatchEvent(
-              new CustomEvent(
-                  'show-error',
-                  {
-                    detail: {message: response},
-                    bubbles: true,
-                    composed: true,
-                  }
-              )
-          );
-          this._isAdding = false;
-          this._computeButtonEnabled();
-        });
+    return this.plugin
+      .restApi()
+      .post<ServiceUserInfo>(
+        `/a/config/server/serviceuser~serviceusers/${this.username}`,
+        body
+      )
+      .then(response => {
+        this.accountId = response._account_id;
+        if (this.successMessage) {
+          this.successDialogModal?.showModal();
+        } else {
+          this.forwardToDetails();
+        }
+      })
+      .catch(response => {
+        this.dispatchEvent(
+          new CustomEvent('show-error', {
+            detail: {message: response},
+            bubbles: true,
+            composed: true,
+          })
+        );
+        this.isAdding = false;
+      });
   }
 }
-
-customElements.define(GrServiceUserCreate.is, GrServiceUserCreate);
