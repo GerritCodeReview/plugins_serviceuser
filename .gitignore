@@ -6,3 +6,4 @@
 /.settings/org.eclipse.m2e.core.prefs
 /.idea
 /.apt_generated/
+/node_modules
