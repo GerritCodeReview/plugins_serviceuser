@@ -372,18 +372,18 @@ export class GrServiceUserDetail extends LitElement {
   }
 
   private getPluginConfig() {
-    return Promise.resolve(this.getPermissions()).then(() => {
-      this.pluginRestApi
-        .get<ConfigInfo>('/config/server/serviceuser~config/')
-        .then(config => {
-          if (!config) {
-            return;
-          }
-          this.emailAllowed = config.allow_email || this.isAdmin;
-          this.ownerAllowed = config.allow_owner || this.isAdmin;
-          this.httpPasswordAllowed = config.allow_http_password || this.isAdmin;
-        });
-    });
+    return this.getPermissions()
+      .then(() =>
+        this.pluginRestApi.get<ConfigInfo>('/config/server/serviceuser~config/')
+      )
+      .then(config => {
+        if (!config) {
+          return;
+        }
+        this.emailAllowed = config.allow_email || this.isAdmin;
+        this.ownerAllowed = config.allow_owner || this.isAdmin;
+        this.httpPasswordAllowed = config.allow_http_password || this.isAdmin;
+      });
   }
 
   private getServiceUser() {
