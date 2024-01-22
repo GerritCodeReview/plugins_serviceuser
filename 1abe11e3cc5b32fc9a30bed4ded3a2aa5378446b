@@ -3,7 +3,7 @@
     "zuul-check:plugins_serviceuser": {
       "state": "NOT_STARTED",
       "created": "2021-10-28T12:49:55Z",
-      "updated": "2024-01-22T01:30:54Z"
+      "updated": "2024-01-22T01:31:01Z"
     }
   }
 }
