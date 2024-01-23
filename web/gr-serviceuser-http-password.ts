@@ -120,9 +120,12 @@ export class GrServiceUserHttpPassword extends LitElement {
     this.generatedPassword = 'Generating...';
     this.generatedPasswordModal?.showModal();
     this.pluginRestApi
-      .put<String>(`/a/accounts/${this.serviceUserId}/password.http`, {
-        generate: true,
-      })
+      .put<String>(
+        `/a/config/server/serviceuser~serviceusers/${this.serviceUserId}/password.http`,
+        {
+          generate: true,
+        }
+      )
       .then(newPassword => {
         this.generatedPassword = newPassword;
       });
@@ -138,7 +141,7 @@ export class GrServiceUserHttpPassword extends LitElement {
 
   private handleDelete() {
     this.pluginRestApi.delete(
-      `/a/accounts/${this.serviceUserId}/password.http`
+      `/a/config/server/serviceuser~serviceusers/${this.serviceUserId}/password.http`
     );
   }
 }
