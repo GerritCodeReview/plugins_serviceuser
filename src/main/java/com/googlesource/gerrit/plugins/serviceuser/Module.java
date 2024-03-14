@@ -26,8 +26,8 @@ import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.restapi.RestApiModule;
 import com.google.gerrit.extensions.webui.TopMenu;
+import com.google.gerrit.server.git.meta.VersionedConfigFile;
 import com.google.gerrit.server.git.validators.CommitValidationListener;
-import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
@@ -80,7 +80,7 @@ class Module extends AbstractModule {
   }
 
   @Provides
-  ProjectLevelConfig.Bare createProjectLevelConfig(@PluginName String pluginName) {
-    return new ProjectLevelConfig.Bare(pluginName + ".db");
+  VersionedConfigFile createProjectLevelConfig(@PluginName String pluginName) {
+    return new VersionedConfigFile(pluginName + ".db");
   }
 }

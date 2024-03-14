@@ -42,10 +42,10 @@ import com.google.gerrit.server.account.AccountResolver.UnresolvableAccountExcep
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
+import com.google.gerrit.server.git.meta.VersionedConfigFile;
 import com.google.gerrit.server.group.GroupResolver;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -72,7 +72,7 @@ class RegisterServiceUser
     String owner;
   }
 
-  private final Provider<ProjectLevelConfig.Bare> configProvider;
+  private final Provider<VersionedConfigFile> configProvider;
   private final AccountResolver accountResolver;
   private final GroupResolver groupResolver;
   private final Provider<CurrentUser> userProvider;
@@ -86,7 +86,7 @@ class RegisterServiceUser
 
   @Inject
   RegisterServiceUser(
-      Provider<ProjectLevelConfig.Bare> configProvider,
+      Provider<VersionedConfigFile> configProvider,
       AccountResolver accountResolver,
       GroupResolver groupResolver,
       Provider<CurrentUser> userProvider,
@@ -162,7 +162,7 @@ class RegisterServiceUser
     }
 
     try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjects)) {
-      ProjectLevelConfig.Bare update = configProvider.get();
+      VersionedConfigFile update = configProvider.get();
       update.load(md);
 
       Config db = update.getConfig();

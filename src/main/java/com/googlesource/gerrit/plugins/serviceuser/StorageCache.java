@@ -20,8 +20,7 @@ import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.cache.CacheModule;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
-import com.google.gerrit.server.project.ProjectLevelConfig;
-import com.google.gerrit.server.project.ProjectLevelConfig.Bare;
+import com.google.gerrit.server.git.meta.VersionedConfigFile;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -67,13 +66,13 @@ public class StorageCache {
   }
 
   static class Loader extends CacheLoader<Object, Config> {
-    private final Provider<Bare> configProvider;
+    private final Provider<VersionedConfigFile> configProvider;
     private final MetaDataUpdate.Server metaDataUpdateFactory;
     private final AllProjectsName allProjects;
 
     @Inject
     Loader(
-        Provider<ProjectLevelConfig.Bare> configProvider,
+        Provider<VersionedConfigFile> configProvider,
         MetaDataUpdate.Server metaDataUpdateFactory,
         AllProjectsName allProjects) {
       this.configProvider = configProvider;
@@ -83,7 +82,7 @@ public class StorageCache {
 
     @Override
     public Config load(Object key) throws Exception {
-      ProjectLevelConfig.Bare storage = configProvider.get();
+      VersionedConfigFile storage = configProvider.get();
       try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjects)) {
         storage.load(md);
       }

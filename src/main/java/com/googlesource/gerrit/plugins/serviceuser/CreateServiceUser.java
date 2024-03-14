@@ -39,8 +39,8 @@ import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
+import com.google.gerrit.server.git.meta.VersionedConfigFile;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.account.CreateAccount;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -75,7 +75,7 @@ class CreateServiceUser
   }
 
   private final PluginConfig cfg;
-  private final Provider<ProjectLevelConfig.Bare> configProvider;
+  private final Provider<VersionedConfigFile> configProvider;
   private final CreateAccount createAccount;
   private final Provider<CurrentUser> userProvider;
   private final MetaDataUpdate.User metaDataUpdateFactory;
@@ -89,7 +89,7 @@ class CreateServiceUser
   @Inject
   CreateServiceUser(
       PluginConfigFactory cfgFactory,
-      Provider<ProjectLevelConfig.Bare> configProvider,
+      Provider<VersionedConfigFile> configProvider,
       @PluginName String pluginName,
       CreateAccount createAccount,
       Provider<CurrentUser> userProvider,
@@ -173,7 +173,7 @@ class CreateServiceUser
     String creationDate = rfc2822DateFormatter.format(new Date());
 
     try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjects)) {
-      ProjectLevelConfig.Bare update = configProvider.get();
+      VersionedConfigFile update = configProvider.get();
       update.load(md);
 
       Config db = update.getConfig();

@@ -35,10 +35,10 @@ import com.google.gerrit.extensions.restapi.TopLevelResource;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.config.ConfigResource;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
+import com.google.gerrit.server.git.meta.VersionedConfigFile;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectCache;
-import com.google.gerrit.server.project.ProjectLevelConfig;
 import com.google.gerrit.server.restapi.group.GroupJson;
 import com.google.gerrit.server.restapi.group.GroupsCollection;
 import com.google.inject.Inject;
@@ -57,7 +57,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
 
   private final Provider<GetConfig> getConfig;
   private final GroupsCollection groups;
-  private final Provider<ProjectLevelConfig.Bare> configProvider;
+  private final Provider<VersionedConfigFile> configProvider;
   private final Project.NameKey allProjects;
   private final MetaDataUpdate.User metaDataUpdateFactory;
   private final GroupJson json;
@@ -69,7 +69,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   PutOwner(
       Provider<GetConfig> getConfig,
       GroupsCollection groups,
-      Provider<ProjectLevelConfig.Bare> configProvider,
+      Provider<VersionedConfigFile> configProvider,
       ProjectCache projectCache,
       MetaDataUpdate.User metaDataUpdateFactory,
       GroupJson json,
@@ -107,7 +107,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     GroupDescription.Basic group = null;
     String oldGroup;
     try (MetaDataUpdate md = metaDataUpdateFactory.create(allProjects)) {
-      ProjectLevelConfig.Bare update = configProvider.get();
+      VersionedConfigFile update = configProvider.get();
       update.load(md);
 
       Config db = update.getConfig();
