@@ -25,6 +25,7 @@ import {AccountCapabilityInfo} from './plugin';
 import {ServiceUserInfo} from './gr-serviceuser-create';
 
 const NOT_FOUND_MESSAGE = 'Not Found';
+const SERVICEUSER_LIST_ENDPOINT = 'x/serviceuser/list';
 
 @customElement('gr-serviceuser-list')
 export class GrServiceUserList extends LitElement {
@@ -211,13 +212,13 @@ export class GrServiceUserList extends LitElement {
 
   private computeServiceUserUrl(id: AccountId) {
     return `${
-      window.location.origin
-    }/x/${this.plugin.getPluginName()}/user/${id}`;
+      window.location.href.replace(SERVICEUSER_LIST_ENDPOINT, '')
+    }x/${this.plugin.getPluginName()}/user/${id}`;
   }
 
   private createNewServiceUser() {
     window.location.href = `${
-      window.location.origin
-    }/x/${this.plugin.getPluginName()}/create`;
+      window.location.href.replace(SERVICEUSER_LIST_ENDPOINT, '')
+    }x/${this.plugin.getPluginName()}/create`;
   }
 }
