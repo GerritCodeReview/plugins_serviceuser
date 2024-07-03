@@ -221,9 +221,12 @@ export class GrServiceUserCreate extends LitElement {
   }
 
   private forwardToDetails() {
-    window.location.href = `${
-      window.location.origin
-    }/x/${this.plugin.getPluginName()}/user/${this.accountId}`;
+    window.location.href = `${this.getPluginBaseURL()}/user/${this.accountId}`;
+  }
+
+  private getPluginBaseURL() {
+    var href = window.location.href;
+    return href.substring(0, href.lastIndexOf('/create'));
   }
 
   private getConfig() {

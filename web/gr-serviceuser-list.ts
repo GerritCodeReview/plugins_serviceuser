@@ -210,14 +210,15 @@ export class GrServiceUserList extends LitElement {
   }
 
   private computeServiceUserUrl(id: AccountId) {
-    return `${
-      window.location.origin
-    }/x/${this.plugin.getPluginName()}/user/${id}`;
+    return `${this.getPluginBaseURL()}/user/${id}`;
   }
 
   private createNewServiceUser() {
-    window.location.href = `${
-      window.location.origin
-    }/x/${this.plugin.getPluginName()}/create`;
+    window.location.href = `${this.getPluginBaseURL()}/create`;
+  }
+
+  private getPluginBaseURL() {
+    var href = window.location.href;
+    return href.substring(0, href.lastIndexOf('/list'));
   }
 }
