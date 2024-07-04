@@ -40,6 +40,5 @@ window.Gerrit.install(plugin => {
       }
       plugin.screen('list', 'gr-serviceuser-list');
       plugin.screen('user', 'gr-serviceuser-detail');
-      plugin.admin().addMenuLink('Service Users', '/x/serviceuser/list');
     });
 });
