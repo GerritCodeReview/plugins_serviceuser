@@ -225,8 +225,7 @@ export class GrServiceUserCreate extends LitElement {
   }
 
   private getPluginBaseURL() {
-    var href = window.location.href;
-    return href.substring(0, href.lastIndexOf('/create'));
+    return `${window.location.origin}${window.CANONICAL_PATH || ''}/x/${this.plugin.getPluginName()}`;
   }
 
   private getConfig() {

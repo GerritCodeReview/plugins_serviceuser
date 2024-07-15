@@ -218,7 +218,6 @@ export class GrServiceUserList extends LitElement {
   }
 
   private getPluginBaseURL() {
-    var href = window.location.href;
-    return href.substring(0, href.lastIndexOf('/list'));
+    return `${window.location.origin}${window.CANONICAL_PATH || ''}/x/${this.plugin.getPluginName()}`;
   }
 }
