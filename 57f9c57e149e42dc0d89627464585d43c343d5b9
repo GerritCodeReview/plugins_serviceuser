@@ -16,6 +16,24 @@
       "message": "This actually removes the link from the sidebar menu, visible when browsing repositories and so on. Unfortunately, this sidebar menu is not visible when browsing serviceusers itself, but I believe it still adds value to be able to easily navigate to serviceusers, when browsing repos, groups, etc.",
       "revId": "57f9c57e149e42dc0d89627464585d43c343d5b9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5c843b9_59847c0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1135623
+      },
+      "writtenOn": "2024-07-15T14:49:06Z",
+      "side": 1,
+      "message": "I missed that. I agree that it has value and that we should keep it.\n\nI noticed that this part does not work with context paths. To remedy this I have created a fix. I add you as reviewer to it when the CI tests has passed.",
+      "parentUuid": "4d4b6d81_9a741600",
+      "revId": "57f9c57e149e42dc0d89627464585d43c343d5b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
