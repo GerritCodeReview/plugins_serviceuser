@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d4b6d81_9a741600",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-07-15T07:15:08Z",
+      "side": 1,
+      "message": "This actually removes the link from the sidebar menu, visible when browsing repositories and so on. Unfortunately, this sidebar menu is not visible when browsing serviceusers itself, but I believe it still adds value to be able to easily navigate to serviceusers, when browsing repos, groups, etc.",
+      "revId": "57f9c57e149e42dc0d89627464585d43c343d5b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
