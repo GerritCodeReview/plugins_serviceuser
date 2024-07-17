@@ -88,7 +88,7 @@ export class GrServiceUserDetail extends LitElement {
   fullName?: String;
 
   @property({type: String})
-  email?: String;
+  email = '';
 
   @property({type: Array})
   availableOwners?: Array<GroupInfo>;
@@ -273,7 +273,7 @@ export class GrServiceUserDetail extends LitElement {
           type="text"
           class="wide"
           .value="${this.email}"
-          .placeholder="${this.serviceUser?.email}"
+          .placeholder="${this.serviceUser.email ?? ''}"
           ?disabled="${this.changingPrefs}"
           @input="${this.emailChanged}"
         />
@@ -345,7 +345,7 @@ export class GrServiceUserDetail extends LitElement {
       this.computeStatusButtonText();
       this.loading = false;
       this.fullName = this.serviceUser?.name;
-      this.email = this.serviceUser?.email;
+      this.email = this.serviceUser.email ?? '';
       this.owner = this.getCurrentOwnerGroup() ?? NOT_FOUND_MESSAGE;
     });
   }
@@ -457,11 +457,11 @@ export class GrServiceUserDetail extends LitElement {
       : NOT_FOUND_MESSAGE;
   }
 
-  private isEmailValid(email: String) {
-    if (!email) {
-      return false;
+  private isNewValidEmail(email: String) {
+    if (!this.serviceUser.email) {
+      return email.includes('@');
     }
-    return email.includes('@');
+    return email !== this.serviceUser.email && (email.includes('@') || email.length === 0);
   }
 
   private getGroupSuggestions(input: String) {
@@ -506,11 +506,8 @@ export class GrServiceUserDetail extends LitElement {
   }
 
   private emailChanged() {
-    const newEmail = this.serviceUserEmailInput.value;
-    if (this.isEmailValid(newEmail)) {
-      this.email = this.serviceUserEmailInput.value;
-      this.computePrefsChanged();
-    }
+    this.email = this.serviceUserEmailInput.value;
+    this.computePrefsChanged();
   }
 
   private ownerChanged() {
@@ -530,7 +527,7 @@ export class GrServiceUserDetail extends LitElement {
 
     if (
       this.owner === this.getCurrentOwnerGroup() &&
-      this.email === this.serviceUser.email &&
+      !this.isNewValidEmail(this.email) &&
       this.fullName === this.serviceUser.name
     ) {
       this.prefsChanged = false;
@@ -548,7 +545,7 @@ export class GrServiceUserDetail extends LitElement {
   }
 
   private applyNewEmail() {
-    if (!this.isEmailValid(this.email ?? '')) {
+    if (!this.isNewValidEmail(this.email)) {
       return;
     }
     return this.pluginRestApi.put(
