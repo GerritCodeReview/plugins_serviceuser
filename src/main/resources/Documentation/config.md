@@ -82,7 +82,7 @@ file.
 	user the 'Forge Committer' access right must be blocked for service
 	users. By default true.
 
-<a id="createNotes"></a>
+<a id="createNotesAsync"></a>
 `plugin.@PLUGIN@.createNotesAsync`
 :	Whether the Git notes on commits that are pushed by a service user
 	should be created asynchronously. By default false.

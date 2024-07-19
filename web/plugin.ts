@@ -21,6 +21,12 @@ import './gr-serviceuser-create';
 import './gr-serviceuser-detail';
 import './gr-serviceuser-list';
 
+declare global {
+  interface Window {
+    CANONICAL_PATH?: string;
+  }
+}
+
 export interface AccountCapabilityInfo {
   administrateServer: boolean;
   'serviceuser-createServiceUser': boolean;
@@ -40,6 +46,6 @@ window.Gerrit.install(plugin => {
       }
       plugin.screen('list', 'gr-serviceuser-list');
       plugin.screen('user', 'gr-serviceuser-detail');
-      plugin.admin().addMenuLink('Service Users', '/x/serviceuser/list');
+      plugin.admin().addMenuLink('Service Users', `${window.CANONICAL_PATH || ''}/x/serviceuser/list`);
     });
 });

@@ -40,8 +40,8 @@ export class GrServiceUserList extends LitElement {
   @state()
   canCreate = false;
 
-  @property({type: Array})
-  serviceUsers = new Array<ServiceUserInfo>();
+  @property({type: Map})
+  serviceUsers = new Map<String, ServiceUserInfo>();
 
   static override get styles() {
     return [
@@ -94,8 +94,8 @@ export class GrServiceUserList extends LitElement {
           <td>Loading...</td>
         </tr>
         <tbody class="${this.computeLoadingClass()}">
-          ${this.serviceUsers.map(serviceUser =>
-            this.renderServiceUserList(serviceUser)
+          ${[...this.serviceUsers].map(([username, serviceUser]) =>
+            this.renderServiceUserList(username, serviceUser)
           )}
         </tbody>
       </table>
@@ -120,7 +120,7 @@ export class GrServiceUserList extends LitElement {
     return html``;
   }
 
-  private renderServiceUserList(serviceUser: ServiceUserInfo) {
+  private renderServiceUserList(username: String, serviceUser: ServiceUserInfo) {
     if (!serviceUser._account_id) {
       return;
     }
@@ -128,7 +128,7 @@ export class GrServiceUserList extends LitElement {
       <tr class="table">
         <td class="name">
           <a href="${this.computeServiceUserUrl(serviceUser._account_id)}"
-            >${serviceUser.name}</a
+            >${username}</a
           >
         </td>
         <td class="fullName">${serviceUser.name}</td>
@@ -171,9 +171,7 @@ export class GrServiceUserList extends LitElement {
     return this.pluginRestApi
       .get<Object>('/a/config/server/serviceuser~serviceusers/')
       .then(serviceUsers => {
-        new Map<String, ServiceUserInfo>(Object.entries(serviceUsers)).forEach(
-          v => this.serviceUsers.push(v)
-        );
+        this.serviceUsers = new Map<String, ServiceUserInfo>(Object.entries(serviceUsers));
       });
   }
 
@@ -210,14 +208,14 @@ export class GrServiceUserList extends LitElement {
   }
 
   private computeServiceUserUrl(id: AccountId) {
-    return `${
-      window.location.origin
-    }/x/${this.plugin.getPluginName()}/user/${id}`;
+    return `${this.getPluginBaseURL()}/user/${id}`;
   }
 
   private createNewServiceUser() {
-    window.location.href = `${
-      window.location.origin
-    }/x/${this.plugin.getPluginName()}/create`;
+    window.location.href = `${this.getPluginBaseURL()}/create`;
+  }
+
+  private getPluginBaseURL() {
+    return `${window.location.origin}${window.CANONICAL_PATH || ''}/x/${this.plugin.getPluginName()}`;
   }
 }
