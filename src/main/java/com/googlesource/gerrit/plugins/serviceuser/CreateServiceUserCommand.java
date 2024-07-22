@@ -40,7 +40,7 @@ class CreateServiceUserCommand extends SshCommand {
 
   @Option(
       name = "--ssh-key",
-      required = true,
+      required = false,
       metaVar = "-|KEY",
       usage = "public key for SSH authentication")
   private String sshKey;

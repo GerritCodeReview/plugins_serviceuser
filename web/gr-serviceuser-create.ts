@@ -253,8 +253,7 @@ export class GrServiceUserCreate extends LitElement {
   private validateData() {
     this.dataValid =
       this.validateName(this.serviceUserNameInput.value) &&
-      this.validateEmail(this.serviceUserEmailInput?.value) &&
-      this.validateKey(this.serviceUserKeyInput.value);
+      this.validateEmail(this.serviceUserEmailInput?.value);
   }
 
   private validateName(username: String | undefined) {
@@ -275,19 +274,10 @@ export class GrServiceUserCreate extends LitElement {
     return false;
   }
 
-  private validateKey(key: String | undefined) {
-    if (!key?.trim()) {
-      return false;
-    }
-
-    this.key = key;
-    return true;
-  }
-
   private handleCreateServiceUser() {
     this.isAdding = true;
     const body: ServiceUserInput = {
-      ssh_key: this.key ? this.key.trim() : '',
+      ssh_key: this.key?.trim(),
       email: this.email ? this.email.trim() : '',
     };
     return this.plugin
