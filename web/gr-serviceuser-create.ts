@@ -58,9 +58,6 @@ export class GrServiceUserCreate extends LitElement {
   @query('#serviceUserEmailInput')
   serviceUserEmailInput!: HTMLInputElement;
 
-  @query('#serviceUserKeyInput')
-  serviceUserKeyInput!: HTMLInputElement;
-
   @property()
   plugin!: PluginApi;
 
@@ -93,9 +90,6 @@ export class GrServiceUserCreate extends LitElement {
 
   @property({type: String})
   email?: String;
-
-  @property({type: String})
-  key?: String;
 
   @property({type: Object})
   accountId?: AccountId;
@@ -140,20 +134,6 @@ export class GrServiceUserCreate extends LitElement {
             </span>
           </section>
           ${this.renderEmailInputSection()}
-        </fieldset>
-        <fieldset>
-          <section>
-            <span class="title">Public SSH key</span>
-            <span class="value">
-              <iron-autogrow-textarea
-                id="serviceUserKeyInput"
-                .bind-value="${this.key}"
-                placeholder="New SSH Key"
-                @bind-value-changed=${this.validateData}
-              >
-              </iron-autogrow-textarea>
-            </span>
-          </section>
         </fieldset>
         <gr-button
           id="createButton"
@@ -253,8 +233,7 @@ export class GrServiceUserCreate extends LitElement {
   private validateData() {
     this.dataValid =
       this.validateName(this.serviceUserNameInput.value) &&
-      this.validateEmail(this.serviceUserEmailInput?.value) &&
-      this.validateKey(this.serviceUserKeyInput.value);
+      this.validateEmail(this.serviceUserEmailInput?.value);
   }
 
   private validateName(username: String | undefined) {
@@ -275,19 +254,9 @@ export class GrServiceUserCreate extends LitElement {
     return false;
   }
 
-  private validateKey(key: String | undefined) {
-    if (!key?.trim()) {
-      return false;
-    }
-
-    this.key = key;
-    return true;
-  }
-
   private handleCreateServiceUser() {
     this.isAdding = true;
     const body: ServiceUserInput = {
-      ssh_key: this.key ? this.key.trim() : '',
       email: this.email ? this.email.trim() : '',
     };
     return this.plugin

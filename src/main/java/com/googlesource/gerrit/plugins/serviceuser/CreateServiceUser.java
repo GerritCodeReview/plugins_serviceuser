@@ -132,11 +132,7 @@ class CreateServiceUser
       throw new BadRequestException("username must match URL");
     }
 
-    if (Strings.isNullOrEmpty(input.sshKey)) {
-      throw new BadRequestException("sshKey not set");
-    }
-
-    if (!SshKeyValidator.validateFormat(input.sshKey)) {
+    if (input.sshKey != null && !SshKeyValidator.validateFormat(input.sshKey)) {
       throw new BadRequestException("sshKey invalid.");
     }
 
