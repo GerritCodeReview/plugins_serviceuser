@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a3de370_54eaa376",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1135623
+      },
+      "writtenOn": "2024-07-23T14:00:58Z",
+      "side": 1,
+      "message": "This is currently uploaded against stable-3.9. But I can move it to master instead if this behaviour change is not accepted on a stable branch.",
+      "revId": "81ea3ea3a53f2852a567babb0bf3b0b8284c7a7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
