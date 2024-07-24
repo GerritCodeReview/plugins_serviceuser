@@ -51,6 +51,24 @@
       "message": "nit: good but unrelated change.",
       "revId": "81ea3ea3a53f2852a567babb0bf3b0b8284c7a7a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98e16852_1ac319fc",
+        "filename": "web/gr-serviceuser-create.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1135623
+      },
+      "writtenOn": "2024-07-24T15:11:26Z",
+      "side": 1,
+      "message": "This was rewritten to prevent the code from sending a empty string as a key. \nThe backend does not handle that case well. It will complain that the key is invalid, create the account but not properly register it as a serviceuser(you will not be able to see it in the serviceuser list).\n\nI fixed the backend for empty string and I removed this as well as the SSH key field for creation.",
+      "parentUuid": "89a922f0_37d63a75",
+      "revId": "81ea3ea3a53f2852a567babb0bf3b0b8284c7a7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
