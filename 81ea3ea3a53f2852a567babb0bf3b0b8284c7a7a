@@ -16,6 +16,41 @@
       "message": "This is currently uploaded against stable-3.9. But I can move it to master instead if this behaviour change is not accepted on a stable branch.",
       "revId": "81ea3ea3a53f2852a567babb0bf3b0b8284c7a7a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7d004bc_2df7b607",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-07-24T12:34:24Z",
+      "side": 1,
+      "message": "Yes, please move it to master.\nI would also consider to remove the SSH key field on user creation completely, at least in the UI.",
+      "parentUuid": "2a3de370_54eaa376",
+      "revId": "81ea3ea3a53f2852a567babb0bf3b0b8284c7a7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a922f0_37d63a75",
+        "filename": "web/gr-serviceuser-create.ts",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-07-24T12:34:24Z",
+      "side": 1,
+      "message": "nit: good but unrelated change.",
+      "revId": "81ea3ea3a53f2852a567babb0bf3b0b8284c7a7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
