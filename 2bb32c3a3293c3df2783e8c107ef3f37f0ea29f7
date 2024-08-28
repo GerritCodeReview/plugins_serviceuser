@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a4a9ee4_83b08049",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-08-28T13:14:18Z",
+      "side": 1,
+      "message": "The create service user screen should be come a dialog. With just one field is definitely not worth its own screen (probably already the case before). Should be done in a separate screen though",
+      "revId": "2bb32c3a3293c3df2783e8c107ef3f37f0ea29f7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
