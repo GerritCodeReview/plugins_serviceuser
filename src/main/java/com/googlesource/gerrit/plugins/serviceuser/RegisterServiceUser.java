@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser;
 
+import static com.google.gerrit.server.api.ApiUtil.asRestApiException;
 import static com.google.gerrit.server.permissions.GlobalPermission.ADMINISTRATE_SERVER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_AT;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_CREATED_BY;
@@ -22,8 +23,13 @@ import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.exceptions.NoSuchGroupException;
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.annotations.RequiresCapability;
 import com.google.gerrit.extensions.common.AccountInfo;
 import com.google.gerrit.extensions.restapi.AuthException;
@@ -36,13 +42,17 @@ import com.google.gerrit.extensions.restapi.RestCollectionCreateView;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.GerritPersonIdent;
 import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.ServerInitiated;
 import com.google.gerrit.server.account.AccountLoader;
 import com.google.gerrit.server.account.AccountResolver;
 import com.google.gerrit.server.account.AccountResolver.UnresolvableAccountException;
 import com.google.gerrit.server.config.AllProjectsName;
 import com.google.gerrit.server.config.ConfigResource;
+import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.gerrit.server.git.meta.MetaDataUpdate;
 import com.google.gerrit.server.group.GroupResolver;
+import com.google.gerrit.server.group.db.GroupDelta;
+import com.google.gerrit.server.group.db.GroupsUpdate;
 import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gerrit.server.project.ProjectLevelConfig;
@@ -83,6 +93,9 @@ class RegisterServiceUser
   private final StorageCache storageCache;
   private final PermissionBackend permissionBackend;
   private final BlockedNameFilter blockedNameFilter;
+  private final Provider<GroupsUpdate> groupsUpdateProvider;
+  private final Config config;
+  private final String pluginName;
 
   @Inject
   RegisterServiceUser(
@@ -96,7 +109,10 @@ class RegisterServiceUser
       AccountLoader.Factory accountLoader,
       StorageCache storageCache,
       PermissionBackend permissionBackend,
-      BlockedNameFilter blockedNameFilter) {
+      BlockedNameFilter blockedNameFilter,
+      @ServerInitiated Provider<GroupsUpdate> groupsUpdateProvider,
+      @GerritServerConfig Config config,
+      @PluginName String pluginName) {
     this.configProvider = configProvider;
     this.accountResolver = accountResolver;
     this.groupResolver = groupResolver;
@@ -110,6 +126,9 @@ class RegisterServiceUser
     this.storageCache = storageCache;
     this.permissionBackend = permissionBackend;
     this.blockedNameFilter = blockedNameFilter;
+    this.groupsUpdateProvider = groupsUpdateProvider;
+    this.config = config;
+    this.pluginName = pluginName;
   }
 
   @Override
@@ -183,11 +202,30 @@ class RegisterServiceUser
       storageCache.invalidate();
     }
 
+    Account.Id accountId = user.getAccountId();
+    for (String groupName : config.getStringList("plugin", pluginName, "group")) {
+      AccountGroup.UUID groupUuid = groupResolver.parse(groupName).getGroupUUID();
+      try {
+        addGroupMember(groupUuid, accountId);
+      } catch (NoSuchGroupException e) {
+        throw asRestApiException("Cannot add account: " + accountId + " to group: " + groupName, e);
+      }
+    }
+
     ServiceUserInfo info = new ServiceUserInfo(new AccountInfo(user.getAccountId().get()));
     AccountLoader al = accountLoader.create(true);
     info.createdBy = al.get(creatorId);
     al.fill();
     info.createdAt = creationDate;
     return Response.created(info);
+  }
+
+  private void addGroupMember(AccountGroup.UUID groupUuid, Account.Id accountId)
+      throws IOException, NoSuchGroupException, ConfigInvalidException {
+    GroupDelta groupDelta =
+        GroupDelta.builder()
+            .setMemberModification(memberIds -> Sets.union(memberIds, ImmutableSet.of(accountId)))
+            .build();
+    groupsUpdateProvider.get().updateGroup(groupUuid, groupDelta);
   }
 }
