@@ -116,6 +116,30 @@
       },
       "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b6fe2f_3e2d9118",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CacheInvalidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1135623
+      },
+      "writtenOn": "2024-10-14T15:00:54Z",
+      "side": 1,
+      "message": "Good find! Did not think about that.",
+      "parentUuid": "5f9138ed_3fc33187",
+      "range": {
+        "startLine": 40,
+        "startChar": 59,
+        "endLine": 40,
+        "endChar": 73
+      },
+      "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
