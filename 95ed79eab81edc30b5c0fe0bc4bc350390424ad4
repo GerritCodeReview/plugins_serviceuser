@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b017ed_0aa2610b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CacheInvalidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-10-14T07:02:03Z",
+      "side": 1,
+      "message": "Why not use the `GitReferenceUpdatedListener` ExtensionPoint?",
+      "range": {
+        "startLine": 24,
+        "startChar": 34,
+        "endLine": 24,
+        "endChar": 47
+      },
+      "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41efd731_2a275570",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CacheInvalidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-10-14T07:02:03Z",
+      "side": 1,
+      "message": "This listener will get called a lot and most of the time it is not relevant. Wouldn\u0027t it make sense to rather have a specific event or multiple events for changes to serviceusers?",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 74
+      },
+      "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
