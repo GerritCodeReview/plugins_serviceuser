@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16101ea8_68f48caf",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CacheInvalidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1135623
+      },
+      "writtenOn": "2024-10-14T14:58:24Z",
+      "side": 1,
+      "message": "Because then we will only trigger on ref updates(serviceuser creations) on the current Gerrit instance. We are interested in serviceusers that are created on the other instances.",
+      "parentUuid": "99b017ed_0aa2610b",
+      "range": {
+        "startLine": 24,
+        "startChar": 34,
+        "endLine": 24,
+        "endChar": 47
+      },
+      "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41efd731_2a275570",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CacheInvalidator.java",
         "patchSetId": 1
@@ -65,6 +89,30 @@
         "startChar": 59,
         "endLine": 40,
         "endChar": 73
+      },
+      "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b40dfe50_1a0f3583",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CacheInvalidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1135623
+      },
+      "writtenOn": "2024-10-14T14:58:24Z",
+      "side": 1,
+      "message": "My assumption is that refs/meta/config on All-Projects is not changed that often and that most configuration changes are done in childrens of All-Projects. This solution was intended as a simple fix for multi-site setups that would do little to no harm to other setups. Do you think the current solution would be a problem for others?\nHaving specific events make sense sortof. Introduce a new events just to solve this problem seems a bit extensive, but I guess the events could useful in other ways even if I do not find good reason for them right now.",
+      "parentUuid": "41efd731_2a275570",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 74
       },
       "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
