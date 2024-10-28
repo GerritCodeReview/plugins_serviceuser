@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ffbe76c_cf824671",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CacheInvalidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-10-28T15:12:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "16101ea8_68f48caf",
+      "range": {
+        "startLine": 24,
+        "startChar": 34,
+        "endLine": 24,
+        "endChar": 47
+      },
+      "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41efd731_2a275570",
@@ -137,6 +161,30 @@
         "startChar": 59,
         "endLine": 40,
         "endChar": 73
+      },
+      "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ee648cb_db95b510",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CacheInvalidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-10-28T15:12:45Z",
+      "side": 1,
+      "message": "I didn\u0027t think of that we talk about different instances here and thus filtering on receiving would be required anyway. So my comment was written with having filtering on the sending site, i.e. call the listener only, if the event is relevant, which would be cheaper, but does not apply here.",
+      "parentUuid": "b40dfe50_1a0f3583",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 74
       },
       "revId": "95ed79eab81edc30b5c0fe0bc4bc350390424ad4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
