@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a886e8b0_88d070a9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CacheInvalidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-12-12T13:12:18Z",
+      "side": 1,
+      "message": "Filtering ref updates for the ref `refs/meta/config` in `All-Projects` is still too coarse grained, not all updates of `refs/meta/config` modify the file `serviceuser.db`. This means we are also flushing the serviceuser cache if e.g. permission settings or groups were updated which is unnecessary.",
+      "revId": "f7f29796eaa39580cbbabaf6a01dd2ec6f9e8c2f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
