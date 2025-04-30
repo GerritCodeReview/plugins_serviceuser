@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {customElement, property, query, state} from 'lit/decorators';
+import {customElement, property, query, state} from 'lit/decorators.js';
 import {css, CSSResult, html, LitElement} from 'lit';
 import {PluginApi} from '@gerritcodereview/typescript-api/plugin';
 import {RestPluginApi} from '@gerritcodereview/typescript-api/rest';
