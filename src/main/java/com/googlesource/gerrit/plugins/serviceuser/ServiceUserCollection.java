@@ -74,8 +74,12 @@ class ServiceUserCollection implements ChildCollection<ConfigResource, ServiceUs
 
   @Override
   public ServiceUserResource parse(ConfigResource parent, IdString id)
-      throws ResourceNotFoundException, AuthException, IOException, PermissionBackendException,
-          ConfigInvalidException, RestApiException {
+      throws ResourceNotFoundException,
+          AuthException,
+          IOException,
+          PermissionBackendException,
+          ConfigInvalidException,
+          RestApiException {
     IdentifiedUser serviceUser = accounts.get().parse(TopLevelResource.INSTANCE, id).getUser();
     Config db = storageCache.get();
     if (serviceUser == null || !db.getSubsections(USER).contains(serviceUser.getUserName().get())) {

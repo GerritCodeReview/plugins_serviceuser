@@ -73,7 +73,10 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
 
   @Override
   public Response<?> apply(ServiceUserResource rsrc, Input input)
-      throws ConfigInvalidException, EmailException, IOException, PermissionBackendException,
+      throws ConfigInvalidException,
+          EmailException,
+          IOException,
+          PermissionBackendException,
           RestApiException {
     Boolean emailAllowed;
     try {

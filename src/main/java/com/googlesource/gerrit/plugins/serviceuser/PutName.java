@@ -36,7 +36,9 @@ class PutName implements RestModifyView<ServiceUserResource, NameInput> {
 
   @Override
   public Response<String> apply(ServiceUserResource rsrc, NameInput input)
-      throws MethodNotAllowedException, ResourceNotFoundException, IOException,
+      throws MethodNotAllowedException,
+          ResourceNotFoundException,
+          IOException,
           ConfigInvalidException {
     return putName.get().apply(rsrc.getUser(), input);
   }
