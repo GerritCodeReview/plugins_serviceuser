@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.serviceuser;
 import static com.google.gerrit.server.config.ConfigResource.CONFIG_KIND;
 import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SERVICE_USER_KIND;
 import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SERVICE_USER_SSH_KEY_KIND;
+import static com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource.SERVICE_USER_TOKEN_KIND;
 
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.annotations.PluginName;
@@ -51,6 +52,7 @@ class Module extends AbstractModule {
           protected void configure() {
             DynamicMap.mapOf(binder(), SERVICE_USER_KIND);
             DynamicMap.mapOf(binder(), SERVICE_USER_SSH_KEY_KIND);
+            DynamicMap.mapOf(binder(), SERVICE_USER_TOKEN_KIND);
             bind(ServiceUserCollection.class);
             child(CONFIG_KIND, "serviceusers").to(ServiceUserCollection.class);
             create(SERVICE_USER_KIND).to(CreateServiceUser.class);
@@ -67,8 +69,9 @@ class Module extends AbstractModule {
             get(SERVICE_USER_KIND, "email").to(GetEmail.class);
             put(SERVICE_USER_KIND, "email").to(PutEmail.class);
             delete(SERVICE_USER_KIND, "email").to(PutEmail.class);
-            put(SERVICE_USER_KIND, "password.http").to(PutHttpPassword.class);
-            delete(SERVICE_USER_KIND, "password.http").to(PutHttpPassword.class);
+            child(SERVICE_USER_KIND, "tokens").to(AuthTokens.class);
+            create(SERVICE_USER_TOKEN_KIND).to(CreateToken.class);
+            delete(SERVICE_USER_TOKEN_KIND).to(DeleteToken.class);
             get(SERVICE_USER_KIND, "active").to(GetActive.class);
             put(SERVICE_USER_KIND, "active").to(PutActive.class);
             delete(SERVICE_USER_KIND, "active").to(DeleteActive.class);
