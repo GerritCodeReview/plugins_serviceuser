@@ -37,7 +37,10 @@ class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> 
 
   @Override
   public Response<?> apply(ServiceUserResource.SshKey rsrc, Input input)
-      throws AuthException, RepositoryNotFoundException, IOException, ConfigInvalidException,
+      throws AuthException,
+          RepositoryNotFoundException,
+          IOException,
+          ConfigInvalidException,
           PermissionBackendException {
     return deleteSshKey.get().apply(rsrc.getUser(), rsrc.getSshKey());
   }
