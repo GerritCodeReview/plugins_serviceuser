@@ -24,10 +24,10 @@ import {GroupInfo} from '@gerritcodereview/typescript-api/rest-api';
 import {AccountCapabilityInfo} from './plugin';
 import {ConfigInfo, ServiceUserInfo} from './gr-serviceuser-create';
 import {GrServiceUserSshPanel} from './gr-serviceuser-ssh-panel';
-import {GrServiceUserHttpPassword} from './gr-serviceuser-http-password';
+import {GrServiceUserTokens} from './gr-serviceuser-tokens';
 
 import './gr-serviceuser-ssh-panel';
-import './gr-serviceuser-http-password';
+import './gr-serviceuser-tokens';
 
 const NOT_FOUND_MESSAGE = 'Not Found';
 
@@ -37,7 +37,7 @@ export class GrServiceUserDetail extends LitElement {
   sshEditor!: GrServiceUserSshPanel;
 
   @query('#httpPass')
-  httpPass!: GrServiceUserHttpPassword;
+  httpPass!: GrServiceUserTokens;
 
   @query('#serviceUserFullNameInput')
   serviceUserFullNameInput!: HTMLInputElement;
@@ -309,7 +309,7 @@ export class GrServiceUserDetail extends LitElement {
         <fieldset>
           <h3 id="HTTPCredentials">HTTP Credentials</h3>
           <fieldset>
-            <gr-serviceuser-http-password id="httpPass">
+            <gr-serviceuser-tokens id="httpPass">
               </gr-http-password>
           </fieldset>
         </fieldset>
