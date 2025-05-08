@@ -18,6 +18,7 @@ import com.google.gerrit.extensions.restapi.RestView;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.account.AccountSshKey;
+import com.google.gerrit.server.account.AuthToken;
 import com.google.inject.TypeLiteral;
 
 class ServiceUserResource extends AccountResource {
@@ -26,6 +27,9 @@ class ServiceUserResource extends AccountResource {
 
   static final TypeLiteral<RestView<SshKey>> SERVICE_USER_SSH_KEY_KIND =
       new TypeLiteral<RestView<SshKey>>() {};
+
+  static final TypeLiteral<RestView<Token>> SERVICE_USER_TOKEN_KIND =
+      new TypeLiteral<RestView<Token>>() {};
 
   ServiceUserResource(IdentifiedUser user) {
     super(user);
@@ -46,6 +50,19 @@ class ServiceUserResource extends AccountResource {
 
     AccountSshKey getSshKey() {
       return sshKey;
+    }
+  }
+
+  static class Token extends ServiceUserResource {
+    private final AuthToken token;
+
+    Token(IdentifiedUser user, AuthToken token) {
+      super(user);
+      this.token = token;
+    }
+
+    AuthToken getToken() {
+      return token;
     }
   }
 }
