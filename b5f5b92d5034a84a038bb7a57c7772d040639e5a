@@ -16,6 +16,52 @@
       "message": "@milutin@google.com This change fails because the typescript-api is not yet updated. Is there an automation doing that?",
       "revId": "b5f5b92d5034a84a038bb7a57c7772d040639e5a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8e73025_d527d4e4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AuthTokens.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2025-07-21T11:46:16Z",
+      "side": 1,
+      "message": "this is off by 11 years :-)",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "b5f5b92d5034a84a038bb7a57c7772d040639e5a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70a93cb7_59307ed2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateToken.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2025-07-21T11:46:16Z",
+      "side": 1,
+      "message": "+10",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "b5f5b92d5034a84a038bb7a57c7772d040639e5a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
