@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2715d21_9e45d654",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/AuthTokens.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-07-21T12:26:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8e73025_d527d4e4",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "b5f5b92d5034a84a038bb7a57c7772d040639e5a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70a93cb7_59307ed2",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-07-21T11:46:16Z",
       "side": 1,
       "message": "+10",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "b5f5b92d5034a84a038bb7a57c7772d040639e5a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17a82cb7_6b4b0810",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateToken.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-07-21T12:26:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70a93cb7_59307ed2",
       "range": {
         "startLine": 1,
         "startChar": 17,
