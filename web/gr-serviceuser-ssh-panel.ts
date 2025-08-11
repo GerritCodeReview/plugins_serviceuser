@@ -19,6 +19,14 @@ import {customElement, property, query, state} from 'lit/decorators.js';
 import {css, CSSResult, html, LitElement, PropertyValues} from 'lit';
 import {RestPluginApi} from '@gerritcodereview/typescript-api/rest';
 
+//TODO: Remove when it is released with typescript API
+export declare interface GrAutogrowTextarea extends HTMLElement {
+  value?: string;
+  nativeElement?: HTMLElement;
+  placeholder?: string;
+  setRangeText: (replacement: string, start: number, end: number) => void;
+}
+
 export interface BindValueChangeEventDetail {
   value: string | undefined;
 }
@@ -100,7 +108,7 @@ export class GrServiceUserSshPanel extends LitElement {
           min-width: 27em;
           width: auto;
         }
-        iron-autogrow-textarea {
+        gr-autogrow-textarea {
           background-color: var(--view-background-color);
         }
       `,
@@ -172,15 +180,16 @@ export class GrServiceUserSshPanel extends LitElement {
           <section>
             <span class="title">New SSH key</span>
             <span class="value">
-              <iron-autogrow-textarea
+              <gr-autogrow-textarea
                 id="newKey"
                 autocomplete="on"
                 placeholder="New SSH Key"
-                .bindValue=${this.newKey}
-                @bind-value-changed=${(e: BindValueChangeEvent) => {
-                  this.newKey = e.detail.value ?? '';
+                .value=${this.newKey}
+                @input=${(e: BindValueChangeEvent) => {
+                  const value = (e.target as GrAutogrowTextarea).value ?? '';
+                  this.newKey = value;
                 }}
-              ></iron-autogrow-textarea>
+              ></gr-autogrow-textarea>
             </span>
           </section>
           <gr-button
