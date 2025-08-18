@@ -21,7 +21,7 @@ import com.google.gerrit.server.account.AccountSshKey;
 import com.google.gerrit.server.account.AuthToken;
 import com.google.inject.TypeLiteral;
 
-class ServiceUserResource extends AccountResource {
+public class ServiceUserResource extends AccountResource {
   static final TypeLiteral<RestView<ServiceUserResource>> SERVICE_USER_KIND =
       new TypeLiteral<RestView<ServiceUserResource>>() {};
 

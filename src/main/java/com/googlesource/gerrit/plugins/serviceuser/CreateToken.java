@@ -31,6 +31,8 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserOutgoingEmail;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
@@ -42,6 +44,7 @@ public class CreateToken
   private final com.google.gerrit.server.restapi.account.CreateToken createToken;
   private final Provider<CurrentUser> self;
   private final PermissionBackend permissionBackend;
+  private final ServiceUserOutgoingEmail.Factory outgoingEmailFactory;
 
   @Inject
   CreateToken(
@@ -49,11 +52,13 @@ public class CreateToken
       PluginConfigFactory pluginConfigFactory,
       com.google.gerrit.server.restapi.account.CreateToken createToken,
       Provider<CurrentUser> self,
-      PermissionBackend permissionBackend) {
+      PermissionBackend permissionBackend,
+      ServiceUserOutgoingEmail.Factory outgoingEmailFactory) {
     this.config = pluginConfigFactory.getFromGerritConfig(pluginName);
     this.createToken = createToken;
     this.self = self;
     this.permissionBackend = permissionBackend;
+    this.outgoingEmailFactory = outgoingEmailFactory;
   }
 
   @Override
@@ -72,6 +77,11 @@ public class CreateToken
       }
     }
 
-    return createToken.apply(rsrc.getUser(), id.get(), input);
+    Response<AuthTokenInfo> resp =
+        createToken.apply(rsrc.getUser(), id.get(), input);
+    if (resp.statusCode() == Response.created().statusCode()) {
+      outgoingEmailFactory.create(rsrc, Operation.CREATE_TOKEN).send();
+    }
+    return resp;
   }
 }
