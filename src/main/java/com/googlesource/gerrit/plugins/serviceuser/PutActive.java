@@ -21,21 +21,33 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserOutgoingEmail;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class PutActive implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<com.google.gerrit.server.restapi.account.PutActive> putActive;
+  private final ServiceUserOutgoingEmail.Factory outgoingEmailFactory;
 
   @Inject
-  PutActive(Provider<com.google.gerrit.server.restapi.account.PutActive> putActive) {
+  PutActive(
+      Provider<com.google.gerrit.server.restapi.account.PutActive> putActive,
+      ServiceUserOutgoingEmail.Factory outgoingEmailFactory) {
     this.putActive = putActive;
+    this.outgoingEmailFactory = outgoingEmailFactory;
   }
 
   @Override
   public Response<String> apply(ServiceUserResource rsrc, Input input)
       throws IOException, ConfigInvalidException, RestApiException {
-    return putActive.get().apply(rsrc, input);
+
+    Response<String> resp = putActive.get().apply(rsrc, input);
+    if (resp.statusCode() == Response.created().statusCode()) {
+      outgoingEmailFactory.create(rsrc, Operation.ACTIVATE).send();
+    }
+
+    return resp;
   }
 }

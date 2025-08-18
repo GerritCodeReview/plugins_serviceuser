@@ -33,6 +33,7 @@ import com.google.gerrit.server.git.validators.CommitValidationListener;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserEmailModule;
 
 class Module extends AbstractModule {
 
@@ -82,6 +83,7 @@ class Module extends AbstractModule {
         });
     install(new HttpModule());
     install(StorageCache.module());
+    install(new ServiceUserEmailModule());
   }
 
   @Provides
