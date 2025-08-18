@@ -29,6 +29,8 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserOutgoingEmail;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
@@ -38,6 +40,7 @@ public class DeleteToken implements RestModifyView<ServiceUserResource.Token, In
   private final com.google.gerrit.server.restapi.account.DeleteToken deleteToken;
   private final Provider<CurrentUser> self;
   private final PermissionBackend permissionBackend;
+  private final ServiceUserOutgoingEmail.Factory outgoingEmailFactory;
 
   @Inject
   DeleteToken(
@@ -45,11 +48,13 @@ public class DeleteToken implements RestModifyView<ServiceUserResource.Token, In
       PluginConfigFactory pluginConfigFactory,
       com.google.gerrit.server.restapi.account.DeleteToken deleteToken,
       Provider<CurrentUser> self,
-      PermissionBackend permissionBackend) {
+      PermissionBackend permissionBackend,
+      ServiceUserOutgoingEmail.Factory outgoingEmailFactory) {
     this.config = pluginConfigFactory.getFromGerritConfig(pluginName);
     this.deleteToken = deleteToken;
     this.self = self;
     this.permissionBackend = permissionBackend;
+    this.outgoingEmailFactory = outgoingEmailFactory;
   }
 
   @Override
@@ -64,6 +69,10 @@ public class DeleteToken implements RestModifyView<ServiceUserResource.Token, In
       permissionBackend.user(self.get()).check(ADMINISTRATE_SERVER);
     }
 
-    return deleteToken.apply(rsrc.getUser(), rsrc.getToken().id(), false);
+    Response<String> resp = deleteToken.apply(rsrc.getUser(), rsrc.getToken().id(), false);
+    if (resp.statusCode() == Response.none().statusCode()) {
+      outgoingEmailFactory.create(rsrc, Operation.DELETE_TOKEN).send();
+    }
+    return resp;
   }
 }

@@ -23,21 +23,31 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserOutgoingEmail;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class AddSshKey implements RestModifyView<ServiceUserResource, SshKeyInput> {
   private final Provider<com.google.gerrit.server.restapi.account.AddSshKey> addSshKey;
+  private final ServiceUserOutgoingEmail.Factory outgoingEmailFactory;
 
   @Inject
-  AddSshKey(Provider<com.google.gerrit.server.restapi.account.AddSshKey> addSshKey) {
+  AddSshKey(
+      Provider<com.google.gerrit.server.restapi.account.AddSshKey> addSshKey,
+      ServiceUserOutgoingEmail.Factory outgoingEmailFactory) {
     this.addSshKey = addSshKey;
+    this.outgoingEmailFactory = outgoingEmailFactory;
   }
 
   @Override
   public Response<SshKeyInfo> apply(ServiceUserResource rsrc, SshKeyInput input)
       throws AuthException, BadRequestException, IOException, ConfigInvalidException {
-    return addSshKey.get().apply(rsrc.getUser(), input);
+    Response<SshKeyInfo> resp = addSshKey.get().apply(rsrc.getUser(), input);
+    if (resp.statusCode() == Response.created().statusCode()) {
+      outgoingEmailFactory.create(rsrc, Operation.ADD_SSH_KEY).send();
+    }
+    return resp;
   }
 }

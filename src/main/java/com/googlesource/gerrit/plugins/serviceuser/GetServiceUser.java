@@ -37,7 +37,7 @@ import java.io.IOException;
 import org.eclipse.jgit.lib.Config;
 
 @Singleton
-class GetServiceUser implements RestReadView<ServiceUserResource> {
+public class GetServiceUser implements RestReadView<ServiceUserResource> {
   private final Provider<GetAccount> getAccount;
   private final GetOwner getOwner;
   private final AccountLoader.Factory accountLoader;
