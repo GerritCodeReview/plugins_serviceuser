@@ -36,6 +36,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.PutEmail.Input;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserOutgoingEmail;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
@@ -52,6 +54,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<PutPreferred> putPreferred;
   private final Provider<CurrentUser> self;
   private final PermissionBackend permissionBackend;
+  private final ServiceUserOutgoingEmail.Factory outgoingEmailFactory;
 
   @Inject
   PutEmail(
@@ -61,7 +64,8 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       Provider<DeleteEmail> deleteEmail,
       Provider<PutPreferred> putPreferred,
       Provider<CurrentUser> self,
-      PermissionBackend permissionBackend) {
+      PermissionBackend permissionBackend,
+      ServiceUserOutgoingEmail.Factory outgoingEmailFactory) {
     this.getConfig = getConfig;
     this.getEmail = getEmail;
     this.createEmail = createEmail;
@@ -69,6 +73,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
     this.putPreferred = putPreferred;
     this.self = self;
     this.permissionBackend = permissionBackend;
+    this.outgoingEmailFactory = outgoingEmailFactory;
   }
 
   @Override
@@ -95,11 +100,16 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       throw asRestApiException("Cannot get email", e);
     }
 
+    Response<?> resp;
     if (Strings.emptyToNull(input.email) == null) {
       if (Strings.emptyToNull(email) == null) {
         return Response.none();
       }
-      return deleteEmail.get().apply(rsrc.getUser(), email);
+      resp = deleteEmail.get().apply(rsrc.getUser(), email);
+      if (resp.statusCode() == Response.none().statusCode()) {
+        outgoingEmailFactory.create(rsrc, Operation.DELETE_EMAIL).send();
+      }
+      return resp;
     } else if (email != null && email.equals(input.email)) {
       return Response.ok(email);
     } else {
@@ -111,6 +121,9 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       in.noConfirmation = true;
       createEmail.get().apply(rsrc.getUser(), IdString.fromDecoded(in.email), in);
       putPreferred.get().apply(rsrc.getUser(), input.email);
+
+      outgoingEmailFactory.create(rsrc, Operation.ADD_EMAIL).send();
+
       return Response.ok(input.email);
     }
   }
