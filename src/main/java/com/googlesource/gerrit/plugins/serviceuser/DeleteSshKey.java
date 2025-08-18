@@ -22,6 +22,8 @@ import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserOutgoingEmail;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
@@ -29,10 +31,14 @@ import org.eclipse.jgit.errors.RepositoryNotFoundException;
 @Singleton
 class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> {
   private final Provider<com.google.gerrit.server.restapi.account.DeleteSshKey> deleteSshKey;
+  private final ServiceUserOutgoingEmail.Factory outgoingEmailFactory;
 
   @Inject
-  DeleteSshKey(Provider<com.google.gerrit.server.restapi.account.DeleteSshKey> deleteSshKey) {
+  DeleteSshKey(
+      Provider<com.google.gerrit.server.restapi.account.DeleteSshKey> deleteSshKey,
+      ServiceUserOutgoingEmail.Factory outgoingEmailFactory) {
     this.deleteSshKey = deleteSshKey;
+    this.outgoingEmailFactory = outgoingEmailFactory;
   }
 
   @Override
@@ -42,6 +48,11 @@ class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> 
           IOException,
           ConfigInvalidException,
           PermissionBackendException {
-    return deleteSshKey.get().apply(rsrc.getUser(), rsrc.getSshKey());
+    Response<?> resp = deleteSshKey.get().apply(rsrc.getUser(), rsrc.getSshKey());
+
+    if (resp.statusCode() == Response.none().statusCode()) {
+      outgoingEmailFactory.create(rsrc, Operation.DELETE_SSH_KEY).send();
+    }
+    return resp;
   }
 }
