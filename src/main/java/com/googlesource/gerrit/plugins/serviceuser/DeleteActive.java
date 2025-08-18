@@ -21,21 +21,32 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserOutgoingEmail;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class DeleteActive implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<com.google.gerrit.server.restapi.account.DeleteActive> deleteActive;
+  private final ServiceUserOutgoingEmail.Factory outgoingEmailFactory;
 
   @Inject
-  DeleteActive(Provider<com.google.gerrit.server.restapi.account.DeleteActive> deleteActive) {
+  DeleteActive(
+      Provider<com.google.gerrit.server.restapi.account.DeleteActive> deleteActive,
+      ServiceUserOutgoingEmail.Factory outgoingEmailFactory) {
     this.deleteActive = deleteActive;
+    this.outgoingEmailFactory = outgoingEmailFactory;
   }
 
   @Override
   public Response<?> apply(ServiceUserResource rsrc, Input input)
       throws RestApiException, IOException, ConfigInvalidException {
-    return deleteActive.get().apply(rsrc, input);
+    Response<?> resp = deleteActive.get().apply(rsrc, input);
+
+    if (resp.statusCode() == Response.none().statusCode()) {
+      outgoingEmailFactory.create(rsrc, Operation.INACTIVATE).send();
+    }
+    return resp;
   }
 }

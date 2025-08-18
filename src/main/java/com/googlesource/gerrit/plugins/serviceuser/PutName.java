@@ -22,16 +22,22 @@ import com.google.gerrit.extensions.restapi.RestModifyView;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserOutgoingEmail;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 
 @Singleton
 class PutName implements RestModifyView<ServiceUserResource, NameInput> {
   private Provider<com.google.gerrit.server.restapi.account.PutName> putName;
+  private final ServiceUserOutgoingEmail.Factory outgoingEmailFactory;
 
   @Inject
-  PutName(Provider<com.google.gerrit.server.restapi.account.PutName> putName) {
+  PutName(
+      Provider<com.google.gerrit.server.restapi.account.PutName> putName,
+      ServiceUserOutgoingEmail.Factory outgoingEmailFactory) {
     this.putName = putName;
+    this.outgoingEmailFactory = outgoingEmailFactory;
   }
 
   @Override
@@ -40,6 +46,12 @@ class PutName implements RestModifyView<ServiceUserResource, NameInput> {
           ResourceNotFoundException,
           IOException,
           ConfigInvalidException {
-    return putName.get().apply(rsrc.getUser(), input);
+    Response<String> resp = putName.get().apply(rsrc.getUser(), input);
+    if (resp.statusCode() == Response.none().statusCode()) {
+      outgoingEmailFactory.create(rsrc, Operation.DELETE_NAME).send();
+    } else if (resp.statusCode() == Response.ok().statusCode()) {
+      outgoingEmailFactory.create(rsrc, Operation.UPDATE_NAME).send();
+    }
+    return resp;
   }
 }

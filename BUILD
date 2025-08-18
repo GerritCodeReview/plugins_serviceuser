@@ -9,6 +9,7 @@ gerrit_plugin(
         "Gerrit-Module: com.googlesource.gerrit.plugins.serviceuser.Module",
         "Gerrit-HttpModule: com.googlesource.gerrit.plugins.serviceuser.HttpModule",
         "Gerrit-SshModule: com.googlesource.gerrit.plugins.serviceuser.SshModule",
+        "Gerrit-InitStep: com.googlesource.gerrit.plugins.serviceuser.Init",
     ],
     resource_jars = ["//plugins/serviceuser/web:serviceuser"],
     resources = glob(["src/main/resources/**/*"]),

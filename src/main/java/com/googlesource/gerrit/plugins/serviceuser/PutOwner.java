@@ -45,6 +45,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.googlesource.gerrit.plugins.serviceuser.PutOwner.Input;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserOutgoingEmail;
+import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 import java.io.IOException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
@@ -64,6 +66,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
   private final Provider<CurrentUser> self;
   private final PermissionBackend permissionBackend;
   private final StorageCache storageCache;
+  private final ServiceUserOutgoingEmail.Factory outgoingEmailFactory;
 
   @Inject
   PutOwner(
@@ -75,7 +78,8 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       GroupJson json,
       Provider<CurrentUser> self,
       PermissionBackend permissionBackend,
-      StorageCache storageCache) {
+      StorageCache storageCache,
+      ServiceUserOutgoingEmail.Factory outgoingEmailFactory) {
     this.getConfig = getConfig;
     this.groups = groups;
     this.configProvider = configProvider;
@@ -85,6 +89,7 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
     this.self = self;
     this.permissionBackend = permissionBackend;
     this.storageCache = storageCache;
+    this.outgoingEmailFactory = outgoingEmailFactory;
   }
 
   @Override
@@ -130,10 +135,18 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       throw asRestApiException("Invalid configuration", e);
     }
 
-    return group != null
-        ? (oldGroup != null
-            ? Response.ok(json.format(group))
-            : Response.created(json.format(group)))
-        : Response.<GroupInfo>none();
+    Response<GroupInfo> resp;
+    if (group != null) {
+      if (oldGroup != null) {
+        resp = Response.ok(json.format(group));
+      } else {
+        resp = Response.created(json.format(group));
+      }
+      outgoingEmailFactory.create(rsrc, Operation.UPDATE_OWNER).send();
+    } else {
+      resp = Response.none();
+      outgoingEmailFactory.create(rsrc, Operation.DELETE_OWNER).send();
+    }
+    return resp;
   }
 }
