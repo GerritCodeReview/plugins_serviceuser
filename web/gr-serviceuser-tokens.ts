@@ -145,6 +145,50 @@ export class GrServiceUserTokens extends LitElement {
         .lifeTimeInput {
           min-width: 23em;
         }
+
+        # Remove when material styles are available for plugins
+        md-outlined-text-field {
+          background-color: var(--view-background-color);
+          color: var(--primary-text-color);
+          --md-sys-color-primary: var(--primary-text-color);
+          --md-sys-color-on-surface: var(--primary-text-color);
+          --md-sys-color-on-surface-variant: var(--deemphasized-text-color);
+          --md-outlined-text-field-label-text-color: var(--deemphasized-text-color);
+          --md-outlined-text-field-focus-label-text-color: var(
+            --deemphasized-text-color
+          );
+          --md-outlined-text-field-hover-label-text-color: var(
+            --deemphasized-text-color
+          );
+          border-radius: var(--border-radius);
+          --md-outlined-text-field-container-shape: var(--border-radius);
+          --md-outlined-text-field-focus-outline-color: var(
+            --prominent-border-color,
+            var(--border-color)
+          );
+          --md-outlined-text-field-outline-color: var(
+            --prominent-border-color,
+            var(--border-color)
+          );
+          --md-outlined-text-field-hover-outline-color: var(
+            --prominent-border-color,
+            var(--border-color)
+          );
+          --md-sys-color-outline: var(--prominent-border-color, var(--border-color));
+          --md-outlined-field-top-space: var(--spacing-s);
+          --md-outlined-field-bottom-space: var(--spacing-s);
+          --md-outlined-text-field-outline-width: 1px;
+          --md-outlined-text-field-hover-outline-width: 1px;
+          --md-outlined-text-field-focus-outline-width: 0;
+          --md-outlined-field-leading-space: 8px;
+        }
+
+        md-outlined-text-field.showBlueFocusBorder {
+          --md-outlined-text-field-focus-outline-width: 2px;
+          --md-outlined-text-field-focus-outline-color: var(
+            --input-focus-border-color
+          );
+        }
       `,
     ];
   }
@@ -237,34 +281,33 @@ export class GrServiceUserTokens extends LitElement {
     return html`
       <tr>
         <th style="vertical-align: top;">
-          <iron-input
+          <md-outlined-text-field
             id="newToken"
-            .bindValue=${this.newTokenId}
-            @bind-value-changed=${(e: BindValueChangeEvent) => {
-              this.newTokenId = e.detail.value ?? '';
+            class="showBlueFocusBorder"
+            placeholder="New Token ID"
+            .value=${this.newTokenId ?? ''}
+            @input=${(e: InputEvent) => {
+              const target = e.target as HTMLInputElement;
+              this.newTokenId = target.value;
             }}
+            @keydown=${this.handleInputKeydown}
           >
-            <input
-              is="iron-input"
-              placeholder="New Token ID"
-              @keydown=${this.handleInputKeydown}
-            />
-          </iron-input>
+          </md-outlined-text-field>
         </th>
         <th style="vertical-align: top;">
-          <iron-input
-            .bindValue=${this.newLifetime}
-            @bind-value-changed=${(e: BindValueChangeEvent) => {
-              this.newLifetime = e.detail.value ?? '';
+          <md-outlined-text-field
+            id="lifetime"
+            class="lifeTimeInput showBlueFocusBorder"
+            placeholder="Lifetime (e.g. 30d)"
+            .value=${this.newLifetime ?? ''}
+            @input=${(e: InputEvent) => {
+              const target = e.target as HTMLInputElement;
+              this.newLifetime = target.value;
             }}
+            @keydown=${this.handleInputKeydown}
           >
-            <input
-              class="lifeTimeInput"
-              is="iron-input"
-              placeholder="Lifetime (e.g. 30d)"
-              @keydown=${this.handleInputKeydown}
-            />
-          </iron-input></br>
+          </md-outlined-text-field>
+          </br>
           (Max. allowed lifetime: ${this.formatDuration(this.maxLifetime)})
         </th>
         <th>
