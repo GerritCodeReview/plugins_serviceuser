@@ -23,7 +23,6 @@ import com.google.gerrit.extensions.restapi.Response;
 import com.google.gerrit.extensions.restapi.RestApiException;
 import com.google.gerrit.extensions.restapi.RestCollectionCreateView;
 import com.google.gerrit.server.CurrentUser;
-import com.google.gerrit.server.account.AccountResource;
 import com.google.gerrit.server.account.InvalidAuthTokenException;
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
@@ -73,6 +72,6 @@ public class CreateToken
       }
     }
 
-    return createToken.apply(new AccountResource(rsrc.getUser()), id, input);
+    return createToken.apply(rsrc.getUser(), id.get(), input);
   }
 }
