@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ac576a8_890a225d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/CreateToken.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-08-20T13:20:51Z",
+      "side": 1,
+      "message": "the bazel build fails here with the error:\n\nerror: incompatible types: IdentifiedUser cannot be converted to AccountResource",
+      "revId": "26d99f1bfd4a091517eea78c2ed3d9a2ee5e3827",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
