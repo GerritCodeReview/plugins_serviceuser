@@ -145,6 +145,10 @@ export class GrServiceUserTokens extends LitElement {
         .lifeTimeInput {
           min-width: 23em;
         }
+        :host([hidden]),
+        [hidden] {
+          display: none !important;
+        }
 
         # Remove when material styles are available for plugins
         md-outlined-text-field {
