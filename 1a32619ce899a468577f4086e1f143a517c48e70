@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "563ea328_809cdc9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-01T13:19:35Z",
+      "side": 1,
+      "message": "I tested this change manually on a local test site using [mailhog](https://github.com/mailhog/MailHog) and found the following issues\n- creating a new service user (without generating auth token or adding ssh key) doesn\u0027t send an email to the user who created it\n- creating an authentication token for a service user also sends an email to the service user, this shouldn\u0027t be done as service users will not read the email\n- adding an ssh key to a service user also sends an email to the service user, \n  this shouldn\u0027t be done as service users will not read the email\n- removing an ssh key from a service user doesn\u0027t send email",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37579ec9_fd569b2e",
@@ -31,6 +48,57 @@
       "writtenOn": "2025-09-01T07:01:51Z",
       "side": 1,
       "message": "nit: remove trailing whitespace\n```suggestion\n\n```",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9bde1b0_c25d3728",
+        "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdatedHtml.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-01T13:19:35Z",
+      "side": 1,
+      "message": "nit: remove trailing whitespace",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "293ef71b_d32d993b",
+        "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdatedHtml.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-01T13:19:35Z",
+      "side": 1,
+      "message": "use italic font to emphasise what was the operation ?\n\n```suggestion\n  \u003cp\u003e\u003ci\u003e{$email.operation}\u003c/i\u003e\u003c/p\u003e\n```",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73cab996_28675e7d",
+        "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdatedHtml.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-01T13:19:35Z",
+      "side": 1,
+      "message": "ensure that there is a space between \"visiting\" and the appended url\n```suggestion\n    You can manage this serviceuser by visiting {sp}\n```",
       "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
