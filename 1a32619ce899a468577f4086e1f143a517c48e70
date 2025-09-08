@@ -35,6 +35,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f65dee8_4a2a88ac",
+        "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdated.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-09-08T10:48:15Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "37579ec9_fd569b2e",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52feed8f_fcde861e",
@@ -48,6 +66,24 @@
       "writtenOn": "2025-09-01T07:01:51Z",
       "side": 1,
       "message": "nit: remove trailing whitespace\n```suggestion\n\n```",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbcb029f_989680d5",
+        "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdated.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-09-08T10:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52feed8f_fcde861e",
       "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -69,6 +105,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f97e131_6422f4a1",
+        "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdatedHtml.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-09-08T10:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9bde1b0_c25d3728",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "293ef71b_d32d993b",
@@ -86,6 +140,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95316e25_ac8c4161",
+        "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdatedHtml.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-09-08T10:48:15Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "293ef71b_d32d993b",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73cab996_28675e7d",
@@ -99,6 +171,24 @@
       "writtenOn": "2025-09-01T13:19:35Z",
       "side": 1,
       "message": "ensure that there is a space between \"visiting\" and the appended url\n```suggestion\n    You can manage this serviceuser by visiting {sp}\n```",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afd1066a_3adcd719",
+        "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdatedHtml.soy",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-09-08T10:48:15Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "73cab996_28675e7d",
       "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
