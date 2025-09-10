@@ -16,6 +16,24 @@
       "message": "This file should be deleted",
       "revId": "4353717484303bf530b0e44aadc27b9a917e7a96",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c584761d_1696b745",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserEmailFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-09-10T13:15:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f07d549c_bc6f31b7",
+      "revId": "4353717484303bf530b0e44aadc27b9a917e7a96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

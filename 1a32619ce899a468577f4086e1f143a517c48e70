@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dea3664b_ec1951ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-09-10T13:15:45Z",
+      "side": 1,
+      "message": "\u003e Isn\u0027t that also the case if an ssh key is added or removed ?\nIf the newly created service user has an owner group configured it could even make sense to send an email to the members of the owner group so that they are informed about the new service user they now control.\n\nThat is exactly what is happening. An email is sent to the owner group, so that everybody is informed about changes.",
+      "parentUuid": "6711996f_57efc7bd",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37579ec9_fd569b2e",
         "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdated.soy",
         "patchSetId": 2
