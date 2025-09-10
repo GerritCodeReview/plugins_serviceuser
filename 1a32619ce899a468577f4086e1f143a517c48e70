@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6711996f_57efc7bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-10T12:09:24Z",
+      "side": 1,
+      "message": "\u003e\u003e creating a new service user (without generating auth token or adding ssh key) \n doesn\u0027t send an email to the user who created it\n\n\u003e I did that on purpose, since if the user created a serviceuser, they will know.\n\nIsn\u0027t that also the case if an ssh key is added or removed ?\nIf the newly created service user has an owner group configured it could even make sense to send an email to the members of the owner group so that they are informed about the new service user they now control.\n\n\u003e\u003e creating an authentication token for a service user also sends an email to the service user\n\n\u003e This is due to the implementation of account modification for all accounts in Gerrit core and can\u0027t be changed from the plugin.\n\nAck\n\n\u003e\u003eremoving an ssh key from a service user doesn\u0027t send email\n\n\u003e It did for me.\n\n\nI tried again removing an ssh key from a service user and it sent an email. In my previous test I clicked \"Delete\" but apparently missed to click the \"Save\" button which feels a bit unintuitive but this is unrelated to this change.",
+      "parentUuid": "a046222b_c2fa7d52",
+      "revId": "1a32619ce899a468577f4086e1f143a517c48e70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37579ec9_fd569b2e",
         "filename": "src/main/resources/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserUpdated.soy",
         "patchSetId": 2
