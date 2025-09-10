@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f07d549c_bc6f31b7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/serviceuser/email/ServiceUserEmailFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-09-10T13:12:20Z",
+      "side": 1,
+      "message": "This file should be deleted",
+      "revId": "4353717484303bf530b0e44aadc27b9a917e7a96",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
