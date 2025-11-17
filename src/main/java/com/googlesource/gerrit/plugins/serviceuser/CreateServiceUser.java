@@ -60,7 +60,7 @@ import org.eclipse.jgit.lib.PersonIdent;
 
 @RequiresCapability(CreateServiceUserCapability.ID)
 @Singleton
-class CreateServiceUser
+public class CreateServiceUser
     implements RestCollectionCreateView<ConfigResource, ServiceUserResource, Input> {
   public static final String USER = "user";
   public static final String KEY_CREATED_BY = "createdBy";

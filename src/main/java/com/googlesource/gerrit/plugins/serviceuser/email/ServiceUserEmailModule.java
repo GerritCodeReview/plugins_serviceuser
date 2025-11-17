@@ -28,5 +28,6 @@ public class ServiceUserEmailModule extends FactoryModule {
         .in(SINGLETON);
     factory(ServiceUserUpdatedEmailDecorator.Factory.class);
     factory(ServiceUserOutgoingEmail.Factory.class);
+    install(ServiceUserAuthTokenExpiryNotifier.module());
   }
 }

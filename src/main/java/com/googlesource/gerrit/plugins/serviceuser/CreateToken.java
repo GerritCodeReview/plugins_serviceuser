@@ -77,8 +77,7 @@ public class CreateToken
       }
     }
 
-    Response<AuthTokenInfo> resp =
-        createToken.apply(rsrc.getUser(), id.get(), input);
+    Response<AuthTokenInfo> resp = createToken.apply(rsrc.getUser(), id.get(), input);
     if (resp.statusCode() == Response.created().statusCode()) {
       outgoingEmailFactory.create(rsrc, Operation.CREATE_TOKEN).send();
     }
