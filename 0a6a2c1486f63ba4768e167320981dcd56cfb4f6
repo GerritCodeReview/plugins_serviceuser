@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15d229e7_ca3f7f72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-11-25T10:27:43Z",
+      "side": 1,
+      "message": "```suggestion\nFix capability of serviceuser owners to delete auth tokens\n```",
+      "revId": "0a6a2c1486f63ba4768e167320981dcd56cfb4f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9354190_de08128d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-11-25T10:27:43Z",
+      "side": 1,
+      "message": "could you add a test asserting that an owner of a serviceuser can delete tokens of that serviceuser ?",
+      "revId": "0a6a2c1486f63ba4768e167320981dcd56cfb4f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
