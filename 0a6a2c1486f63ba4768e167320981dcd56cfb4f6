@@ -51,6 +51,24 @@
       "message": "could you add a test asserting that an owner of a serviceuser can delete tokens of that serviceuser ?",
       "revId": "0a6a2c1486f63ba4768e167320981dcd56cfb4f6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e3d8fcd_8627d41b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-11-27T09:36:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9354190_de08128d",
+      "revId": "0a6a2c1486f63ba4768e167320981dcd56cfb4f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
