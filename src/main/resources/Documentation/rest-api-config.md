@@ -425,28 +425,29 @@ As response "`204 No Content`" is returned.
 Some realms may not allow to modify the email. In this case the
 request is rejected with "`405 Method Not Allowed`".
 
-### <a id="set-http-password"> Set/Generate HTTP password
+### <a id="set-http-password"> Set/Generate authentication token
 PUT
-/config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/password.http_
+/config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/tokens/\{token-id\}
 
-Sets/Generates an HTTP password for a service user.
+Sets/Generates an authentication token for a service user.
 
-The options for setting/generating the HTTP password must be provided
-in the request body inside a [HttpPasswordInput](#http-password-input)
+The options for setting/generating the token must be provided
+in the request body inside a [AuthTokenInput](../../../Documentation/rest-api-accounts.html#auth-token-input)
 entity.
 
 #### Request
 
 ```
-  PUT /config/server/@PLUGIN@~serviceusers/JenkinsVoter/password.http HTTP/1.0
+  PUT /config/server/@PLUGIN@~serviceusers/JenkinsVoter/tokens/id1 HTTP/1.0
   Content-Type: application/json;charset=UTF-8
 
   {
-    "generate": true
+    "id": "id1"
   }
 ```
 
-As response the new HTTP password is returned.
+As response a [AuthTokenInfo](../../../Documentation/rest-api-accounts.html#auth-token-info)
+is returned.
 
 #### Response
 
@@ -456,23 +457,25 @@ As response the new HTTP password is returned.
   Content-Type: application/json;charset=UTF-8
 
   )]}'
-  "6A5zoF7Bf2fMggf4R6pO3Bzgchnwl6oBI8+yA3YJUA"
+  {
+    "token": "secret_1234",
+  }
 ```
 
 If the HTTP password was deleted the response is "`204 No Content`".
 
 
-### <a id="delete-http-password"> Delete HTTP password
+### <a id="delete-http-password"> Delete authentication token
 DELETE
-/config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/password.http
+/config/server/@PLUGIN@~serviceusers/[\{account-id\}](../../../Documentation/rest-api-accounts.html#account-id)/tokens/\{token-id\}
 
-Clears the HTTP password of a service user.
+Clears the token of a service user.
 
 #### Request
 
 ```
   DELETE
-  /config/server/@PLUGIN@~serviceusers/JenkinsVoter/password.http HTTP/1.0
+  /config/server/@PLUGIN@~serviceusers/JenkinsVoter/tokens/id1 HTTP/1.0
 ```
 
 As response "`204 No Content`" is returned.
@@ -757,14 +760,6 @@ The `ConfigInput` entity contains updates for the configuration of the
 The `EmailInput` entity contains a new email address.
 
 * _email_: The new email address.
-
-### <a id="http-password-input"></a>HttpPasswordInput
-
-The `HttpPasswordInput` entity contains information for
-setting/generating an HTTP password.
-
-* _generate_: Whether a new HTTP password should be generated.
-* _http\_password_: The new HTTP password.
 
 ### <a id="owner-input"></a>OwnerInput
 
