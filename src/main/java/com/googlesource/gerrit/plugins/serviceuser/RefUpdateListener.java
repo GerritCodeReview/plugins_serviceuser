@@ -59,7 +59,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
   @Override
   public void onGitReferenceUpdated(final Event event) {
     PluginConfig cfg = cfgFactory.getFromGerritConfig(pluginName);
-    if (!cfg.getBoolean("createNotes", true)) {
+    if (!cfg.getBoolean("createNotes", false)) {
       return;
     }
 

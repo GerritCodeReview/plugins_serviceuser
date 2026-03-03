@@ -89,7 +89,7 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
       setBoolean(cfg, "allowOwner", input.allowOwner);
     }
     if (input.createNotes != null) {
-      setBoolean(cfg, "createNotes", input.createNotes, true);
+      setBoolean(cfg, "createNotes", input.createNotes, false);
     }
     if (input.createNotesAsync != null) {
       setBoolean(cfg, "createNotesAsync", input.createNotesAsync);
