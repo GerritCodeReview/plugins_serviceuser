@@ -80,7 +80,7 @@ file.
 	user. This allows to find a real person that is responsible for
 	this commit. To get such a Git note for each commit of a service
 	user the 'Forge Committer' access right must be blocked for service
-	users. By default true.
+	users. By default false.
 
 <a id="createNotesAsync"></a>
 `plugin.@PLUGIN@.createNotesAsync`

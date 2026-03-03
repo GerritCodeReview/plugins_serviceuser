@@ -69,7 +69,7 @@ class GetConfig implements RestReadView<ConfigResource> {
     info.allowHttpPassword = toBoolean(cfg.getBoolean("allowHttpPassword", false));
     info.allowCustomHttpPassword = toBoolean(cfg.getBoolean("allowCustomHttpPassword", false));
     info.allowOwner = toBoolean(cfg.getBoolean("allowOwner", false));
-    info.createNotes = toBoolean(cfg.getBoolean("createNotes", true));
+    info.createNotes = toBoolean(cfg.getBoolean("createNotes", false));
     info.createNotesAsync = toBoolean(cfg.getBoolean("createNotesAsync", false));
 
     String[] blocked = cfg.getStringList("block");
