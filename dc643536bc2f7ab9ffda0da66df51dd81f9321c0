@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e882ed6_d00486f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3604707
+      },
+      "writtenOn": "2026-03-10T16:53:46Z",
+      "side": 1,
+      "message": "Two additional reasons I can think of that probably should mentioned to justify this: 1) I think this feature is likely unexpected by most admins who just want an easy way to self serve service accounts and 2) this has an impact on push times on busy servers.",
+      "revId": "dc643536bc2f7ab9ffda0da66df51dd81f9321c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
