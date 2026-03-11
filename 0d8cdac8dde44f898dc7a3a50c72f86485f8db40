@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25d916e7_4907107d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3604707
+      },
+      "writtenOn": "2026-03-11T14:29:40Z",
+      "side": 1,
+      "message": "Nit: You are in the servicesuser plugin repo, no need to mention that here.",
+      "revId": "0d8cdac8dde44f898dc7a3a50c72f86485f8db40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f568e8f9_be9a3208",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3604707
+      },
+      "writtenOn": "2026-03-11T14:29:40Z",
+      "side": 1,
+      "message": "Nit: Probably should not have a trailing line.",
+      "revId": "0d8cdac8dde44f898dc7a3a50c72f86485f8db40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
