@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69bc43f0_e9fa34f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 4651293
+      },
+      "writtenOn": "2026-03-13T05:23:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25d916e7_4907107d",
+      "revId": "0d8cdac8dde44f898dc7a3a50c72f86485f8db40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f568e8f9_be9a3208",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-03-11T14:29:40Z",
       "side": 1,
       "message": "Nit: Probably should not have a trailing line.",
+      "revId": "0d8cdac8dde44f898dc7a3a50c72f86485f8db40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6124b3e0_7eff018e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 4651293
+      },
+      "writtenOn": "2026-03-13T05:23:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f568e8f9_be9a3208",
       "revId": "0d8cdac8dde44f898dc7a3a50c72f86485f8db40",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
