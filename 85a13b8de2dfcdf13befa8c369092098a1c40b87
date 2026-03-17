@@ -3,6 +3,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d064e66b_73c74ec2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1135623
+      },
+      "writtenOn": "2026-03-17T20:50:57Z",
+      "side": 1,
+      "message": "While I can not attest that the part \"Most admins\" part is true. I agree it makes sense that createNotes is false by default. But I let Thomas have a final say in if this should be changed.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 61
+      },
+      "revId": "85a13b8de2dfcdf13befa8c369092098a1c40b87",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b9608efa_cbbe04b5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
