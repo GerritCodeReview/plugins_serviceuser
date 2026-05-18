@@ -142,10 +142,10 @@ class PutOwner implements RestModifyView<ServiceUserResource, Input> {
       } else {
         resp = Response.created(json.format(group));
       }
-      outgoingEmailFactory.create(rsrc, Operation.UPDATE_OWNER).send();
+      outgoingEmailFactory.create(rsrc, Operation.UPDATE_OWNER).sendAsync();
     } else {
       resp = Response.none();
-      outgoingEmailFactory.create(rsrc, Operation.DELETE_OWNER).send();
+      outgoingEmailFactory.create(rsrc, Operation.DELETE_OWNER).sendAsync();
     }
     return resp;
   }

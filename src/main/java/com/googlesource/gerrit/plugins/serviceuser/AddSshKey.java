@@ -46,7 +46,7 @@ class AddSshKey implements RestModifyView<ServiceUserResource, SshKeyInput> {
       throws AuthException, BadRequestException, IOException, ConfigInvalidException {
     Response<SshKeyInfo> resp = addSshKey.get().apply(rsrc.getUser(), input);
     if (resp.statusCode() == Response.created().statusCode()) {
-      outgoingEmailFactory.create(rsrc, Operation.ADD_SSH_KEY).send();
+      outgoingEmailFactory.create(rsrc, Operation.ADD_SSH_KEY).sendAsync();
     }
     return resp;
   }

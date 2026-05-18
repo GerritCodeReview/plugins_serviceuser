@@ -48,9 +48,9 @@ class PutName implements RestModifyView<ServiceUserResource, NameInput> {
           ConfigInvalidException {
     Response<String> resp = putName.get().apply(rsrc.getUser(), input);
     if (resp.statusCode() == Response.none().statusCode()) {
-      outgoingEmailFactory.create(rsrc, Operation.DELETE_NAME).send();
+      outgoingEmailFactory.create(rsrc, Operation.DELETE_NAME).sendAsync();
     } else if (resp.statusCode() == Response.ok().statusCode()) {
-      outgoingEmailFactory.create(rsrc, Operation.UPDATE_NAME).send();
+      outgoingEmailFactory.create(rsrc, Operation.UPDATE_NAME).sendAsync();
     }
     return resp;
   }

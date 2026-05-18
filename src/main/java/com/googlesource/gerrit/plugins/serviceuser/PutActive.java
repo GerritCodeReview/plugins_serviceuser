@@ -45,7 +45,7 @@ class PutActive implements RestModifyView<ServiceUserResource, Input> {
 
     Response<String> resp = putActive.get().apply(rsrc, input);
     if (resp.statusCode() == Response.created().statusCode()) {
-      outgoingEmailFactory.create(rsrc, Operation.ACTIVATE).send();
+      outgoingEmailFactory.create(rsrc, Operation.ACTIVATE).sendAsync();
     }
 
     return resp;

@@ -51,7 +51,7 @@ class DeleteSshKey implements RestModifyView<ServiceUserResource.SshKey, Input> 
     Response<?> resp = deleteSshKey.get().apply(rsrc.getUser(), rsrc.getSshKey());
 
     if (resp.statusCode() == Response.none().statusCode()) {
-      outgoingEmailFactory.create(rsrc, Operation.DELETE_SSH_KEY).send();
+      outgoingEmailFactory.create(rsrc, Operation.DELETE_SSH_KEY).sendAsync();
     }
     return resp;
   }

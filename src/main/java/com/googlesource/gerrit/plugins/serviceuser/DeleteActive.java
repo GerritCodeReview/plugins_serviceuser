@@ -45,7 +45,7 @@ class DeleteActive implements RestModifyView<ServiceUserResource, Input> {
     Response<?> resp = deleteActive.get().apply(rsrc, input);
 
     if (resp.statusCode() == Response.none().statusCode()) {
-      outgoingEmailFactory.create(rsrc, Operation.INACTIVATE).send();
+      outgoingEmailFactory.create(rsrc, Operation.INACTIVATE).sendAsync();
     }
     return resp;
   }

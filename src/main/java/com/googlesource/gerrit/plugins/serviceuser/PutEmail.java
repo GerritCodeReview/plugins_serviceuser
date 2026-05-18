@@ -107,7 +107,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       }
       resp = deleteEmail.get().apply(rsrc.getUser(), email);
       if (resp.statusCode() == Response.none().statusCode()) {
-        outgoingEmailFactory.create(rsrc, Operation.DELETE_EMAIL).send();
+        outgoingEmailFactory.create(rsrc, Operation.DELETE_EMAIL).sendAsync();
       }
       return resp;
     } else if (email != null && email.equals(input.email)) {
@@ -122,7 +122,7 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       createEmail.get().apply(rsrc.getUser(), IdString.fromDecoded(in.email), in);
       putPreferred.get().apply(rsrc.getUser(), input.email);
 
-      outgoingEmailFactory.create(rsrc, Operation.ADD_EMAIL).send();
+      outgoingEmailFactory.create(rsrc, Operation.ADD_EMAIL).sendAsync();
 
       return Response.ok(input.email);
     }

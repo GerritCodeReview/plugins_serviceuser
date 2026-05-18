@@ -14,8 +14,6 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.email;
 
-import com.google.common.flogger.FluentLogger;
-import com.google.gerrit.exceptions.EmailException;
 import com.google.gerrit.server.mail.send.OutgoingEmailFactory;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -23,8 +21,6 @@ import com.googlesource.gerrit.plugins.serviceuser.ServiceUserResource;
 import com.googlesource.gerrit.plugins.serviceuser.email.ServiceUserUpdatedEmailDecorator.Operation;
 
 public class ServiceUserOutgoingEmail {
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
   private final ServiceUserUpdatedEmailDecorator.Factory emailDecoratorFactory;
   private final OutgoingEmailFactory outgoingEmailFactory;
 
@@ -48,14 +44,10 @@ public class ServiceUserOutgoingEmail {
     this.operation = operation;
   }
 
-  public void send() {
-    try {
-      outgoingEmailFactory
-          .create(
-              "ServiceUserUpdated", emailDecoratorFactory.create(serviceUserResource, operation))
-          .send();
-    } catch (EmailException e) {
-      logger.atSevere().withCause(e).log("Failed to send email about serviceuser update");
-    }
+  public void sendAsync() {
+    outgoingEmailFactory
+        .create(
+            "ServiceUserUpdated", emailDecoratorFactory.create(serviceUserResource, operation))
+        .sendAsync();
   }
 }
