@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.serviceuser.email;
 
+import static com.google.gerrit.server.mail.EmailFactories.AUTH_TOKEN_EXPIRED;
 import static com.google.gerrit.server.mail.EmailFactories.AUTH_TOKEN_WILL_EXPIRE;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.KEY_OWNER;
 import static com.googlesource.gerrit.plugins.serviceuser.CreateServiceUser.USER;
@@ -29,6 +30,7 @@ import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.AuthToken;
 import com.google.gerrit.server.account.AuthTokenAccessor;
+import com.google.gerrit.server.account.AuthTokenExpiryNotificationConfig;
 import com.google.gerrit.server.account.GroupControl;
 import com.google.gerrit.server.config.CanonicalWebUrl;
 import com.google.gerrit.server.config.ScheduleConfig;
@@ -49,6 +51,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -58,7 +61,6 @@ import org.eclipse.jgit.lib.Config;
 @Singleton
 public class ServiceUserAuthTokenExpiryNotifier implements Runnable {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-  private static final long FIRST_NOTIFICATION_BEFORE_EXPIRY = 7L; // 7 days
 
   private final StorageCache storageCache;
   private final AuthTokenAccessor tokenAccessor;
@@ -69,6 +71,7 @@ public class ServiceUserAuthTokenExpiryNotifier implements Runnable {
   private final GroupControl.Factory groupControlFactory;
   private final GroupResolver groupResolver;
   private final String canonicalWebUrl;
+  private final AuthTokenExpiryNotificationConfig config;
 
   public static Module module() {
     return new LifecycleModule() {
@@ -115,7 +118,8 @@ public class ServiceUserAuthTokenExpiryNotifier implements Runnable {
       OneOffRequestContext oneOffRequestContext,
       GroupControl.Factory groupControlFactory,
       GroupResolver groupResolver,
-      @CanonicalWebUrl String canonicalWebUrl) {
+      @CanonicalWebUrl String canonicalWebUrl,
+      AuthTokenExpiryNotificationConfig config) {
     this.storageCache = storageCache;
     this.tokenAccessor = tokenAccessor;
     this.emailFactories = emailFactories;
@@ -125,11 +129,20 @@ public class ServiceUserAuthTokenExpiryNotifier implements Runnable {
     this.groupControlFactory = groupControlFactory;
     this.groupResolver = groupResolver;
     this.canonicalWebUrl = canonicalWebUrl;
+    this.config = config;
   }
 
   @Override
   public void run() {
+    if (!config.isEnabled()) {
+      logger.atFine().log("Auth token expiry notifications are disabled.");
+      return;
+    }
+
     Instant now = Instant.now();
+    Instant oneHourFromNow = now.plus(1, ChronoUnit.HOURS);
+    Instant oneDayAgo = now.minus(24, ChronoUnit.HOURS);
+
     try {
       Config db = storageCache.get();
       for (String username : db.getSubsections(USER)) {
@@ -142,11 +155,25 @@ public class ServiceUserAuthTokenExpiryNotifier implements Runnable {
               continue;
             }
             Instant expirationDate = token.expirationDate().get();
-            if (expirationDate.isBefore(now.plus(FIRST_NOTIFICATION_BEFORE_EXPIRY, ChronoUnit.DAYS))
-                && expirationDate.isAfter(
-                    now.plus(FIRST_NOTIFICATION_BEFORE_EXPIRY - 1, ChronoUnit.DAYS))) {
+            List<Instant> notificationTimes = config.calculateNotificationTimes(expirationDate);
+
+            // Check if token has expired within the last 24 hours
+            if (shouldNotifyExpired(expirationDate, now, oneDayAgo)) {
               logger.atInfo().log(
-                  "Token %s for account %s is expiring soon.", token.id(), account.id());
+                  "Token %s for service user %s has expired on %s. Submitting expiration notification.",
+                  token.id(), account.id(), expirationDate);
+              String authTokenSettingsUrl =
+                  String.format("%sx/serviceuser/user/%d", canonicalWebUrl, account.id().get());
+              emailFactories
+                  .createOutgoingEmail(
+                      AUTH_TOKEN_EXPIRED,
+                      emailFactories.createAuthTokenExpiredEmail(account, token, owners, authTokenSettingsUrl))
+                  .sendAsync();
+            } else if (shouldNotifyForToken(notificationTimes, now, oneDayAgo, oneHourFromNow)) {
+              // Check if any notification should be sent today (optimized check)
+              logger.atInfo().log(
+                  "Token %s for service user %s is expiring on %s. Submitting notification.",
+                  token.id(), account.id(), expirationDate);
               String authTokenSettingsUrl =
                   String.format("%sx/serviceuser/user/%d", canonicalWebUrl, account.id().get());
               emailFactories
@@ -154,16 +181,82 @@ public class ServiceUserAuthTokenExpiryNotifier implements Runnable {
                       AUTH_TOKEN_WILL_EXPIRE,
                       emailFactories.createAuthTokenWillExpireEmail(
                           account, token, owners, authTokenSettingsUrl))
-                  .send();
+                  .sendAsync();
             }
           }
         }
       }
     } catch (IOException | ConfigInvalidException e) {
       throw new RuntimeException("Failed to read accounts from NoteDB", e);
-    } catch (EmailException e) {
-      logger.atSevere().withCause(e).log("Failed to send token expiry notification email");
     }
+  }
+
+  /**
+   * Determines if a notification should be sent for a token today.
+   *
+   * <p>This method uses boundary checks to optimize performance when checking notification
+   * schedules:
+   *
+   * <ol>
+   *   <li>If the list is empty, no notification is needed
+   *   <li>If the earliest notification is still in the future (beyond upperBound), skip entirely
+   *   <li>If the latest notification is already past (before lowerBound), all notifications were
+   *       missed
+   *   <li>Otherwise, iterate through the list to find a notification due today
+   * </ol>
+   *
+   * @param notificationTimes list of notification times in chronological order (earliest first)
+   * @param now the current time
+   * @param lowerBound the lower bound for notification window (typically now - 24 hours)
+   * @param upperBound the upper bound for notification window (typically now + 1 hour)
+   * @return true if a notification should be sent today, false otherwise
+   */
+  static boolean shouldNotifyForToken(
+      List<Instant> notificationTimes, Instant now, Instant lowerBound, Instant upperBound) {
+    if (notificationTimes.isEmpty()) {
+      return false;
+    }
+
+    // Quick check: if the first (earliest) notification is still in the future, nothing to send
+    if (notificationTimes.get(0).isAfter(upperBound)) {
+      return false;
+    }
+
+    // Quick check: if the last (most recent) notification is in the past, all are missed
+    if (notificationTimes.get(notificationTimes.size() - 1).isBefore(lowerBound)) {
+      return false;
+    }
+
+    // At least one notification is within the window, find it
+    for (Instant notificationTime : notificationTimes) {
+      if (notificationTime.isAfter(lowerBound) && notificationTime.isBefore(upperBound)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Determines if a token has expired within the last 24 hours and should receive an expiration
+   * notification.
+   *
+   * <p>A token is considered recently expired if its expiration date is:
+   *
+   * <ul>
+   *   <li>At or after the lower bound (now - 24 hours)
+   *   <li>Before or equal to now
+   * </ul>
+   *
+   * @param expirationDate the token's expiration date
+   * @param now the current time
+   * @param lowerBound the lower bound for the notification window (typically now - 24 hours)
+   * @return true if an expiration notification should be sent, false otherwise
+   */
+  static boolean shouldNotifyExpired(Instant expirationDate, Instant now, Instant lowerBound) {
+    // Token must have expired (at or before now) and within the last 24 hours (at or after
+    // lowerBound)
+    return !expirationDate.isAfter(now) && !expirationDate.isBefore(lowerBound);
   }
 
   private Set<Account.Id> resolveOwners(String username, Config db) throws EmailException {
