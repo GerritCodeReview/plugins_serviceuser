@@ -106,7 +106,7 @@ class PutConfig implements RestModifyView<ConfigResource, Input> {
       cfg.setStringList("plugin", pluginName, "group", input.groups);
     }
     cfg.save();
-    cfgFactory.getFromGerritConfig(pluginName, true);
+    var unused = cfgFactory.getFromGerritConfig(pluginName, true);
     return Response.<String>ok("OK");
   }
 

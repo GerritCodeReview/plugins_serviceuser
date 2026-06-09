@@ -114,17 +114,17 @@ class PutEmail implements RestModifyView<ServiceUserResource, Input> {
       return Response.ok(email);
     } else {
       if (email != null) {
-        deleteEmail.get().apply(rsrc.getUser(), email);
+        var unused = deleteEmail.get().apply(rsrc.getUser(), email);
       }
       EmailInput in = new EmailInput();
       in.email = input.email;
       in.noConfirmation = true;
-      createEmail.get().apply(rsrc.getUser(), IdString.fromDecoded(in.email), in);
-      putPreferred.get().apply(rsrc.getUser(), input.email);
+      var unused = createEmail.get().apply(rsrc.getUser(), IdString.fromDecoded(in.email), in);
+      Response<?> putPreferredResp = putPreferred.get().apply(rsrc.getUser(), input.email);
 
       outgoingEmailFactory.create(rsrc, Operation.ADD_EMAIL).send();
 
-      return Response.ok(input.email);
+      return putPreferredResp;
     }
   }
 }
