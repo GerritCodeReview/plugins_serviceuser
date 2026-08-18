@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45e49eef_363edb82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-18T10:30:49Z",
+      "side": 1,
+      "message": "not sure why you rewrote this change, the only difference to ps1 is committer identity and timestamp",
+      "revId": "531f578b6ca824b9f8cfd83007caa958854546d7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
