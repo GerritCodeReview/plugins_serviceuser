@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cd71345_b5ee3228",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-18T10:33:47Z",
+      "side": 1,
+      "message": "verified locally, zuul CI jobs seems to be broken and doesn\u0027t provide any logs for its verified -1 vote, hence deleted it",
+      "revId": "d0ea29a520c302b363f9731732324ef45191b3dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
